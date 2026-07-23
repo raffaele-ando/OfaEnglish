@@ -23,13 +23,13 @@ export function ActivityChart({ dailyActivity }: ActivityChartProps) {
   const maxCount = Math.max(...data.map(d => d.count), 10); // Minimum 10 to keep bar sizes reasonable when low
 
   return (
-    <div className="bg-white dark:bg-[#0F172A] rounded-3xl p-6 border-2 border-gray-200 dark:border-[#334155] border-b-4 shadow-sm transition-colors mb-6">
-      <div className="flex justify-between items-center mb-4">
-        <h3 className="text-lg font-black text-[#4B4B4B] dark:text-[#F8FAFC]">Attività (Ultimi 7 giorni)</h3>
-        <div className="text-xs font-bold text-gray-400">Progresso</div>
+    <div className="bg-white dark:bg-[#0F172A] rounded-2xl p-3 border-2 border-gray-200 dark:border-[#334155] border-b-4 shadow-sm transition-colors mb-3">
+      <div className="flex justify-between items-center mb-2">
+        <h3 className="text-sm sm:text-base font-black text-[#4B4B4B] dark:text-[#F8FAFC]">Attività (Ultimi 7 giorni)</h3>
+        <div className="text-[9px] sm:text-[10px] font-bold text-gray-400">Progresso</div>
       </div>
       
-      <div className="h-32 w-full">
+      <div className="h-20 sm:h-24 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
             <Tooltip

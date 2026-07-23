@@ -3,12 +3,13 @@ import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, signO
 import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
-  projectId: "mimetic-resolver-7szp9",
-  appId: "1:92251035376:web:0e0b135d58c86431495435",
-  apiKey: "AIzaSyARzkGVZMnvklPOqtxFkW2fgUs5Ygptum0",
-  authDomain: "mimetic-resolver-7szp9.firebaseapp.com",
-  storageBucket: "mimetic-resolver-7szp9.firebasestorage.app",
-  messagingSenderId: "92251035376",
+  apiKey: "AIzaSyCQAXK9Y6joahAoq8qDCqti9ktgzgpX96w",
+  authDomain: "ofaenglish-f3719.firebaseapp.com",
+  projectId: "ofaenglish-f3719",
+  storageBucket: "ofaenglish-f3719.firebasestorage.app",
+  messagingSenderId: "61902423708",
+  appId: "1:61902423708:web:c3429beacf474dffa7cf59",
+  measurementId: "G-PBW0FK07FF"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -18,21 +19,15 @@ export const googleProvider = new GoogleAuthProvider();
 
 export const signInWithGoogle = async () => {
   try {
-    // Usa signInWithRedirect se la pagina non è in un iframe. 
-    // Questo previene problemi di popup bloccati o schermate bianche.
-    if (window !== window.top) {
-      const result = await signInWithPopup(auth, googleProvider);
-      return result.user;
-    } else {
-      await signInWithRedirect(auth, googleProvider);
-      return null;
-    }
+    const result = await signInWithPopup(auth, googleProvider);
+    return result.user;
   } catch (error: any) {
     if (error.code === 'auth/popup-closed-by-user') {
       console.log('User closed the login popup.');
       return null;
     }
     console.error("Error signing in with Google", error);
+    alert(`Errore di login: ${error.message}. Assicurati di aver aggiunto il dominio di Cloudflare in Firebase Console -> Authentication -> Settings -> Authorized domains.`);
     throw error;
   }
 };
