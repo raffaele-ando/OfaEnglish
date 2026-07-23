@@ -39,4 +39,5 @@ export interface AppState {
     totalAnswers: number;
   };
   examCategoryStats?: Record<string, { correct: number; total: number; }>;
+  dailyActivity?: Record<string, number>;
 }

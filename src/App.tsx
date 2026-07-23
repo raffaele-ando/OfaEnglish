@@ -67,10 +67,16 @@ export default function App() {
         mergedCategoryStats[cat].correct += stats.correct;
         mergedCategoryStats[cat].total += stats.total;
       }
+      
+      const dateString = new Date().toISOString().split('T')[0];
+      const newDailyActivity = { ...(prev.dailyActivity || {}) };
+      newDailyActivity[dateString] = (newDailyActivity[dateString] || 0) + 30; // Assuming 30 questions in exam
+
       const newState = { 
         ...prev, 
         history: [...prev.history, historyEntry],
-        examCategoryStats: mergedCategoryStats
+        examCategoryStats: mergedCategoryStats,
+        dailyActivity: newDailyActivity
       };
       saveState(newState);
       if (user) syncToCloud(user.uid, newState);

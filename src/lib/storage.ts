@@ -118,6 +118,14 @@ export async function syncFromCloud(userId: string, localState: AppState): Promi
          mergedState.streak = Math.max(cloudState.streak, mergedState.streak);
       }
 
+      // 6. Merge dailyActivity
+      if (cloudState.dailyActivity) {
+        if (!mergedState.dailyActivity) mergedState.dailyActivity = {};
+        for (const [dateStr, count] of Object.entries(cloudState.dailyActivity)) {
+          mergedState.dailyActivity[dateStr] = Math.max(mergedState.dailyActivity[dateStr] || 0, count);
+        }
+      }
+
       saveState(mergedState);
       return mergedState;
     }

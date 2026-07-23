@@ -162,9 +162,14 @@ export function updateStats(appState: AppState, questionId: string, isCorrect: b
   newEasiness = newEasiness + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02));
   newEasiness = Math.max(1.3, newEasiness); // Minimum easiness is 1.3
 
+  const dateString = new Date().toISOString().split('T')[0];
+  const dailyActivity = { ...(appState.dailyActivity || {}) };
+  dailyActivity[dateString] = (dailyActivity[dateString] || 0) + 1;
+
   return {
     ...appState,
     speedStats: { minTimeMs, maxTimeMs, avgTimeMs, totalAnswers },
+    dailyActivity,
     stats: {
       ...stats,
       [questionId]: {

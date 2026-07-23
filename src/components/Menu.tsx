@@ -2,6 +2,7 @@ import { AppState } from '../types';
 import { BookOpen, GraduationCap, Download, Flame, Award, BarChart2, Upload, Cloud, Moon, Sun } from 'lucide-react';
 import { User } from 'firebase/auth';
 import { useTheme } from '../hooks/useTheme';
+import { ActivityChart } from './ActivityChart';
 
 interface MenuProps {
   appState: AppState;
@@ -59,7 +60,7 @@ export default function Menu({ appState, user, onStartLearn, onStartExam, onOpen
         )}
       </div>
 
-      <div className="grid grid-cols-2 gap-6 mb-10">
+      <div className="grid grid-cols-2 gap-6 mb-6">
         <div className="bg-white dark:bg-[#0F172A] rounded-3xl p-6 border-2 border-gray-200 dark:border-[#334155] border-b-4 flex flex-col items-center text-center shadow-sm transition-colors">
           <BookOpen className="text-[#1CB0F6] dark:text-[#38BDF8] mb-2" size={32} />
           <span className="text-4xl font-black text-[#4B4B4B] dark:text-[#F8FAFC]">{masteredQuestions}</span>
@@ -71,6 +72,8 @@ export default function Menu({ appState, user, onStartLearn, onStartExam, onOpen
           <span className="text-xs font-black text-gray-400 uppercase tracking-widest mt-1">Best Score</span>
         </div>
       </div>
+
+      <ActivityChart dailyActivity={appState.dailyActivity} />
 
       <div className="flex flex-col gap-5 mt-auto">
         <button
