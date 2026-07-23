@@ -1,8 +1,9 @@
 import { AppState } from '../types';
-import { BookOpen, GraduationCap, Download, Flame, Award, BarChart2, Upload, Cloud, Moon, Sun } from 'lucide-react';
+import { BookOpen, GraduationCap, Download, Flame, Award, BarChart2, Upload, Cloud, Moon, Sun, Crown, Gift, CheckCircle } from 'lucide-react';
 import { User } from 'firebase/auth';
 import { useTheme } from '../hooks/useTheme';
 import { ActivityChart } from './ActivityChart';
+import { cn } from '../lib/utils';
 
 interface MenuProps {
   appState: AppState;
@@ -21,9 +22,24 @@ export default function Menu({ appState, user, onStartLearn, onStartExam, onOpen
   const bestScore = Math.max(0, ...appState.history.map(h => h.score));
   const { isDark, toggleTheme } = useTheme();
 
+  // Endowed Progress Effect: Give users a 50 XP head start so they feel invested immediately.
+  const totalXP = 50 + Object.values(appState.stats).reduce((sum, stat) => sum + stat.correct, 0) * 10;
+  const currentLevel = Math.floor(Math.sqrt(totalXP / 50)) + 1;
+  const xpForCurrentLevel = Math.pow(currentLevel - 1, 2) * 50;
+  const xpForNextLevel = Math.pow(currentLevel, 2) * 50;
+  const progressPercent = Math.min(100, Math.max(0, ((totalXP - xpForCurrentLevel) / (xpForNextLevel - xpForCurrentLevel)) * 100));
+
+  // Daily Quest with Endowed Progress & Goal Gradient
+  const todayStr = new Date().toISOString().split('T')[0];
+  const todayActivity = appState.dailyActivity?.[todayStr] || 0;
+  const dailyGoal = 5;
+  const endowedDaily = 1; // 1 free progress step every day just for opening the app (Endowed Progress)
+  const currentDailyProgress = Math.min(dailyGoal, todayActivity + endowedDaily);
+
   return (
-    <div className="flex flex-col h-full sm:h-auto sm:max-h-[90vh] w-full p-4 sm:p-8 bg-white dark:bg-[#1E293B] sm:rounded-[32px] sm:border-2 sm:border-gray-200 dark:sm:border-[#334155] overflow-y-auto shadow-sm transition-colors duration-300">
-      <header className="flex justify-between items-center mb-3 sm:mb-6">
+    <div className="h-full sm:h-auto sm:max-h-[90vh] w-full bg-white dark:bg-[#1E293B] sm:rounded-[32px] sm:border-2 sm:border-gray-200 dark:sm:border-[#334155] overflow-y-auto shadow-sm transition-colors duration-300">
+      <div className="flex flex-col min-h-full p-4 sm:p-8">
+        <header className="flex justify-between items-center mb-3 sm:mb-6 shrink-0">
         <h1 className="text-2xl sm:text-3xl font-black text-[#4B4B4B] dark:text-[#F8FAFC] tracking-tight">OFA Polimi Prep</h1>
         <div className="flex items-center gap-4">
           <button 
@@ -40,7 +56,7 @@ export default function Menu({ appState, user, onStartLearn, onStartExam, onOpen
       </header>
 
       {/* Cloud Sync Header */}
-      <div className="mb-3 flex flex-col items-end">
+      <div className="mb-4 flex flex-col items-end">
         {user ? (
           <div className="flex items-center gap-3">
             <span className="text-xs font-bold text-[#58CC02] flex items-center gap-1"><Cloud size={14} /> Synced come {user.displayName}</span>
@@ -57,6 +73,72 @@ export default function Menu({ appState, user, onStartLearn, onStartExam, onOpen
               </p>
             )}
           </div>
+        )}
+      </div>
+
+      {/* XP & Level Bar */}
+      <div className="bg-white dark:bg-[#0F172A] rounded-2xl p-3 sm:p-4 border-2 border-gray-200 dark:border-[#334155] border-b-4 mb-3 flex flex-col gap-2 shadow-sm transition-colors">
+        <div className="flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <div className="bg-[#FFC800] text-white p-1.5 rounded-lg shadow-sm">
+              <Crown size={16} strokeWidth={3} />
+            </div>
+            <span className="text-sm sm:text-base font-black text-[#4B4B4B] dark:text-[#F8FAFC]">Livello {currentLevel}</span>
+          </div>
+          <span className="text-xs sm:text-sm font-bold text-[#FFC800]">{totalXP} XP</span>
+        </div>
+        <div className="w-full bg-gray-200 dark:bg-[#334155] h-3 rounded-full overflow-hidden flex relative">
+          {/* Goal Gradient: Make the bar pulse when near the next level */}
+          <div className={cn("bg-[#FFC800] h-full rounded-full transition-all duration-500 ease-out", progressPercent > 80 && "animate-pulse")} style={{ width: `${progressPercent}%` }} />
+        </div>
+        <div className="text-right text-[10px] font-bold text-gray-400">
+          {progressPercent > 80 ? "Ci sei quasi!" : `${xpForNextLevel - totalXP} XP al Livello ${currentLevel + 1}`}
+        </div>
+      </div>
+
+      {/* Daily Goal - Endowed Progress & Goal Gradient */}
+      <div className="bg-white dark:bg-[#0F172A] rounded-2xl p-3 sm:p-4 border-2 border-gray-200 dark:border-[#334155] border-b-4 mb-3 flex flex-col gap-3 shadow-sm transition-colors relative overflow-hidden group">
+        <div className="flex justify-between items-center z-10">
+          <div className="flex flex-col">
+            <span className="text-sm sm:text-base font-black text-[#4B4B4B] dark:text-[#F8FAFC]">Obiettivo Giornaliero</span>
+            {currentDailyProgress < dailyGoal ? (
+              <span className="text-[10px] sm:text-xs font-bold text-[#1CB0F6]">
+                {currentDailyProgress === endowedDaily ? "Hai 1 punto bonus di benvenuto!" : `Quasi fatto! -${dailyGoal - currentDailyProgress} per completare`}
+              </span>
+            ) : (
+              <span className="text-[10px] sm:text-xs font-bold text-[#58CC02]">
+                Completato! Ottimo lavoro!
+              </span>
+            )}
+          </div>
+          <span className="text-lg sm:text-xl font-black text-[#1CB0F6]">{currentDailyProgress}/{dailyGoal}</span>
+        </div>
+        
+        {/* Goal Gradient Track */}
+        <div className="flex gap-1.5 sm:gap-2 z-10">
+          {Array.from({ length: dailyGoal }).map((_, i) => {
+            const isCompleted = i < currentDailyProgress;
+            const isEndowed = i < endowedDaily;
+            return (
+              <div 
+                key={i} 
+                className={cn(
+                  "flex-1 h-8 sm:h-10 rounded-lg flex items-center justify-center border-2 transition-all duration-300",
+                  isCompleted 
+                    ? isEndowed 
+                      ? "bg-[#FFC800] border-[#E5B400] text-white" // Endowed bonus
+                      : "bg-[#1CB0F6] border-[#1899D6] text-white scale-105" // Earned progress (Goal Gradient visual pop)
+                    : "bg-gray-100 dark:bg-[#1E293B] border-gray-200 dark:border-[#334155] text-transparent"
+                )}
+              >
+                {isEndowed ? <Gift size={14} strokeWidth={3} /> : <CheckCircle size={14} strokeWidth={3} />}
+              </div>
+            );
+          })}
+        </div>
+        {/* Subtle background pulse when close to goal */}
+        {currentDailyProgress === dailyGoal - 1 && (
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#1CB0F6]/10 animate-pulse pointer-events-none" />
         )}
       </div>
 
@@ -123,6 +205,7 @@ export default function Menu({ appState, user, onStartLearn, onStartExam, onOpen
           Export
         </button>
       </div>
+    </div>
     </div>
   );
 }

@@ -134,7 +134,7 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
   return (
     <div className="flex flex-col h-full sm:h-[85vh] sm:max-h-[800px] w-full bg-white dark:bg-[#1E293B] sm:rounded-[32px] sm:border-2 sm:border-gray-200 dark:sm:border-[#334155] overflow-hidden shadow-sm transition-colors duration-300">
       {/* Header & Progress */}
-      <header className="flex items-center gap-3 sm:gap-4 p-3 sm:p-6 border-b-2 border-gray-200 dark:border-[#334155] h-14 sm:h-16 transition-colors">
+      <header className="flex items-center gap-3 sm:gap-4 p-3 sm:p-6 border-b-2 border-gray-200 dark:border-[#334155] h-14 sm:h-16 shrink-0 transition-colors">
         <button onClick={onExit} className="p-1 sm:p-2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 rounded-full transition-colors">
           <X size={20} className="sm:w-6 sm:h-6" strokeWidth={3} />
         </button>

@@ -1,7 +1,8 @@
 import { AppState } from '../types';
 import { questions } from '../data/questions';
-import { X, Trophy, TrendingUp, AlertCircle, Clock } from 'lucide-react';
+import { X, Trophy, TrendingUp, AlertCircle, Clock, Target } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip } from 'recharts';
 
 interface StatsModeProps {
   appState: AppState;
@@ -34,7 +35,7 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
 
   return (
     <div className="flex flex-col h-full sm:h-auto sm:max-h-[90vh] w-full bg-white dark:bg-[#1E293B] sm:rounded-[32px] sm:border-2 sm:border-gray-200 dark:sm:border-[#334155] overflow-hidden shadow-sm transition-colors duration-300">
-      <header className="flex items-center justify-between p-3 sm:p-5 border-b-2 border-gray-200 dark:border-[#334155] h-14 sm:h-16 transition-colors">
+      <header className="flex items-center justify-between p-3 sm:p-5 border-b-2 border-gray-200 dark:border-[#334155] h-14 sm:h-16 shrink-0 transition-colors">
         <h2 className="text-lg sm:text-xl font-black text-[#4B4B4B] dark:text-[#F8FAFC] uppercase tracking-widest">Statistiche</h2>
         <button onClick={onExit} className="p-1 sm:p-2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-[#334155] rounded-full transition-colors">
           <X size={20} className="sm:w-6 sm:h-6" strokeWidth={3} />
@@ -81,10 +82,59 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
         {appState.examCategoryStats && Object.keys(appState.examCategoryStats).length > 0 && (
           <div>
             <h3 className="text-sm sm:text-base font-black text-[#4B4B4B] dark:text-[#F8FAFC] mb-3 uppercase tracking-widest flex items-center gap-2">
-              <TrendingUp className="text-[#1CB0F6] dark:text-[#38BDF8] w-4 sm:w-5 h-4 sm:h-5" />
-              Performance per Categoria
+              <Target className="text-[#1CB0F6] dark:text-[#38BDF8] w-4 sm:w-5 h-4 sm:h-5" />
+              Skill Profile
             </h3>
-            <div className="space-y-2 sm:space-y-3">
+            
+            <div className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] rounded-2xl p-4 transition-colors">
+              <div className="h-48 sm:h-64 w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <RadarChart 
+                    cx="50%" 
+                    cy="50%" 
+                    outerRadius="70%" 
+                    data={Object.entries(appState.examCategoryStats).map(([cat, stats]) => ({
+                      subject: cat,
+                      A: Math.round((stats.correct / stats.total) * 100),
+                      fullMark: 100,
+                    }))}
+                  >
+                    <PolarGrid stroke="#e5e7eb" className="dark:stroke-[#334155]" />
+                    <PolarAngleAxis 
+                      dataKey="subject" 
+                      tick={{ fill: '#9CA3AF', fontSize: 10, fontWeight: 'bold' }} 
+                    />
+                    <PolarRadiusAxis 
+                      angle={30} 
+                      domain={[0, 100]} 
+                      tick={false} 
+                      axisLine={false}
+                    />
+                    <Radar
+                      name="Mastery"
+                      dataKey="A"
+                      stroke="#1CB0F6"
+                      fill="#1CB0F6"
+                      fillOpacity={0.5}
+                    />
+                    <Tooltip 
+                      contentStyle={{ 
+                        borderRadius: '12px', 
+                        border: '2px solid #E5E7EB',
+                        fontWeight: 'bold',
+                        fontSize: '12px',
+                        backgroundColor: '#fff',
+                        color: '#4B4B4B'
+                      }}
+                      itemStyle={{ color: '#1CB0F6', fontWeight: '900' }}
+                    />
+                  </RadarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            {/* Keep the detail bars but make them smaller below the radar chart */}
+            <div className="grid grid-cols-2 gap-2 mt-3">
               {Object.entries(appState.examCategoryStats)
                 .sort((a, b) => (b[1].correct / b[1].total) - (a[1].correct / a[1].total)) // Sort by performance
                 .map(([cat, stats]) => {
@@ -96,17 +146,14 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
                 else { colorClass = "bg-[#FF4B4B]"; textClass = "text-[#FF4B4B]"; }
 
                 return (
-                  <div key={cat} className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] rounded-xl p-3 transition-colors">
+                  <div key={cat} className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] rounded-xl p-2 transition-colors">
                     <div className="flex justify-between items-center mb-1.5">
-                      <span className="font-bold text-[#4B4B4B] dark:text-[#F8FAFC] uppercase tracking-wider text-[10px] sm:text-xs">{cat}</span>
-                      <span className={cn("font-black text-sm sm:text-base", textClass)}>{percentage}%</span>
+                      <span className="font-bold text-[#4B4B4B] dark:text-[#F8FAFC] uppercase tracking-wider text-[8px] sm:text-[9px] truncate max-w-[70%]">{cat}</span>
+                      <span className={cn("font-black text-xs sm:text-sm", textClass)}>{percentage}%</span>
                     </div>
-                    <div className="w-full bg-gray-200 dark:bg-[#334155] h-2 rounded-full overflow-hidden">
+                    <div className="w-full bg-gray-200 dark:bg-[#334155] h-1.5 rounded-full overflow-hidden">
                       <div className={cn("h-full rounded-full", colorClass)} style={{ width: `${percentage}%` }} />
                     </div>
-                    <p className="text-[9px] sm:text-[10px] font-bold text-gray-400 dark:text-gray-500 mt-1.5 text-right">
-                      {stats.correct} / {stats.total} corrette
-                    </p>
                   </div>
                 );
               })}

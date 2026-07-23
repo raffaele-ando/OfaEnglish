@@ -13,8 +13,9 @@ export default function PracticeMenu({ onSelectMode, onBack }: PracticeMenuProps
   const categories = Array.from(new Set(questions.map(q => q.category)));
 
   return (
-    <div className="flex flex-col h-full sm:h-auto sm:max-h-[90vh] w-full p-4 sm:p-8 bg-white dark:bg-[#1E293B] sm:rounded-[32px] sm:border-2 sm:border-gray-200 dark:sm:border-[#334155] overflow-y-auto shadow-sm transition-colors duration-300">
-      <header className="flex items-center gap-3 mb-3 sm:mb-4">
+    <div className="h-full sm:h-auto sm:max-h-[90vh] w-full bg-white dark:bg-[#1E293B] sm:rounded-[32px] sm:border-2 sm:border-gray-200 dark:sm:border-[#334155] overflow-y-auto shadow-sm transition-colors duration-300">
+      <div className="flex flex-col min-h-full p-4 sm:p-8">
+      <header className="flex items-center gap-3 mb-3 sm:mb-4 shrink-0">
         <button 
           onClick={onBack}
           className="p-1 sm:p-2 -ml-1 sm:-ml-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors rounded-full"
@@ -109,6 +110,7 @@ export default function PracticeMenu({ onSelectMode, onBack }: PracticeMenuProps
         </div>
 
       </div>
+    </div>
     </div>
   );
 }
