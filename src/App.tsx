@@ -19,7 +19,7 @@ type View = 'menu' | 'practiceMenu' | 'learn' | 'exam' | 'stats';
 
 export default function App() {
   const [view, setView] = useState<View>('menu');
-  const [learnMode, setLearnMode] = useState<'standard' | 'weakness' | 'blitz' | 'category' | 'recall'>('standard');
+  const [learnMode, setLearnMode] = useState<'standard' | 'weakness' | 'blitz' | 'category' | 'recall' | 'smart'>('smart');
   const [learnCategory, setLearnCategory] = useState<string | undefined>(undefined);
   const [appState, setAppState] = useState<AppState>(loadState());
   const [user, setUser] = useState<User | null>(null);
@@ -105,6 +105,11 @@ export default function App() {
         <Menu 
           appState={appState} 
           user={user}
+          onStartSmart={() => {
+            setLearnMode('smart');
+            setLearnCategory(undefined);
+            setView('learn');
+          }}
           onStartLearn={() => setView('practiceMenu')}
           onStartExam={() => setView('exam')}
           onOpenStats={() => setView('stats')}

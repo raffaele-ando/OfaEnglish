@@ -23,7 +23,7 @@ export function getQuestionStats(stats: UserStats, questionId: string) {
 }
 
 // Select questions for practice using SuperMemo-2 (SM-2) algorithm
-export function selectPracticeQuestions(stats: UserStats, options: { numQuestions?: number, mode?: 'standard' | 'weakness' | 'blitz' | 'category' | 'recall', category?: string } = {}): Question[] {
+export function selectPracticeQuestions(stats: UserStats, options: { numQuestions?: number, mode?: 'standard' | 'weakness' | 'blitz' | 'category' | 'recall' | 'smart', category?: string } = {}): Question[] {
   const { numQuestions = 10, mode = 'standard', category } = options;
   const now = Date.now();
   
@@ -45,6 +45,36 @@ export function selectPracticeQuestions(stats: UserStats, options: { numQuestion
         const errorRate = qStats.incorrect / totalAttempts;
         score = (errorRate * 1000) + ((5 - qStats.easiness) * 100);
       }
+    } else if (mode === 'smart') {
+      // Academic approach for ADHD & Low Conscientiousness:
+      // Combines Spaced Repetition (SM-2) for long-term retention,
+      // Weakness targeting for immediate struggle areas,
+      // and a degree of randomness (interleaving) to keep dopamine and engagement high.
+      
+      let sm2Score = 0;
+      if (qStats.lastSeen === 0) {
+        sm2Score = 800 + Math.random() * 200; // High priority for unseen
+      } else {
+        const daysSinceSeen = (now - qStats.lastSeen) / (1000 * 60 * 60 * 24);
+        const isDue = daysSinceSeen >= qStats.interval;
+        if (isDue) {
+          sm2Score = 500 + (daysSinceSeen - qStats.interval) * 10;
+        } else {
+          sm2Score = (daysSinceSeen / Math.max(1, qStats.interval)) * 100;
+        }
+      }
+
+      let weaknessScore = 0;
+      const totalAttempts = qStats.correct + qStats.incorrect;
+      if (totalAttempts > 0) {
+        const errorRate = qStats.incorrect / totalAttempts;
+        // Boost score significantly if error rate is high and easiness is low
+        weaknessScore = (errorRate * 400) + ((5 - qStats.easiness) * 40);
+      }
+
+      // Combine scores and add some noise for interleaving
+      score = sm2Score + weaknessScore + (Math.random() * 100);
+
     } else {
       // Standard SM-2 scoring
       if (qStats.lastSeen === 0) {

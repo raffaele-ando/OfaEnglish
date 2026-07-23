@@ -2,12 +2,12 @@ import { AppState } from '../types';
 import { BookOpen, GraduationCap, Download, Flame, Award, BarChart2, Upload, Cloud, Moon, Sun, Crown, Gift, CheckCircle } from 'lucide-react';
 import { User } from 'firebase/auth';
 import { useTheme } from '../hooks/useTheme';
-import { ActivityChart } from './ActivityChart';
 import { cn } from '../lib/utils';
 
 interface MenuProps {
   appState: AppState;
   user: User | null;
+  onStartSmart: () => void;
   onStartLearn: () => void;
   onStartExam: () => void;
   onOpenStats: () => void;
@@ -17,9 +17,7 @@ interface MenuProps {
   onLogout: () => void;
 }
 
-export default function Menu({ appState, user, onStartLearn, onStartExam, onOpenStats, onExport, onImport, onLogin, onLogout }: MenuProps) {
-  const masteredQuestions = Object.values(appState.stats).filter(s => s.box >= 4).length;
-  const bestScore = Math.max(0, ...appState.history.map(h => h.score));
+export default function Menu({ appState, user, onStartSmart, onStartLearn, onStartExam, onOpenStats, onExport, onImport, onLogin, onLogout }: MenuProps) {
   const { isDark, toggleTheme } = useTheme();
 
   // Endowed Progress Effect: Give users a 50 XP head start so they feel invested immediately.
@@ -125,42 +123,32 @@ export default function Menu({ appState, user, onStartLearn, onStartExam, onOpen
             </div>
           </div>
 
-          {/* Middle Row: Mastered, Best Score, and Activity Chart */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 flex-1 min-h-0">
-            <div className="flex flex-row sm:flex-col gap-3 sm:gap-4">
-              <div className="flex-1 bg-white dark:bg-[#0F172A] rounded-2xl p-3 sm:p-4 border-2 border-gray-200 dark:border-[#334155] border-b-4 flex flex-col items-center justify-center gap-1 shadow-sm transition-colors">
-                <BookOpen className="text-[#1CB0F6] dark:text-[#38BDF8] w-6 h-6 sm:w-8 sm:h-8 mb-1" />
-                <span className="text-2xl sm:text-3xl font-black text-[#4B4B4B] dark:text-[#F8FAFC] leading-none">{masteredQuestions}</span>
-                <span className="text-[10px] sm:text-xs font-black text-gray-400 uppercase tracking-widest mt-1">Mastered</span>
-              </div>
-              <div className="flex-1 bg-white dark:bg-[#0F172A] rounded-2xl p-3 sm:p-4 border-2 border-gray-200 dark:border-[#334155] border-b-4 flex flex-col items-center justify-center gap-1 shadow-sm transition-colors">
-                <Award className="text-[#FFC800] w-6 h-6 sm:w-8 sm:h-8 mb-1" />
-                <span className="text-2xl sm:text-3xl font-black text-[#4B4B4B] dark:text-[#F8FAFC] leading-none">{bestScore > 0 ? `${bestScore}/30` : '-'}</span>
-                <span className="text-[10px] sm:text-xs font-black text-gray-400 uppercase tracking-widest mt-1">Best Score</span>
-              </div>
+          <div className="flex flex-col gap-3 sm:gap-4 shrink-0 mt-auto pt-2">
+            <button
+              onClick={onStartSmart}
+              className="w-full bg-[#1CB0F6] border-b-4 border-[#1899D6] text-white font-black p-6 sm:p-8 rounded-2xl shadow-sm flex flex-col items-center justify-center active:border-b-0 active:translate-y-1 transition-all"
+            >
+              <span className="text-2xl sm:text-3xl leading-tight uppercase tracking-widest mb-2">Inizia Sessione</span>
+              <span className="text-[#DDF4FF] text-xs sm:text-sm uppercase font-bold tracking-widest bg-black/10 px-4 py-1.5 rounded-full">Algoritmo Ottimizzato</span>
+            </button>
+
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              <button
+                onClick={onStartLearn}
+                className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] border-b-4 text-gray-400 dark:text-gray-500 font-black p-3 sm:p-4 rounded-2xl shadow-sm flex flex-col items-center justify-center active:border-b-0 active:translate-y-1 transition-all hover:bg-gray-50 dark:hover:bg-[#1E293B]"
+              >
+                <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 mb-1 sm:mb-2" />
+                <span className="text-[10px] sm:text-xs uppercase tracking-widest text-center">Modalità Custom</span>
+              </button>
+
+              <button
+                onClick={onStartExam}
+                className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] border-b-4 text-gray-400 dark:text-gray-500 font-black p-3 sm:p-4 rounded-2xl shadow-sm flex flex-col items-center justify-center active:border-b-0 active:translate-y-1 transition-all hover:bg-gray-50 dark:hover:bg-[#1E293B]"
+              >
+                <GraduationCap className="w-5 h-5 sm:w-6 sm:h-6 mb-1 sm:mb-2" />
+                <span className="text-[10px] sm:text-xs uppercase tracking-widest text-center">Simulazione Esame</span>
+              </button>
             </div>
-            <ActivityChart dailyActivity={appState.dailyActivity} />
-          </div>
-
-          {/* Main Actions */}
-          <div className="flex flex-row gap-3 sm:gap-4 shrink-0 mt-auto pt-2">
-            <button
-              onClick={onStartLearn}
-              className="flex-1 bg-[#1CB0F6] border-b-4 border-[#1899D6] text-white font-black p-3 sm:p-4 rounded-2xl shadow-sm flex flex-col items-center justify-center active:border-b-0 active:translate-y-1 transition-all"
-            >
-              <BookOpen className="w-6 h-6 sm:w-8 sm:h-8 mb-1 sm:mb-2" />
-              <span className="text-base sm:text-lg leading-tight uppercase">Learn</span>
-              <span className="text-[#DDF4FF] text-[10px] sm:text-xs uppercase mt-1 font-bold tracking-widest">Spaced Repetition</span>
-            </button>
-
-            <button
-              onClick={onStartExam}
-              className="flex-1 bg-[#CE82FF] border-b-4 border-[#A568CC] text-white font-black p-3 sm:p-4 rounded-2xl shadow-sm flex flex-col items-center justify-center active:border-b-0 active:translate-y-1 transition-all"
-            >
-              <GraduationCap className="w-6 h-6 sm:w-8 sm:h-8 mb-1 sm:mb-2" />
-              <span className="text-base sm:text-lg leading-tight uppercase">Exam</span>
-              <span className="text-[#F3E5FF] text-[10px] sm:text-xs uppercase mt-1 font-bold tracking-widest">15 mins • 30 Qs</span>
-            </button>
           </div>
         </div>
 

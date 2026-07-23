@@ -7,7 +7,7 @@ import { cn, shuffleQuestion } from '../lib/utils';
 
 interface LearnModeProps {
   appState: AppState;
-  mode: 'standard' | 'weakness' | 'blitz' | 'category' | 'recall';
+  mode: 'standard' | 'weakness' | 'blitz' | 'category' | 'recall' | 'smart';
   category?: string;
   onUpdateAppState: (newState: AppState) => void;
   onExit: () => void;
