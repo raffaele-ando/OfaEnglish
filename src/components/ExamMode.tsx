@@ -116,8 +116,8 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
 
   if (!hasStarted) {
     return (
-      <div className="h-full sm:h-auto sm:max-h-[90vh] w-full bg-white dark:bg-[#1E293B] sm:rounded-[32px] sm:border-2 sm:border-gray-200 dark:sm:border-[#334155] overflow-y-auto shadow-sm transition-colors duration-300">
-        <div className="flex flex-col items-center justify-center min-h-full p-4 sm:p-6 text-center">
+      <div className="h-full w-full bg-white dark:bg-[#1E293B] sm:rounded-[32px] sm:border-2 sm:border-gray-200 dark:sm:border-[#334155] overflow-y-auto shadow-sm transition-colors duration-300">
+        <div className="flex flex-col items-center justify-center h-full p-4 sm:p-6 text-center">
         <Clock className="text-[#1CB0F6] dark:text-[#38BDF8] mb-3 sm:mb-4 shrink-0" size={48} />
         <h2 className="text-2xl sm:text-3xl font-black text-[#4B4B4B] dark:text-[#F8FAFC] mb-3">Mock Exam</h2>
         <ul className="text-left text-gray-500 dark:text-gray-400 font-bold space-y-2 sm:space-y-3 mb-6 sm:mb-8 max-w-sm text-xs sm:text-sm">
@@ -126,7 +126,7 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
           <li className="flex gap-2 sm:gap-3 items-center"><span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#58CC02] dark:bg-[#46A302] rounded-full shrink-0"></span> 25/30 required to pass</li>
           <li className="flex gap-2 sm:gap-3 items-center"><span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#CE82FF] dark:bg-[#D946EF] rounded-full shrink-0"></span> No immediate feedback</li>
         </ul>
-        <div className="flex flex-col gap-2 sm:gap-3 w-full max-w-sm">
+        <div className="flex flex-col gap-2 sm:gap-3 w-full max-w-sm shrink-0">
           <button onClick={handleStart} className="w-full py-3 sm:py-4 font-black tracking-widest text-white bg-[#58CC02] border-b-4 border-[#46A302] rounded-xl sm:rounded-2xl active:border-b-0 active:translate-y-1 transition-all uppercase text-sm sm:text-base">
             Start Exam
           </button>
@@ -148,9 +148,9 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
     const passed = score >= PASSING_SCORE;
 
     return (
-      <div className="h-full sm:h-auto sm:max-h-[90vh] w-full overflow-y-auto scrollbar-hide bg-white dark:bg-[#1E293B] sm:rounded-[32px] sm:border-2 sm:border-gray-200 dark:sm:border-[#334155] shadow-sm transition-colors duration-300">
-        <div className="flex flex-col min-h-full p-4 sm:p-6 text-center">
-        <div className="py-6 sm:py-8 shrink-0">
+      <div className="h-full w-full overflow-hidden bg-white dark:bg-[#1E293B] sm:rounded-[32px] sm:border-2 sm:border-gray-200 dark:sm:border-[#334155] shadow-sm transition-colors duration-300">
+        <div className="flex flex-col h-full p-4 sm:p-6 text-center">
+        <div className="py-4 sm:py-8 shrink-0">
           <h2 className={cn("text-2xl sm:text-3xl font-black uppercase tracking-widest mb-1 sm:mb-2", passed ? "text-[#58CC02] dark:text-[#10B981]" : "text-[#FF4B4B] dark:text-[#F87171]")}>
             {passed ? "PASSED" : "FAILED"}
           </h2>
@@ -160,13 +160,13 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
           </p>
         </div>
 
-        <button onClick={onExit} className="w-full max-w-sm mx-auto mb-6 sm:mb-8 bg-[#1CB0F6] border-b-4 border-[#1899D6] active:border-b-0 active:translate-y-1 text-white font-black text-sm sm:text-base uppercase tracking-widest py-3 sm:py-4 rounded-xl sm:rounded-2xl transition-all">
+        <button onClick={onExit} className="w-full max-w-sm mx-auto mb-4 sm:mb-8 bg-[#1CB0F6] border-b-4 border-[#1899D6] active:border-b-0 active:translate-y-[2px] text-white font-black text-sm sm:text-base uppercase tracking-widest py-3 sm:py-4 rounded-xl sm:rounded-2xl transition-all shrink-0">
           Return to Menu
         </button>
 
-        <div className="text-left max-w-2xl mx-auto w-full pb-6 sm:pb-10">
-          <h3 className="text-lg sm:text-xl font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-4 sm:mb-6">Review Incorrect Answers</h3>
-          <div className="space-y-4 sm:space-y-6">
+        <div className="text-left max-w-2xl mx-auto w-full flex-1 overflow-y-auto scrollbar-hide">
+          <h3 className="text-base sm:text-xl font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-4 sm:mb-6">Review Incorrect Answers</h3>
+          <div className="space-y-4 sm:space-y-6 pb-6">
             {examQuestions.filter(q => answers[q.id] !== q.correctIndex).map((q, idx) => (
               <div key={q.id} className="bg-[#FFE5E5] dark:bg-[#7F1D1D] border-2 border-[#FF4B4B] dark:border-[#EF4444] rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-sm transition-colors">
                 <p className="font-bold text-base sm:text-lg text-[#3C3C3C] dark:text-[#F8FAFC] mb-3 sm:mb-4">{q.prompt}</p>
@@ -210,7 +210,7 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
   const timeStr = `${m}:${s.toString().padStart(2, '0')}`;
 
   return (
-    <div className="flex flex-col h-full sm:h-[85vh] sm:max-h-[800px] w-full bg-white dark:bg-[#1E293B] sm:rounded-[32px] sm:border-2 sm:border-gray-200 dark:sm:border-[#334155] overflow-hidden shadow-sm transition-colors duration-300">
+    <div className="flex flex-col h-full w-full bg-white dark:bg-[#1E293B] sm:rounded-[32px] sm:border-2 sm:border-gray-200 dark:sm:border-[#334155] overflow-hidden shadow-sm transition-colors duration-300">
       <header className="flex flex-col gap-2 p-3 sm:p-4 border-b-2 border-gray-200 dark:border-[#334155] shrink-0 transition-colors">
         <div className="flex items-center justify-between">
           <button onClick={onExit} className="p-1 sm:p-2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-[#334155] rounded-full transition-colors">
@@ -234,17 +234,17 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
         </div>
       </header>
 
-      <main className="flex-1 overflow-y-auto scrollbar-hide p-3 sm:p-6 flex flex-col max-w-2xl mx-auto w-full">
-        <div className="mb-3 sm:mb-4 inline-block">
+      <main className="flex-1 p-3 sm:p-6 flex flex-col w-full overflow-y-auto scrollbar-hide min-h-0">
+        <div className="mb-3 sm:mb-4 shrink-0">
           <span className="px-2 sm:px-4 py-1 bg-[#FFC800] dark:bg-[#F59E0B] text-white text-[9px] sm:text-[11px] font-black uppercase rounded-full tracking-widest shadow-sm">
             Question {currentIndex + 1}
           </span>
         </div>
-        <h2 className="text-lg sm:text-2xl font-black text-[#3C3C3C] dark:text-[#F8FAFC] mb-4 sm:mb-6 leading-tight">
+        <h2 className="text-lg sm:text-2xl font-black text-[#3C3C3C] dark:text-[#F8FAFC] mb-4 sm:mb-6 leading-tight shrink-0">
           {question.prompt}
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 flex-1 min-h-0">
           {question.options.map((opt, idx) => {
             const isSelected = answers[question.id] === idx;
             return (
@@ -252,19 +252,19 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
                 key={idx}
                 onClick={() => handleOptionSelect(question.id, idx)}
                 className={cn(
-                  "p-3 sm:p-4 text-left border-2 rounded-xl sm:rounded-2xl group transition-all",
+                  "p-3 sm:p-4 text-left border-2 rounded-xl sm:rounded-2xl group transition-all h-full flex flex-col justify-center",
                   isSelected 
                     ? "bg-[#DDF4FF] dark:bg-[#0369A1] border-[#84D8FF] dark:border-[#38BDF8] text-[#1899D6] dark:text-[#E0F2FE]" 
                     : "border-gray-200 dark:border-[#334155] bg-white dark:bg-[#0F172A] hover:bg-gray-50 dark:hover:bg-[#1E293B] hover:border-blue-400 dark:hover:border-blue-500 text-[#4B4B4B] dark:text-gray-200"
                 )}
               >
-                <div className="flex items-center gap-3">
-                  <span className={cn("w-8 h-8 sm:w-10 sm:h-10 text-sm sm:text-base flex shrink-0 items-center justify-center border-2 rounded-lg sm:rounded-xl font-black transition-colors", 
+                <div className="flex items-start gap-3">
+                  <span className={cn("w-8 h-8 sm:w-10 sm:h-10 text-sm sm:text-base flex shrink-0 items-center justify-center border-2 rounded-lg sm:rounded-xl font-black transition-colors mt-0.5", 
                     isSelected ? "border-[#84D8FF] dark:border-[#38BDF8] bg-white dark:bg-[#0369A1] text-[#1899D6] dark:text-[#E0F2FE]" : "border-gray-200 dark:border-[#334155] text-gray-400 dark:text-gray-500 group-hover:bg-blue-100 dark:group-hover:bg-[#1E293B] group-hover:border-blue-400 dark:group-hover:border-blue-500 group-hover:text-blue-600 dark:group-hover:text-blue-400"
                   )}>
                     {String.fromCharCode(65 + idx)}
                   </span>
-                  <span className="text-sm sm:text-base font-bold">{opt}</span>
+                  <span className="text-sm sm:text-base font-bold leading-tight">{opt}</span>
                 </div>
               </button>
             );
@@ -272,7 +272,7 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
         </div>
       </main>
 
-      <div className="p-3 sm:p-4 border-t-2 border-gray-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] min-h-[70px] sm:min-h-[80px] flex items-center transition-colors">
+      <div className="p-3 sm:p-4 border-t-2 border-gray-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] shrink-0 flex items-center transition-colors min-h-[70px] sm:min-h-[80px]">
         <div className="max-w-4xl w-full mx-auto flex justify-between items-center px-2 sm:px-4">
           <button
             onClick={() => setCurrentIndex(prev => Math.max(0, prev - 1))}
