@@ -151,13 +151,13 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 p-4 sm:p-6 flex flex-col w-full overflow-y-auto scrollbar-hide min-h-0">
-        <div className="mb-3 sm:mb-4 shrink-0">
-          <span className="px-3 py-1 bg-[#CE82FF] dark:bg-[#D946EF] text-white text-[10px] sm:text-xs font-black uppercase rounded-full tracking-widest shadow-sm">
+      <main className="flex-1 p-4 sm:p-8 flex flex-col w-full overflow-y-auto scrollbar-hide">
+        <div className="mb-4 shrink-0">
+          <span className="px-4 py-1.5 bg-[#CE82FF] dark:bg-[#D946EF] text-white text-xs sm:text-sm font-black uppercase rounded-full tracking-widest shadow-sm">
             Question {currentIndex + 1}
           </span>
         </div>
-        <h2 className="text-lg sm:text-2xl font-black text-[#3C3C3C] dark:text-[#F8FAFC] mb-4 sm:mb-6 leading-tight shrink-0">
+        <h2 className="text-xl sm:text-3xl font-black text-[#3C3C3C] dark:text-[#F8FAFC] mb-6 sm:mb-8 leading-tight shrink-0">
           {question.prompt}
         </h2>
 
@@ -165,16 +165,16 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
           <div className="flex-1 flex flex-col items-center justify-center">
             <button
               onClick={() => setOptionsRevealed(true)}
-              className="bg-[#CE82FF] border-b-4 border-[#A568CC] active:border-b-0 active:translate-y-1 text-white font-black text-sm sm:text-base py-3 sm:py-4 px-6 sm:px-8 rounded-xl sm:rounded-2xl transition-all uppercase tracking-widest shadow-sm"
+              className="bg-[#CE82FF] border-b-4 border-[#A568CC] active:border-b-0 active:translate-y-1 text-white font-black text-base sm:text-lg py-4 px-8 rounded-2xl transition-all uppercase tracking-widest shadow-sm"
             >
               Rivela Opzioni
             </button>
-            <p className="text-gray-400 font-bold mt-4 text-xs sm:text-sm text-center max-w-md">
+            <p className="text-gray-400 font-bold mt-6 text-sm sm:text-base text-center max-w-md">
               Pensa alla risposta prima di rivelare le opzioni per massimizzare il ricordo.
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 flex-1 min-h-0">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
             {question.options.map((opt, idx) => {
               let stateClass = "border-gray-200 dark:border-[#334155] bg-white dark:bg-[#0F172A] hover:bg-gray-50 dark:hover:bg-[#1E293B] hover:border-blue-400 dark:hover:border-blue-500 text-[#4B4B4B] dark:text-gray-200";
               let numberClass = "border-gray-200 dark:border-[#334155] text-gray-400 dark:text-gray-500 group-hover:bg-blue-100 dark:group-hover:bg-[#1E293B] group-hover:border-blue-400 dark:group-hover:border-blue-500 group-hover:text-blue-600 dark:group-hover:text-blue-400";
@@ -204,15 +204,15 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
                   disabled={hasChecked || wrongOptions.has(idx)}
                   onClick={() => setSelectedOption(idx)}
                   className={cn(
-                    "p-3 sm:p-4 text-left border-2 rounded-xl sm:rounded-2xl group transition-all h-full",
+                    "p-4 sm:p-5 text-left border-2 rounded-2xl group transition-all min-h-[80px]",
                     stateClass
                   )}
                 >
-                  <div className="flex items-start gap-3">
-                    <span className={cn("w-8 h-8 sm:w-10 sm:h-10 text-sm sm:text-base flex shrink-0 items-center justify-center border-2 rounded-lg sm:rounded-xl font-black transition-colors mt-0.5", numberClass)}>
+                  <div className="flex items-start gap-4">
+                    <span className={cn("w-10 h-10 sm:w-12 sm:h-12 text-base flex shrink-0 items-center justify-center border-2 rounded-xl font-black transition-colors mt-0.5", numberClass)}>
                       {String.fromCharCode(65 + idx)}
                     </span>
-                    <span className="text-sm sm:text-base font-bold leading-tight">{opt}</span>
+                    <span className="text-base sm:text-lg font-bold leading-snug">{opt}</span>
                   </div>
                 </button>
               );
@@ -222,26 +222,26 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
       </main>
 
       {/* Bottom Action Bar */}
-      <div className={cn("border-t-2 border-gray-200 dark:border-[#334155] shrink-0 p-3 sm:p-4 transition-colors flex items-center justify-center min-h-[80px]", hasChecked ? (isCorrect ? "bg-[#D7FFB8] dark:bg-[#064E3B] border-[#58CC02] dark:border-[#46A302]" : "bg-[#FFDFE0] dark:bg-[#7F1D1D] border-[#FF4B4B] dark:border-[#EF4444]") : "bg-white dark:bg-[#1E293B]")}>
-        <div className="w-full max-w-4xl flex flex-row gap-3 sm:gap-4 items-center justify-between">
+      <div className={cn("border-t-2 border-gray-200 dark:border-[#334155] shrink-0 p-4 transition-colors", hasChecked ? (isCorrect ? "bg-[#D7FFB8] dark:bg-[#064E3B] border-[#58CC02] dark:border-[#46A302]" : "bg-[#FFDFE0] dark:bg-[#7F1D1D] border-[#FF4B4B] dark:border-[#EF4444]") : "bg-white dark:bg-[#1E293B]")}>
+        <div className="w-full flex flex-col sm:flex-row gap-4 items-center justify-between">
           <AnimatePresence>
             {hasChecked && (
               <motion.div
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
                 className={cn(
-                  "font-black text-base sm:text-xl flex flex-col gap-1",
+                  "font-black flex flex-col gap-1 text-center sm:text-left w-full sm:w-auto",
                   isCorrect ? "text-[#58CC02] dark:text-[#10B981]" : "text-[#FF4B4B] dark:text-[#F87171]"
                 )}
               >
-                {isCorrect ? "Ottimo!" : "Errata."}
+                <span className="text-xl sm:text-2xl">{isCorrect ? "Ottimo!" : "Errata."}</span>
                 {!isCorrect && (
-                  <p className="text-xs sm:text-sm font-bold opacity-80 text-gray-700 dark:text-gray-200">
+                  <p className="text-sm font-bold opacity-80 text-gray-700 dark:text-gray-200">
                     Riprova!
                   </p>
                 )}
                 {isCorrect && (
-                  <p className="text-xs sm:text-sm font-bold opacity-80 text-gray-700 dark:text-gray-200 line-clamp-2 leading-tight max-w-[200px] sm:max-w-md">
+                  <p className="text-sm font-bold opacity-80 text-gray-700 dark:text-gray-200 leading-tight">
                     {question.explanation}
                   </p>
                 )}
@@ -250,25 +250,25 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
           </AnimatePresence>
 
           {!hasChecked ? (
-            <div className="ml-auto flex flex-row gap-2 sm:gap-3">
+            <div className="w-full sm:w-auto flex flex-row gap-2 justify-between sm:justify-end">
               <button
                 onClick={() => handleCheck('low')}
                 disabled={selectedOption === null}
-                className="bg-[#FF4B4B] border-b-4 border-[#D80000] disabled:bg-gray-200 disabled:dark:bg-[#334155] disabled:border-gray-300 disabled:dark:border-[#475569] disabled:text-gray-400 disabled:dark:text-gray-600 text-white font-black uppercase text-[10px] sm:text-xs py-2 sm:py-3 px-3 sm:px-4 rounded-xl transition-all active:border-b-0 active:translate-y-1"
+                className="flex-1 sm:flex-none bg-[#FF4B4B] border-b-4 border-[#D80000] disabled:bg-gray-200 disabled:dark:bg-[#334155] disabled:border-gray-300 disabled:dark:border-[#475569] disabled:text-gray-400 disabled:dark:text-gray-600 text-white font-black uppercase text-xs sm:text-sm py-3 sm:py-4 px-4 rounded-xl transition-all active:border-b-0 active:translate-y-1"
               >
                 Indovino
               </button>
               <button
                 onClick={() => handleCheck('medium')}
                 disabled={selectedOption === null}
-                className="bg-[#FFC800] border-b-4 border-[#E5B400] disabled:bg-gray-200 disabled:dark:bg-[#334155] disabled:border-gray-300 disabled:dark:border-[#475569] disabled:text-gray-400 disabled:dark:text-gray-600 text-white font-black uppercase text-[10px] sm:text-xs py-2 sm:py-3 px-3 sm:px-4 rounded-xl transition-all active:border-b-0 active:translate-y-1"
+                className="flex-1 sm:flex-none bg-[#FFC800] border-b-4 border-[#E5B400] disabled:bg-gray-200 disabled:dark:bg-[#334155] disabled:border-gray-300 disabled:dark:border-[#475569] disabled:text-gray-400 disabled:dark:text-gray-600 text-white font-black uppercase text-xs sm:text-sm py-3 sm:py-4 px-4 rounded-xl transition-all active:border-b-0 active:translate-y-1"
               >
                 Incerto
               </button>
               <button
                 onClick={() => handleCheck('high')}
                 disabled={selectedOption === null}
-                className="bg-[#58CC02] border-b-4 border-[#46A302] disabled:bg-gray-200 disabled:dark:bg-[#334155] disabled:border-gray-300 disabled:dark:border-[#475569] disabled:text-gray-400 disabled:dark:text-gray-600 text-white font-black uppercase text-[10px] sm:text-xs py-2 sm:py-3 px-3 sm:px-4 rounded-xl transition-all active:border-b-0 active:translate-y-1"
+                className="flex-1 sm:flex-none bg-[#58CC02] border-b-4 border-[#46A302] disabled:bg-gray-200 disabled:dark:bg-[#334155] disabled:border-gray-300 disabled:dark:border-[#475569] disabled:text-gray-400 disabled:dark:text-gray-600 text-white font-black uppercase text-xs sm:text-sm py-3 sm:py-4 px-4 rounded-xl transition-all active:border-b-0 active:translate-y-1"
               >
                 Sicuro
               </button>
@@ -277,7 +277,7 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
             <button
               onClick={handleNext}
               className={cn(
-                "ml-auto text-white font-black uppercase text-sm sm:text-base py-3 sm:py-4 px-6 sm:px-8 rounded-xl sm:rounded-2xl transition-all active:border-b-0 active:translate-y-1 border-b-4 flex items-center justify-center gap-2",
+                "w-full sm:w-auto text-white font-black uppercase text-base sm:text-lg py-4 px-8 rounded-2xl transition-all active:border-b-0 active:translate-y-1 border-b-4 flex items-center justify-center gap-2",
                 isCorrect ? "bg-[#58CC02] border-[#46A302] dark:bg-[#10B981] dark:border-[#059669]" : "bg-[#FF4B4B] border-[#D80000] dark:bg-[#EF4444] dark:border-[#DC2626]"
               )}
             >

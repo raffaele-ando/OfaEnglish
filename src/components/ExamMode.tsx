@@ -116,24 +116,24 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
 
   if (!hasStarted) {
     return (
-      <div className="h-full w-full bg-white dark:bg-[#1E293B] sm:rounded-[32px] sm:border-2 sm:border-gray-200 dark:sm:border-[#334155] overflow-y-auto shadow-sm transition-colors duration-300">
-        <div className="flex flex-col items-center justify-center h-full p-4 sm:p-6 text-center">
-        <Clock className="text-[#1CB0F6] dark:text-[#38BDF8] mb-3 sm:mb-4 shrink-0" size={48} />
-        <h2 className="text-2xl sm:text-3xl font-black text-[#4B4B4B] dark:text-[#F8FAFC] mb-3">Mock Exam</h2>
-        <ul className="text-left text-gray-500 dark:text-gray-400 font-bold space-y-2 sm:space-y-3 mb-6 sm:mb-8 max-w-sm text-xs sm:text-sm">
-          <li className="flex gap-2 sm:gap-3 items-center"><span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#1CB0F6] dark:bg-[#38BDF8] rounded-full shrink-0"></span> 30 Multiple choice questions</li>
-          <li className="flex gap-2 sm:gap-3 items-center"><span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#FFC800] dark:bg-[#FBBF24] rounded-full shrink-0"></span> 15 Minutes time limit</li>
-          <li className="flex gap-2 sm:gap-3 items-center"><span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#58CC02] dark:bg-[#46A302] rounded-full shrink-0"></span> 25/30 required to pass</li>
-          <li className="flex gap-2 sm:gap-3 items-center"><span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#CE82FF] dark:bg-[#D946EF] rounded-full shrink-0"></span> No immediate feedback</li>
-        </ul>
-        <div className="flex flex-col gap-2 sm:gap-3 w-full max-w-sm shrink-0">
-          <button onClick={handleStart} className="w-full py-3 sm:py-4 font-black tracking-widest text-white bg-[#58CC02] border-b-4 border-[#46A302] rounded-xl sm:rounded-2xl active:border-b-0 active:translate-y-1 transition-all uppercase text-sm sm:text-base">
-            Start Exam
-          </button>
-          <button onClick={onExit} className="w-full py-3 sm:py-4 font-black tracking-widest text-gray-400 dark:text-gray-500 bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] border-b-4 rounded-xl sm:rounded-2xl active:border-b-0 active:translate-y-1 transition-all uppercase hover:bg-gray-50 dark:hover:bg-[#1E293B] text-sm sm:text-base">
-            Cancel
-          </button>
-        </div>
+      <div className="h-full w-full bg-white dark:bg-[#1E293B] sm:rounded-[32px] sm:border-2 sm:border-gray-200 dark:sm:border-[#334155] overflow-y-auto shadow-sm transition-colors duration-300 flex items-center justify-center">
+        <div className="flex flex-col items-center justify-center p-6 sm:p-10 text-center w-full max-w-lg">
+          <Clock className="text-[#1CB0F6] dark:text-[#38BDF8] mb-4 sm:mb-6 shrink-0 w-16 h-16 sm:w-20 sm:h-20" strokeWidth={3} />
+          <h2 className="text-3xl sm:text-4xl font-black text-[#4B4B4B] dark:text-[#F8FAFC] mb-4 sm:mb-6 tracking-widest uppercase">Mock Exam</h2>
+          <ul className="text-left text-gray-500 dark:text-gray-400 font-bold space-y-4 mb-8 sm:mb-10 w-full text-sm sm:text-base bg-gray-50 dark:bg-[#0F172A] p-4 sm:p-6 rounded-2xl border-2 border-gray-100 dark:border-[#334155]">
+            <li className="flex gap-3 sm:gap-4 items-center"><span className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-[#1CB0F6] dark:bg-[#38BDF8] rounded-full shrink-0"></span> 30 Multiple choice questions</li>
+            <li className="flex gap-3 sm:gap-4 items-center"><span className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-[#FFC800] dark:bg-[#FBBF24] rounded-full shrink-0"></span> 15 Minutes time limit</li>
+            <li className="flex gap-3 sm:gap-4 items-center"><span className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-[#58CC02] dark:bg-[#46A302] rounded-full shrink-0"></span> 25/30 required to pass</li>
+            <li className="flex gap-3 sm:gap-4 items-center"><span className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-[#CE82FF] dark:bg-[#D946EF] rounded-full shrink-0"></span> No immediate feedback</li>
+          </ul>
+          <div className="flex flex-col gap-3 sm:gap-4 w-full shrink-0">
+            <button onClick={handleStart} className="w-full py-4 sm:py-5 font-black tracking-widest text-white bg-[#58CC02] border-b-4 border-[#46A302] rounded-2xl active:border-b-0 active:translate-y-1 transition-all uppercase text-base sm:text-lg">
+              Start Exam
+            </button>
+            <button onClick={onExit} className="w-full py-4 sm:py-5 font-black tracking-widest text-gray-400 dark:text-gray-500 bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] border-b-4 rounded-2xl active:border-b-0 active:translate-y-1 transition-all uppercase hover:bg-gray-50 dark:hover:bg-[#1E293B] text-base sm:text-lg">
+              Cancel
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -234,17 +234,17 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
         </div>
       </header>
 
-      <main className="flex-1 p-3 sm:p-6 flex flex-col w-full overflow-y-auto scrollbar-hide min-h-0">
-        <div className="mb-3 sm:mb-4 shrink-0">
-          <span className="px-2 sm:px-4 py-1 bg-[#FFC800] dark:bg-[#F59E0B] text-white text-[9px] sm:text-[11px] font-black uppercase rounded-full tracking-widest shadow-sm">
+      <main className="flex-1 p-4 sm:p-8 flex flex-col w-full overflow-y-auto scrollbar-hide">
+        <div className="mb-4 shrink-0">
+          <span className="px-4 py-1.5 bg-[#FFC800] dark:bg-[#F59E0B] text-white text-xs sm:text-sm font-black uppercase rounded-full tracking-widest shadow-sm">
             Question {currentIndex + 1}
           </span>
         </div>
-        <h2 className="text-lg sm:text-2xl font-black text-[#3C3C3C] dark:text-[#F8FAFC] mb-4 sm:mb-6 leading-tight shrink-0">
+        <h2 className="text-xl sm:text-3xl font-black text-[#3C3C3C] dark:text-[#F8FAFC] mb-6 sm:mb-8 leading-tight shrink-0">
           {question.prompt}
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 flex-1 min-h-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
           {question.options.map((opt, idx) => {
             const isSelected = answers[question.id] === idx;
             return (
@@ -252,19 +252,19 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
                 key={idx}
                 onClick={() => handleOptionSelect(question.id, idx)}
                 className={cn(
-                  "p-3 sm:p-4 text-left border-2 rounded-xl sm:rounded-2xl group transition-all h-full flex flex-col justify-center",
+                  "p-4 sm:p-5 text-left border-2 rounded-2xl group transition-all min-h-[80px]",
                   isSelected 
                     ? "bg-[#DDF4FF] dark:bg-[#0369A1] border-[#84D8FF] dark:border-[#38BDF8] text-[#1899D6] dark:text-[#E0F2FE]" 
                     : "border-gray-200 dark:border-[#334155] bg-white dark:bg-[#0F172A] hover:bg-gray-50 dark:hover:bg-[#1E293B] hover:border-blue-400 dark:hover:border-blue-500 text-[#4B4B4B] dark:text-gray-200"
                 )}
               >
-                <div className="flex items-start gap-3">
-                  <span className={cn("w-8 h-8 sm:w-10 sm:h-10 text-sm sm:text-base flex shrink-0 items-center justify-center border-2 rounded-lg sm:rounded-xl font-black transition-colors mt-0.5", 
+                <div className="flex items-start gap-4">
+                  <span className={cn("w-10 h-10 sm:w-12 sm:h-12 text-base flex shrink-0 items-center justify-center border-2 rounded-xl font-black transition-colors mt-0.5", 
                     isSelected ? "border-[#84D8FF] dark:border-[#38BDF8] bg-white dark:bg-[#0369A1] text-[#1899D6] dark:text-[#E0F2FE]" : "border-gray-200 dark:border-[#334155] text-gray-400 dark:text-gray-500 group-hover:bg-blue-100 dark:group-hover:bg-[#1E293B] group-hover:border-blue-400 dark:group-hover:border-blue-500 group-hover:text-blue-600 dark:group-hover:text-blue-400"
                   )}>
                     {String.fromCharCode(65 + idx)}
                   </span>
-                  <span className="text-sm sm:text-base font-bold leading-tight">{opt}</span>
+                  <span className="text-base sm:text-lg font-bold leading-snug">{opt}</span>
                 </div>
               </button>
             );
