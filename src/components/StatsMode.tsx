@@ -1,8 +1,9 @@
+import { useState, useMemo } from 'react';
 import { AppState } from '../types';
 import { questions } from '../data/questions';
-import { X, Trophy, TrendingUp, AlertCircle, Clock, Target } from 'lucide-react';
+import { X, Trophy, TrendingUp, AlertCircle, Clock, Target, List, ArrowLeft, Activity } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip } from 'recharts';
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 
 interface StatsModeProps {
   appState: AppState;
@@ -10,6 +11,8 @@ interface StatsModeProps {
 }
 
 export default function StatsMode({ appState, onExit }: StatsModeProps) {
+  const [showDetailedStats, setShowDetailedStats] = useState(false);
+
   // Compute stats
   const totalQuestions = questions.length;
   const answeredQuestions = Object.keys(appState.stats).length;
@@ -27,11 +30,86 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
       const stat = appState.stats[qId];
       const totalAttempts = stat.correct + stat.incorrect;
       const errorRate = totalAttempts > 0 ? stat.incorrect / totalAttempts : 0;
-      return { qId, errorRate, incorrect: stat.incorrect };
+      return { qId, errorRate, incorrect: stat.incorrect, correct: stat.correct, box: stat.box, easiness: stat.easiness || 2.5 };
     })
     .filter(item => item.incorrect > 0)
-    .sort((a, b) => b.errorRate - a.errorRate)
-    .slice(0, 5); // top 5 hardest questions
+    .sort((a, b) => b.errorRate - a.errorRate);
+
+  const topErrors = errorRates.slice(0, 5); // top 5 hardest questions
+
+  // Prepare Daily Activity Data for Chart (last 7 days)
+  const activityData = useMemo(() => {
+    const data = [];
+    const today = new Date();
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(d.getDate() - i);
+      const dateStr = d.toISOString().split('T')[0];
+      const displayStr = d.toLocaleDateString('it-IT', { weekday: 'short' });
+      data.push({
+        name: displayStr,
+        domande: appState.dailyActivity?.[dateStr] || 0
+      });
+    }
+    return data;
+  }, [appState.dailyActivity]);
+
+  if (showDetailedStats) {
+    return (
+      <div className="h-full w-full bg-white dark:bg-[#1E293B] sm:rounded-[32px] sm:border-2 sm:border-gray-200 dark:sm:border-[#334155] overflow-hidden shadow-sm transition-colors duration-300 flex flex-col">
+        <header className="flex items-center justify-between p-4 border-b-2 border-gray-200 dark:border-[#334155] shrink-0 transition-colors">
+          <button onClick={() => setShowDetailedStats(false)} className="flex items-center gap-2 text-sm sm:text-base font-bold text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
+            <ArrowLeft size={20} />
+            Indietro
+          </button>
+          <h2 className="text-sm sm:text-lg font-black text-[#4B4B4B] dark:text-[#F8FAFC] uppercase tracking-widest">Dettaglio Frasi</h2>
+        </header>
+        <main className="flex-1 overflow-y-auto p-4 sm:p-6 flex flex-col gap-4">
+          {questions.map(q => {
+            const stat = appState.stats[q.id];
+            const hasSeen = !!stat;
+            const totalAttempts = hasSeen ? stat.correct + stat.incorrect : 0;
+            const accuracy = totalAttempts > 0 ? Math.round((stat.correct / totalAttempts) * 100) : 0;
+            const confidenceScore = hasSeen ? Math.min(100, Math.round(((stat.easiness || 2.5) - 1.3) / 1.3 * 100)) : 0; // simplistic normalization for UI
+
+            return (
+              <div key={q.id} className="bg-gray-50 dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] p-4 rounded-xl flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+                <div className="flex-1">
+                  <p className="font-bold text-[#3C3C3C] dark:text-[#F8FAFC] text-sm sm:text-base mb-1">{q.prompt}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase tracking-wider">{q.category}</p>
+                </div>
+                <div className="flex flex-row sm:flex-col gap-4 sm:gap-2 items-center sm:items-end w-full sm:w-auto shrink-0">
+                  {hasSeen ? (
+                    <>
+                      <div className="flex flex-col items-center sm:items-end">
+                        <span className="text-[10px] sm:text-xs font-black text-gray-400 uppercase tracking-widest">Accuratezza</span>
+                        <span className={cn("text-sm sm:text-base font-black", accuracy > 70 ? "text-[#58CC02]" : accuracy > 40 ? "text-[#FFC800]" : "text-[#FF4B4B]")}>
+                          {accuracy}%
+                        </span>
+                      </div>
+                      <div className="flex flex-col items-center sm:items-end w-full sm:w-24">
+                        <div className="flex justify-between w-full mb-1">
+                          <span className="text-[10px] sm:text-xs font-black text-gray-400 uppercase tracking-widest">Confidenza</span>
+                          <span className="text-[10px] sm:text-xs font-black text-[#1CB0F6]">{confidenceScore}%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 dark:bg-[#334155] h-2 rounded-full overflow-hidden">
+                          <div className="bg-[#1CB0F6] h-full transition-all" style={{ width: `${confidenceScore}%` }} />
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <span className="text-xs font-bold text-gray-400 dark:text-gray-500 px-3 py-1 bg-gray-200 dark:bg-[#334155] rounded-full uppercase tracking-wider">
+                      Mai vista
+                    </span>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="h-full w-full bg-white dark:bg-[#1E293B] sm:rounded-[32px] sm:border-2 sm:border-gray-200 dark:sm:border-[#334155] overflow-hidden shadow-sm transition-colors duration-300">
@@ -61,6 +139,28 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
             </div>
           </div>
 
+          {/* Activity Chart */}
+          <div className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] rounded-2xl p-4 sm:p-6 transition-colors flex flex-col min-h-[250px]">
+             <h3 className="text-sm sm:text-base font-black text-[#4B4B4B] dark:text-[#F8FAFC] mb-4 uppercase tracking-widest flex items-center gap-2 shrink-0">
+              <Activity className="text-[#FFC800] dark:text-[#FBBF24] w-5 h-5" />
+              Costanza (Ultimi 7 Giorni)
+            </h3>
+            <div className="flex-1 min-h-[150px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={activityData} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
+                  <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#9CA3AF', fontWeight: 'bold' }} />
+                  <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#9CA3AF', fontWeight: 'bold' }} allowDecimals={false} />
+                  <Tooltip 
+                    cursor={{ fill: '#F3F4F6' }}
+                    contentStyle={{ borderRadius: '12px', border: '2px solid #E5E7EB', fontWeight: 'bold', color: '#4B4B4B' }}
+                  />
+                  <Bar dataKey="domande" fill="#1CB0F6" radius={[4, 4, 0, 0]} maxBarSize={40} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
           {/* Exam Stats */}
           <div className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] rounded-2xl p-4 sm:p-6 transition-colors flex flex-col justify-center">
             <h3 className="text-sm sm:text-base font-black text-[#4B4B4B] dark:text-[#F8FAFC] mb-3 uppercase tracking-widest flex items-center gap-2 shrink-0">
@@ -83,42 +183,20 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
             </div>
           </div>
 
-          {/* Errori */}
-          <div className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] rounded-2xl p-4 sm:p-6 transition-colors flex flex-col">
-            <h3 className="text-sm sm:text-base font-black text-[#4B4B4B] dark:text-[#F8FAFC] mb-3 uppercase tracking-widest flex items-center gap-2 shrink-0">
-              <AlertCircle className="text-[#FF4B4B] dark:text-[#F87171] w-5 h-5" />
-              Errori Comuni
-            </h3>
-            {errorRates.length === 0 ? (
-              <div className="py-6 flex items-center justify-center text-center">
-                <span className="font-bold text-sm text-gray-400 dark:text-gray-500">Non ci sono ancora dati sufficienti.</span>
-              </div>
-            ) : (
-              <div className="space-y-3">
-                {errorRates.slice(0, 3).map(err => {
-                  const q = questions.find(q => q.id === err.qId);
-                  if (!q) return null;
-                  return (
-                    <div key={err.qId} className="bg-[#FFE5E5] dark:bg-[#7F1D1D] border border-[#FF4B4B] dark:border-[#EF4444] rounded-xl p-3 sm:p-4 shadow-sm transition-colors flex flex-col gap-2">
-                      <p className="font-bold text-sm sm:text-base text-[#3C3C3C] dark:text-[#F8FAFC] line-clamp-2 leading-tight">{q.prompt}</p>
-                      <div className="flex items-center justify-between mt-1">
-                        <span className="text-xs sm:text-sm font-bold bg-white dark:bg-[#450A0A] text-[#D80000] dark:text-[#FCA5A5] px-2 py-1 rounded shadow-sm">
-                          {Math.round(err.errorRate * 100)}% errore
-                        </span>
-                        <span className="text-xs sm:text-sm font-bold text-[#46A302] dark:text-[#34D399] truncate max-w-[50%]">
-                          {q.options[q.correctIndex]}
-                        </span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
         </div>
 
         {/* Right Column */}
-        <div className="flex flex-col gap-4 sm:gap-6 min-h-[300px] sm:min-h-0">
+        <div className="flex flex-col gap-4 sm:gap-6">
+          
+          {/* Go to detailed view button */}
+          <button 
+            onClick={() => setShowDetailedStats(true)}
+            className="w-full bg-[#1CB0F6] hover:bg-[#1899D6] border-b-4 border-[#1899D6] active:border-b-0 active:translate-y-1 text-white font-black text-sm sm:text-base py-3 sm:py-4 px-4 rounded-xl sm:rounded-2xl transition-all uppercase tracking-widest flex items-center justify-center gap-2"
+          >
+            <List className="w-5 h-5" />
+            Vedi Dettaglio Frasi
+          </button>
+
           {appState.examCategoryStats && Object.keys(appState.examCategoryStats).length > 0 ? (
             <div className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] rounded-2xl p-4 sm:p-6 transition-colors flex flex-col h-full min-h-[300px]">
               <h3 className="text-sm sm:text-base font-black text-[#4B4B4B] dark:text-[#F8FAFC] mb-4 uppercase tracking-widest flex items-center gap-2 shrink-0">
@@ -178,6 +256,39 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
               <p className="text-sm font-bold text-gray-400">Completa almeno un esame per vedere il tuo Skill Profile radar.</p>
             </div>
           )}
+
+          {/* Errori Comuni */}
+          <div className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] rounded-2xl p-4 sm:p-6 transition-colors flex flex-col">
+            <h3 className="text-sm sm:text-base font-black text-[#4B4B4B] dark:text-[#F8FAFC] mb-3 uppercase tracking-widest flex items-center gap-2 shrink-0">
+              <AlertCircle className="text-[#FF4B4B] dark:text-[#F87171] w-5 h-5" />
+              Errori Comuni
+            </h3>
+            {topErrors.length === 0 ? (
+              <div className="py-6 flex items-center justify-center text-center">
+                <span className="font-bold text-sm text-gray-400 dark:text-gray-500">Non ci sono ancora dati sufficienti.</span>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {topErrors.map(err => {
+                  const q = questions.find(q => q.id === err.qId);
+                  if (!q) return null;
+                  return (
+                    <div key={err.qId} className="bg-[#FFE5E5] dark:bg-[#7F1D1D] border border-[#FF4B4B] dark:border-[#EF4444] rounded-xl p-3 sm:p-4 shadow-sm transition-colors flex flex-col gap-2">
+                      <p className="font-bold text-sm sm:text-base text-[#3C3C3C] dark:text-[#F8FAFC] line-clamp-2 leading-tight">{q.prompt}</p>
+                      <div className="flex items-center justify-between mt-1">
+                        <span className="text-xs sm:text-sm font-bold bg-white dark:bg-[#450A0A] text-[#D80000] dark:text-[#FCA5A5] px-2 py-1 rounded shadow-sm">
+                          {Math.round(err.errorRate * 100)}% errore
+                        </span>
+                        <span className="text-xs sm:text-sm font-bold text-[#46A302] dark:text-[#34D399] truncate max-w-[50%]">
+                          {q.options[q.correctIndex]}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </div>
       </main>
       </div>

@@ -144,7 +144,7 @@ export function updateStreak(state: AppState): AppState {
 
   if (!newState.lastActiveDate) {
     newState.streak = 1;
-    newState.lastActiveDate = today;
+    newState.lastActiveDate = now.getTime();
   } else {
     const lastActive = new Date(newState.lastActiveDate);
     const lastActiveDay = new Date(lastActive.getFullYear(), lastActive.getMonth(), lastActive.getDate()).getTime();
@@ -152,11 +152,14 @@ export function updateStreak(state: AppState): AppState {
     if (today - lastActiveDay === ONE_DAY) {
       // Consecutive day
       newState.streak += 1;
-      newState.lastActiveDate = today;
+      newState.lastActiveDate = now.getTime();
     } else if (today - lastActiveDay > ONE_DAY) {
       // Streak broken
       newState.streak = 1;
-      newState.lastActiveDate = today;
+      newState.lastActiveDate = now.getTime();
+    } else {
+      // Same day, just update exact time to reflect latest activity
+      newState.lastActiveDate = now.getTime();
     }
   }
 

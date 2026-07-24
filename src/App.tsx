@@ -50,11 +50,15 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleUpdateAppState = (newState: AppState) => {
+    const updatedState = updateStreak(newState);
+    setAppState(updatedState);
+    saveState(updatedState);
+    if (user) syncToCloud(user.uid, updatedState);
+  };
+
   const handleUpdateStats = (newStats: UserStats) => {
-    const newState = { ...appState, stats: newStats };
-    setAppState(newState);
-    saveState(newState);
-    if (user) syncToCloud(user.uid, newState);
+    handleUpdateAppState({ ...appState, stats: newStats });
   };
 
   const handleExamComplete = (historyEntry: ExamHistory, categoryUpdates: Record<string, { correct: number, total: number }>) => {
@@ -72,12 +76,12 @@ export default function App() {
       const newDailyActivity = { ...(prev.dailyActivity || {}) };
       newDailyActivity[dateString] = (newDailyActivity[dateString] || 0) + 30; // Assuming 30 questions in exam
 
-      const newState = { 
+      const newState = updateStreak({ 
         ...prev, 
         history: [...prev.history, historyEntry],
         examCategoryStats: mergedCategoryStats,
         dailyActivity: newDailyActivity
-      };
+      });
       saveState(newState);
       if (user) syncToCloud(user.uid, newState);
       return newState;
@@ -134,11 +138,7 @@ export default function App() {
           appState={appState}
           mode={learnMode}
           category={learnCategory}
-          onUpdateAppState={(newState) => {
-            setAppState(newState);
-            saveState(newState);
-            if (user) syncToCloud(user.uid, newState);
-          }}
+          onUpdateAppState={handleUpdateAppState}
           onExit={() => setView('menu')}
         />
       )}
