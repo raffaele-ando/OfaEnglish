@@ -27,12 +27,22 @@ export default function Menu({ appState, user, onStartSmart, onStartLearn, onSta
   const xpForNextLevel = Math.pow(currentLevel, 2) * 50;
   const progressPercent = Math.min(100, Math.max(0, ((totalXP - xpForCurrentLevel) / (xpForNextLevel - xpForCurrentLevel)) * 100));
 
-  // Daily Quest with Endowed Progress & Goal Gradient
+  // Endless Daily Quest
   const todayStr = new Date().toISOString().split('T')[0];
   const todayActivity = appState.dailyActivity?.[todayStr] || 0;
-  const dailyGoal = 5;
   const endowedDaily = 1; // 1 free progress step every day just for opening the app (Endowed Progress)
-  const currentDailyProgress = Math.min(dailyGoal, todayActivity + endowedDaily);
+  const currentTotalDaily = todayActivity + endowedDaily;
+  
+  const milestones = [10, 25, 50, 100, 150, 250, 400, 600, 1000, 99999];
+  let milestoneIndex = 0;
+  while (milestoneIndex < milestones.length - 1 && currentTotalDaily >= milestones[milestoneIndex]) {
+    milestoneIndex++;
+  }
+  const currentMilestone = milestones[milestoneIndex];
+  const previousMilestone = milestoneIndex === 0 ? 0 : milestones[milestoneIndex - 1];
+  const currentPhaseProgress = currentTotalDaily - previousMilestone;
+  const currentPhaseGoal = currentMilestone - previousMilestone;
+  const phaseProgressPercent = Math.min(100, (currentPhaseProgress / currentPhaseGoal) * 100);
 
   return (
     <div className="h-full w-full bg-white dark:bg-[#1E293B] sm:rounded-[32px] sm:border-2 sm:border-gray-200 dark:sm:border-[#334155] overflow-hidden shadow-sm transition-colors duration-300">
@@ -93,32 +103,23 @@ export default function Menu({ appState, user, onStartSmart, onStartLearn, onSta
               </div>
             </div>
 
-            {/* Daily Goal */}
+            {/* Daily Goal Endless */}
             <div className="bg-white dark:bg-[#0F172A] rounded-2xl p-3 sm:p-4 border-2 border-gray-200 dark:border-[#334155] border-b-4 flex flex-col justify-center gap-2 shadow-sm transition-colors relative overflow-hidden group">
               <div className="flex justify-between items-center z-10 leading-none">
-                <span className="text-sm sm:text-base font-black text-[#4B4B4B] dark:text-[#F8FAFC]">Obiettivo</span>
-                <span className="text-sm sm:text-base font-black text-[#1CB0F6]">{currentDailyProgress}/{dailyGoal}</span>
+                <span className="text-sm sm:text-base font-black text-[#4B4B4B] dark:text-[#F8FAFC] flex items-center gap-2">
+                  Sfida Quotidiana
+                  <span className="bg-[#1CB0F6] text-white text-[10px] sm:text-xs px-2 py-0.5 rounded-lg uppercase tracking-wider">
+                    Fase {milestoneIndex + 1}
+                  </span>
+                </span>
+                <span className="text-sm sm:text-base font-black text-[#1CB0F6]">{currentTotalDaily}/{currentMilestone}</span>
               </div>
               
-              <div className="flex gap-1.5 z-10">
-                {Array.from({ length: dailyGoal }).map((_, i) => {
-                  const isCompleted = i < currentDailyProgress;
-                  const isEndowed = i < endowedDaily;
-                  return (
-                    <div 
-                      key={i} 
-                      className={cn(
-                        "flex-1 h-4 sm:h-6 rounded flex items-center justify-center border-2 transition-all duration-300",
-                        isCompleted 
-                          ? isEndowed 
-                            ? "bg-[#FFC800] border-[#E5B400] text-white" 
-                            : "bg-[#1CB0F6] border-[#1899D6] text-white scale-105" 
-                          : "bg-gray-100 dark:bg-[#1E293B] border-gray-200 dark:border-[#334155] text-transparent"
-                      )}
-                    >
-                    </div>
-                  );
-                })}
+              <div className="w-full bg-gray-200 dark:bg-[#334155] h-2 sm:h-3 rounded-full overflow-hidden flex relative mt-1">
+                <div 
+                  className={cn("bg-[#1CB0F6] h-full rounded-full transition-all duration-700 ease-out", phaseProgressPercent > 80 && "animate-pulse")} 
+                  style={{ width: `${phaseProgressPercent}%` }} 
+                />
               </div>
             </div>
           </div>
