@@ -31,7 +31,11 @@ export const signInWithGoogle = async () => {
     if (window.self !== window.top) {
       alert(`Errore di login: ${error.message}\n\nATTENZIONE: Stai usando l'app dentro un'anteprima. Per fare il login con Google, apri l'app in una nuova scheda cliccando l'icona in alto a destra o copiando l'URL del browser.`);
     } else {
-      alert(`Errore di login: ${error.message}. Assicurati di aver aggiunto il dominio in Firebase.`);
+      if (error.code === 'auth/network-request-failed') {
+        alert(`Errore di connessione: il tuo browser sta bloccando il login. Se stai usando Brave, disattiva gli "Scudi" per questo sito. Se usi un Adblocker (es. uBlock Origin) prova a disattivarlo temporaneamente. Assicurati anche di aver aggiunto il dominio in Firebase Console.`);
+      } else {
+        alert(`Errore di login: ${error.message}. Assicurati di aver aggiunto il dominio in Firebase.`);
+      }
     }
     
     throw error;
