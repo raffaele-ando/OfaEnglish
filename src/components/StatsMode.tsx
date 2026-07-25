@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { AppState } from '../types';
 import { questions } from '../data/questions';
-import { X, Trophy, TrendingUp, AlertCircle, Clock, Target, List, ArrowLeft, Activity } from 'lucide-react';
+import { X, Trophy, TrendingUp, AlertCircle, Clock, Target, List, ArrowLeft, Activity, Filter, ArrowDownUp, ArrowUp, ArrowDown, Minus } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 
@@ -12,6 +12,8 @@ interface StatsModeProps {
 
 export default function StatsMode({ appState, onExit }: StatsModeProps) {
   const [showDetailedStats, setShowDetailedStats] = useState(false);
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const [filterCategory, setFilterCategory] = useState<string>('all');
 
   // Compute stats
   const totalQuestions = questions.length;
@@ -65,6 +67,29 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
     return data;
   }, [appState.dailyActivity, appState.dailyTimeSpent]);
 
+  const categories = useMemo(() => Array.from(new Set(questions.map(q => q.category))), []);
+
+  const filteredAndSortedQuestions = useMemo(() => {
+    let filtered = questions;
+    if (filterCategory !== 'all') {
+      filtered = filtered.filter(q => q.category === filterCategory);
+    }
+    
+    return [...filtered].sort((a, b) => {
+      const statA = appState.stats[a.id];
+      const statB = appState.stats[b.id];
+      
+      const confA = statA ? Math.min(100, Math.round(((statA.easiness || 2.5) - 1.3) / 1.3 * 100)) : -1;
+      const confB = statB ? Math.min(100, Math.round(((statB.easiness || 2.5) - 1.3) / 1.3 * 100)) : -1;
+
+      if (sortOrder === 'asc') {
+        return confA - confB;
+      } else {
+        return confB - confA;
+      }
+    });
+  }, [filterCategory, sortOrder, appState.stats]);
+
   if (showDetailedStats) {
     return (
       <div className="h-full w-full bg-white dark:bg-[#1E293B] sm:rounded-[32px] sm:border-2 sm:border-gray-200 dark:sm:border-[#334155] overflow-hidden shadow-sm transition-colors duration-300 flex flex-col">
@@ -75,13 +100,39 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
           </button>
           <h2 className="text-sm sm:text-lg font-black text-[#4B4B4B] dark:text-[#F8FAFC] uppercase tracking-widest">Dettaglio Frasi</h2>
         </header>
+        <div className="flex items-center justify-between p-4 border-b-2 border-gray-200 dark:border-[#334155] shrink-0 transition-colors bg-gray-50 dark:bg-[#0F172A]">
+          <div className="flex items-center gap-2">
+            <Filter size={16} className="text-gray-500 dark:text-gray-400" />
+            <select
+              value={filterCategory}
+              onChange={(e) => setFilterCategory(e.target.value)}
+              className="bg-transparent border-none text-sm font-bold text-[#4B4B4B] dark:text-[#F8FAFC] focus:ring-0 cursor-pointer"
+            >
+              <option value="all">Tutte le categorie</option>
+              {categories.map(c => <option key={c} value={c}>{c}</option>)}
+            </select>
+          </div>
+          <button
+            onClick={() => setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc')}
+            className="flex items-center gap-2 text-sm font-bold text-[#1CB0F6] hover:text-[#1899D6] transition-colors"
+          >
+            <ArrowDownUp size={16} />
+            {sortOrder === 'asc' ? 'Peggiori prima' : 'Migliori prima'}
+          </button>
+        </div>
         <main className="flex-1 overflow-y-auto p-4 sm:p-6 flex flex-col gap-4">
-          {questions.map(q => {
+          {filteredAndSortedQuestions.map(q => {
             const stat = appState.stats[q.id];
             const hasSeen = !!stat;
             const totalAttempts = hasSeen ? stat.correct + stat.incorrect : 0;
             const accuracy = totalAttempts > 0 ? Math.round((stat.correct / totalAttempts) * 100) : 0;
             const confidenceScore = hasSeen ? Math.min(100, Math.round(((stat.easiness || 2.5) - 1.3) / 1.3 * 100)) : 0; // simplistic normalization for UI
+            const previousEasiness = stat?.previousEasiness ?? stat?.easiness;
+            let trend = 'same';
+            if (stat && stat.easiness !== undefined && previousEasiness !== undefined) {
+              if (stat.easiness > previousEasiness) trend = 'up';
+              if (stat.easiness < previousEasiness) trend = 'down';
+            }
 
             return (
               <div key={q.id} className="bg-gray-50 dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] p-4 rounded-xl flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
@@ -99,8 +150,13 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
                         </span>
                       </div>
                       <div className="flex flex-col items-center sm:items-end w-full sm:w-24">
-                        <div className="flex justify-between w-full mb-1">
-                          <span className="text-[10px] sm:text-xs font-black text-gray-400 uppercase tracking-widest">Confidenza</span>
+                        <div className="flex justify-between w-full mb-1 items-center">
+                          <span className="text-[10px] sm:text-xs font-black text-gray-400 uppercase tracking-widest flex items-center gap-1">
+                            Confidenza
+                            {trend === 'up' && <ArrowUp size={12} className="text-[#58CC02]" />}
+                            {trend === 'down' && <ArrowDown size={12} className="text-[#FF4B4B]" />}
+                            {trend === 'same' && <Minus size={12} className="text-gray-400" />}
+                          </span>
                           <span className="text-[10px] sm:text-xs font-black text-[#1CB0F6]">{confidenceScore}%</span>
                         </div>
                         <div className="w-full bg-gray-200 dark:bg-[#334155] h-2 rounded-full overflow-hidden">

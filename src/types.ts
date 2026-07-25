@@ -15,6 +15,7 @@ export interface UserStats {
     box: number; // Repetitions (previously Leitner box)
     easiness?: number; // SuperMemo-2 E-factor
     interval?: number; // Interval in days
+    previousEasiness?: number; // per calcolare il trend
   };
 }
 

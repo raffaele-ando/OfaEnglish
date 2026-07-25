@@ -209,6 +209,7 @@ export function updateStats(appState: AppState, questionId: string, isCorrect: b
         lastSeen: Date.now(),
         box: newRepetitions,
         easiness: newEasiness,
+        previousEasiness: qStats.easiness,
         interval: newInterval,
       }
     }
