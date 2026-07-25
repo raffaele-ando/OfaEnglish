@@ -51,6 +51,31 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    let lastSync = Date.now();
+    const interval = setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        setAppState(prev => {
+          const dateString = new Date().toISOString().split('T')[0];
+          const newDailyTimeSpent = { ...(prev.dailyTimeSpent || {}) };
+          newDailyTimeSpent[dateString] = (newDailyTimeSpent[dateString] || 0) + 10;
+          
+          const newState = { ...prev, dailyTimeSpent: newDailyTimeSpent };
+          saveState(newState);
+          
+          const now = Date.now();
+          if (now - lastSync >= 60000 && user) {
+            syncToCloud(user.uid, newState);
+            lastSync = now;
+          }
+          return newState;
+        });
+      }
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [user]);
+
   const handleUpdateAppState = (newState: AppState) => {
     const updatedState = updateStreak(newState);
     setAppState(updatedState);

@@ -125,6 +125,14 @@ export async function syncFromCloud(userId: string, localState: AppState): Promi
           mergedState.dailyActivity[dateStr] = Math.max(mergedState.dailyActivity[dateStr] || 0, count);
         }
       }
+      
+      // 7. Merge dailyTimeSpent
+      if (cloudState.dailyTimeSpent) {
+        if (!mergedState.dailyTimeSpent) mergedState.dailyTimeSpent = {};
+        for (const [dateStr, time] of Object.entries(cloudState.dailyTimeSpent)) {
+          mergedState.dailyTimeSpent[dateStr] = Math.max(mergedState.dailyTimeSpent[dateStr] || 0, time);
+        }
+      }
 
       saveState(mergedState);
       return mergedState;

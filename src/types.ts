@@ -40,4 +40,5 @@ export interface AppState {
   };
   examCategoryStats?: Record<string, { correct: number; total: number; }>;
   dailyActivity?: Record<string, number>;
+  dailyTimeSpent?: Record<string, number>;
 }

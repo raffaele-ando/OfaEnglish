@@ -58,11 +58,12 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
       const displayStr = d.toLocaleDateString('it-IT', { weekday: 'short' });
       data.push({
         name: displayStr,
-        domande: appState.dailyActivity?.[dateStr] || 0
+        domande: appState.dailyActivity?.[dateStr] || 0,
+        minuti: Math.round((appState.dailyTimeSpent?.[dateStr] || 0) / 60)
       });
     }
     return data;
-  }, [appState.dailyActivity]);
+  }, [appState.dailyActivity, appState.dailyTimeSpent]);
 
   if (showDetailedStats) {
     return (
@@ -175,7 +176,8 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
                     cursor={{ fill: '#F3F4F6' }}
                     contentStyle={{ borderRadius: '12px', border: '2px solid #E5E7EB', fontWeight: 'bold', color: '#4B4B4B' }}
                   />
-                  <Bar dataKey="domande" fill="#1CB0F6" radius={[4, 4, 0, 0]} maxBarSize={40} />
+                  <Bar dataKey="domande" name="Domande" fill="#1CB0F6" radius={[4, 4, 0, 0]} maxBarSize={30} />
+                  <Bar dataKey="minuti" name="Minuti" fill="#58CC02" radius={[4, 4, 0, 0]} maxBarSize={30} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
