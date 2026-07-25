@@ -1,5 +1,5 @@
 import { AppState } from '../types';
-import { BookOpen, GraduationCap, Download, Flame, Award, BarChart2, Upload, Cloud, Moon, Sun, Crown, Gift, CheckCircle } from 'lucide-react';
+import { BookOpen, GraduationCap, Download, Flame, Award, BarChart2, Upload, Cloud, Moon, Sun, Crown, Gift, CheckCircle, Bug } from 'lucide-react';
 import { User } from 'firebase/auth';
 import { useTheme } from '../hooks/useTheme';
 import { cn } from '../lib/utils';
@@ -15,9 +15,10 @@ interface MenuProps {
   onImport: () => void;
   onLogin: () => void;
   onLogout: () => void;
+  onOpenDebug: () => void;
 }
 
-export default function Menu({ appState, user, onStartSmart, onStartLearn, onStartExam, onOpenStats, onExport, onImport, onLogin, onLogout }: MenuProps) {
+export default function Menu({ appState, user, onStartSmart, onStartLearn, onStartExam, onOpenStats, onExport, onImport, onLogin, onLogout, onOpenDebug }: MenuProps) {
   const { isDark, toggleTheme } = useTheme();
 
   // Endowed Progress Effect: Give users a 50 XP head start so they feel invested immediately.
@@ -51,6 +52,13 @@ export default function Menu({ appState, user, onStartSmart, onStartLearn, onSta
         <header className="flex justify-between items-center shrink-0">
           <h1 className="text-xl sm:text-2xl font-black text-[#4B4B4B] dark:text-[#F8FAFC] tracking-tight">OFA Polimi Prep</h1>
           <div className="flex items-center gap-2 sm:gap-3">
+            <button 
+              onClick={onOpenDebug}
+              className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+              title="Debug Firebase"
+            >
+              <Bug size={24} strokeWidth={2.5} />
+            </button>
             <button 
               onClick={toggleTheme}
               className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"

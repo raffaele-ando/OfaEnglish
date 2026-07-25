@@ -13,9 +13,10 @@ import PracticeMenu from './components/PracticeMenu';
 import LearnMode from './components/LearnMode';
 import ExamMode from './components/ExamMode';
 import StatsMode from './components/StatsMode';
+import DebugMode from './components/DebugMode';
 import { Layout } from './components/Layout';
 
-type View = 'menu' | 'practiceMenu' | 'learn' | 'exam' | 'stats';
+type View = 'menu' | 'practiceMenu' | 'learn' | 'exam' | 'stats' | 'debug';
 
 export default function App() {
   const [view, setView] = useState<View>('menu');
@@ -121,6 +122,7 @@ export default function App() {
           onImport={() => fileInputRef.current?.click()}
           onLogin={signInWithGoogle}
           onLogout={logout}
+          onOpenDebug={() => setView('debug')}
         />
       )}
       {view === 'practiceMenu' && (
@@ -161,6 +163,9 @@ export default function App() {
         ref={fileInputRef}
         onChange={handleImport}
       />
+      {view === 'debug' && (
+        <DebugMode onBack={() => setView('menu')} />
+      )}
     </Layout>
   );
 }
