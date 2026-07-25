@@ -650,5 +650,83 @@ export const questions: Question[] = [
     correctIndex: 1,
     explanation: "'Since' + a point in the past requires the Present Perfect Continuous ('have been playing').",
     category: "Grammatica"
+  },
+  {
+    id: "q51",
+    prompt: "Complete the sentence: 'How many people _____ to the party?'",
+    options: [
+      "came",
+      "come",
+      "comes",
+      "coming"
+    ],
+    correctIndex: 0,
+    explanation: "Referring to a past event ('the party' implies it already happened), so Past Simple ('came') is appropriate.",
+    category: "Grammatica"
+  },
+  {
+    id: "q52",
+    prompt: "Choose the correct sentence for comparing two cities:",
+    options: [
+      "New York is more much modern than London.",
+      "New York is much more modern than London.",
+      "New York is most modern than London.",
+      "New York is much moderner than London."
+    ],
+    correctIndex: 1,
+    explanation: "To emphasize a comparative, we use 'much' before the comparative form ('much more modern').",
+    category: "Grammatica"
+  },
+  {
+    id: "q53",
+    prompt: "Complete the sentence: 'Tom is away. He _____ away since Monday.'",
+    options: [
+      "was",
+      "is",
+      "has been",
+      "had been"
+    ],
+    correctIndex: 2,
+    explanation: "'Since Monday' requires Present Perfect ('has been') to connect the past to the present.",
+    category: "Grammatica"
+  },
+  {
+    id: "q54",
+    prompt: "Complete the sentence: 'Hurry! The bus _____ in 2 minutes.'",
+    options: [
+      "leaves",
+      "leaving",
+      "is leave",
+      "left"
+    ],
+    correctIndex: 0,
+    explanation: "Present Simple ('leaves') is used for scheduled events like bus or train timetables.",
+    category: "Grammatica"
+  },
+  {
+    id: "q55",
+    prompt: "Complete the sentence: 'Have you ever _____ to Brasil?'",
+    options: [
+      "been",
+      "gone",
+      "go",
+      "went"
+    ],
+    correctIndex: 0,
+    explanation: "We use 'been to' to mean 'visited and returned'.",
+    category: "Grammatica"
+  },
+  {
+    id: "q56",
+    prompt: "Complete the sentence: 'Is she _____ with friends?'",
+    options: [
+      "gone",
+      "go",
+      "going",
+      "goes"
+    ],
+    correctIndex: 2,
+    explanation: "The auxiliary 'Is' indicates Present Continuous, which requires the -ing form ('going').",
+    category: "Grammatica"
   }
 ];

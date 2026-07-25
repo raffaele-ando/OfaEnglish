@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, signOut } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, signInWithPopup, browserPopupRedirectResolver, signOut } from 'firebase/auth';
 import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -19,7 +19,7 @@ export const googleProvider = new GoogleAuthProvider();
 
 export const signInWithGoogle = async () => {
   try {
-    const result = await signInWithPopup(auth, googleProvider);
+    const result = await signInWithPopup(auth, googleProvider, browserPopupRedirectResolver);
     return result.user;
   } catch (error: any) {
     if (error.code === 'auth/popup-closed-by-user') {
@@ -27,7 +27,13 @@ export const signInWithGoogle = async () => {
       return null;
     }
     console.error("Error signing in with Google", error);
-    alert(`Errore di login: ${error.message}. Assicurati di aver aggiunto il dominio di Cloudflare in Firebase Console -> Authentication -> Settings -> Authorized domains.`);
+    
+    if (window.self !== window.top) {
+      alert(`Errore di login: ${error.message}\n\nATTENZIONE: Stai usando l'app dentro un'anteprima. Per fare il login con Google, apri l'app in una nuova scheda cliccando l'icona in alto a destra o copiando l'URL del browser.`);
+    } else {
+      alert(`Errore di login: ${error.message}. Assicurati di aver aggiunto il dominio in Firebase.`);
+    }
+    
     throw error;
   }
 };

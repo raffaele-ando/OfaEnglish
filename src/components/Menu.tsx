@@ -64,10 +64,20 @@ export default function Menu({ appState, user, onStartSmart, onStartLearn, onSta
             {user ? (
                <button onClick={onLogout} className="text-xs font-bold text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors uppercase tracking-widest hidden sm:block">Logout</button>
             ) : (
-               <button onClick={onLogin} className="flex items-center gap-1.5 text-xs font-black text-white uppercase tracking-widest bg-[#1CB0F6] hover:bg-[#1899D6] border-b-2 border-[#1899D6] active:border-b-0 active:translate-y-0.5 px-3 py-1.5 rounded-xl transition-all shadow-sm"><Cloud size={16} /> Sign in</button>
+              <div className="flex flex-col items-end gap-1">
+                <button onClick={onLogin} className="flex items-center gap-1.5 text-xs font-black text-white uppercase tracking-widest bg-[#1CB0F6] hover:bg-[#1899D6] border-b-2 border-[#1899D6] active:border-b-0 active:translate-y-0.5 px-3 py-1.5 rounded-xl transition-all shadow-sm">
+                  <Cloud size={16} /> Sign in
+                </button>
+              </div>
             )}
           </div>
         </header>
+
+        {!user && window.self !== window.top && (
+          <div className="bg-[#FFE5E5] dark:bg-[#7F1D1D]/30 border-2 border-[#FF4B4B] dark:border-[#EF4444] rounded-xl p-2 sm:p-3 text-xs sm:text-sm font-bold text-[#D80000] dark:text-[#FCA5A5] flex items-center justify-center text-center shadow-sm shrink-0">
+            ⚠️ Per fare il login con Google, apri l'app in una nuova scheda (clicca l'icona "Open in new tab" in alto a destra).
+          </div>
+        )}
 
         {/* Sync Info for mobile logout */}
         {user && (
