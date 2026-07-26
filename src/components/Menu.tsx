@@ -3,6 +3,7 @@ import { BookOpen, GraduationCap, Download, Flame, Award, BarChart2, Upload, Clo
 import { User } from 'firebase/auth';
 import { useTheme } from '../hooks/useTheme';
 import { cn } from '../lib/utils';
+import { questions } from '../data/questions';
 
 interface MenuProps {
   appState: AppState;
@@ -44,6 +45,20 @@ export default function Menu({ appState, user, onStartSmart, onStartLearn, onSta
   const currentPhaseProgress = currentTotalDaily - previousMilestone;
   const currentPhaseGoal = currentMilestone - previousMilestone;
   const phaseProgressPercent = Math.min(100, (currentPhaseProgress / currentPhaseGoal) * 100);
+
+  // Global Progress Stats
+  const totalQuestions = questions.length;
+  const masteredQuestions = Object.values(appState.stats).filter(stat => stat.box > 0).length;
+  const masteryPercent = totalQuestions > 0 ? Math.min(100, Math.round((masteredQuestions / totalQuestions) * 100)) : 0;
+
+  let totalCorrect = 0;
+  let totalIncorrect = 0;
+  Object.values(appState.stats).forEach(stat => {
+    totalCorrect += stat.correct;
+    totalIncorrect += stat.incorrect;
+  });
+  const totalAttempts = totalCorrect + totalIncorrect;
+  const accuracyPercent = totalAttempts > 0 ? Math.round((totalCorrect / totalAttempts) * 100) : 0;
 
   return (
     <div className="h-full w-full bg-white dark:bg-[#1E293B] sm:rounded-[32px] sm:border-2 sm:border-gray-200 dark:sm:border-[#334155] overflow-hidden shadow-sm transition-colors duration-300">
@@ -139,6 +154,25 @@ export default function Menu({ appState, user, onStartSmart, onStartLearn, onSta
                   style={{ width: `${phaseProgressPercent}%` }} 
                 />
               </div>
+            </div>
+          </div>
+          
+          {/* Learning Progress */}
+          <div className="bg-white dark:bg-[#0F172A] rounded-2xl p-4 sm:p-5 border-2 border-gray-200 dark:border-[#334155] border-b-4 flex flex-col gap-2 shadow-sm transition-colors shrink-0 max-w-sm mx-auto w-full">
+            <div className="flex justify-between items-end mb-1">
+              <span className="text-sm font-black text-[#4B4B4B] dark:text-[#F8FAFC]">Domande Imparate</span>
+              <div className="flex flex-col items-end leading-tight">
+                <span className="text-[10px] font-black text-[#CE82FF] dark:text-[#D946EF] uppercase tracking-widest mb-1">
+                  Accuratezza {accuracyPercent}%
+                </span>
+                <span className="text-base font-black text-[#58CC02]">{masteryPercent}%</span>
+              </div>
+            </div>
+            <div className="w-full bg-gray-200 dark:bg-[#334155] h-3 rounded-full overflow-hidden flex relative">
+              <div 
+                className="bg-[#58CC02] h-full rounded-full transition-all duration-700 ease-out" 
+                style={{ width: `${masteryPercent}%` }} 
+              />
             </div>
           </div>
 
