@@ -36,6 +36,23 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
     ? Math.round((totalCorrect / (totalCorrect + totalIncorrect)) * 100) 
     : 0;
 
+  const topicStats = useMemo(() => {
+    const stats: Record<string, { correct: number; total: number }> = {};
+    questions.forEach(q => {
+      if (q.grammarTopic) {
+        const stat = appState.stats[q.id];
+        if (stat) {
+          if (!stats[q.grammarTopic]) {
+            stats[q.grammarTopic] = { correct: 0, total: 0 };
+          }
+          stats[q.grammarTopic].correct += stat.correct;
+          stats[q.grammarTopic].total += stat.correct + stat.incorrect;
+        }
+      }
+    });
+    return stats;
+  }, [appState.stats]);
+
   // Find most frequent errors
   const errorRates = Object.keys(appState.stats)
     .map(qId => {
@@ -289,7 +306,7 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
             Vedi Dettaglio Frasi
           </button>
 
-          {appState.examCategoryStats && Object.keys(appState.examCategoryStats).length > 0 ? (
+          {Object.keys(topicStats).length >= 3 ? (
             <div className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] rounded-2xl p-4 sm:p-6 transition-colors flex flex-col h-full min-h-[300px]">
               <h3 className="text-sm sm:text-base font-black text-[#4B4B4B] dark:text-[#F8FAFC] mb-4 uppercase tracking-widest flex items-center gap-2 shrink-0">
                 <Target className="text-[#1CB0F6] dark:text-[#38BDF8] w-5 h-5" />
@@ -302,7 +319,7 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
                     cx="50%" 
                     cy="50%" 
                     outerRadius="70%" 
-                    data={Object.entries(appState.examCategoryStats).map(([cat, stats]) => ({
+                    data={Object.entries(topicStats).map(([cat, stats]) => ({
                       subject: cat,
                       A: Math.round((stats.correct / stats.total) * 100),
                       fullMark: 100,
@@ -311,7 +328,7 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
                     <PolarGrid stroke="#e5e7eb" className="dark:stroke-[#334155]" />
                     <PolarAngleAxis 
                       dataKey="subject" 
-                      tick={{ fill: '#9CA3AF', fontSize: 12, fontWeight: 'bold' }} 
+                      tick={{ fill: '#9CA3AF', fontSize: 10, fontWeight: 'bold' }} 
                     />
                     <PolarRadiusAxis 
                       angle={30} 
@@ -345,7 +362,7 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
           ) : (
             <div className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] rounded-2xl p-6 transition-colors flex-1 flex flex-col justify-center items-center text-center min-h-[300px]">
               <AlertCircle className="text-[#FF4B4B] dark:text-[#F87171] w-10 h-10 mb-3 opacity-50" />
-              <p className="text-sm font-bold text-gray-400">Completa almeno un esame per vedere il tuo Skill Profile radar.</p>
+              <p className="text-sm font-bold text-gray-400">Rispondi a più domande su diversi argomenti per vedere il tuo Skill Profile radar.</p>
             </div>
           )}
 
