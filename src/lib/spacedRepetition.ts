@@ -29,7 +29,15 @@ export function selectPracticeQuestions(stats: UserStats, options: { numQuestion
   
   let pool = questions;
   if (category && mode === 'category') {
-    pool = questions.filter(q => q.category === category);
+    if (category.startsWith('level:')) {
+      pool = questions.filter(q => q.level === category.substring(6));
+    } else if (category.startsWith('topic:')) {
+      pool = questions.filter(q => q.grammarTopic === category.substring(6));
+    } else if (category.startsWith('category:')) {
+      pool = questions.filter(q => q.category === category.substring(9));
+    } else {
+      pool = questions.filter(q => q.category === category);
+    }
   }
 
   const scoredQuestions = pool.map(q => {

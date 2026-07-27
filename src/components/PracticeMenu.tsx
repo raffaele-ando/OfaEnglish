@@ -10,7 +10,9 @@ interface PracticeMenuProps {
 export default function PracticeMenu({ onSelectMode, onBack }: PracticeMenuProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   
-  const categories = Array.from(new Set(questions.map(q => q.category)));
+  const categories = Array.from(new Set(questions.map(q => q.category))).filter(Boolean);
+  const levels = Array.from(new Set(questions.map(q => q.level))).filter(Boolean);
+  const topics = Array.from(new Set(questions.map(q => q.grammarTopic))).filter(Boolean);
 
   return (
     <div className="h-full w-full bg-white dark:bg-[#1E293B] sm:rounded-[32px] sm:border-2 sm:border-gray-200 dark:sm:border-[#334155] overflow-hidden shadow-sm transition-colors duration-300 flex flex-col">
@@ -84,8 +86,8 @@ export default function PracticeMenu({ onSelectMode, onBack }: PracticeMenuProps
               <Folder className="w-5 sm:w-6 h-5 sm:h-6" />
             </div>
             <div>
-              <h3 className="font-black text-[#4B4B4B] dark:text-[#F8FAFC] text-base sm:text-lg mb-1">Category Master</h3>
-              <p className="text-gray-500 dark:text-gray-400 font-bold text-xs">Allenati solo su una categoria.</p>
+              <h3 className="font-black text-[#4B4B4B] dark:text-[#F8FAFC] text-base sm:text-lg mb-1">Filtro Mirato</h3>
+              <p className="text-gray-500 dark:text-gray-400 font-bold text-xs">Allenati su una categoria, livello o argomento specifico.</p>
             </div>
           </div>
           <div className="flex flex-row gap-3 mt-auto">
@@ -94,10 +96,22 @@ export default function PracticeMenu({ onSelectMode, onBack }: PracticeMenuProps
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
-              <option value="" disabled>Scegli Categoria...</option>
-              {categories.map(c => (
-                <option key={c} value={c}>{c}</option>
-              ))}
+              <option value="" disabled>Seleziona un filtro...</option>
+              <optgroup label="Categorie">
+                {categories.map(c => (
+                  <option key={`category:${c}`} value={`category:${c}`}>{c}</option>
+                ))}
+              </optgroup>
+              <optgroup label="Livelli">
+                {levels.map(l => (
+                  <option key={`level:${l}`} value={`level:${l}`}>Livello {l}</option>
+                ))}
+              </optgroup>
+              <optgroup label="Argomenti Grammaticali">
+                {topics.map(t => (
+                  <option key={`topic:${t}`} value={`topic:${t}`}>{t}</option>
+                ))}
+              </optgroup>
             </select>
             <button
               disabled={!selectedCategory}
