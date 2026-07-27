@@ -12,7 +12,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "We use Present Perfect ('Have you ever been') for life experiences.",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "B1",
+    grammarTopic: "Present Perfect"
   },
   {
     id: "q2",
@@ -25,7 +27,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 2,
     explanation: "'Is there' is the correct question form of 'there is' for singular nouns.",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "There is / There are"
   },
   {
     id: "q3",
@@ -38,7 +42,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "After 'did', we use the base form of the verb ('meet', not 'met').",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Past Simple"
   },
   {
     id: "q4",
@@ -51,7 +57,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "The superlative of 'bad' is 'worst'.",
-    category: "Traduzione"
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Comparatives and Superlatives"
   },
   {
     id: "q5",
@@ -64,7 +72,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "With a finished time in the past ('in 2009'), we use the Past Simple ('went').",
-    category: "Traduzione"
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Past Simple"
   },
   {
     id: "q6",
@@ -77,7 +87,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 2,
     explanation: "We use 'more + adjective + than' for comparatives with long adjectives.",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Comparatives and Superlatives"
   },
   {
     id: "q7",
@@ -90,7 +102,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 2,
     explanation: "'Where' is used to ask about a place.",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Past Simple"
   },
   {
     id: "q8",
@@ -103,7 +117,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 2,
     explanation: "'People' is plural and countable, so we use 'How many are'.",
-    category: "Traduzione"
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Quantifiers"
   },
   {
     id: "q9",
@@ -116,7 +132,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "We use 'in' for future time limits ('in 2 minutes'). 'Will leave' expresses a future fact.",
-    category: "Traduzione"
+    category: "Traduzione",
+    level: "B1",
+    grammarTopic: "Prepositions of Time"
   },
   {
     id: "q10",
@@ -129,7 +147,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "In offers, we normally use 'something', not 'anything'. The infinitive is 'to drink'.",
-    category: "Traduzione"
+    category: "Traduzione",
+    level: "B1",
+    grammarTopic: "Prepositions of Time"
   },
   {
     id: "q11",
@@ -142,7 +162,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "Third person singular in Present Simple requires an 's' ('works'). 'Work for' is the correct preposition.",
-    category: "Traduzione"
+    category: "Traduzione",
+    level: "B1",
+    grammarTopic: "Prepositions of Time"
   },
   {
     id: "q12",
@@ -155,7 +177,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "Present Continuous ('is raining') is used for actions happening right now.",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Present Continuous"
   },
   {
     id: "q13",
@@ -168,7 +192,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "'Milk' is uncountable (use 'is there'). 'Any' is used in questions.",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "There is / There are"
   },
   {
     id: "q14",
@@ -181,7 +207,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 2,
     explanation: "We use Present Perfect ('have you studied') with 'How long' for actions starting in the past and continuing now.",
-    category: "Traduzione"
+    category: "Traduzione",
+    level: "B1",
+    grammarTopic: "Present Perfect"
   },
   {
     id: "q15",
@@ -194,7 +222,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 3,
     explanation: "Modal verb 'can' is followed by the base form without 'to' ('can speak').",
-    category: "Traduzione"
+    category: "Traduzione",
+    level: "B1",
+    grammarTopic: "Prepositions of Time"
   },
   {
     id: "q16",
@@ -207,7 +237,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "In WH- questions, the auxiliary 'did' is followed by the base verb 'go'. The preposition 'with' goes at the end.",
-    category: "Traduzione"
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Past Simple"
   },
   {
     id: "q17",
@@ -220,7 +252,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 2,
     explanation: "'Yesterday' requires the Past Simple ('went').",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Past Simple"
   },
   {
     id: "q18",
@@ -233,7 +267,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 3,
     explanation: "'People' is plural, so the relative clause verb is plural ('come').",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "General"
   },
   {
     id: "q19",
@@ -246,7 +282,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 2,
     explanation: "A specific time in the past ('in 1996') requires the Past Simple ('met').",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Past Simple"
   },
   {
     id: "q20",
@@ -259,7 +297,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "We use the pronoun 'one' to avoid repeating a singular countable noun.",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "General"
   },
   {
     id: "q21",
@@ -272,7 +312,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "'Could' is a modal and is followed by the bare infinitive ('be'). 'Could be living' implies an ongoing action in the future.",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "General"
   },
   {
     id: "q22",
@@ -285,7 +327,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "'Since' is used with Present Perfect to indicate a starting point in time.",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "B1",
+    grammarTopic: "Present Perfect"
   },
   {
     id: "q23",
@@ -298,7 +342,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 2,
     explanation: "For scheduled future events, we use Present Simple. 'Plane' is 'it', so we use 'does'.",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "B1",
+    grammarTopic: "Prepositions of Time"
   },
   {
     id: "q24",
@@ -311,7 +357,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Modal 'can' is followed by a bare infinitive ('offer'). The object complement is a full infinitive ('to drink').",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "B1",
+    grammarTopic: "Prepositions of Time"
   },
   {
     id: "q25",
@@ -324,7 +372,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "'While' is followed by a continuous tense (Past Continuous) to show an ongoing background action.",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "General"
   },
   {
     id: "q26",
@@ -337,7 +387,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 3,
     explanation: "'Well' is the adverb form of 'good' and modifies the verb 'speak'.",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "B1",
+    grammarTopic: "Prepositions of Time"
   },
   {
     id: "q27",
@@ -350,7 +402,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 2,
     explanation: "After 'want', we use an object pronoun ('me') + to-infinitive.",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "General"
   },
   {
     id: "q28",
@@ -363,7 +417,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 2,
     explanation: "'Friends' is a plural countable noun. Used generally here without an article.",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "General"
   },
   {
     id: "q29",
@@ -376,7 +432,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 2,
     explanation: "'Yesterday' indicates Past Simple. The past of 'buy' is 'bought'.",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Past Simple"
   },
   {
     id: "q30",
@@ -389,7 +447,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 3,
     explanation: "For a scheduled timetable in the future, we use the Present Simple ('leaves').",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "B1",
+    grammarTopic: "Prepositions of Time"
   },
   {
     id: "q31",
@@ -402,7 +462,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "We use 'any' in negative sentences. 'Milk' is uncountable, so we use 'isn't'.",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "There is / There are"
   },
   {
     id: "q32",
@@ -415,7 +477,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 3,
     explanation: "Present Perfect uses the auxiliary 'have' + past participle ('studied').",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "B1",
+    grammarTopic: "Present Perfect"
   },
   {
     id: "q33",
@@ -428,7 +492,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "'Look!' implies an action happening right now (Present Continuous).",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Present Continuous"
   },
   {
     id: "q34",
@@ -441,7 +507,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 2,
     explanation: "When the question word ('How many people') is the subject, we don't use 'did'. We just use the past verb ('came').",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Past Simple"
   },
   {
     id: "q35",
@@ -454,7 +522,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "The superlative form is 'the worst'.",
-    category: "Traduzione"
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Comparatives and Superlatives"
   },
   {
     id: "q36",
@@ -467,7 +537,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Present Simple third person requires 'works'. The preposition is 'for'.",
-    category: "Traduzione"
+    category: "Traduzione",
+    level: "B1",
+    grammarTopic: "Prepositions of Time"
   },
   {
     id: "q37",
@@ -480,7 +552,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "'When' asks for a specific past time, so we use Past Simple auxiliary 'did'.",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Past Simple"
   },
   {
     id: "q38",
@@ -493,7 +567,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 2,
     explanation: "The phrase to ask about origins is 'Where do you come from?'",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Questions and Origins"
   },
   {
     id: "q39",
@@ -506,7 +582,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "'Since' is used with a specific point in time (Monday) to show when an action started.",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "B1",
+    grammarTopic: "Present Perfect"
   },
   {
     id: "q40",
@@ -519,7 +597,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 2,
     explanation: "Past Simple negative uses 'didn't' + base verb ('like').",
-    category: "Traduzione"
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Past Simple"
   },
   {
     id: "q41",
@@ -532,7 +612,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "We use Present Simple ('leaves') for timetabled future events.",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "B1",
+    grammarTopic: "Prepositions of Time"
   },
   {
     id: "q42",
@@ -545,7 +627,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 2,
     explanation: "'Ever' is used with Present Perfect to mean 'at any time in my life'.",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "B1",
+    grammarTopic: "Present Perfect"
   },
   {
     id: "q43",
@@ -558,7 +642,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 2,
     explanation: "Past Simple ('went') is required for a specific finished past time ('in 2001').",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Past Simple"
   },
   {
     id: "q44",
@@ -571,7 +657,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "Present Perfect ('Have you met') is used for life experiences when the time is not specified.",
-    category: "Traduzione"
+    category: "Traduzione",
+    level: "B1",
+    grammarTopic: "Present Perfect"
   },
   {
     id: "q45",
@@ -584,7 +672,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "'Have you ever been to' is the standard way to ask about travel experiences.",
-    category: "Traduzione"
+    category: "Traduzione",
+    level: "B1",
+    grammarTopic: "Present Perfect"
   },
   {
     id: "q46",
@@ -597,7 +687,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "We use the possessive 's (Sara's) to show belonging.",
-    category: "Traduzione"
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Possessive S"
   },
   {
     id: "q47",
@@ -610,7 +702,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "We use 'There is' to express existence.",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "There is / There are"
   },
   {
     id: "q48",
@@ -623,7 +717,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 2,
     explanation: "'Right now' indicates Present Continuous ('is doing').",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Present Continuous"
   },
   {
     id: "q49",
@@ -636,7 +732,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "First Conditional structure: If + Present Simple, will + base verb.",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "B1",
+    grammarTopic: "First Conditional"
   },
   {
     id: "q50",
@@ -649,7 +747,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "'Since' + a point in the past requires the Present Perfect Continuous ('have been playing').",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "B1",
+    grammarTopic: "Present Perfect"
   },
   {
     id: "q51",
@@ -662,7 +762,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Referring to a past event ('the party' implies it already happened), so Past Simple ('came') is appropriate.",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Past Simple"
   },
   {
     id: "q52",
@@ -675,7 +777,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 1,
     explanation: "To emphasize a comparative, we use 'much' before the comparative form ('much more modern').",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Comparatives and Superlatives"
   },
   {
     id: "q53",
@@ -688,7 +792,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 2,
     explanation: "'Since Monday' requires Present Perfect ('has been') to connect the past to the present.",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "B1",
+    grammarTopic: "Present Perfect"
   },
   {
     id: "q54",
@@ -701,7 +807,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "Present Simple ('leaves') is used for scheduled events like bus or train timetables.",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "B1",
+    grammarTopic: "Prepositions of Time"
   },
   {
     id: "q55",
@@ -714,7 +822,9 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: "We use 'been to' to mean 'visited and returned'.",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "B1",
+    grammarTopic: "Present Perfect"
   },
   {
     id: "q56",
@@ -727,6 +837,8 @@ export const questions: Question[] = [
     ],
     correctIndex: 2,
     explanation: "The auxiliary 'Is' indicates Present Continuous, which requires the -ing form ('going').",
-    category: "Grammatica"
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Present Continuous"
   }
 ];

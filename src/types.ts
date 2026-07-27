@@ -5,6 +5,8 @@ export interface Question {
   correctIndex: number;
   explanation: string;
   category: string;
+  level?: string;
+  grammarTopic?: string;
 }
 
 export interface UserStats {

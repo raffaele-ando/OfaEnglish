@@ -138,7 +138,21 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
               <div key={q.id} className="bg-gray-50 dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] p-4 rounded-xl flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
                 <div className="flex-1">
                   <p className="font-bold text-[#3C3C3C] dark:text-[#F8FAFC] text-sm sm:text-base mb-1">{q.prompt}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase tracking-wider">{q.category}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase tracking-wider flex items-center gap-2 flex-wrap">
+                    <span>{q.category}</span>
+                    {q.level && (
+                      <>
+                        <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600"></span>
+                        <span className="bg-[#1CB0F6]/10 text-[#1CB0F6] px-1.5 py-0.5 rounded">{q.level}</span>
+                      </>
+                    )}
+                    {q.grammarTopic && (
+                      <>
+                        <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600"></span>
+                        <span>{q.grammarTopic}</span>
+                      </>
+                    )}
+                  </p>
                 </div>
                 <div className="flex flex-row sm:flex-col gap-4 sm:gap-2 items-center sm:items-end w-full sm:w-auto shrink-0">
                   {hasSeen ? (
