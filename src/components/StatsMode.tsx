@@ -84,6 +84,48 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
     return data;
   }, [appState.dailyActivity, appState.dailyTimeSpent]);
 
+  const levelStatsData = useMemo(() => {
+    const stats: Record<string, { imparate: number; total: number }> = {};
+    questions.forEach(q => {
+      const level = q.level || 'Varie';
+      if (!stats[level]) {
+        stats[level] = { imparate: 0, total: 0 };
+      }
+      stats[level].total += 1;
+      const stat = appState.stats[q.id];
+      if (stat && stat.box > 0) {
+        stats[level].imparate += 1;
+      }
+    });
+    return Object.entries(stats).map(([name, data]) => ({
+      name,
+      imparate: data.imparate,
+      daImparare: data.total - data.imparate,
+      total: data.total
+    })).sort((a, b) => a.name.localeCompare(b.name));
+  }, [appState.stats]);
+
+  const topicStatsData = useMemo(() => {
+    const stats: Record<string, { imparate: number; total: number }> = {};
+    questions.forEach(q => {
+      const topic = q.grammarTopic || 'Altro';
+      if (!stats[topic]) {
+        stats[topic] = { imparate: 0, total: 0 };
+      }
+      stats[topic].total += 1;
+      const stat = appState.stats[q.id];
+      if (stat && stat.box > 0) {
+        stats[topic].imparate += 1;
+      }
+    });
+    return Object.entries(stats).map(([name, data]) => ({
+      name,
+      imparate: data.imparate,
+      daImparare: data.total - data.imparate,
+      total: data.total
+    })).sort((a, b) => b.total - a.total);
+  }, [appState.stats]);
+
   const categories = useMemo(() => Array.from(new Set(questions.map(q => q.category))), []);
 
   const filteredAndSortedQuestions = useMemo(() => {
@@ -371,6 +413,54 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
               <p className="text-sm font-bold text-gray-400">Rispondi a più domande su diversi argomenti per vedere il tuo Skill Profile radar.</p>
             </div>
           )}
+
+          {/* Progresso per Livello */}
+          <div className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] rounded-2xl p-4 sm:p-6 transition-colors flex flex-col min-h-[250px]">
+             <h3 className="text-sm sm:text-base font-black text-[#4B4B4B] dark:text-[#F8FAFC] mb-4 uppercase tracking-widest flex items-center gap-2 shrink-0">
+              <TrendingUp className="text-[#FFC800] dark:text-[#FBBF24] w-5 h-5" />
+              Progresso per Livello
+            </h3>
+            <div className="flex-1 min-h-[150px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={levelStatsData} margin={{ top: 10, right: 10, left: -25, bottom: 0 }} layout="vertical">
+                  <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#E5E7EB" className="dark:stroke-[#334155]" />
+                  <XAxis type="number" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#9CA3AF', fontWeight: 'bold' }} allowDecimals={false} />
+                  <YAxis type="category" dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#9CA3AF', fontWeight: 'bold' }} />
+                  <Tooltip 
+                    cursor={{ fill: '#F3F4F6' }}
+                    contentStyle={{ borderRadius: '12px', border: '2px solid #E5E7EB', fontWeight: 'bold', color: '#4B4B4B' }}
+                    formatter={(value: number, name: string) => [value, name === 'daImparare' ? 'Da Imparare' : name]}
+                  />
+                  <Bar dataKey="imparate" name="Imparate" stackId="a" fill="#58CC02" radius={[0, 0, 0, 0]} maxBarSize={30} />
+                  <Bar dataKey="daImparare" name="Da Imparare" stackId="a" fill="#E5E7EB" radius={[0, 4, 4, 0]} maxBarSize={30} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          {/* Progresso per Argomento */}
+          <div className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] rounded-2xl p-4 sm:p-6 transition-colors flex flex-col min-h-[350px]">
+             <h3 className="text-sm sm:text-base font-black text-[#4B4B4B] dark:text-[#F8FAFC] mb-4 uppercase tracking-widest flex items-center gap-2 shrink-0">
+              <List className="text-[#CE82FF] dark:text-[#D946EF] w-5 h-5" />
+              Progresso per Argomento
+            </h3>
+            <div className="flex-1 min-h-[250px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={topicStatsData} margin={{ top: 10, right: 10, left: 30, bottom: 0 }} layout="vertical">
+                  <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#E5E7EB" className="dark:stroke-[#334155]" />
+                  <XAxis type="number" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#9CA3AF', fontWeight: 'bold' }} allowDecimals={false} />
+                  <YAxis type="category" dataKey="name" width={120} axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#9CA3AF', fontWeight: 'bold' }} />
+                  <Tooltip 
+                    cursor={{ fill: '#F3F4F6' }}
+                    contentStyle={{ borderRadius: '12px', border: '2px solid #E5E7EB', fontWeight: 'bold', color: '#4B4B4B' }}
+                    formatter={(value: number, name: string) => [value, name === 'daImparare' ? 'Da Imparare' : name]}
+                  />
+                  <Bar dataKey="imparate" name="Imparate" stackId="a" fill="#1CB0F6" radius={[0, 0, 0, 0]} maxBarSize={20} />
+                  <Bar dataKey="daImparare" name="Da Imparare" stackId="a" fill="#E5E7EB" radius={[0, 4, 4, 0]} maxBarSize={20} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
 
           {/* Errori Comuni */}
           <div className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] rounded-2xl p-4 sm:p-6 transition-colors flex flex-col">

@@ -1742,4 +1742,1507 @@ export const questions: Question[] = [
     level: "A1",
     grammarTopic: "Questions and Origins"
   }
+,
+  {
+    id: "q117",
+    prompt: "Translate 'Questo è il libro più lungo che abbia mai letto.'",
+    options: [
+      "This is the longest book I have ever read.",
+      "This is the most long book I have ever read.",
+      "This is the longer book I have ever read.",
+      "This is longest book I have ever read."
+    ],
+    correctIndex: 0,
+    explanation: "Superlative of short adjectives takes -est.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Comparatives and Superlatives"
+  },
+  {
+    id: "q118",
+    prompt: "Complete: 'My car is _____ than yours.'",
+    options: [
+      "faster",
+      "more fast",
+      "fastest",
+      "the fastest"
+    ],
+    correctIndex: 0,
+    explanation: "Comparative of fast is faster.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Comparatives and Superlatives"
+  },
+  {
+    id: "q119",
+    prompt: "Translate 'Oggi è molto più caldo di ieri.'",
+    options: [
+      "Today is much hotter than yesterday.",
+      "Today is much more hot than yesterday.",
+      "Today is very hotter than yesterday.",
+      "Today is hotter that yesterday."
+    ],
+    correctIndex: 0,
+    explanation: "'much' emphasizes the comparative 'hotter'.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Comparatives and Superlatives"
+  },
+  {
+    id: "q120",
+    prompt: "Complete: 'She is the _____ student in the class.'",
+    options: [
+      "best",
+      "better",
+      "most good",
+      "goodest"
+    ],
+    correctIndex: 0,
+    explanation: "Irregular superlative of good is best.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Comparatives and Superlatives"
+  },
+  {
+    id: "q121",
+    prompt: "Translate 'Sua sorella è meno socievole di lui.'",
+    options: [
+      "His sister is less outgoing than him.",
+      "His sister is least outgoing than him.",
+      "His sister is not outgoing than him.",
+      "His sister is minor outgoing than him."
+    ],
+    correctIndex: 0,
+    explanation: "Less + adjective + than is used for inferior comparatives.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Comparatives and Superlatives"
+  },
+  {
+    id: "q122",
+    prompt: "Complete: 'This exercise is _____ difficult than the previous one.'",
+    options: [
+      "more",
+      "much",
+      "most",
+      "very"
+    ],
+    correctIndex: 0,
+    explanation: "Long adjectives use 'more' for comparative.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Comparatives and Superlatives"
+  },
+  {
+    id: "q123",
+    prompt: "Translate 'Questo è il posto meno costoso in città.'",
+    options: [
+      "This is the least expensive place in town.",
+      "This is the less expensive place in town.",
+      "This is the not expensive place in town.",
+      "This is the most cheap place in town."
+    ],
+    correctIndex: 0,
+    explanation: "Superlative of inferiority is 'the least'.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Comparatives and Superlatives"
+  },
+  {
+    id: "q124",
+    prompt: "Complete: 'He is _____ taller than his brother.'",
+    options: [
+      "slightly",
+      "a little of",
+      "few",
+      "small"
+    ],
+    correctIndex: 0,
+    explanation: "You can modify comparatives with words like slightly, much, a lot.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Comparatives and Superlatives"
+  },
+  {
+    id: "q125",
+    prompt: "Complete: 'If I have time, I _____ you.'",
+    options: [
+      "will help",
+      "help",
+      "would help",
+      "helped"
+    ],
+    correctIndex: 0,
+    explanation: "First conditional: if + present, will + base verb.",
+    category: "Grammatica",
+    level: "B1",
+    grammarTopic: "First Conditional"
+  },
+  {
+    id: "q126",
+    prompt: "Translate 'Se lei studierà, passerà il test.'",
+    options: [
+      "If she studies, she will pass the test.",
+      "If she will study, she will pass the test.",
+      "If she study, she will pass the test.",
+      "If she studied, she will pass the test."
+    ],
+    correctIndex: 0,
+    explanation: "Present simple in the if clause, will in the main clause.",
+    category: "Traduzione",
+    level: "B1",
+    grammarTopic: "First Conditional"
+  },
+  {
+    id: "q127",
+    prompt: "Complete: 'We won\'t go to the park if it _____.'",
+    options: [
+      "rains",
+      "will rain",
+      "rain",
+      "raining"
+    ],
+    correctIndex: 0,
+    explanation: "If clause uses present simple.",
+    category: "Grammatica",
+    level: "B1",
+    grammarTopic: "First Conditional"
+  },
+  {
+    id: "q128",
+    prompt: "Translate 'Cosa dirai se lui ti chiamerà?'",
+    options: [
+      "What will you say if he calls you?",
+      "What do you say if he will call you?",
+      "What will you say if he will call you?",
+      "What would you say if he calls you?"
+    ],
+    correctIndex: 0,
+    explanation: "Question form: Wh- word + will + subject + verb + if + present simple.",
+    category: "Traduzione",
+    level: "B1",
+    grammarTopic: "First Conditional"
+  },
+  {
+    id: "q129",
+    prompt: "Complete: 'If they don\'t hurry, they _____ the bus.'",
+    options: [
+      "will miss",
+      "miss",
+      "would miss",
+      "missed"
+    ],
+    correctIndex: 0,
+    explanation: "Main clause uses will.",
+    category: "Grammatica",
+    level: "B1",
+    grammarTopic: "First Conditional"
+  },
+  {
+    id: "q130",
+    prompt: "Translate 'Se non mi aiuti, non finirò il progetto.'",
+    options: [
+      "If you don't help me, I won't finish the project.",
+      "If you won't help me, I don't finish the project.",
+      "If you not help me, I won't finish the project.",
+      "If you didn't help me, I won't finish the project."
+    ],
+    correctIndex: 0,
+    explanation: "Negative present simple in if clause, won't in main clause.",
+    category: "Traduzione",
+    level: "B1",
+    grammarTopic: "First Conditional"
+  },
+  {
+    id: "q131",
+    prompt: "Complete: 'If she _____ the job, she will move to London.'",
+    options: [
+      "gets",
+      "get",
+      "will get",
+      "got"
+    ],
+    correctIndex: 0,
+    explanation: "Third person singular needs 's' in present simple.",
+    category: "Grammatica",
+    level: "B1",
+    grammarTopic: "First Conditional"
+  },
+  {
+    id: "q132",
+    prompt: "Translate 'Gli parlerò se lo vedo.'",
+    options: [
+      "I will talk to him if I see him.",
+      "I talk to him if I will see him.",
+      "I will talk to him if I will see him.",
+      "I would talk to him if I see him."
+    ],
+    correctIndex: 0,
+    explanation: "Will in main clause, present in if clause.",
+    category: "Traduzione",
+    level: "B1",
+    grammarTopic: "First Conditional"
+  },
+  {
+    id: "q133",
+    prompt: "Complete: 'Unless you _____, you won\'t succeed.'",
+    options: [
+      "try",
+      "will try",
+      "don't try",
+      "tried"
+    ],
+    correctIndex: 0,
+    explanation: "Unless means 'if not', so it's followed by an affirmative verb.",
+    category: "Grammatica",
+    level: "B1",
+    grammarTopic: "First Conditional"
+  },
+  {
+    id: "q134",
+    prompt: "Translate 'A meno che non piova, andremo a fare una passeggiata.'",
+    options: [
+      "Unless it rains, we will go for a walk.",
+      "Unless it doesn't rain, we will go for a walk.",
+      "If it unless rains, we will go for a walk.",
+      "Unless it will rain, we will go for a walk."
+    ],
+    correctIndex: 0,
+    explanation: "Unless is followed by affirmative present simple.",
+    category: "Traduzione",
+    level: "B1",
+    grammarTopic: "First Conditional"
+  },
+  {
+    id: "q135",
+    prompt: "Complete: 'I will buy that car if it _____ too expensive.'",
+    options: [
+      "isn't",
+      "won't be",
+      "doesn't be",
+      "aren't"
+    ],
+    correctIndex: 0,
+    explanation: "Verb 'to be' in present simple negative for third person singular.",
+    category: "Grammatica",
+    level: "B1",
+    grammarTopic: "First Conditional"
+  },
+  {
+    id: "q136",
+    prompt: "Complete: 'I usually go to bed _____ 11 PM.'",
+    options: [
+      "at",
+      "in",
+      "on",
+      "by"
+    ],
+    correctIndex: 0,
+    explanation: "Use 'at' for specific times.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "General"
+  },
+  {
+    id: "q137",
+    prompt: "Translate 'Non mi piace il caffè.'",
+    options: [
+      "I don't like coffee.",
+      "I'm not like coffee.",
+      "I doesn't like coffee.",
+      "I not like coffee."
+    ],
+    correctIndex: 0,
+    explanation: "Present simple negative for I/you/we/they uses 'don't'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "General"
+  },
+  {
+    id: "q138",
+    prompt: "Complete: 'They _____ to Paris next weekend.'",
+    options: [
+      "are going",
+      "go",
+      "went",
+      "have gone"
+    ],
+    correctIndex: 0,
+    explanation: "Present continuous can be used for arranged future plans.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "General"
+  },
+  {
+    id: "q139",
+    prompt: "Translate 'Posso aiutarti?'",
+    options: [
+      "Can I help you?",
+      "Do I can help you?",
+      "Am I help you?",
+      "May I helping you?"
+    ],
+    correctIndex: 0,
+    explanation: "Modal verbs like 'can' don't use 'do' in questions.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "General"
+  },
+  {
+    id: "q140",
+    prompt: "Complete: 'She is interested _____ learning Spanish.'",
+    options: [
+      "in",
+      "on",
+      "at",
+      "about"
+    ],
+    correctIndex: 0,
+    explanation: "The adjective 'interested' is followed by the preposition 'in'.",
+    category: "Grammatica",
+    level: "B1",
+    grammarTopic: "General"
+  },
+  {
+    id: "q141",
+    prompt: "Translate 'Dobbiamo andare ora.'",
+    options: [
+      "We must go now.",
+      "We have go now.",
+      "We are must go now.",
+      "We need going now."
+    ],
+    correctIndex: 0,
+    explanation: "'Must' is followed by the base form of the verb.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "General"
+  },
+  {
+    id: "q142",
+    prompt: "Complete: 'I look forward _____ from you soon.'",
+    options: [
+      "to hearing",
+      "to hear",
+      "hearing",
+      "hear"
+    ],
+    correctIndex: 0,
+    explanation: "'Look forward to' is followed by the -ing form (gerund).",
+    category: "Grammatica",
+    level: "B1",
+    grammarTopic: "General"
+  },
+  {
+    id: "q143",
+    prompt: "Translate 'Ero molto stanco ieri sera.'",
+    options: [
+      "I was very tired last night.",
+      "I am very tired last night.",
+      "I had very tired last night.",
+      "I were very tired last night."
+    ],
+    correctIndex: 0,
+    explanation: "Past simple of 'to be' for 'I' is 'was'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "General"
+  },
+  {
+    id: "q144",
+    prompt: "Complete: 'This is the book _____ I borrowed from the library.'",
+    options: [
+      "which",
+      "who",
+      "where",
+      "what"
+    ],
+    correctIndex: 0,
+    explanation: "Relative pronoun 'which' or 'that' is used for things.",
+    category: "Grammatica",
+    level: "B1",
+    grammarTopic: "General"
+  },
+  {
+    id: "q145",
+    prompt: "Translate 'Lei sa nuotare molto bene.'",
+    options: [
+      "She can swim very well.",
+      "She can swims very well.",
+      "She knows swim very well.",
+      "She knows to swim very well."
+    ],
+    correctIndex: 0,
+    explanation: "Ability is expressed with 'can' + base verb.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "General"
+  },
+  {
+    id: "q146",
+    prompt: "Complete: 'You _____ smoke in the hospital.'",
+    options: [
+      "mustn't",
+      "don't have to",
+      "needn't",
+      "aren't"
+    ],
+    correctIndex: 0,
+    explanation: "'Mustn't' expresses prohibition.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "General"
+  },
+  {
+    id: "q147",
+    prompt: "Translate 'Non ho abbastanza soldi.'",
+    options: [
+      "I don't have enough money.",
+      "I have not enough money.",
+      "I don't have money enough.",
+      "I haven't enough money."
+    ],
+    correctIndex: 0,
+    explanation: "Present simple negative uses 'don't have', 'enough' comes before nouns.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "General"
+  },
+  {
+    id: "q148",
+    prompt: "Complete: 'That is _____ jacket.' (The jacket belongs to Tom)",
+    options: [
+      "Tom's",
+      "Toms'",
+      "Tom",
+      "Toms"
+    ],
+    correctIndex: 0,
+    explanation: "Add 's to singular names.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Possessive S"
+  },
+  {
+    id: "q149",
+    prompt: "Translate 'La casa dei miei nonni è grande.'",
+    options: [
+      "My grandparents' house is big.",
+      "My grandparent's house is big.",
+      "The house of my grandparents is big.",
+      "My grandparents house is big."
+    ],
+    correctIndex: 0,
+    explanation: "Plural nouns ending in -s just take an apostrophe.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Possessive S"
+  },
+  {
+    id: "q150",
+    prompt: "Complete: 'I love _____ new song.' (The song of the band)",
+    options: [
+      "the band's",
+      "the bands'",
+      "the band",
+      "the bands"
+    ],
+    correctIndex: 0,
+    explanation: "Singular noun 'band' takes 's.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Possessive S"
+  },
+  {
+    id: "q151",
+    prompt: "Translate 'I giocattoli dei bambini sono sparsi ovunque.'",
+    options: [
+      "The children's toys are everywhere.",
+      "The childrens' toys are everywhere.",
+      "The children toys are everywhere.",
+      "The toys of children are everywhere."
+    ],
+    correctIndex: 0,
+    explanation: "Irregular plurals not ending in -s take 's.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Possessive S"
+  },
+  {
+    id: "q152",
+    prompt: "Complete: 'This is _____ desk.' (The desk belongs to the boss)",
+    options: [
+      "the boss's",
+      "the boss'",
+      "the boss",
+      "the bosses"
+    ],
+    correctIndex: 0,
+    explanation: "Singular nouns ending in -s usually take 's.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Possessive S"
+  },
+  {
+    id: "q153",
+    prompt: "Translate 'La macchina di James è blu.'",
+    options: [
+      "James's car is blue.",
+      "James car is blue.",
+      "The car of James is blue.",
+      "Jame's car is blue."
+    ],
+    correctIndex: 0,
+    explanation: "Names ending in -s can take 's or just an apostrophe. 'James's' is common.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Possessive S"
+  },
+  {
+    id: "q154",
+    prompt: "Complete: 'I went to the _____.' (The shop of the baker)",
+    options: [
+      "baker's",
+      "bakers'",
+      "baker",
+      "bakers"
+    ],
+    correctIndex: 0,
+    explanation: "Possessive form is often used alone for shops/businesses.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Possessive S"
+  },
+  {
+    id: "q155",
+    prompt: "Translate 'È il compleanno di mia madre.'",
+    options: [
+      "It's my mother's birthday.",
+      "It's the birthday of my mother.",
+      "It's my mothers birthday.",
+      "It's my mother birthday."
+    ],
+    correctIndex: 0,
+    explanation: "Possessive 's for people.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Possessive S"
+  },
+  {
+    id: "q156",
+    prompt: "Complete: 'We are meeting at _____.' (The house of Paul)",
+    options: [
+      "Paul's",
+      "Pauls'",
+      "Paul",
+      "Pauls"
+    ],
+    correctIndex: 0,
+    explanation: "Possessive form is often used alone for people's houses.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Possessive S"
+  },
+  {
+    id: "q157",
+    prompt: "Translate 'Le scarpe da donna sono al secondo piano.'",
+    options: [
+      "Women's shoes are on the second floor.",
+      "Womens' shoes are on the second floor.",
+      "Woman's shoes are on the second floor.",
+      "Women shoes are on the second floor."
+    ],
+    correctIndex: 0,
+    explanation: "Irregular plural 'women' takes 's.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Possessive S"
+  },
+  {
+    id: "q158",
+    prompt: "Complete: 'The _____ room is down the hall.' (The room for teachers)",
+    options: [
+      "teachers'",
+      "teacher's",
+      "teachers",
+      "teacher"
+    ],
+    correctIndex: 0,
+    explanation: "Plural 'teachers' takes an apostrophe after the s.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Possessive S"
+  },
+  {
+    id: "q159",
+    prompt: "Translate 'Hai visto le chiavi di Anna?'",
+    options: [
+      "Have you seen Anna's keys?",
+      "Have you seen the keys of Anna?",
+      "Have you seen Annas keys?",
+      "Have you seen Anna keys?"
+    ],
+    correctIndex: 0,
+    explanation: "Singular name takes 's.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Possessive S"
+  }
+,
+  {
+    id: "q160",
+    prompt: "Complete: 'I have known him _____ 2010.'",
+    options: [
+      "since",
+      "for",
+      "from",
+      "in"
+    ],
+    correctIndex: 0,
+    explanation: "'Since' indicates a specific starting point in the past.",
+    category: "Grammatica",
+    level: "B1",
+    grammarTopic: "Prepositions of Time"
+  },
+  {
+    id: "q161",
+    prompt: "Translate 'Lavorano qui da molti anni.'",
+    options: [
+      "They have worked here for many years.",
+      "They work here since many years.",
+      "They have worked here since many years.",
+      "They work here for many years."
+    ],
+    correctIndex: 0,
+    explanation: "'For' is used for a duration.",
+    category: "Traduzione",
+    level: "B1",
+    grammarTopic: "Prepositions of Time"
+  },
+  {
+    id: "q162",
+    prompt: "Complete: 'They _____ tennis right now.'",
+    options: [
+      "are playing",
+      "play",
+      "playing",
+      "is playing"
+    ],
+    correctIndex: 0,
+    explanation: "Actions happening now use present continuous.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Present Continuous"
+  },
+  {
+    id: "q163",
+    prompt: "Translate 'Perché stai piangendo?'",
+    options: [
+      "Why are you crying?",
+      "Why do you cry?",
+      "Why you are crying?",
+      "Why you cry?"
+    ],
+    correctIndex: 0,
+    explanation: "Question word + are + subject + verb-ing.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Present Continuous"
+  },
+  {
+    id: "q164",
+    prompt: "Complete: 'I _____ to the doctor tomorrow afternoon.'",
+    options: [
+      "am going",
+      "go",
+      "went",
+      "going"
+    ],
+    correctIndex: 0,
+    explanation: "Present continuous is used for arranged future plans.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Present Continuous"
+  },
+  {
+    id: "q165",
+    prompt: "Translate 'Il sole sta splendendo.'",
+    options: [
+      "The sun is shining.",
+      "The sun shines.",
+      "The sun shining.",
+      "The sun are shining."
+    ],
+    correctIndex: 0,
+    explanation: "Action happening now.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Present Continuous"
+  },
+  {
+    id: "q166",
+    prompt: "Complete: 'Look! The bus _____.'",
+    options: [
+      "is coming",
+      "comes",
+      "coming",
+      "come"
+    ],
+    correctIndex: 0,
+    explanation: "'Look!' indicates an action happening at the moment.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Present Continuous"
+  },
+  {
+    id: "q167",
+    prompt: "Translate 'Non stiamo usando il computer adesso.'",
+    options: [
+      "We aren't using the computer right now.",
+      "We don't use the computer right now.",
+      "We not using the computer right now.",
+      "We isn't using the computer right now."
+    ],
+    correctIndex: 0,
+    explanation: "Negative present continuous.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Present Continuous"
+  },
+  {
+    id: "q168",
+    prompt: "Complete: '_____ he watching TV?'",
+    options: [
+      "Is",
+      "Does",
+      "Are",
+      "Do"
+    ],
+    correctIndex: 0,
+    explanation: "Auxiliary 'to be' for third person singular is 'is'.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Present Continuous"
+  },
+  {
+    id: "q169",
+    prompt: "Translate 'Sto cercando le mie chiavi.'",
+    options: [
+      "I am looking for my keys.",
+      "I look for my keys.",
+      "I am searching my keys.",
+      "I looking for my keys."
+    ],
+    correctIndex: 0,
+    explanation: "'Look for' means 'cercare', present continuous for current action.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Present Continuous"
+  },
+  {
+    id: "q170",
+    prompt: "Complete: 'The kids _____ sleeping in their room.'",
+    options: [
+      "are",
+      "is",
+      "do",
+      "does"
+    ],
+    correctIndex: 0,
+    explanation: "Plural subject 'kids' takes 'are'.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Present Continuous"
+  },
+  {
+    id: "q171",
+    prompt: "Complete: 'I have _____ finished my dinner.'",
+    options: [
+      "already",
+      "yet",
+      "ever",
+      "since"
+    ],
+    correctIndex: 0,
+    explanation: "'Already' is used in affirmative sentences for completed actions.",
+    category: "Grammatica",
+    level: "B1",
+    grammarTopic: "Present Perfect"
+  },
+  {
+    id: "q172",
+    prompt: "Translate 'È la prima volta che guido una macchina.'",
+    options: [
+      "It's the first time I have driven a car.",
+      "It's the first time I drive a car.",
+      "It's the first time I drove a car.",
+      "It's the first time I am driving a car."
+    ],
+    correctIndex: 0,
+    explanation: "'First time' expressions use the present perfect.",
+    category: "Traduzione",
+    level: "B1",
+    grammarTopic: "Present Perfect"
+  },
+  {
+    id: "q173",
+    prompt: "Complete: 'She _____ coffee every morning.'",
+    options: [
+      "drinks",
+      "drink",
+      "is drinking",
+      "drank"
+    ],
+    correctIndex: 0,
+    explanation: "Habits use present simple. Third person adds -s.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Present Simple"
+  },
+  {
+    id: "q174",
+    prompt: "Translate 'Io lavoro in un ospedale.'",
+    options: [
+      "I work in a hospital.",
+      "I am working in a hospital.",
+      "I works in a hospital.",
+      "I work to a hospital."
+    ],
+    correctIndex: 0,
+    explanation: "Permanent situations use present simple.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Present Simple"
+  },
+  {
+    id: "q175",
+    prompt: "Complete: 'They _____ play tennis on Sundays.'",
+    options: [
+      "don't",
+      "doesn't",
+      "aren't",
+      "isn't"
+    ],
+    correctIndex: 0,
+    explanation: "Plural negative present simple uses 'don't'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Present Simple"
+  },
+  {
+    id: "q176",
+    prompt: "Translate 'Lui non capisce la domanda.'",
+    options: [
+      "He doesn't understand the question.",
+      "He don't understand the question.",
+      "He isn't understand the question.",
+      "He not understands the question."
+    ],
+    correctIndex: 0,
+    explanation: "Third person singular negative uses 'doesn't'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Present Simple"
+  },
+  {
+    id: "q177",
+    prompt: "Complete: '_____ you speak English?'",
+    options: [
+      "Do",
+      "Are",
+      "Does",
+      "Is"
+    ],
+    correctIndex: 0,
+    explanation: "Question auxiliary for 'you' in present simple is 'do'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Present Simple"
+  },
+  {
+    id: "q178",
+    prompt: "Translate 'Cosa significa questa parola?'",
+    options: [
+      "What does this word mean?",
+      "What means this word?",
+      "What do this word mean?",
+      "What is meaning this word?"
+    ],
+    correctIndex: 0,
+    explanation: "Question uses 'does' for third person singular ('this word').",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Present Simple"
+  },
+  {
+    id: "q179",
+    prompt: "Complete: 'The sun _____ in the east.'",
+    options: [
+      "rises",
+      "rise",
+      "is rising",
+      "rose"
+    ],
+    correctIndex: 0,
+    explanation: "Universal facts use present simple.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Present Simple"
+  },
+  {
+    id: "q180",
+    prompt: "Translate 'Quante volte vai in palestra?'",
+    options: [
+      "How often do you go to the gym?",
+      "How often you go to the gym?",
+      "How much time do you go to the gym?",
+      "How many times you go to the gym?"
+    ],
+    correctIndex: 0,
+    explanation: "'How often' asks about frequency.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Present Simple"
+  },
+  {
+    id: "q181",
+    prompt: "Complete: 'My brother never _____ his room.'",
+    options: [
+      "cleans",
+      "clean",
+      "is cleaning",
+      "cleaned"
+    ],
+    correctIndex: 0,
+    explanation: "Adverbs of frequency are used with present simple.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Present Simple"
+  },
+  {
+    id: "q182",
+    prompt: "Translate 'Lei ha due gatti e un cane.'",
+    options: [
+      "She has two cats and a dog.",
+      "She have two cats and a dog.",
+      "She is having two cats and a dog.",
+      "She got two cats and a dog."
+    ],
+    correctIndex: 0,
+    explanation: "Third person singular of 'have' is 'has'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Present Simple"
+  },
+  {
+    id: "q183",
+    prompt: "Complete: 'We _____ like spicy food.'",
+    options: [
+      "don't",
+      "doesn't",
+      "not",
+      "aren't"
+    ],
+    correctIndex: 0,
+    explanation: "Negative present simple for 'we'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Present Simple"
+  },
+  {
+    id: "q184",
+    prompt: "Translate 'Il film inizia alle 20:30.'",
+    options: [
+      "The movie starts at 8:30 PM.",
+      "The movie is starting at 8:30 PM.",
+      "The movie start at 8:30 PM.",
+      "The movie will starting at 8:30 PM."
+    ],
+    correctIndex: 0,
+    explanation: "Timetables use present simple.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Present Simple"
+  },
+  {
+    id: "q185",
+    prompt: "Complete: 'Does he _____ in London?'",
+    options: [
+      "live",
+      "lives",
+      "living",
+      "lived"
+    ],
+    correctIndex: 0,
+    explanation: "After 'does', use the base form of the verb.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Present Simple"
+  },
+  {
+    id: "q186",
+    prompt: "Complete: 'I have _____ money in my pocket.'",
+    options: [
+      "some",
+      "any",
+      "many",
+      "few"
+    ],
+    correctIndex: 0,
+    explanation: "Affirmative uncountable noun uses 'some'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Quantifiers"
+  },
+  {
+    id: "q187",
+    prompt: "Translate 'Non ci sono mele.'",
+    options: [
+      "There aren't any apples.",
+      "There aren't some apples.",
+      "There aren't no apples.",
+      "There are any apples."
+    ],
+    correctIndex: 0,
+    explanation: "Negative countable uses 'any'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Quantifiers"
+  },
+  {
+    id: "q188",
+    prompt: "Complete: 'Do you have _____ questions?'",
+    options: [
+      "any",
+      "some",
+      "much",
+      "little"
+    ],
+    correctIndex: 0,
+    explanation: "Questions generally use 'any'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Quantifiers"
+  },
+  {
+    id: "q189",
+    prompt: "Translate 'Vorresti del tè?'",
+    options: [
+      "Would you like some tea?",
+      "Would you like any tea?",
+      "Do you like some tea?",
+      "Would you like much tea?"
+    ],
+    correctIndex: 0,
+    explanation: "Offers use 'some', not 'any'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Quantifiers"
+  },
+  {
+    id: "q190",
+    prompt: "Complete: 'There are only a _____ students in the class.'",
+    options: [
+      "few",
+      "little",
+      "much",
+      "many"
+    ],
+    correctIndex: 0,
+    explanation: "'Students' is countable, so 'a few'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Quantifiers"
+  },
+  {
+    id: "q191",
+    prompt: "Translate 'Ho pochissimo tempo.'",
+    options: [
+      "I have very little time.",
+      "I have very few time.",
+      "I have much little time.",
+      "I have very small time."
+    ],
+    correctIndex: 0,
+    explanation: "'Time' is uncountable, so 'little'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Quantifiers"
+  },
+  {
+    id: "q192",
+    prompt: "Complete: 'She reads a _____ of books.'",
+    options: [
+      "lot",
+      "many",
+      "much",
+      "some"
+    ],
+    correctIndex: 0,
+    explanation: "The phrase is 'a lot of'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Quantifiers"
+  },
+  {
+    id: "q193",
+    prompt: "Translate 'Abbiamo mangiato troppa pizza.'",
+    options: [
+      "We ate too much pizza.",
+      "We ate too many pizza.",
+      "We ate very much pizza.",
+      "We ate a lot pizza."
+    ],
+    correctIndex: 0,
+    explanation: "'Pizza' in general is uncountable, so 'too much'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Quantifiers"
+  },
+  {
+    id: "q194",
+    prompt: "Complete: 'How _____ apples do you want?'",
+    options: [
+      "many",
+      "much",
+      "some",
+      "any"
+    ],
+    correctIndex: 0,
+    explanation: "'Apples' is countable, so 'How many'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Quantifiers"
+  },
+  {
+    id: "q195",
+    prompt: "Translate 'Non abbiamo comprato niente.'",
+    options: [
+      "We didn't buy anything.",
+      "We bought anything.",
+      "We didn't buy nothing.",
+      "We didn't buy some."
+    ],
+    correctIndex: 0,
+    explanation: "Negative sentence requires 'anything'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Quantifiers"
+  },
+  {
+    id: "q196",
+    prompt: "Complete: 'Is there _____ good on TV?'",
+    options: [
+      "anything",
+      "something",
+      "nothing",
+      "everything"
+    ],
+    correctIndex: 0,
+    explanation: "Questions generally use 'anything'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Quantifiers"
+  }
+,
+  {
+    id: "q197",
+    prompt: "Complete: '_____ is that man?'",
+    options: [
+      "Who",
+      "What",
+      "Which",
+      "Where"
+    ],
+    correctIndex: 0,
+    explanation: "Asking for a person's identity requires 'Who'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Questions and Origins"
+  },
+  {
+    id: "q198",
+    prompt: "Translate 'Perché sei in ritardo?'",
+    options: [
+      "Why are you late?",
+      "Because are you late?",
+      "Why you are late?",
+      "Why do you late?"
+    ],
+    correctIndex: 0,
+    explanation: "Asking for a reason requires 'Why'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Questions and Origins"
+  },
+  {
+    id: "q199",
+    prompt: "Complete: '_____ old are you?'",
+    options: [
+      "How",
+      "What",
+      "Who",
+      "Which"
+    ],
+    correctIndex: 0,
+    explanation: "Asking about age uses 'How old'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Questions and Origins"
+  },
+  {
+    id: "q200",
+    prompt: "Translate 'Quando è il tuo compleanno?'",
+    options: [
+      "When is your birthday?",
+      "Where is your birthday?",
+      "What is your birthday?",
+      "How is your birthday?"
+    ],
+    correctIndex: 0,
+    explanation: "Asking for time/date requires 'When'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Questions and Origins"
+  },
+  {
+    id: "q201",
+    prompt: "Complete: '_____ do you live?'",
+    options: [
+      "Where",
+      "What",
+      "How",
+      "When"
+    ],
+    correctIndex: 0,
+    explanation: "Asking for a place requires 'Where'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Questions and Origins"
+  },
+  {
+    id: "q202",
+    prompt: "Translate 'Come vai al lavoro?'",
+    options: [
+      "How do you go to work?",
+      "What do you go to work?",
+      "Where do you go to work?",
+      "Why do you go to work?"
+    ],
+    correctIndex: 0,
+    explanation: "Asking for method/manner requires 'How'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Questions and Origins"
+  },
+  {
+    id: "q203",
+    prompt: "Complete: '_____ is your favorite color?'",
+    options: [
+      "What",
+      "Which",
+      "Who",
+      "How"
+    ],
+    correctIndex: 0,
+    explanation: "Asking for general preference uses 'What'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Questions and Origins"
+  },
+  {
+    id: "q204",
+    prompt: "Translate 'Di chi è questa borsa?'",
+    options: [
+      "Whose bag is this?",
+      "Who bag is this?",
+      "Which bag is this?",
+      "What bag is this?"
+    ],
+    correctIndex: 0,
+    explanation: "Asking for possession requires 'Whose'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Questions and Origins"
+  },
+  {
+    id: "q205",
+    prompt: "Complete: '_____ time does the movie start?'",
+    options: [
+      "What",
+      "Which",
+      "When",
+      "How"
+    ],
+    correctIndex: 0,
+    explanation: "Asking for a specific time uses 'What time'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Questions and Origins"
+  },
+  {
+    id: "q206",
+    prompt: "Translate 'Quanto costa questo libro?'",
+    options: [
+      "How much does this book cost?",
+      "How many does this book cost?",
+      "How price is this book?",
+      "What cost this book?"
+    ],
+    correctIndex: 0,
+    explanation: "Asking for price uses 'How much'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Questions and Origins"
+  },
+  {
+    id: "q207",
+    prompt: "Complete: '_____ languages do you speak?'",
+    options: [
+      "How many",
+      "How much",
+      "What",
+      "Which"
+    ],
+    correctIndex: 0,
+    explanation: "'Languages' is countable, so 'How many'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Questions and Origins"
+  },
+  {
+    id: "q208",
+    prompt: "Complete: '_____ a big tree in the garden.'",
+    options: [
+      "There is",
+      "There are",
+      "It is",
+      "They are"
+    ],
+    correctIndex: 0,
+    explanation: "Singular noun 'tree' requires 'There is'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "There is / There are"
+  },
+  {
+    id: "q209",
+    prompt: "Translate 'Ci sono tre sedie nella stanza.'",
+    options: [
+      "There are three chairs in the room.",
+      "They are three chairs in the room.",
+      "There is three chairs in the room.",
+      "Have three chairs in the room."
+    ],
+    correctIndex: 0,
+    explanation: "Plural noun 'chairs' requires 'There are'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "There is / There are"
+  },
+  {
+    id: "q210",
+    prompt: "Complete: '_____ any messages for me?'",
+    options: [
+      "Are there",
+      "Is there",
+      "Do there",
+      "Have there"
+    ],
+    correctIndex: 0,
+    explanation: "Question form for plural 'messages' is 'Are there'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "There is / There are"
+  },
+  {
+    id: "q211",
+    prompt: "Translate 'C\'è un buon ristorante qui vicino?'",
+    options: [
+      "Is there a good restaurant near here?",
+      "Are there a good restaurant near here?",
+      "There is a good restaurant near here?",
+      "Does there a good restaurant near here?"
+    ],
+    correctIndex: 0,
+    explanation: "Question form for singular noun.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "There is / There are"
+  },
+  {
+    id: "q212",
+    prompt: "Complete: 'There _____ a lot of people at the party.'",
+    options: [
+      "were",
+      "was",
+      "are been",
+      "is"
+    ],
+    correctIndex: 0,
+    explanation: "'People' is plural, so 'were' for past.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "There is / There are"
+  },
+  {
+    id: "q213",
+    prompt: "Translate 'Non c\'era nessuno in casa.'",
+    options: [
+      "There was nobody at home.",
+      "There wasn't nobody at home.",
+      "There were nobody at home.",
+      "It was nobody at home."
+    ],
+    correctIndex: 0,
+    explanation: "Past singular existence with negative pronoun.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "There is / There are"
+  },
+  {
+    id: "q214",
+    prompt: "Complete: '_____ going to be a storm tomorrow.'",
+    options: [
+      "There is",
+      "It is",
+      "There are",
+      "They are"
+    ],
+    correctIndex: 0,
+    explanation: "Future existence 'There is going to be'.",
+    category: "Grammatica",
+    level: "B1",
+    grammarTopic: "There is / There are"
+  },
+  {
+    id: "q215",
+    prompt: "Translate 'Ci sono dei biscotti nella scatola?'",
+    options: [
+      "Are there any biscuits in the box?",
+      "Is there any biscuits in the box?",
+      "Are there some biscuits in the box?",
+      "Do there any biscuits in the box?"
+    ],
+    correctIndex: 0,
+    explanation: "Question plural existence with 'any'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "There is / There are"
+  },
+  {
+    id: "q216",
+    prompt: "Complete: '_____ a mistake in this exercise.'",
+    options: [
+      "There is",
+      "There are",
+      "It is",
+      "This is"
+    ],
+    correctIndex: 0,
+    explanation: "Singular existence 'mistake'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "There is / There are"
+  }
 ];
