@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Question, AppState } from '../types';
 import { selectPracticeQuestions, updateStats } from '../lib/spacedRepetition';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Check, ArrowRight, RotateCcw } from 'lucide-react';
+import { X, Check, ArrowRight, RotateCcw, Lightbulb } from 'lucide-react';
 import { cn, shuffleQuestion } from '../lib/utils';
 
 interface LearnModeProps {
@@ -25,6 +25,11 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
   const [attempts, setAttempts] = useState(0);
   const [wrongOptions, setWrongOptions] = useState<Set<number>>(new Set());
   
+  // Recall mode specific state
+  const [recallWords, setRecallWords] = useState<string[]>([]);
+  const [selectedRecallWords, setSelectedRecallWords] = useState<number[]>([]);
+  const [showHint, setShowHint] = useState(false);
+
   const timeLimit = mode === 'blitz' ? 10 : 30;
   const [timeLeft, setTimeLeft] = useState(timeLimit);
 
@@ -39,7 +44,52 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
     setWrongOptions(new Set());
     setTimeLeft(timeLimit);
     setOptionsRevealed(mode !== 'recall');
-  }, [currentIndex, mode, timeLimit]);
+    setShowHint(false);
+
+    if (mode === 'recall' && questions[currentIndex]) {
+      const q = questions[currentIndex];
+      const correctText = q.options[q.correctIndex];
+      // Split by spaces, filter out empty strings just in case
+      let words = correctText.split(' ').filter(w => w.trim() !== '');
+      
+      const distractors = new Set<string>();
+      
+      // First try to get distractors from the current question's options
+      q.options.forEach((opt, idx) => {
+        if (idx !== q.correctIndex) {
+          const optWords = opt.split(' ').filter(w => w.trim() !== '');
+          optWords.forEach(w => {
+            if (!words.includes(w)) {
+              distractors.add(w);
+            }
+          });
+        }
+      });
+      
+      const maxDistractors = words.length <= 3 ? 8 : 5;
+      
+      // If we don't have enough, pull from other questions in the set
+      if (distractors.size < maxDistractors) {
+        questions.forEach(otherQ => {
+          otherQ.options.forEach(opt => {
+            const optWords = opt.split(' ').filter(w => w.trim() !== '');
+            optWords.forEach(w => {
+              if (!words.includes(w)) {
+                distractors.add(w);
+              }
+            });
+          });
+        });
+      }
+      
+      const shuffledDistractors = Array.from(distractors).sort(() => Math.random() - 0.5).slice(0, maxDistractors);
+      
+      const combined = [...words, ...shuffledDistractors].sort(() => Math.random() - 0.5);
+      
+      setRecallWords(combined);
+      setSelectedRecallWords([]);
+    }
+  }, [currentIndex, mode, timeLimit, questions]);
 
   useEffect(() => {
     if (hasChecked || timeLeft <= 0 || attempts > 0) return;
@@ -61,6 +111,39 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
   const isCorrect = selectedOption === question?.correctIndex;
 
   const handleCheck = (confidence: 'low' | 'medium' | 'high', isTimeout: boolean = false) => {
+    if (!optionsRevealed && mode === 'recall') {
+      if (selectedRecallWords.length === 0 && !isTimeout) return;
+      
+      setHasChecked(true);
+      const currentAttempts = attempts + 1;
+      setAttempts(currentAttempts);
+      
+      const constructedAnswer = selectedRecallWords.map(i => recallWords[i]).join(' ').trim();
+      const correctAnswer = question.options[question.correctIndex].split(' ').filter(w => w.trim() !== '').join(' ');
+      const correct = !isTimeout && constructedAnswer === correctAnswer;
+      
+      setSelectedOption(correct ? question.correctIndex : -1);
+
+      if (correct) {
+        const timeTakenMs = Date.now() - startTime;
+        const newState = updateStats(appState, question.id, true, timeTakenMs, currentAttempts, confidence);
+        onUpdateAppState(newState);
+        
+        if (currentAttempts === 1) {
+          setSessionStats(prev => ({ ...prev, correct: prev.correct + 1, total: prev.total + 1 }));
+        } else {
+          setSessionStats(prev => ({ ...prev, total: prev.total + 1 }));
+        }
+      } else {
+        if (currentAttempts === 1) {
+          const timeTakenMs = Date.now() - startTime;
+          const newState = updateStats(appState, question.id, false, timeTakenMs, currentAttempts, confidence);
+          onUpdateAppState(newState);
+        }
+      }
+      return;
+    }
+
     if (selectedOption === null && !isTimeout) return;
     
     setHasChecked(true);
@@ -162,16 +245,78 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
         </h2>
 
         {!optionsRevealed ? (
-          <div className="flex-1 flex flex-col items-center justify-center">
-            <button
-              onClick={() => setOptionsRevealed(true)}
-              className="bg-[#CE82FF] border-b-4 border-[#A568CC] active:border-b-0 active:translate-y-1 text-white font-black text-base sm:text-lg py-4 px-8 rounded-2xl transition-all uppercase tracking-widest shadow-sm"
-            >
-              Rivela Opzioni
-            </button>
-            <p className="text-gray-400 font-bold mt-6 text-sm sm:text-base text-center max-w-md">
-              Pensa alla risposta prima di rivelare le opzioni per massimizzare il ricordo.
-            </p>
+          <div className="flex-1 flex flex-col gap-6 w-full max-w-2xl mx-auto items-center justify-center pt-8">
+            
+            {/* Hint Section */}
+            <div className="flex flex-col items-center gap-2 mb-4 h-12 justify-center">
+              {!showHint ? (
+                <button 
+                  onClick={() => setShowHint(true)}
+                  className="flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-blue-500 dark:text-blue-400 font-bold rounded-xl hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors"
+                >
+                  <Lightbulb size={20} />
+                  Mostra Suggerimento
+                </button>
+              ) : (
+                <div className="bg-[#DDF4FF] dark:bg-[#0369A1] text-[#1899D6] dark:text-[#E0F2FE] px-4 py-2 rounded-xl text-sm font-bold text-center animate-in fade-in zoom-in duration-300">
+                  Argomento: {question.grammarTopic || question.category} {question.level && `(${question.level})`}
+                </div>
+              )}
+            </div>
+
+            {/* Answer Box */}
+            <div className={cn(
+              "min-h-[100px] w-full border-b-4 p-4 flex flex-wrap content-start gap-2 items-center bg-gray-50/50 dark:bg-[#0F172A]/50 rounded-t-2xl transition-colors",
+              hasChecked && !isCorrect ? "border-[#FF4B4B] bg-[#FFE5E5]/50 dark:bg-[#7F1D1D]/50" : "border-gray-300 dark:border-[#475569]"
+            )}>
+              {selectedRecallWords.length === 0 && (
+                <span className="text-gray-400 font-bold px-2 py-1">Tocca le parole per formare la frase...</span>
+              )}
+              {selectedRecallWords.map((wordIndex) => (
+                <button
+                  key={`selected-${wordIndex}`}
+                  onClick={() => !hasChecked && setSelectedRecallWords(prev => prev.filter(i => i !== wordIndex))}
+                  disabled={hasChecked}
+                  className={cn(
+                    "bg-white dark:bg-[#1E293B] border-2 text-[#4B4B4B] dark:text-[#F8FAFC] px-4 py-2 rounded-xl font-bold shadow-sm transition-all",
+                    hasChecked ? "border-gray-200 dark:border-[#475569] opacity-80" : "border-gray-200 dark:border-[#475569] active:scale-95 hover:border-gray-300"
+                  )}
+                >
+                  {recallWords[wordIndex]}
+                </button>
+              ))}
+            </div>
+
+            {/* Word Chips Pool */}
+            <div className="flex flex-wrap gap-3 justify-center w-full max-w-lg mt-4 min-h-[120px] content-start">
+              {recallWords.map((word, index) => {
+                const isSelected = selectedRecallWords.includes(index);
+                return (
+                  <button
+                    key={`pool-${index}`}
+                    onClick={() => !hasChecked && setSelectedRecallWords(prev => [...prev, index])}
+                    disabled={isSelected || hasChecked}
+                    className={cn(
+                      "px-4 py-2 rounded-xl font-bold transition-all text-sm sm:text-base",
+                      isSelected 
+                        ? "bg-gray-200 dark:bg-[#334155] text-transparent border-2 border-gray-200 dark:border-[#334155] cursor-default shadow-none" 
+                        : "bg-white dark:bg-[#1E293B] border-2 border-gray-200 dark:border-[#475569] border-b-4 text-[#4B4B4B] dark:text-[#F8FAFC] active:border-b-0 active:translate-y-1 cursor-pointer hover:bg-gray-50 dark:hover:bg-[#0F172A]"
+                    )}
+                  >
+                    {word}
+                  </button>
+                );
+              })}
+            </div>
+            
+            <div className="mt-8 flex flex-col items-center gap-4 pt-4">
+              <button
+                onClick={() => setOptionsRevealed(true)}
+                className="text-gray-400 font-bold text-xs sm:text-sm uppercase tracking-widest hover:text-gray-600 transition-colors"
+              >
+                Troppo difficile? Usa le opzioni multiple
+              </button>
+            </div>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
@@ -253,21 +398,21 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
             <div className="w-full sm:w-auto flex flex-row gap-2 justify-between sm:justify-end">
               <button
                 onClick={() => handleCheck('low')}
-                disabled={selectedOption === null}
+                disabled={!optionsRevealed ? selectedRecallWords.length === 0 : selectedOption === null}
                 className="flex-1 sm:flex-none bg-[#FF4B4B] border-b-4 border-[#D80000] disabled:bg-gray-200 disabled:dark:bg-[#334155] disabled:border-gray-300 disabled:dark:border-[#475569] disabled:text-gray-400 disabled:dark:text-gray-600 text-white font-black uppercase text-xs sm:text-sm py-3 sm:py-4 px-4 rounded-xl transition-all active:border-b-0 active:translate-y-1"
               >
                 Indovino
               </button>
               <button
                 onClick={() => handleCheck('medium')}
-                disabled={selectedOption === null}
+                disabled={!optionsRevealed ? selectedRecallWords.length === 0 : selectedOption === null}
                 className="flex-1 sm:flex-none bg-[#FFC800] border-b-4 border-[#E5B400] disabled:bg-gray-200 disabled:dark:bg-[#334155] disabled:border-gray-300 disabled:dark:border-[#475569] disabled:text-gray-400 disabled:dark:text-gray-600 text-white font-black uppercase text-xs sm:text-sm py-3 sm:py-4 px-4 rounded-xl transition-all active:border-b-0 active:translate-y-1"
               >
                 Incerto
               </button>
               <button
                 onClick={() => handleCheck('high')}
-                disabled={selectedOption === null}
+                disabled={!optionsRevealed ? selectedRecallWords.length === 0 : selectedOption === null}
                 className="flex-1 sm:flex-none bg-[#58CC02] border-b-4 border-[#46A302] disabled:bg-gray-200 disabled:dark:bg-[#334155] disabled:border-gray-300 disabled:dark:border-[#475569] disabled:text-gray-400 disabled:dark:text-gray-600 text-white font-black uppercase text-xs sm:text-sm py-3 sm:py-4 px-4 rounded-xl transition-all active:border-b-0 active:translate-y-1"
               >
                 Sicuro
