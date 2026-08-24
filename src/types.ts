@@ -13,6 +13,7 @@ export interface UserStats {
   [questionId: string]: {
     correct: number;
     incorrect: number;
+    omitted?: number;
     lastSeen: number;
     box: number; // Repetitions (previously Leitner box)
     easiness?: number; // SuperMemo-2 E-factor

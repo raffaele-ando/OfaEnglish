@@ -7,6 +7,7 @@ export function getQuestionStats(stats: UserStats, questionId: string) {
     return {
       correct: 0,
       incorrect: 0,
+      omitted: 0,
       lastSeen: 0,
       box: 0, // Repetitions count
       easiness: 2.5,
@@ -15,6 +16,9 @@ export function getQuestionStats(stats: UserStats, questionId: string) {
   }
   return {
     ...stats[questionId],
+    correct: stats[questionId].correct ?? 0,
+    incorrect: stats[questionId].incorrect ?? 0,
+    omitted: stats[questionId].omitted ?? 0,
     // Migrate old stats if necessary
     box: stats[questionId].box === 1 && stats[questionId].correct === 0 ? 0 : stats[questionId].box,
     easiness: stats[questionId].easiness ?? 2.5,

@@ -7,7 +7,11 @@ import { cn, calculateSimilarity, shuffleQuestion } from '../lib/utils';
 import confetti from 'canvas-confetti';
 
 interface ExamModeProps {
-  onComplete: (history: ExamHistory, categoryUpdates: Record<string, { correct: number, total: number }>) => void;
+  onComplete: (
+    history: ExamHistory, 
+    categoryUpdates: Record<string, { correct: number, total: number }>,
+    questionResults?: Record<string, 'correct' | 'incorrect' | 'omitted'>
+  ) => void;
   onExit: () => void;
 }
 
@@ -76,6 +80,7 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
     setIsFinished(true);
     let score = 0;
     const categoryUpdates: Record<string, { correct: number, total: number }> = {};
+    const questionResults: Record<string, 'correct' | 'incorrect' | 'omitted'> = {};
 
     examQuestions.forEach(q => {
       if (!categoryUpdates[q.category]) {
@@ -83,9 +88,14 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
       }
       categoryUpdates[q.category].total++;
 
-      if (finalAnswers[q.id] === q.correctIndex) {
+      if (finalAnswers[q.id] === undefined) {
+        questionResults[q.id] = 'omitted';
+      } else if (finalAnswers[q.id] === q.correctIndex) {
         score++;
         categoryUpdates[q.category].correct++;
+        questionResults[q.id] = 'correct';
+      } else {
+        questionResults[q.id] = 'incorrect';
       }
     });
 
@@ -105,7 +115,7 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
       passed,
       timeSpentSeconds: EXAM_DURATION - timeLeft,
       categoryStats: categoryUpdates
-    }, categoryUpdates);
+    }, categoryUpdates, questionResults);
   };
 
   const handleOptionSelect = (qId: string, optIdx: number) => {

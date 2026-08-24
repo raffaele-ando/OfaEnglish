@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { AppState } from '../types';
 import { questions } from '../data/questions';
-import { X, Trophy, TrendingUp, AlertCircle, Clock, Target, List, ArrowLeft, Activity, Filter, ArrowDownUp, ArrowUp, ArrowDown, Minus, Crown } from 'lucide-react';
+import { X, Trophy, TrendingUp, AlertCircle, Clock, Target, List, ArrowLeft, Activity, Filter, ArrowDownUp, ArrowUp, ArrowDown, Minus, Crown, Check } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 
@@ -57,11 +57,14 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
   const errorRates = Object.keys(appState.stats)
     .map(qId => {
       const stat = appState.stats[qId];
-      const totalAttempts = stat.correct + stat.incorrect;
-      const errorRate = totalAttempts > 0 ? stat.incorrect / totalAttempts : 0;
-      return { qId, errorRate, incorrect: stat.incorrect, correct: stat.correct, box: stat.box, easiness: stat.easiness || 2.5 };
+      const correct = stat.correct || 0;
+      const incorrect = stat.incorrect || 0;
+      const omitted = stat.omitted || 0;
+      const totalAttempts = correct + incorrect + omitted;
+      const errorRate = totalAttempts > 0 ? (incorrect + omitted) / totalAttempts : 0;
+      return { qId, errorRate, incorrect, correct, omitted, box: stat.box, easiness: stat.easiness || 2.5 };
     })
-    .filter(item => item.incorrect > 0)
+    .filter(item => item.incorrect > 0 || item.omitted > 0)
     .sort((a, b) => b.errorRate - a.errorRate);
 
   const topErrors = errorRates.slice(0, 5); // top 5 hardest questions
@@ -210,8 +213,11 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
           {filteredAndSortedQuestions.map((q, index) => {
             const stat = appState.stats[q.id];
             const hasSeen = !!stat;
-            const totalAttempts = hasSeen ? stat.correct + stat.incorrect : 0;
-            const accuracy = totalAttempts > 0 ? Math.round((stat.correct / totalAttempts) * 100) : 0;
+            const correctCount = stat?.correct || 0;
+            const incorrectCount = stat?.incorrect || 0;
+            const omittedCount = stat?.omitted || 0;
+            const totalAttempts = correctCount + incorrectCount + omittedCount;
+            const accuracy = (correctCount + incorrectCount) > 0 ? Math.round((correctCount / (correctCount + incorrectCount)) * 100) : 0;
             const confidenceScore = hasSeen ? Math.min(100, Math.round(((stat.easiness || 2.5) - 1.3) / 1.3 * 100)) : 0; // simplistic normalization for UI
             const previousEasiness = stat?.previousEasiness ?? stat?.easiness;
             let trend = 'same';
@@ -224,23 +230,56 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
               <div key={q.id} className="bg-gray-50 dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] p-4 rounded-xl flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
                 <div className="flex-1 flex gap-3 sm:gap-4 items-start">
                   <span className="text-gray-400 dark:text-gray-500 font-black text-sm sm:text-base mt-0.5 shrink-0 w-6 sm:w-8 text-right">{index + 1}.</span>
-                  <div>
+                  <div className="flex-1">
                     <p className="font-bold text-[#3C3C3C] dark:text-[#F8FAFC] text-sm sm:text-base mb-1">{q.prompt}</p>
                     <p className="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase tracking-wider flex items-center gap-2 flex-wrap">
-                    <span>{q.category}</span>
-                    {q.level && (
-                      <>
-                        <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600"></span>
-                        <span className="bg-[#1CB0F6]/10 text-[#1CB0F6] px-1.5 py-0.5 rounded">{q.level}</span>
-                      </>
-                    )}
-                    {q.grammarTopic && (
-                      <>
-                        <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600"></span>
-                        <span>{q.grammarTopic}</span>
-                      </>
-                    )}
-                  </p>
+                      <span>{q.category}</span>
+                      {q.level && (
+                        <>
+                          <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600"></span>
+                          <span className="bg-[#1CB0F6]/10 text-[#1CB0F6] px-1.5 py-0.5 rounded">{q.level}</span>
+                        </>
+                      )}
+                      {q.grammarTopic && (
+                        <>
+                          <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600"></span>
+                          <span>{q.grammarTopic}</span>
+                        </>
+                      )}
+                    </p>
+
+                    {/* Breakdown: Giuste, Sbagliate, Omesse */}
+                    <div className="flex items-center gap-1.5 sm:gap-2 mt-2.5 flex-wrap">
+                      <span className={cn(
+                        "inline-flex items-center gap-1 text-[11px] sm:text-xs font-bold px-2 py-0.5 rounded-lg border transition-colors",
+                        correctCount > 0 
+                          ? "bg-[#D7FFB8] dark:bg-[#059669]/20 text-[#46A302] dark:text-[#34D399] border-[#58CC02]/30" 
+                          : "bg-white dark:bg-[#1E293B] text-gray-400 dark:text-gray-500 border-gray-200 dark:border-gray-700"
+                      )}>
+                        <Check size={12} strokeWidth={3} />
+                        {correctCount} {correctCount === 1 ? 'giusta' : 'giuste'}
+                      </span>
+
+                      <span className={cn(
+                        "inline-flex items-center gap-1 text-[11px] sm:text-xs font-bold px-2 py-0.5 rounded-lg border transition-colors",
+                        incorrectCount > 0 
+                          ? "bg-[#FFE5E5] dark:bg-[#7F1D1D]/30 text-[#D80000] dark:text-[#FCA5A5] border-[#FF4B4B]/30" 
+                          : "bg-white dark:bg-[#1E293B] text-gray-400 dark:text-gray-500 border-gray-200 dark:border-gray-700"
+                      )}>
+                        <X size={12} strokeWidth={3} />
+                        {incorrectCount} {incorrectCount === 1 ? 'sbagliata' : 'sbagliate'}
+                      </span>
+
+                      <span className={cn(
+                        "inline-flex items-center gap-1 text-[11px] sm:text-xs font-bold px-2 py-0.5 rounded-lg border transition-colors",
+                        omittedCount > 0 
+                          ? "bg-[#FFF4E5] dark:bg-[#F59E0B]/20 text-[#D97706] dark:text-[#FBBF24] border-[#FFC800]/30" 
+                          : "bg-white dark:bg-[#1E293B] text-gray-400 dark:text-gray-500 border-gray-200 dark:border-gray-700"
+                      )}>
+                        <Minus size={12} strokeWidth={3} />
+                        {omittedCount} {omittedCount === 1 ? 'omessa' : 'omesse'}
+                      </span>
+                    </div>
                   </div>
                 </div>
                 <div className="flex flex-row sm:flex-col gap-4 sm:gap-2 items-center sm:items-end w-full sm:w-auto shrink-0">
@@ -391,7 +430,7 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
                     cx="50%" 
                     cy="50%" 
                     outerRadius="70%" 
-                    data={Object.entries(topicStats).map(([cat, stats]) => ({
+                    data={Object.entries(topicStats).map(([cat, stats]: [string, { correct: number; total: number }]) => ({
                       subject: cat,
                       A: Math.round((stats.correct / stats.total) * 100),
                       fullMark: 100,
@@ -502,10 +541,39 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
                   const q = questions.find(q => q.id === err.qId);
                   if (!q) return null;
                   return (
-                    <div key={err.qId} className="bg-[#FFE5E5] dark:bg-[#7F1D1D] border border-[#FF4B4B] dark:border-[#EF4444] rounded-xl p-3 sm:p-4 shadow-sm transition-colors flex flex-col gap-2">
+                    <div key={err.qId} className="bg-[#FFE5E5] dark:bg-[#7F1D1D]/25 border border-[#FF4B4B] dark:border-[#EF4444] rounded-xl p-3 sm:p-4 shadow-sm transition-colors flex flex-col gap-2.5">
                       <p className="font-bold text-sm sm:text-base text-[#3C3C3C] dark:text-[#F8FAFC] line-clamp-2 leading-tight">{q.prompt}</p>
-                      <div className="flex items-center justify-between mt-1">
-                        <span className="text-xs sm:text-sm font-bold bg-white dark:bg-[#450A0A] text-[#D80000] dark:text-[#FCA5A5] px-2 py-1 rounded shadow-sm">
+                      
+                      {/* Breakdown: Giuste, Sbagliate, Omesse */}
+                      <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                        <span className={cn(
+                          "inline-flex items-center gap-1 text-[11px] sm:text-xs font-bold px-2 py-0.5 rounded-lg border transition-colors",
+                          err.correct > 0 
+                            ? "bg-[#D7FFB8] dark:bg-[#059669]/30 text-[#46A302] dark:text-[#34D399] border-[#58CC02]/30" 
+                            : "bg-white/80 dark:bg-black/20 text-gray-400 dark:text-gray-500 border-gray-200 dark:border-gray-700"
+                        )}>
+                          <Check size={11} strokeWidth={3} />
+                          {err.correct} {err.correct === 1 ? 'giusta' : 'giuste'}
+                        </span>
+
+                        <span className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-bold px-2 py-0.5 rounded-lg border bg-white dark:bg-[#450A0A] text-[#D80000] dark:text-[#FCA5A5] border-[#FF4B4B]/30">
+                          <X size={11} strokeWidth={3} />
+                          {err.incorrect} {err.incorrect === 1 ? 'sbagliata' : 'sbagliate'}
+                        </span>
+
+                        <span className={cn(
+                          "inline-flex items-center gap-1 text-[11px] sm:text-xs font-bold px-2 py-0.5 rounded-lg border transition-colors",
+                          err.omitted > 0 
+                            ? "bg-[#FFF4E5] dark:bg-[#F59E0B]/30 text-[#D97706] dark:text-[#FBBF24] border-[#FFC800]/30" 
+                            : "bg-white/80 dark:bg-black/20 text-gray-400 dark:text-gray-500 border-gray-200 dark:border-gray-700"
+                        )}>
+                          <Minus size={11} strokeWidth={3} />
+                          {err.omitted} {err.omitted === 1 ? 'omessa' : 'omesse'}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center justify-between pt-1 border-t border-[#FF4B4B]/20 dark:border-[#EF4444]/20">
+                        <span className="text-xs sm:text-sm font-bold text-[#D80000] dark:text-[#FCA5A5]">
                           {Math.round(err.errorRate * 100)}% errore
                         </span>
                         <span className="text-xs sm:text-sm font-bold text-[#46A302] dark:text-[#34D399] truncate max-w-[50%]">

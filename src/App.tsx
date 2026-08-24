@@ -6,6 +6,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { AppState, UserStats, ExamHistory } from './types';
 import { loadState, saveState, updateStreak, exportData, importData, syncToCloud, syncFromCloud } from './lib/storage';
+import { getQuestionStats } from './lib/spacedRepetition';
 import { auth, signInWithGoogle, logout } from './lib/firebase';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import Menu from './components/Menu';
@@ -87,7 +88,11 @@ export default function App() {
     handleUpdateAppState({ ...appState, stats: newStats });
   };
 
-  const handleExamComplete = (historyEntry: ExamHistory, categoryUpdates: Record<string, { correct: number, total: number }>) => {
+  const handleExamComplete = (
+    historyEntry: ExamHistory, 
+    categoryUpdates: Record<string, { correct: number, total: number }>,
+    questionResults?: Record<string, 'correct' | 'incorrect' | 'omitted'>
+  ) => {
     setAppState(prev => {
       const mergedCategoryStats = { ...(prev.examCategoryStats || {}) };
       for (const [cat, stats] of Object.entries(categoryUpdates)) {
@@ -97,6 +102,34 @@ export default function App() {
         mergedCategoryStats[cat].correct += stats.correct;
         mergedCategoryStats[cat].total += stats.total;
       }
+
+      const newStats: UserStats = { ...(prev.stats || {}) };
+      if (questionResults) {
+        for (const [qId, result] of Object.entries(questionResults)) {
+          const currentQ = getQuestionStats(newStats, qId);
+          if (result === 'correct') {
+            newStats[qId] = {
+              ...currentQ,
+              correct: currentQ.correct + 1,
+              box: currentQ.box + 1,
+              lastSeen: Date.now()
+            };
+          } else if (result === 'incorrect') {
+            newStats[qId] = {
+              ...currentQ,
+              incorrect: currentQ.incorrect + 1,
+              box: 0,
+              lastSeen: Date.now()
+            };
+          } else if (result === 'omitted') {
+            newStats[qId] = {
+              ...currentQ,
+              omitted: (currentQ.omitted || 0) + 1,
+              lastSeen: Date.now()
+            };
+          }
+        }
+      }
       
       const dateString = new Date().toISOString().split('T')[0];
       const newDailyActivity = { ...(prev.dailyActivity || {}) };
@@ -104,6 +137,7 @@ export default function App() {
 
       const newState = updateStreak({ 
         ...prev, 
+        stats: newStats,
         history: [...prev.history, historyEntry],
         examCategoryStats: mergedCategoryStats,
         dailyActivity: newDailyActivity
