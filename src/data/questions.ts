@@ -3245,4 +3245,2438 @@ export const questions: Question[] = [
     level: "A1",
     grammarTopic: "There is / There are"
   }
+,
+  {
+    id: "q217",
+    prompt: "Complete: 'This is not my pen. It is _____.'",
+    options: [
+      "yours",
+      "your",
+      "you",
+      "yours'"
+    ],
+    correctIndex: 0,
+    explanation: "Pronoun 'yours' replaces 'your pen'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Possessives"
+  },
+  {
+    id: "q218",
+    prompt: "Complete: '_____ car is parked outside.'",
+    options: [
+      "Her",
+      "Hers",
+      "She",
+      "Hers'"
+    ],
+    correctIndex: 0,
+    explanation: "Adjective 'Her' describes the car.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Possessives"
+  },
+  {
+    id: "q219",
+    prompt: "Complete: 'That house is _____.' (of us)",
+    options: [
+      "ours",
+      "our",
+      "we",
+      "us"
+    ],
+    correctIndex: 0,
+    explanation: "Pronoun 'ours' replaces 'our house'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Possessives"
+  },
+  {
+    id: "q220",
+    prompt: "Complete: 'Is this book _____?' (of him)",
+    options: [
+      "his",
+      "him",
+      "he",
+      "his'"
+    ],
+    correctIndex: 0,
+    explanation: "Pronoun 'his' indicates possession by a male.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Possessives"
+  },
+  {
+    id: "q221",
+    prompt: "Complete: 'These are _____ shoes.'",
+    options: [
+      "my",
+      "mine",
+      "me",
+      "I"
+    ],
+    correctIndex: 0,
+    explanation: "Adjective 'my' modifies shoes.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Possessives"
+  },
+  {
+    id: "q222",
+    prompt: "Complete: 'The dog is wagging _____ tail.'",
+    options: [
+      "its",
+      "it's",
+      "it",
+      "its'"
+    ],
+    correctIndex: 0,
+    explanation: "'Its' is the possessive adjective for animals/things without an apostrophe.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Possessives"
+  },
+  {
+    id: "q223",
+    prompt: "Complete: 'Are those keys _____?' (of them)",
+    options: [
+      "theirs",
+      "their",
+      "them",
+      "they"
+    ],
+    correctIndex: 0,
+    explanation: "Pronoun 'theirs' replaces 'their keys'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Possessives"
+  },
+  {
+    id: "q224",
+    prompt: "Complete: 'I lost _____ keys yesterday.'",
+    options: [
+      "my",
+      "mine",
+      "me",
+      "I"
+    ],
+    correctIndex: 0,
+    explanation: "Possessive adjective 'my' comes before the noun.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Possessives"
+  },
+  {
+    id: "q225",
+    prompt: "Complete: 'This laptop is _____, not yours.'",
+    options: [
+      "mine",
+      "my",
+      "me",
+      "I"
+    ],
+    correctIndex: 0,
+    explanation: "Pronoun 'mine' replaces 'my laptop'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Possessives"
+  },
+  {
+    id: "q226",
+    prompt: "Translate 'Questo libro è mio.'",
+    options: [
+      "This book is mine.",
+      "This book is my.",
+      "This book is me.",
+      "This book is I."
+    ],
+    correctIndex: 0,
+    explanation: "'Mio' at the end of the sentence is the pronoun 'mine'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Possessives"
+  },
+  {
+    id: "q227",
+    prompt: "Translate 'La loro casa è molto grande.'",
+    options: [
+      "Their house is very big.",
+      "Theirs house is very big.",
+      "They house is very big.",
+      "Them house is very big."
+    ],
+    correctIndex: 0,
+    explanation: "'Loro' as an adjective before a noun is 'their'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Possessives"
+  },
+  {
+    id: "q228",
+    prompt: "Translate 'Quella è la tua giacca, non la sua (di lei).'",
+    options: [
+      "That is your jacket, not hers.",
+      "That is your jacket, not her.",
+      "That is yours jacket, not hers.",
+      "That is your jacket, not she."
+    ],
+    correctIndex: 0,
+    explanation: "'La sua' without the noun is the pronoun 'hers'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Possessives"
+  },
+  {
+    id: "q229",
+    prompt: "Translate 'I nostri amici stanno arrivando.'",
+    options: [
+      "Our friends are coming.",
+      "Ours friends are coming.",
+      "We friends are coming.",
+      "Us friends are coming."
+    ],
+    correctIndex: 0,
+    explanation: "'Nostri' before the noun is 'our'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Possessives"
+  },
+  {
+    id: "q230",
+    prompt: "Translate 'Questi soldi sono vostri?'",
+    options: [
+      "Is this money yours?",
+      "Is this money your?",
+      "Are these money yours?",
+      "Is this money you?"
+    ],
+    correctIndex: 0,
+    explanation: "Money is uncountable singular, 'vostri' as a pronoun is 'yours'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Possessives"
+  },
+  {
+    id: "q231",
+    prompt: "Translate 'Il suo (di lui) telefono è nuovo.'",
+    options: [
+      "His phone is new.",
+      "Him phone is new.",
+      "He phone is new.",
+      "His' phone is new."
+    ],
+    correctIndex: 0,
+    explanation: "'Suo' for a male is 'his'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Possessives"
+  },
+  {
+    id: "q232",
+    prompt: "Translate 'La mia macchina è rossa, la sua (di lui) è blu.'",
+    options: [
+      "My car is red, his is blue.",
+      "My car is red, him is blue.",
+      "Mine car is red, his is blue.",
+      "My car is red, he is blue."
+    ],
+    correctIndex: 0,
+    explanation: "'La sua' as a pronoun for a male is 'his'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Possessives"
+  },
+  {
+    id: "q233",
+    prompt: "Translate 'Ho dimenticato il mio ombrello.'",
+    options: [
+      "I forgot my umbrella.",
+      "I forgot mine umbrella.",
+      "I forgot me umbrella.",
+      "I forgot I umbrella."
+    ],
+    correctIndex: 0,
+    explanation: "'Il mio' before the noun is 'my'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Possessives"
+  },
+  {
+    id: "q234",
+    prompt: "Translate 'Quelle penne sono loro (di loro).'",
+    options: [
+      "Those pens are theirs.",
+      "Those pens are their.",
+      "Those pens are them.",
+      "Those pens are they."
+    ],
+    correctIndex: 0,
+    explanation: "'Loro' as a pronoun is 'theirs'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Possessives"
+  },
+  {
+    id: "q235",
+    prompt: "Complete: 'I call _____ every day.' (him/he/his/himself)",
+    options: [
+      "him",
+      "he",
+      "his",
+      "himself"
+    ],
+    correctIndex: 0,
+    explanation: "'Him' is the object pronoun for a male.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Object Pronouns"
+  },
+  {
+    id: "q236",
+    prompt: "Complete: 'She loves _____ very much.' (me/I/my/mine)",
+    options: [
+      "me",
+      "I",
+      "my",
+      "mine"
+    ],
+    correctIndex: 0,
+    explanation: "'Me' is the object pronoun for first person singular.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Object Pronouns"
+  },
+  {
+    id: "q237",
+    prompt: "Complete: 'Can you help _____ with this exercise?' (us/we/our/ours)",
+    options: [
+      "us",
+      "we",
+      "our",
+      "ours"
+    ],
+    correctIndex: 0,
+    explanation: "'Us' is the object pronoun for 'we'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Object Pronouns"
+  },
+  {
+    id: "q238",
+    prompt: "Complete: 'I don\'t know _____.' (them/they/their/theirs)",
+    options: [
+      "them",
+      "they",
+      "their",
+      "theirs"
+    ],
+    correctIndex: 0,
+    explanation: "'Them' is the object pronoun for 'they'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Object Pronouns"
+  },
+  {
+    id: "q239",
+    prompt: "Complete: 'Look at _____!' (her/she/hers/herself)",
+    options: [
+      "her",
+      "she",
+      "hers",
+      "herself"
+    ],
+    correctIndex: 0,
+    explanation: "'Her' is the object pronoun after the preposition 'at'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Object Pronouns"
+  },
+  {
+    id: "q240",
+    prompt: "Complete: 'He wants to speak to _____.' (you/your/yours/yourself)",
+    options: [
+      "you",
+      "your",
+      "yours",
+      "yourself"
+    ],
+    correctIndex: 0,
+    explanation: "'You' is the object pronoun.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Object Pronouns"
+  },
+  {
+    id: "q241",
+    prompt: "Complete: 'Give _____ to me.' (it/its/it\'s/itself)",
+    options: [
+      "it",
+      "its",
+      "it's",
+      "itself"
+    ],
+    correctIndex: 0,
+    explanation: "'It' is the object pronoun for things/animals.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Object Pronouns"
+  },
+  {
+    id: "q242",
+    prompt: "Complete: 'My parents are visiting _____.' (me/I/my/mine)",
+    options: [
+      "me",
+      "I",
+      "my",
+      "mine"
+    ],
+    correctIndex: 0,
+    explanation: "'Me' receives the action of visiting.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Object Pronouns"
+  },
+  {
+    id: "q243",
+    prompt: "Complete: 'Are you listening to _____?' (him/he/his/himself)",
+    options: [
+      "him",
+      "he",
+      "his",
+      "himself"
+    ],
+    correctIndex: 0,
+    explanation: "'Him' follows the preposition 'to'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Object Pronouns"
+  },
+  {
+    id: "q244",
+    prompt: "Translate 'Non lo capisco.' (di lui)",
+    options: [
+      "I don't understand him.",
+      "I don't understand he.",
+      "I don't understand his.",
+      "I don't understand it."
+    ],
+    correctIndex: 0,
+    explanation: "'Lo' referring to a man translates to 'him'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Object Pronouns"
+  },
+  {
+    id: "q245",
+    prompt: "Translate 'Puoi vederci?'",
+    options: [
+      "Can you see us?",
+      "Can you see we?",
+      "Can you see our?",
+      "Can you see me?"
+    ],
+    correctIndex: 0,
+    explanation: "'Ci' translates to the object pronoun 'us'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Object Pronouns"
+  },
+  {
+    id: "q246",
+    prompt: "Translate 'Le ho comprato un regalo.' (a lei)",
+    options: [
+      "I bought her a present.",
+      "I bought she a present.",
+      "I bought hers a present.",
+      "I bought for her a present."
+    ],
+    correctIndex: 0,
+    explanation: "'Le' (to her) is translated with the object pronoun 'her'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Object Pronouns"
+  },
+  {
+    id: "q247",
+    prompt: "Translate 'Li aspetto qui.'",
+    options: [
+      "I wait for them here.",
+      "I wait for they here.",
+      "I wait them here.",
+      "I am waiting they here."
+    ],
+    correctIndex: 0,
+    explanation: "'Li' (them) follows the preposition 'for' in English.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Object Pronouns"
+  },
+  {
+    id: "q248",
+    prompt: "Translate 'Dammi quel libro.'",
+    options: [
+      "Give me that book.",
+      "Give I that book.",
+      "Give my that book.",
+      "Give to me that book."
+    ],
+    correctIndex: 0,
+    explanation: "'Dammi' uses the object pronoun 'me'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Object Pronouns"
+  },
+  {
+    id: "q249",
+    prompt: "Translate 'Non ti credo.'",
+    options: [
+      "I don't believe you.",
+      "I don't believe your.",
+      "I don't believe to you.",
+      "I not believe you."
+    ],
+    correctIndex: 0,
+    explanation: "'Ti' is the object pronoun 'you'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Object Pronouns"
+  },
+  {
+    id: "q250",
+    prompt: "Translate 'Lo voglio adesso.' (un oggetto)",
+    options: [
+      "I want it now.",
+      "I want him now.",
+      "I want that now.",
+      "I want this now."
+    ],
+    correctIndex: 0,
+    explanation: "'Lo' for a thing is 'it'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Object Pronouns"
+  },
+  {
+    id: "q251",
+    prompt: "Translate 'Vieni con noi al cinema?'",
+    options: [
+      "Are you coming with us to the cinema?",
+      "Are you coming with we to the cinema?",
+      "Do you come with us to the cinema?",
+      "Are you coming to us to the cinema?"
+    ],
+    correctIndex: 0,
+    explanation: "'Con noi' uses the object pronoun 'us'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Object Pronouns"
+  },
+  {
+    id: "q252",
+    prompt: "Translate 'Non li conosco.'",
+    options: [
+      "I don't know them.",
+      "I don't know they.",
+      "I don't know their.",
+      "I not know them."
+    ],
+    correctIndex: 0,
+    explanation: "'Li' is the object pronoun 'them'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Object Pronouns"
+  },
+  {
+    id: "q253",
+    prompt: "Complete: '_____ is my friend, Paul.' (near)",
+    options: [
+      "This",
+      "These",
+      "Those",
+      "That"
+    ],
+    correctIndex: 0,
+    explanation: "'This' is used for a singular person/thing near the speaker.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Demonstratives"
+  },
+  {
+    id: "q254",
+    prompt: "Complete: 'Look at _____ birds in the sky.'",
+    options: [
+      "those",
+      "that",
+      "this",
+      "these"
+    ],
+    correctIndex: 0,
+    explanation: "'Those' is used for plural things far from the speaker.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Demonstratives"
+  },
+  {
+    id: "q255",
+    prompt: "Complete: 'Are _____ your shoes here?'",
+    options: [
+      "these",
+      "this",
+      "that",
+      "those"
+    ],
+    correctIndex: 0,
+    explanation: "'These' is used for plural things near the speaker.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Demonstratives"
+  },
+  {
+    id: "q256",
+    prompt: "Complete: '_____ building over there is a hospital.'",
+    options: [
+      "That",
+      "This",
+      "These",
+      "Those"
+    ],
+    correctIndex: 0,
+    explanation: "'That' is used for a singular thing far away.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Demonstratives"
+  },
+  {
+    id: "q257",
+    prompt: "Complete: '_____ days are the best of my life.'",
+    options: [
+      "These",
+      "This",
+      "That",
+      "Those"
+    ],
+    correctIndex: 0,
+    explanation: "'These' refers to plural days in the current time.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Demonstratives"
+  },
+  {
+    id: "q258",
+    prompt: "Complete: 'I don\'t like _____ kind of music.' (near/current)",
+    options: [
+      "this",
+      "these",
+      "those",
+      "them"
+    ],
+    correctIndex: 0,
+    explanation: "'This kind' is singular.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Demonstratives"
+  },
+  {
+    id: "q259",
+    prompt: "Complete: 'Did you buy _____ apples from the market?' (far/past)",
+    options: [
+      "those",
+      "that",
+      "this",
+      "them"
+    ],
+    correctIndex: 0,
+    explanation: "'Those apples' refers to plural items away or in the past.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Demonstratives"
+  },
+  {
+    id: "q260",
+    prompt: "Complete: '_____ is a very interesting book.' (holding it)",
+    options: [
+      "This",
+      "These",
+      "Those",
+      "Them"
+    ],
+    correctIndex: 0,
+    explanation: "'This' refers to a singular item being held.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Demonstratives"
+  },
+  {
+    id: "q261",
+    prompt: "Complete: 'Can you pass me _____ pen?' (far)",
+    options: [
+      "that",
+      "those",
+      "these",
+      "this"
+    ],
+    correctIndex: 0,
+    explanation: "'That' refers to a singular item out of reach.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Demonstratives"
+  }
+,
+  {
+    id: "q262",
+    prompt: "Translate 'Questo è il mio gatto.'",
+    options: [
+      "This is my cat.",
+      "That is my cat.",
+      "These is my cat.",
+      "Those is my cat."
+    ],
+    correctIndex: 0,
+    explanation: "'Questo' is 'This'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Demonstratives"
+  },
+  {
+    id: "q263",
+    prompt: "Translate 'Quelli sono i miei libri.'",
+    options: [
+      "Those are my books.",
+      "That are my books.",
+      "These are my books.",
+      "This are my books."
+    ],
+    correctIndex: 0,
+    explanation: "'Quelli' (far plural) is 'Those'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Demonstratives"
+  },
+  {
+    id: "q264",
+    prompt: "Translate 'Questa pizza è buonissima.'",
+    options: [
+      "This pizza is very good.",
+      "That pizza is very good.",
+      "These pizza is very good.",
+      "It pizza is very good."
+    ],
+    correctIndex: 0,
+    explanation: "'Questa' is 'This'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Demonstratives"
+  },
+  {
+    id: "q265",
+    prompt: "Translate 'Queste ragazze sono italiane.'",
+    options: [
+      "These girls are Italian.",
+      "This girls are Italian.",
+      "Those girls are Italian.",
+      "That girls are Italian."
+    ],
+    correctIndex: 0,
+    explanation: "'Queste' (near plural) is 'These'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Demonstratives"
+  },
+  {
+    id: "q266",
+    prompt: "Translate 'Quell\'uomo è mio padre.'",
+    options: [
+      "That man is my father.",
+      "This man is my father.",
+      "Those man is my father.",
+      "The man is my father."
+    ],
+    correctIndex: 0,
+    explanation: "'Quell'' (far singular) is 'That'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Demonstratives"
+  },
+  {
+    id: "q267",
+    prompt: "Translate 'Cosa sono quelle cose?'",
+    options: [
+      "What are those things?",
+      "What are these things?",
+      "What is that things?",
+      "What are that things?"
+    ],
+    correctIndex: 0,
+    explanation: "'Quelle' (far plural) is 'those'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Demonstratives"
+  },
+  {
+    id: "q268",
+    prompt: "Translate 'Preferisco questo vestito.'",
+    options: [
+      "I prefer this dress.",
+      "I prefer that dress.",
+      "I prefer these dress.",
+      "I prefer those dress."
+    ],
+    correctIndex: 0,
+    explanation: "'Questo' is 'this'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Demonstratives"
+  },
+  {
+    id: "q269",
+    prompt: "Translate 'Conosci quelle persone?'",
+    options: [
+      "Do you know those people?",
+      "Do you know these people?",
+      "Do you know that people?",
+      "Do you know this people?"
+    ],
+    correctIndex: 0,
+    explanation: "'Quelle' (far plural) is 'those'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Demonstratives"
+  },
+  {
+    id: "q270",
+    prompt: "Translate 'Questi sono i miei appunti.'",
+    options: [
+      "These are my notes.",
+      "This are my notes.",
+      "Those are my notes.",
+      "That are my notes."
+    ],
+    correctIndex: 0,
+    explanation: "'Questi' (near plural) is 'These'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Demonstratives"
+  },
+  {
+    id: "q271",
+    prompt: "Complete: 'The cat is hiding _____ the bed.'",
+    options: [
+      "under",
+      "in",
+      "on",
+      "at"
+    ],
+    correctIndex: 0,
+    explanation: "'Under' means below or beneath.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Prepositions of Place"
+  },
+  {
+    id: "q272",
+    prompt: "Complete: 'She is waiting _____ the bus stop.'",
+    options: [
+      "at",
+      "in",
+      "on",
+      "under"
+    ],
+    correctIndex: 0,
+    explanation: "Use 'at' for a specific point or location.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Prepositions of Place"
+  },
+  {
+    id: "q273",
+    prompt: "Complete: 'The picture is hanging _____ the wall.'",
+    options: [
+      "on",
+      "in",
+      "at",
+      "under"
+    ],
+    correctIndex: 0,
+    explanation: "Use 'on' for surfaces.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Prepositions of Place"
+  },
+  {
+    id: "q274",
+    prompt: "Complete: 'He lives _____ London.'",
+    options: [
+      "in",
+      "at",
+      "on",
+      "by"
+    ],
+    correctIndex: 0,
+    explanation: "Use 'in' for cities, countries, and enclosed spaces.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Prepositions of Place"
+  },
+  {
+    id: "q275",
+    prompt: "Complete: 'The car is parked _____ the house.'",
+    options: [
+      "behind",
+      "under",
+      "in",
+      "on"
+    ],
+    correctIndex: 0,
+    explanation: "'Behind' means at the back of.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Prepositions of Place"
+  },
+  {
+    id: "q276",
+    prompt: "Complete: 'She sat _____ her two best friends.'",
+    options: [
+      "between",
+      "next to",
+      "under",
+      "in"
+    ],
+    correctIndex: 0,
+    explanation: "'Between' is used for a position separating two things or people.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Prepositions of Place"
+  },
+  {
+    id: "q277",
+    prompt: "Complete: 'The bank is _____ the post office.'",
+    options: [
+      "next to",
+      "in",
+      "on",
+      "at"
+    ],
+    correctIndex: 0,
+    explanation: "'Next to' means beside.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Prepositions of Place"
+  },
+  {
+    id: "q278",
+    prompt: "Complete: 'There is a bridge _____ the river.'",
+    options: [
+      "over",
+      "under",
+      "in",
+      "at"
+    ],
+    correctIndex: 0,
+    explanation: "'Over' means extending directly upwards from or across.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Prepositions of Place"
+  },
+  {
+    id: "q279",
+    prompt: "Complete: 'I left my keys _____ the table.'",
+    options: [
+      "on",
+      "in",
+      "at",
+      "between"
+    ],
+    correctIndex: 0,
+    explanation: "'On' is used for surfaces.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Prepositions of Place"
+  },
+  {
+    id: "q280",
+    prompt: "Translate 'Il cane è sotto il tavolo.'",
+    options: [
+      "The dog is under the table.",
+      "The dog is on the table.",
+      "The dog is at the table.",
+      "The dog is in the table."
+    ],
+    correctIndex: 0,
+    explanation: "'Sotto' translates to 'under'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Prepositions of Place"
+  },
+  {
+    id: "q281",
+    prompt: "Translate 'Sono al cinema.'",
+    options: [
+      "I am at the cinema.",
+      "I am in the cinema.",
+      "I am on the cinema.",
+      "I am to the cinema."
+    ],
+    correctIndex: 0,
+    explanation: "'At' is used for specific places like the cinema.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Prepositions of Place"
+  },
+  {
+    id: "q282",
+    prompt: "Translate 'C\'è un ragno sul soffitto.'",
+    options: [
+      "There is a spider on the ceiling.",
+      "There is a spider at the ceiling.",
+      "There is a spider in the ceiling.",
+      "There is a spider under the ceiling."
+    ],
+    correctIndex: 0,
+    explanation: "'Sul' for a surface like a ceiling is 'on'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Prepositions of Place"
+  },
+  {
+    id: "q283",
+    prompt: "Translate 'L\'ufficio è vicino alla banca.'",
+    options: [
+      "The office is next to the bank.",
+      "The office is in the bank.",
+      "The office is between the bank.",
+      "The office is at the bank."
+    ],
+    correctIndex: 0,
+    explanation: "'Vicino a' is 'next to' or 'near'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Prepositions of Place"
+  },
+  {
+    id: "q284",
+    prompt: "Translate 'Il bambino è tra i suoi genitori.'",
+    options: [
+      "The child is between his parents.",
+      "The child is among his parents.",
+      "The child is next to his parents.",
+      "The child is in his parents."
+    ],
+    correctIndex: 0,
+    explanation: "'Tra' due persone è 'between'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Prepositions of Place"
+  },
+  {
+    id: "q285",
+    prompt: "Translate 'Nasconditi dietro la porta.'",
+    options: [
+      "Hide behind the door.",
+      "Hide under the door.",
+      "Hide next to the door.",
+      "Hide in the door."
+    ],
+    correctIndex: 0,
+    explanation: "'Dietro' is 'behind'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Prepositions of Place"
+  },
+  {
+    id: "q286",
+    prompt: "Translate 'Metti i vestiti nell\'armadio.'",
+    options: [
+      "Put the clothes in the wardrobe.",
+      "Put the clothes on the wardrobe.",
+      "Put the clothes at the wardrobe.",
+      "Put the clothes into the wardrobe."
+    ],
+    correctIndex: 0,
+    explanation: "'Nel' meaning inside an enclosed space is 'in'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Prepositions of Place"
+  },
+  {
+    id: "q287",
+    prompt: "Translate 'Ho incontrato Marco alla stazione.'",
+    options: [
+      "I met Marco at the station.",
+      "I met Marco in the station.",
+      "I met Marco on the station.",
+      "I met Marco to the station."
+    ],
+    correctIndex: 0,
+    explanation: "'Alla' for a specific point is 'at'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Prepositions of Place"
+  },
+  {
+    id: "q288",
+    prompt: "Translate 'C\'è un giardino dietro la casa.'",
+    options: [
+      "There is a garden behind the house.",
+      "There is a garden under the house.",
+      "There is a garden in the house.",
+      "There is a garden next to the house."
+    ],
+    correctIndex: 0,
+    explanation: "'Dietro' is 'behind'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Prepositions of Place"
+  },
+  {
+    id: "q289",
+    prompt: "Complete: '_____ to me carefully.'",
+    options: [
+      "Listen",
+      "Listening",
+      "Listens",
+      "To listen"
+    ],
+    correctIndex: 0,
+    explanation: "Imperative uses the base form of the verb.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Imperative"
+  },
+  {
+    id: "q290",
+    prompt: "Complete: '_____ open the window. It\'s cold.'",
+    options: [
+      "Don't",
+      "Not",
+      "No",
+      "Doesn't"
+    ],
+    correctIndex: 0,
+    explanation: "Negative imperative uses 'Don't'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Imperative"
+  },
+  {
+    id: "q291",
+    prompt: "Complete: '_____ your vegetables!'",
+    options: [
+      "Eat",
+      "Eating",
+      "Eats",
+      "To eat"
+    ],
+    correctIndex: 0,
+    explanation: "Use base verb for direct commands.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Imperative"
+  },
+  {
+    id: "q292",
+    prompt: "Complete: '_____ be late for the meeting.'",
+    options: [
+      "Don't",
+      "Not",
+      "Doesn't",
+      "No"
+    ],
+    correctIndex: 0,
+    explanation: "Negative commands always start with 'Don't'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Imperative"
+  },
+  {
+    id: "q293",
+    prompt: "Complete: '_____ quiet, please.'",
+    options: [
+      "Be",
+      "Are",
+      "Is",
+      "Am"
+    ],
+    correctIndex: 0,
+    explanation: "Base form of 'to be' is used for commands.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Imperative"
+  },
+  {
+    id: "q294",
+    prompt: "Complete: '_____ touch that plate, it\'s hot.'",
+    options: [
+      "Don't",
+      "No",
+      "Not",
+      "Doesn't"
+    ],
+    correctIndex: 0,
+    explanation: "Negative command.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Imperative"
+  },
+  {
+    id: "q295",
+    prompt: "Complete: '_____ your homework before dinner.'",
+    options: [
+      "Do",
+      "Does",
+      "Doing",
+      "Did"
+    ],
+    correctIndex: 0,
+    explanation: "Base verb 'Do'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Imperative"
+  },
+  {
+    id: "q296",
+    prompt: "Complete: '_____ me the salt, please.'",
+    options: [
+      "Pass",
+      "Passing",
+      "Passes",
+      "To pass"
+    ],
+    correctIndex: 0,
+    explanation: "Base verb 'Pass'.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Imperative"
+  },
+  {
+    id: "q297",
+    prompt: "Complete: '_____ worry about it.'",
+    options: [
+      "Don't",
+      "Not",
+      "No",
+      "Doesn't"
+    ],
+    correctIndex: 0,
+    explanation: "Negative command.",
+    category: "Grammatica",
+    level: "A1",
+    grammarTopic: "Imperative"
+  },
+  {
+    id: "q298",
+    prompt: "Translate 'Non toccare il mio telefono.'",
+    options: [
+      "Don't touch my phone.",
+      "Not touch my phone.",
+      "No touch my phone.",
+      "Doesn't touch my phone."
+    ],
+    correctIndex: 0,
+    explanation: "Negative imperative is formed with 'Don't'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Imperative"
+  },
+  {
+    id: "q299",
+    prompt: "Translate 'Fai attenzione!'",
+    options: [
+      "Pay attention!",
+      "Do attention!",
+      "Make attention!",
+      "Attention you!"
+    ],
+    correctIndex: 0,
+    explanation: "'Fare attenzione' is 'pay attention'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Imperative"
+  },
+  {
+    id: "q300",
+    prompt: "Translate 'Ascoltami quando parlo.'",
+    options: [
+      "Listen to me when I speak.",
+      "Listen me when I speak.",
+      "Hear me when I speak.",
+      "Hear to me when I speak."
+    ],
+    correctIndex: 0,
+    explanation: "'Ascoltare' requires 'to' before the object in English.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Imperative"
+  },
+  {
+    id: "q301",
+    prompt: "Translate 'Non dimenticare le chiavi.'",
+    options: [
+      "Don't forget your keys.",
+      "Not forget your keys.",
+      "No forget your keys.",
+      "Don't missing your keys."
+    ],
+    correctIndex: 0,
+    explanation: "Negative command with 'Don't'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Imperative"
+  },
+  {
+    id: "q302",
+    prompt: "Translate 'Chiudi la porta, per favore.'",
+    options: [
+      "Close the door, please.",
+      "Closing the door, please.",
+      "To close the door, please.",
+      "You close the door, please."
+    ],
+    correctIndex: 0,
+    explanation: "Base verb for command.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Imperative"
+  },
+  {
+    id: "q303",
+    prompt: "Translate 'Non parlare durante l\'esame.'",
+    options: [
+      "Don't speak during the exam.",
+      "Not speak during the exam.",
+      "Doesn't speak during the exam.",
+      "Don't speaking during the exam."
+    ],
+    correctIndex: 0,
+    explanation: "Negative command.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Imperative"
+  },
+  {
+    id: "q304",
+    prompt: "Translate 'Aspetta qui un momento.'",
+    options: [
+      "Wait here a moment.",
+      "Waiting here a moment.",
+      "Wait here a time.",
+      "Stay here a moment."
+    ],
+    correctIndex: 0,
+    explanation: "Base verb 'Wait'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Imperative"
+  },
+  {
+    id: "q305",
+    prompt: "Translate 'Scrivete i vostri nomi sul foglio.'",
+    options: [
+      "Write your names on the paper.",
+      "Writing your names on the paper.",
+      "You write your names on the paper.",
+      "To write your names on the paper."
+    ],
+    correctIndex: 0,
+    explanation: "Imperative is the same for singular and plural 'you'.",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Imperative"
+  },
+  {
+    id: "q306",
+    prompt: "Translate 'Non fumare in questa stanza.'",
+    options: [
+      "Don't smoke in this room.",
+      "No smoking in this room.",
+      "Not smoke in this room.",
+      "Doesn't smoke in this room."
+    ],
+    correctIndex: 0,
+    explanation: "'Don't smoke' is the imperative. ('No smoking' is a sign/rule but the direct translation uses 'Don't').",
+    category: "Traduzione",
+    level: "A1",
+    grammarTopic: "Imperative"
+  }
+,
+  {
+    id: "q307",
+    prompt: "Complete: 'I _____ to visit my grandparents this weekend.'",
+    options: [
+      "am going",
+      "go",
+      "going",
+      "will going"
+    ],
+    correctIndex: 0,
+    explanation: "We use 'am going to' for planned future intentions.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Future: going to"
+  },
+  {
+    id: "q308",
+    prompt: "Complete: 'Look at those dark clouds. It _____ rain.'",
+    options: [
+      "is going to",
+      "will",
+      "going to",
+      "rains"
+    ],
+    correctIndex: 0,
+    explanation: "'Going to' is used when there is present evidence for a future event.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Future: going to"
+  },
+  {
+    id: "q309",
+    prompt: "Complete: 'What _____ you going to do tonight?'",
+    options: [
+      "are",
+      "do",
+      "is",
+      "will"
+    ],
+    correctIndex: 0,
+    explanation: "Question form requires the verb 'to be' (are) before the subject.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Future: going to"
+  },
+  {
+    id: "q310",
+    prompt: "Complete: 'She _____ not going to buy a new car.'",
+    options: [
+      "is",
+      "does",
+      "has",
+      "will"
+    ],
+    correctIndex: 0,
+    explanation: "Negative form uses 'to be' + not + going to.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Future: going to"
+  },
+  {
+    id: "q311",
+    prompt: "Complete: 'We are going to _____ a movie after dinner.'",
+    options: [
+      "watch",
+      "watching",
+      "watched",
+      "watches"
+    ],
+    correctIndex: 0,
+    explanation: "'Going to' is followed by the base form of the verb.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Future: going to"
+  },
+  {
+    id: "q312",
+    prompt: "Complete: '_____ he going to invite her to the party?'",
+    options: [
+      "Is",
+      "Does",
+      "Will",
+      "Has"
+    ],
+    correctIndex: 0,
+    explanation: "Question form for third person singular uses 'Is'.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Future: going to"
+  },
+  {
+    id: "q313",
+    prompt: "Complete: 'They _____ going to start a new business next year.'",
+    options: [
+      "are",
+      "will",
+      "do",
+      "have"
+    ],
+    correctIndex: 0,
+    explanation: "Plural subject takes 'are'.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Future: going to"
+  },
+  {
+    id: "q314",
+    prompt: "Complete: 'I\'m going to _____ English in London.'",
+    options: [
+      "study",
+      "studying",
+      "studied",
+      "studies"
+    ],
+    correctIndex: 0,
+    explanation: "Base verb 'study' after 'going to'.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Future: going to"
+  },
+  {
+    id: "q315",
+    prompt: "Complete: 'My parents are _____ to travel to Spain.'",
+    options: [
+      "going",
+      "go",
+      "will",
+      "goes"
+    ],
+    correctIndex: 0,
+    explanation: "Part of the structure 'are going to'.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Future: going to"
+  },
+  {
+    id: "q316",
+    prompt: "Translate 'Cosa hai intenzione di fare?'",
+    options: [
+      "What are you going to do?",
+      "What will you do?",
+      "What do you do?",
+      "What you are going to do?"
+    ],
+    correctIndex: 0,
+    explanation: "'Have intention to' is translated with 'going to'.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Future: going to"
+  },
+  {
+    id: "q317",
+    prompt: "Translate 'Non ho intenzione di aspettare tutto il giorno.'",
+    options: [
+      "I am not going to wait all day.",
+      "I don't go to wait all day.",
+      "I won't to wait all day.",
+      "I am not going to waiting all day."
+    ],
+    correctIndex: 0,
+    explanation: "Negative 'going to'.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Future: going to"
+  },
+  {
+    id: "q318",
+    prompt: "Translate 'Lui studierà medicina all\'università.' (intenzione)",
+    options: [
+      "He is going to study medicine at university.",
+      "He will study medicine at university.",
+      "He is studying medicine at university.",
+      "He studies medicine at university."
+    ],
+    correctIndex: 0,
+    explanation: "Intentions use 'going to'.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Future: going to"
+  },
+  {
+    id: "q319",
+    prompt: "Translate 'Stiamo per comprare una nuova casa.' (abbiamo deciso)",
+    options: [
+      "We are going to buy a new house.",
+      "We will buy a new house.",
+      "We are buying a new house.",
+      "We buy a new house."
+    ],
+    correctIndex: 0,
+    explanation: "Decisions already made use 'going to'.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Future: going to"
+  },
+  {
+    id: "q320",
+    prompt: "Translate 'Pioverà a breve.' (guardando il cielo scuro)",
+    options: [
+      "It is going to rain soon.",
+      "It will rain soon.",
+      "It is raining soon.",
+      "It rains soon."
+    ],
+    correctIndex: 0,
+    explanation: "Prediction based on evidence uses 'going to'.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Future: going to"
+  },
+  {
+    id: "q321",
+    prompt: "Translate 'Non parteciperanno all\'incontro.' (intenzione)",
+    options: [
+      "They aren't going to attend the meeting.",
+      "They won't attend the meeting.",
+      "They don't attend the meeting.",
+      "They aren't attending the meeting."
+    ],
+    correctIndex: 0,
+    explanation: "Negative intention.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Future: going to"
+  },
+  {
+    id: "q322",
+    prompt: "Translate 'Cosa mangerai a cena?' (che programmi hai)",
+    options: [
+      "What are you going to eat for dinner?",
+      "What will you eat for dinner?",
+      "What do you eat for dinner?",
+      "What you going to eat for dinner?"
+    ],
+    correctIndex: 0,
+    explanation: "Asking about plans.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Future: going to"
+  },
+  {
+    id: "q323",
+    prompt: "Translate 'Venderà la sua macchina?' (ha intenzione di)",
+    options: [
+      "Is she going to sell her car?",
+      "Will she sell her car?",
+      "Does she sell her car?",
+      "Is she sell her car?"
+    ],
+    correctIndex: 0,
+    explanation: "Question about intention.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Future: going to"
+  },
+  {
+    id: "q324",
+    prompt: "Translate 'Sono certo che cadrà!' (sta correndo sul ghiaccio)",
+    options: [
+      "I'm sure he is going to fall!",
+      "I'm sure he will fall!",
+      "I'm sure he falls!",
+      "I'm sure he falling!"
+    ],
+    correctIndex: 0,
+    explanation: "Prediction with evidence.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Future: going to"
+  },
+  {
+    id: "q325",
+    prompt: "Complete: 'I _____ TV when the phone rang.'",
+    options: [
+      "was watching",
+      "watched",
+      "am watching",
+      "were watching"
+    ],
+    correctIndex: 0,
+    explanation: "Past continuous for a long action interrupted by a short one.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Past Continuous"
+  },
+  {
+    id: "q326",
+    prompt: "Complete: 'While she was reading, her brother _____ video games.'",
+    options: [
+      "was playing",
+      "played",
+      "playing",
+      "is playing"
+    ],
+    correctIndex: 0,
+    explanation: "Two long actions happening at the same time in the past.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Past Continuous"
+  },
+  {
+    id: "q327",
+    prompt: "Complete: 'What _____ you doing at 8 PM yesterday?'",
+    options: [
+      "were",
+      "was",
+      "are",
+      "did"
+    ],
+    correctIndex: 0,
+    explanation: "'You' takes the auxiliary 'were' in the past continuous.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Past Continuous"
+  },
+  {
+    id: "q328",
+    prompt: "Complete: 'They were walking in the park when it started to _____.'",
+    options: [
+      "rain",
+      "raining",
+      "rained",
+      "rains"
+    ],
+    correctIndex: 0,
+    explanation: "'Started' is followed by the infinitive 'to rain' or gerund 'raining', but here 'to' is provided, so 'rain'.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Past Continuous"
+  },
+  {
+    id: "q329",
+    prompt: "Complete: 'He _____ (not) listening to the teacher.'",
+    options: [
+      "wasn't",
+      "weren't",
+      "didn't",
+      "isn't"
+    ],
+    correctIndex: 0,
+    explanation: "'He' takes 'wasn't' in negative past continuous.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Past Continuous"
+  },
+  {
+    id: "q330",
+    prompt: "Complete: 'While I _____ home, I saw a car accident.'",
+    options: [
+      "was driving",
+      "drove",
+      "am driving",
+      "was drive"
+    ],
+    correctIndex: 0,
+    explanation: "Continuous action in the past ('while' often signals continuous).",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Past Continuous"
+  },
+  {
+    id: "q331",
+    prompt: "Complete: 'We were having dinner when the lights _____ out.'",
+    options: [
+      "went",
+      "were going",
+      "go",
+      "gone"
+    ],
+    correctIndex: 0,
+    explanation: "The interrupting action is in the past simple ('went').",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Past Continuous"
+  },
+  {
+    id: "q332",
+    prompt: "Complete: '_____ it raining when you left?'",
+    options: [
+      "Was",
+      "Were",
+      "Did",
+      "Is"
+    ],
+    correctIndex: 0,
+    explanation: "'It' takes 'was'.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Past Continuous"
+  },
+  {
+    id: "q333",
+    prompt: "Complete: 'I broke my leg while I _____ football.'",
+    options: [
+      "was playing",
+      "played",
+      "am playing",
+      "play"
+    ],
+    correctIndex: 0,
+    explanation: "Long background action in past continuous.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Past Continuous"
+  },
+  {
+    id: "q334",
+    prompt: "Translate 'Cosa stavi facendo quando ti ho chiamato?'",
+    options: [
+      "What were you doing when I called you?",
+      "What did you do when I called you?",
+      "What was you doing when I called you?",
+      "What are you doing when I called you?"
+    ],
+    correctIndex: 0,
+    explanation: "Question in past continuous, interrupting action in past simple.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Past Continuous"
+  },
+  {
+    id: "q335",
+    prompt: "Translate 'Stavo dormendo quando l\'allarme ha suonato.'",
+    options: [
+      "I was sleeping when the alarm rang.",
+      "I slept when the alarm was ringing.",
+      "I was sleeping when the alarm was ringing.",
+      "I slept when the alarm rang."
+    ],
+    correctIndex: 0,
+    explanation: "Background action (sleeping), interruption (rang).",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Past Continuous"
+  },
+  {
+    id: "q336",
+    prompt: "Translate 'Mentre camminavamo, abbiamo trovato dei soldi.'",
+    options: [
+      "While we were walking, we found some money.",
+      "While we walked, we were finding some money.",
+      "When we were walking, we were finding some money.",
+      "While we walking, we found some money."
+    ],
+    correctIndex: 0,
+    explanation: "'While' + past continuous, then past simple.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Past Continuous"
+  },
+  {
+    id: "q337",
+    prompt: "Translate 'Lei non stava guardando la TV, stava leggendo.'",
+    options: [
+      "She wasn't watching TV, she was reading.",
+      "She didn't watch TV, she was reading.",
+      "She wasn't watching TV, she read.",
+      "She wasn't watch TV, she was reading."
+    ],
+    correctIndex: 0,
+    explanation: "Both actions are past continuous.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Past Continuous"
+  },
+  {
+    id: "q338",
+    prompt: "Translate 'Mentre cucinavo, lui ascoltava la musica.'",
+    options: [
+      "While I was cooking, he was listening to music.",
+      "While I cooked, he listened to music.",
+      "While I was cooking, he listened to music.",
+      "While I cooked, he was listening to music."
+    ],
+    correctIndex: 0,
+    explanation: "Two simultaneous long actions usually take past continuous.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Past Continuous"
+  },
+  {
+    id: "q339",
+    prompt: "Translate 'Pioveva forte ieri mattina?'",
+    options: [
+      "Was it raining hard yesterday morning?",
+      "Did it rain hard yesterday morning?",
+      "Were it raining hard yesterday morning?",
+      "Is it raining hard yesterday morning?"
+    ],
+    correctIndex: 0,
+    explanation: "Asking about a progressive state at a specific time in the past.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Past Continuous"
+  },
+  {
+    id: "q340",
+    prompt: "Translate 'Non stavamo andando troppo veloci.'",
+    options: [
+      "We weren't going too fast.",
+      "We didn't go too fast.",
+      "We wasn't going too fast.",
+      "We aren't going too fast."
+    ],
+    correctIndex: 0,
+    explanation: "Negative past continuous with 'were'.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Past Continuous"
+  },
+  {
+    id: "q341",
+    prompt: "Translate 'Cosa pensavi in quel momento?'",
+    options: [
+      "What were you thinking at that moment?",
+      "What did you think at that moment?",
+      "What was you thinking at that moment?",
+      "What are you thinking at that moment?"
+    ],
+    correctIndex: 0,
+    explanation: "Asking about ongoing thoughts at a past moment.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Past Continuous"
+  },
+  {
+    id: "q342",
+    prompt: "Translate 'Loro ridevano quando sono entrato.'",
+    options: [
+      "They were laughing when I entered.",
+      "They laughed when I was entering.",
+      "They were laughing when I was entering.",
+      "They laughed when I entered."
+    ],
+    correctIndex: 0,
+    explanation: "Background action (laughing), short interruption (entered).",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Past Continuous"
+  }
+,
+  {
+    id: "q343",
+    prompt: "Complete: 'You look tired. You _____ go to bed early.'",
+    options: [
+      "should",
+      "have to",
+      "mustn't",
+      "don't have to"
+    ],
+    correctIndex: 0,
+    explanation: "'Should' is used for advice.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Modals of Obligation and Advice"
+  },
+  {
+    id: "q344",
+    prompt: "Complete: 'In many countries, you _____ wear a seatbelt when driving.'",
+    options: [
+      "have to",
+      "should",
+      "don't have to",
+      "mustn't"
+    ],
+    correctIndex: 0,
+    explanation: "'Have to' is used for a strong obligation or law.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Modals of Obligation and Advice"
+  },
+  {
+    id: "q345",
+    prompt: "Complete: 'Tomorrow is Sunday, so I _____ wake up early.'",
+    options: [
+      "don't have to",
+      "mustn't",
+      "shouldn't",
+      "haven't to"
+    ],
+    correctIndex: 0,
+    explanation: "'Don't have to' means it's not necessary (lack of obligation).",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Modals of Obligation and Advice"
+  },
+  {
+    id: "q346",
+    prompt: "Complete: 'You _____ use your phone during the exam! It\'s forbidden.'",
+    options: [
+      "mustn't",
+      "don't have to",
+      "shouldn't",
+      "haven't to"
+    ],
+    correctIndex: 0,
+    explanation: "'Mustn't' means it is strictly prohibited.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Modals of Obligation and Advice"
+  },
+  {
+    id: "q347",
+    prompt: "Complete: '_____ I wear a suit to the interview?'",
+    options: [
+      "Should",
+      "Must",
+      "Have to",
+      "Do I must"
+    ],
+    correctIndex: 0,
+    explanation: "'Should' is common to ask for an opinion or advice.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Modals of Obligation and Advice"
+  },
+  {
+    id: "q348",
+    prompt: "Complete: 'We have plenty of time. We _____ hurry.'",
+    options: [
+      "don't have to",
+      "mustn't",
+      "shouldn't",
+      "don't must"
+    ],
+    correctIndex: 0,
+    explanation: "No obligation to hurry.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Modals of Obligation and Advice"
+  },
+  {
+    id: "q349",
+    prompt: "Complete: 'You _____ smoke in the hospital.'",
+    options: [
+      "mustn't",
+      "don't have to",
+      "shouldn't",
+      "haven't to"
+    ],
+    correctIndex: 0,
+    explanation: "Prohibition.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Modals of Obligation and Advice"
+  },
+  {
+    id: "q350",
+    prompt: "Complete: 'He _____ wear glasses to read because his eyesight is bad.'",
+    options: [
+      "has to",
+      "should",
+      "musts",
+      "have to"
+    ],
+    correctIndex: 0,
+    explanation: "External obligation, third person singular 'has to'.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Modals of Obligation and Advice"
+  },
+  {
+    id: "q351",
+    prompt: "Complete: 'Do I _____ pay for this ticket now?'",
+    options: [
+      "have to",
+      "must",
+      "should",
+      "had to"
+    ],
+    correctIndex: 0,
+    explanation: "Question form for obligation is 'Do/Does ... have to'.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Modals of Obligation and Advice"
+  },
+  {
+    id: "q352",
+    prompt: "Translate 'Dovresti mangiare più verdure.'",
+    options: [
+      "You should eat more vegetables.",
+      "You must eat more vegetables.",
+      "You have to eat more vegetables.",
+      "You shouldn't eat more vegetables."
+    ],
+    correctIndex: 0,
+    explanation: "Advice.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Modals of Obligation and Advice"
+  },
+  {
+    id: "q353",
+    prompt: "Translate 'Non devi per forza venire se sei stanco.'",
+    options: [
+      "You don't have to come if you're tired.",
+      "You mustn't come if you're tired.",
+      "You shouldn't come if you're tired.",
+      "You haven't to come if you're tired."
+    ],
+    correctIndex: 0,
+    explanation: "Lack of obligation.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Modals of Obligation and Advice"
+  },
+  {
+    id: "q354",
+    prompt: "Translate 'Non devi assolutamente toccare quel filo!'",
+    options: [
+      "You mustn't touch that wire!",
+      "You don't have to touch that wire!",
+      "You shouldn't touch that wire!",
+      "You haven't to touch that wire!"
+    ],
+    correctIndex: 0,
+    explanation: "Strong prohibition.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Modals of Obligation and Advice"
+  },
+  {
+    id: "q355",
+    prompt: "Translate 'Lui deve lavorare fino a tardi oggi.' (obbligo esterno)",
+    options: [
+      "He has to work late today.",
+      "He should work late today.",
+      "He have to work late today.",
+      "He musts work late today."
+    ],
+    correctIndex: 0,
+    explanation: "External obligation with 'has to'.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Modals of Obligation and Advice"
+  },
+  {
+    id: "q356",
+    prompt: "Translate 'Non dovresti bere così tanto caffè.'",
+    options: [
+      "You shouldn't drink so much coffee.",
+      "You mustn't drink so much coffee.",
+      "You don't have to drink so much coffee.",
+      "You haven't to drink so much coffee."
+    ],
+    correctIndex: 0,
+    explanation: "Negative advice.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Modals of Obligation and Advice"
+  },
+  {
+    id: "q357",
+    prompt: "Translate 'Devo togliermi le scarpe?'",
+    options: [
+      "Do I have to take off my shoes?",
+      "Must I to take off my shoes?",
+      "Should I take off my shoes?",
+      "Have I to take off my shoes?"
+    ],
+    correctIndex: 0,
+    explanation: "Question about rules/obligation uses 'Do I have to'.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Modals of Obligation and Advice"
+  },
+  {
+    id: "q358",
+    prompt: "Translate 'Non hai bisogno di pagare, è gratis.'",
+    options: [
+      "You don't have to pay, it's free.",
+      "You mustn't pay, it's free.",
+      "You shouldn't pay, it's free.",
+      "You haven't to pay, it's free."
+    ],
+    correctIndex: 0,
+    explanation: "Lack of obligation.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Modals of Obligation and Advice"
+  },
+  {
+    id: "q359",
+    prompt: "Translate 'Cosa dovrei fare?'",
+    options: [
+      "What should I do?",
+      "What must I do?",
+      "What have I to do?",
+      "What do I do?"
+    ],
+    correctIndex: 0,
+    explanation: "Asking for advice.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Modals of Obligation and Advice"
+  },
+  {
+    id: "q360",
+    prompt: "Translate 'Non devi dire niente a nessuno, è un segreto!'",
+    options: [
+      "You mustn't tell anyone, it's a secret!",
+      "You don't have to tell anyone, it's a secret!",
+      "You shouldn't tell anyone, it's a secret!",
+      "You haven't to tell anyone, it's a secret!"
+    ],
+    correctIndex: 0,
+    explanation: "Prohibition.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Modals of Obligation and Advice"
+  },
+  {
+    id: "q361",
+    prompt: "Complete: 'She speaks English very _____.' (good/well)",
+    options: [
+      "well",
+      "good",
+      "goodly",
+      "welling"
+    ],
+    correctIndex: 0,
+    explanation: "'Well' is the adverb form of 'good'.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Adverbs of Manner"
+  },
+  {
+    id: "q362",
+    prompt: "Complete: 'He drives very _____. It\'s dangerous!'",
+    options: [
+      "fast",
+      "fastly",
+      "quick",
+      "speedy"
+    ],
+    correctIndex: 0,
+    explanation: "'Fast' is both an adjective and an adverb.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Adverbs of Manner"
+  },
+  {
+    id: "q363",
+    prompt: "Complete: 'Please do your work _____. Take your time.'",
+    options: [
+      "carefully",
+      "careful",
+      "careless",
+      "carelessly"
+    ],
+    correctIndex: 0,
+    explanation: "'Carefully' describes how to do the work.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Adverbs of Manner"
+  },
+  {
+    id: "q364",
+    prompt: "Complete: 'They won the game _____. They were much better.'",
+    options: [
+      "easily",
+      "easy",
+      "easier",
+      "easying"
+    ],
+    correctIndex: 0,
+    explanation: "'Easily' is the adverb form of 'easy' (y changes to i + ly).",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Adverbs of Manner"
+  },
+  {
+    id: "q365",
+    prompt: "Complete: 'The old man walked _____ down the street.'",
+    options: [
+      "slowly",
+      "slow",
+      "slower",
+      "slowingly"
+    ],
+    correctIndex: 0,
+    explanation: "'Slowly' describes the verb 'walked'.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Adverbs of Manner"
+  },
+  {
+    id: "q366",
+    prompt: "Complete: 'She looked at him _____ when he broke the glass.'",
+    options: [
+      "angrily",
+      "angry",
+      "angrier",
+      "angrying"
+    ],
+    correctIndex: 0,
+    explanation: "Adverb formed from 'angry'.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Adverbs of Manner"
+  },
+  {
+    id: "q367",
+    prompt: "Complete: 'He worked _____ to pass the exam.'",
+    options: [
+      "hard",
+      "hardly",
+      "harder",
+      "hards"
+    ],
+    correctIndex: 0,
+    explanation: "'Hard' is an irregular adverb meaning with effort. ('Hardly' means almost not).",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Adverbs of Manner"
+  },
+  {
+    id: "q368",
+    prompt: "Complete: 'The children were playing _____ in the garden.'",
+    options: [
+      "happily",
+      "happy",
+      "happier",
+      "happiness"
+    ],
+    correctIndex: 0,
+    explanation: "Adverb of 'happy'.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Adverbs of Manner"
+  },
+  {
+    id: "q369",
+    prompt: "Complete: 'I can run very _____.'",
+    options: [
+      "fast",
+      "fastly",
+      "quick",
+      "faster"
+    ],
+    correctIndex: 0,
+    explanation: "'Fast' is an irregular adverb.",
+    category: "Grammatica",
+    level: "A2",
+    grammarTopic: "Adverbs of Manner"
+  },
+  {
+    id: "q370",
+    prompt: "Translate 'Ha risposto alla domanda velocemente.'",
+    options: [
+      "He answered the question quickly.",
+      "He answered the question quick.",
+      "He answered the question fastly.",
+      "He answered the question quicker."
+    ],
+    correctIndex: 0,
+    explanation: "'Velocemente' is 'quickly'.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Adverbs of Manner"
+  },
+  {
+    id: "q371",
+    prompt: "Translate 'Canta davvero bene.'",
+    options: [
+      "She sings really well.",
+      "She sings really good.",
+      "She sings really goodly.",
+      "She sings really nice."
+    ],
+    correctIndex: 0,
+    explanation: "'Bene' is the adverb 'well'.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Adverbs of Manner"
+  },
+  {
+    id: "q372",
+    prompt: "Translate 'Hanno lavorato duramente tutto il giorno.'",
+    options: [
+      "They worked hard all day.",
+      "They worked hardly all day.",
+      "They worked difficultly all day.",
+      "They worked heavy all day."
+    ],
+    correctIndex: 0,
+    explanation: "'Duramente' (con fatica) is 'hard'.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Adverbs of Manner"
+  },
+  {
+    id: "q373",
+    prompt: "Translate 'Per favore, parla lentamente.'",
+    options: [
+      "Please, speak slowly.",
+      "Please, speak slow.",
+      "Please, speak slower.",
+      "Please, speak slowingly."
+    ],
+    correctIndex: 0,
+    explanation: "'Lentamente' is 'slowly'.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Adverbs of Manner"
+  },
+  {
+    id: "q374",
+    prompt: "Translate 'Ha chiuso la porta silenziosamente.'",
+    options: [
+      "He closed the door quietly.",
+      "He closed the door quiet.",
+      "He closed the door quietlyly.",
+      "He closed the door silent."
+    ],
+    correctIndex: 0,
+    explanation: "'Silenziosamente' is 'quietly'.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Adverbs of Manner"
+  },
+  {
+    id: "q375",
+    prompt: "Translate 'Hanno risolto il problema facilmente.'",
+    options: [
+      "They solved the problem easily.",
+      "They solved the problem easy.",
+      "They solved the problem with easy.",
+      "They solved the problem easier."
+    ],
+    correctIndex: 0,
+    explanation: "'Facilmente' is 'easily'.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Adverbs of Manner"
+  },
+  {
+    id: "q376",
+    prompt: "Translate 'Guida sempre con molta attenzione (attentamente).'",
+    options: [
+      "He always drives carefully.",
+      "He always drives careful.",
+      "He always drives care.",
+      "He always drives with careful."
+    ],
+    correctIndex: 0,
+    explanation: "'Attentamente' is 'carefully'.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Adverbs of Manner"
+  },
+  {
+    id: "q377",
+    prompt: "Translate 'L\'insegnante ha spiegato la regola chiaramente.'",
+    options: [
+      "The teacher explained the rule clearly.",
+      "The teacher explained the rule clear.",
+      "The teacher explained the rule cleary.",
+      "The teacher explained the rule clearing."
+    ],
+    correctIndex: 0,
+    explanation: "'Chiaramente' is 'clearly'.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Adverbs of Manner"
+  },
+  {
+    id: "q378",
+    prompt: "Translate 'Ho capito perfettamente.'",
+    options: [
+      "I understood perfectly.",
+      "I understood perfect.",
+      "I understood perfection.",
+      "I understood perfectlyly."
+    ],
+    correctIndex: 0,
+    explanation: "'Perfettamente' is 'perfectly'.",
+    category: "Traduzione",
+    level: "A2",
+    grammarTopic: "Adverbs of Manner"
+  }
 ];

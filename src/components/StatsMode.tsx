@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { AppState } from '../types';
 import { questions } from '../data/questions';
-import { X, Trophy, TrendingUp, AlertCircle, Clock, Target, List, ArrowLeft, Activity, Filter, ArrowDownUp, ArrowUp, ArrowDown, Minus } from 'lucide-react';
+import { X, Trophy, TrendingUp, AlertCircle, Clock, Target, List, ArrowLeft, Activity, Filter, ArrowDownUp, ArrowUp, ArrowDown, Minus, Crown } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 
@@ -127,6 +127,30 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
   }, [appState.stats]);
 
   const categories = useMemo(() => Array.from(new Set(questions.map(q => q.category))), []);
+
+  // Endowed Progress Effect: Give users a 50 XP head start so they feel invested immediately.
+  const totalXP = 50 + Object.values(appState.stats).reduce((sum, stat) => sum + stat.correct, 0) * 10;
+  const currentLevel = Math.floor(Math.sqrt(totalXP / 50)) + 1;
+  const xpForCurrentLevel = Math.pow(currentLevel - 1, 2) * 50;
+  const xpForNextLevel = Math.pow(currentLevel, 2) * 50;
+  const progressPercent = Math.min(100, Math.max(0, ((totalXP - xpForCurrentLevel) / (xpForNextLevel - xpForCurrentLevel)) * 100));
+
+  // Endless Daily Quest
+  const todayStr = new Date().toISOString().split('T')[0];
+  const todayActivity = appState.dailyActivity?.[todayStr] || 0;
+  const endowedDaily = 1; // 1 free progress step every day just for opening the app
+  const currentTotalDaily = todayActivity + endowedDaily;
+  
+  const milestones = [10, 25, 50, 100, 150, 250, 400, 600, 1000, 99999];
+  let milestoneIndex = 0;
+  while (milestoneIndex < milestones.length - 1 && currentTotalDaily >= milestones[milestoneIndex]) {
+    milestoneIndex++;
+  }
+  const currentMilestone = milestones[milestoneIndex];
+  const previousMilestone = milestoneIndex === 0 ? 0 : milestones[milestoneIndex - 1];
+  const currentPhaseProgress = currentTotalDaily - previousMilestone;
+  const currentPhaseGoal = currentMilestone - previousMilestone;
+  const phaseProgressPercent = Math.min(100, (currentPhaseProgress / currentPhaseGoal) * 100);
 
   const filteredAndSortedQuestions = useMemo(() => {
     let filtered = questions;
@@ -267,8 +291,8 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
         </button>
       </header>
 
-      <main className="flex-1 overflow-y-auto scrollbar-hide p-4 sm:p-6 flex flex-col sm:grid sm:grid-cols-2 gap-4 sm:gap-6 items-stretch">
-        
+      <main className="flex-1 overflow-y-auto scrollbar-hide p-4 sm:p-6 flex flex-col gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 items-stretch">
         {/* Left Column */}
         <div className="flex flex-col gap-4 sm:gap-6">
           {/* Overview Cards */}
@@ -495,6 +519,47 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
             )}
           </div>
         </div>
+        </div>
+
+        {/* Bottom Full Width Section */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 shrink-0">
+          {/* XP & Level Bar */}
+          <div className="bg-white dark:bg-[#0F172A] rounded-2xl p-4 sm:p-5 border-2 border-gray-200 dark:border-[#334155] border-b-4 flex flex-col justify-center gap-2 shadow-sm transition-colors">
+            <div className="flex justify-between items-center">
+              <div className="flex items-center gap-2">
+                <div className="bg-[#FFC800] text-white p-1.5 rounded-lg shadow-sm">
+                  <Crown size={18} strokeWidth={3} />
+                </div>
+                <span className="text-sm sm:text-lg font-black text-[#4B4B4B] dark:text-[#F8FAFC]">Liv. {currentLevel}</span>
+              </div>
+              <span className="text-xs sm:text-sm font-bold text-[#FFC800]">{totalXP} XP</span>
+            </div>
+            <div className="w-full bg-gray-200 dark:bg-[#334155] h-3 sm:h-4 rounded-full overflow-hidden flex relative">
+              <div className={cn("bg-[#FFC800] h-full rounded-full transition-all duration-500 ease-out", progressPercent > 80 && "animate-pulse")} style={{ width: `${progressPercent}%` }} />
+            </div>
+          </div>
+
+          {/* Daily Goal Endless */}
+          <div className="bg-white dark:bg-[#0F172A] rounded-2xl p-4 sm:p-5 border-2 border-gray-200 dark:border-[#334155] border-b-4 flex flex-col justify-center gap-2 shadow-sm transition-colors relative overflow-hidden group">
+            <div className="flex justify-between items-center z-10 leading-none">
+              <span className="text-sm sm:text-lg font-black text-[#4B4B4B] dark:text-[#F8FAFC] flex items-center gap-2">
+                Sfida Quotidiana
+                <span className="bg-[#1CB0F6] text-white text-[10px] sm:text-xs px-2 py-0.5 rounded-lg uppercase tracking-wider">
+                  Fase {milestoneIndex + 1}
+                </span>
+              </span>
+              <span className="text-sm sm:text-lg font-black text-[#1CB0F6]">{currentTotalDaily}/{currentMilestone}</span>
+            </div>
+            
+            <div className="w-full bg-gray-200 dark:bg-[#334155] h-3 sm:h-4 rounded-full overflow-hidden flex relative mt-1">
+              <div 
+                className={cn("bg-[#1CB0F6] h-full rounded-full transition-all duration-700 ease-out", phaseProgressPercent > 80 && "animate-pulse")} 
+                style={{ width: `${phaseProgressPercent}%` }} 
+              />
+            </div>
+          </div>
+        </div>
+
       </main>
       </div>
     </div>
