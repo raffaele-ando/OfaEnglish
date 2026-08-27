@@ -105,27 +105,44 @@ export default function App() {
 
       const newStats: UserStats = { ...(prev.stats || {}) };
       if (questionResults) {
+        // Map question logs by questionId for fast telemetry retrieval
+        const logsMap = new Map((historyEntry.questionLogs || []).map(l => [l.questionId, l]));
+
         for (const [qId, result] of Object.entries(questionResults)) {
           const currentQ = getQuestionStats(newStats, qId);
+          const log = logsMap.get(qId);
+
           if (result === 'correct') {
             newStats[qId] = {
               ...currentQ,
               correct: currentQ.correct + 1,
               box: currentQ.box + 1,
-              lastSeen: Date.now()
+              lastSeen: Date.now(),
+              lastResponseTimeMs: log?.timeSpentMs ?? currentQ.lastResponseTimeMs,
+              lastFirstClickTimeMs: log?.firstClickTimeMs ?? currentQ.lastFirstClickTimeMs,
+              lastSwitchCount: log?.switchCount ?? currentQ.lastSwitchCount,
+              lastTrajectory: log?.trajectory ?? currentQ.lastTrajectory,
             };
           } else if (result === 'incorrect') {
             newStats[qId] = {
               ...currentQ,
               incorrect: currentQ.incorrect + 1,
               box: 0,
-              lastSeen: Date.now()
+              lastSeen: Date.now(),
+              lastResponseTimeMs: log?.timeSpentMs ?? currentQ.lastResponseTimeMs,
+              lastFirstClickTimeMs: log?.firstClickTimeMs ?? currentQ.lastFirstClickTimeMs,
+              lastSwitchCount: log?.switchCount ?? currentQ.lastSwitchCount,
+              lastTrajectory: log?.trajectory ?? currentQ.lastTrajectory,
             };
           } else if (result === 'omitted') {
             newStats[qId] = {
               ...currentQ,
               omitted: (currentQ.omitted || 0) + 1,
-              lastSeen: Date.now()
+              lastSeen: Date.now(),
+              lastResponseTimeMs: log?.timeSpentMs ?? currentQ.lastResponseTimeMs,
+              lastFirstClickTimeMs: log?.firstClickTimeMs ?? currentQ.lastFirstClickTimeMs,
+              lastSwitchCount: log?.switchCount ?? currentQ.lastSwitchCount,
+              lastTrajectory: log?.trajectory ?? currentQ.lastTrajectory,
             };
           }
         }

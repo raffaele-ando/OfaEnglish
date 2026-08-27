@@ -5,26 +5,33 @@ interface ActivityChartProps {
 }
 
 export function ActivityChart({ dailyActivity }: ActivityChartProps) {
-  // Generate last 28 days (4 weeks)
+  // Generate 28 days (4 complete weeks) aligned to Monday - Sunday
   const days = [];
   const today = new Date();
+  const dayOfWeek = (today.getDay() + 6) % 7; // 0 = Mon, 1 = Tue, ..., 6 = Sun
   
-  for (let i = 27; i >= 0; i--) {
-    const d = new Date(today);
-    d.setDate(d.getDate() - i);
+  // Start date: Monday 3 weeks ago (4 weeks total = 28 days ending this Sunday)
+  const startDate = new Date(today);
+  startDate.setDate(today.getDate() - dayOfWeek - 21);
+
+  for (let i = 0; i < 28; i++) {
+    const d = new Date(startDate);
+    d.setDate(startDate.getDate() + i);
     const dateStr = d.toISOString().split('T')[0];
+    const isFuture = d > today;
     
     days.push({
       date: dateStr,
-      count: dailyActivity?.[dateStr] || 0
+      count: isFuture ? 0 : (dailyActivity?.[dateStr] || 0),
+      isFuture
     });
   }
 
-  // Calculate some fun stats
-  const totalActivity = days.reduce((sum, d) => sum + d.count, 0);
-  const activeDays = days.filter(d => d.count > 0).length;
+  // Calculate stats based on past and today's activity
+  const activeDays = days.filter(d => !d.isFuture && d.count > 0).length;
 
-  const getColor = (count: number) => {
+  const getColor = (count: number, isFuture: boolean) => {
+    if (isFuture) return 'bg-gray-50/50 dark:bg-[#1E293B]/40 border-gray-100/50 dark:border-[#334155]/40 opacity-40';
     if (count === 0) return 'bg-gray-100 dark:bg-[#1E293B] border-gray-100 dark:border-[#334155]';
     if (count <= 5) return 'bg-[#D7FFB8] dark:bg-[#064E3B] border-[#58CC02] dark:border-[#059669]';
     if (count <= 15) return 'bg-[#58CC02] dark:bg-[#10B981] border-[#46A302] dark:border-[#047857]';
@@ -56,7 +63,7 @@ export function ActivityChart({ dailyActivity }: ActivityChartProps) {
             <div 
               key={day.date}
               title={`${day.date}: ${day.count} activity`}
-              className={`w-full h-full min-h-[6px] sm:min-h-[12px] rounded-[2px] sm:rounded-sm border ${getColor(day.count)} transition-all duration-300`}
+              className={`w-full h-full min-h-[6px] sm:min-h-[12px] rounded-[2px] sm:rounded-sm border ${getColor(day.count, day.isFuture)} transition-all duration-300`}
             />
           ))}
         </div>

@@ -101,7 +101,15 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
 
   const handleFinish = (finalAnswers = answers) => {
     setIsFinished(true);
-    updateCurrentQuestionTime();
+    
+    // Calculate synchronous final question time map so the active question's elapsed time is preserved
+    const currentQ = examQuestions[currentIndex];
+    const currentElapsed = currentQ ? Math.max(0, Date.now() - questionStartTimestamp) : 0;
+    const finalTimeSpentMap = {
+      ...questionTimeSpent,
+      ...(currentQ ? { [currentQ.id]: (questionTimeSpent[currentQ.id] || 0) + currentElapsed } : {})
+    };
+    setQuestionTimeSpent(finalTimeSpentMap);
 
     let score = 0;
     const categoryUpdates: Record<string, { correct: number, total: number }> = {};
@@ -140,7 +148,7 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
         userAnswerIndex: isOmitted ? null : finalAnswers[q.id],
         correctIndex: q.correctIndex,
         isCorrect,
-        timeSpentMs: questionTimeSpent[q.id] || 0,
+        timeSpentMs: finalTimeSpentMap[q.id] || 0,
         firstClickTimeMs,
         firstOptionIndex,
         switchCount,

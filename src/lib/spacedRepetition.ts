@@ -321,7 +321,7 @@ export function updateStats(
       [questionId]: {
         ...qStats,
         correct: qStats.correct + (isCorrect && attempts === 1 ? 1 : 0),
-        incorrect: qStats.incorrect + (quality < 3.0 ? 1 : 0),
+        incorrect: qStats.incorrect + (!isCorrect && attempts === 1 ? 1 : 0),
         lastSeen: Date.now(),
         box: newRepetitions,
         easiness: newEasiness,

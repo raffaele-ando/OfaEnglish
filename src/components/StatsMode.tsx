@@ -65,7 +65,7 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
       return { qId, errorRate, incorrect, correct, omitted, box: stat.box, easiness: stat.easiness || 2.5 };
     })
     .filter(item => item.incorrect > 0 || item.omitted > 0)
-    .sort((a, b) => b.errorRate - a.errorRate);
+    .sort((a, b) => (b.errorRate - a.errorRate) || (b.incorrect - a.incorrect));
 
   const topErrors = errorRates.slice(0, 5); // top 5 hardest questions
 
@@ -410,7 +410,7 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
               </div>
               <div className="flex justify-between items-center py-2">
                 <span className="text-sm sm:text-base font-bold text-gray-500 dark:text-gray-400">Miglior punteggio</span>
-                <span className="text-base sm:text-lg font-black text-[#FFC800] dark:text-[#FBBF24]">{bestScore > 0 ? `${bestScore}/30` : '-'}</span>
+                <span className="text-base sm:text-lg font-black text-[#FFC800] dark:text-[#FBBF24]">{examsTaken > 0 ? `${bestScore}/30` : '-'}</span>
               </div>
             </div>
           </div>
@@ -444,7 +444,7 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
                     outerRadius="70%" 
                     data={Object.entries(topicStats).map(([cat, stats]: [string, { correct: number; total: number }]) => ({
                       subject: cat,
-                      A: Math.round((stats.correct / stats.total) * 100),
+                      A: stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0,
                       fullMark: 100,
                     }))}
                   >

@@ -156,17 +156,18 @@ export function updateStreak(state: AppState): AppState {
   } else {
     const lastActive = new Date(newState.lastActiveDate);
     const lastActiveDay = new Date(lastActive.getFullYear(), lastActive.getMonth(), lastActive.getDate()).getTime();
+    const diffDays = Math.round((today - lastActiveDay) / (1000 * 60 * 60 * 24));
     
-    if (today - lastActiveDay === ONE_DAY) {
+    if (diffDays === 1) {
       // Consecutive day
       newState.streak += 1;
       newState.lastActiveDate = now.getTime();
-    } else if (today - lastActiveDay > ONE_DAY) {
+    } else if (diffDays > 1) {
       // Streak broken
       newState.streak = 1;
       newState.lastActiveDate = now.getTime();
     } else {
-      // Same day, just update exact time to reflect latest activity
+      // Same day (diffDays === 0), just update exact time to reflect latest activity
       newState.lastActiveDate = now.getTime();
     }
   }
