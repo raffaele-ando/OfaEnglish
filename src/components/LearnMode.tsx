@@ -338,10 +338,10 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
                     onClick={() => !hasChecked && setSelectedRecallWords(prev => [...prev, index])}
                     disabled={isSelected || hasChecked}
                     className={cn(
-                      "px-4 py-2 rounded-xl font-bold transition-all text-sm sm:text-base",
+                      "px-5 py-2.5 rounded-[16px] font-bold transition-all text-sm sm:text-base",
                       isSelected 
                         ? "bg-gray-200 dark:bg-[#334155] text-transparent border-2 border-gray-200 dark:border-[#334155] cursor-default shadow-none" 
-                        : "bg-white dark:bg-[#1E293B] border-2 border-gray-200 dark:border-[#475569] border-b-4 text-[#4B4B4B] dark:text-[#F8FAFC] active:border-b-0 active:translate-y-1 cursor-pointer hover:bg-gray-50 dark:hover:bg-[#0F172A]"
+                        : "bg-white dark:bg-[#1E293B] border-2 border-gray-200 dark:border-[#475569] border-b-4 text-[#4B4B4B] dark:text-[#F8FAFC] active:border-b-0 active:translate-y-[2px] cursor-pointer hover:bg-gray-50 dark:hover:bg-[#0F172A]"
                     )}
                   >
                     {word}
@@ -360,28 +360,28 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 flex-1">
             {question.options.map((opt, idx) => {
-              let stateClass = "border-gray-200 dark:border-[#334155] bg-white dark:bg-[#0F172A] hover:bg-gray-50 dark:hover:bg-[#1E293B] hover:border-blue-400 dark:hover:border-blue-500 text-[#4B4B4B] dark:text-gray-200";
-              let numberClass = "border-gray-200 dark:border-[#334155] text-gray-400 dark:text-gray-500 group-hover:bg-blue-100 dark:group-hover:bg-[#1E293B] group-hover:border-blue-400 dark:group-hover:border-blue-500 group-hover:text-blue-600 dark:group-hover:text-blue-400";
+              let stateClass = "border-gray-200 dark:border-[#334155] bg-white dark:bg-[#0F172A] hover:bg-gray-50 dark:hover:bg-[#1E293B] hover:border-gray-300 dark:hover:border-gray-400 text-[#4B4B4B] dark:text-gray-200 border-b-4 active:border-b-2 active:translate-y-[2px]";
+              let numberClass = "border-gray-200 dark:border-[#334155] text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-[#1E293B]";
               
               if (hasChecked) {
                 if (idx === question.correctIndex) {
-                  stateClass = "border-[#58CC02] dark:border-[#46A302] bg-[#E5F5E5] dark:bg-[#064E3B] text-[#46A302] dark:text-[#10B981]";
+                  stateClass = "border-[#58CC02] dark:border-[#46A302] bg-[#E5F5E5] dark:bg-[#064E3B] text-[#46A302] dark:text-[#10B981] border-b-4";
                   numberClass = "border-[#58CC02] dark:border-[#46A302] bg-white dark:bg-[#064E3B] text-[#58CC02] dark:text-[#10B981]";
                 } else if (idx === selectedOption) {
-                  stateClass = "border-[#FF4B4B] dark:border-[#EF4444] bg-[#FFE5E5] dark:bg-[#7F1D1D] text-[#D80000] dark:text-[#F87171]";
+                  stateClass = "border-[#FF4B4B] dark:border-[#EF4444] bg-[#FFE5E5] dark:bg-[#7F1D1D] text-[#D80000] dark:text-[#F87171] border-b-4";
                   numberClass = "border-[#FF4B4B] dark:border-[#EF4444] bg-white dark:bg-[#7F1D1D] text-[#FF4B4B] dark:text-[#F87171]";
                 } else if (wrongOptions.has(idx)) {
-                  stateClass = "border-gray-200 dark:border-[#334155] bg-gray-50 dark:bg-[#1E293B] opacity-50";
+                  stateClass = "border-gray-200 dark:border-[#334155] bg-gray-50 dark:bg-[#1E293B] opacity-40 border-b-2 translate-y-[2px]";
                 } else {
-                  stateClass = "border-gray-200 dark:border-[#334155] bg-white dark:bg-[#0F172A] opacity-50";
+                  stateClass = "border-gray-200 dark:border-[#334155] bg-white dark:bg-[#0F172A] opacity-40 border-b-2 translate-y-[2px]";
                 }
               } else if (selectedOption === idx) {
-                stateClass = "bg-[#DDF4FF] dark:bg-[#0369A1] border-[#84D8FF] dark:border-[#38BDF8] text-[#1899D6] dark:text-[#E0F2FE]";
+                stateClass = "bg-[#DDF4FF] dark:bg-[#0369A1] border-[#84D8FF] dark:border-[#38BDF8] text-[#1899D6] dark:text-[#E0F2FE] border-b-4";
                 numberClass = "border-[#84D8FF] dark:border-[#38BDF8] bg-white dark:bg-[#0369A1] text-[#1899D6] dark:text-[#E0F2FE]";
               } else if (wrongOptions.has(idx)) {
-                stateClass = "border-gray-200 dark:border-[#334155] bg-gray-50 dark:bg-[#1E293B] opacity-50";
+                stateClass = "border-gray-200 dark:border-[#334155] bg-gray-50 dark:bg-[#1E293B] opacity-40 border-b-2 translate-y-[2px]";
               }
 
               return (
@@ -390,15 +390,15 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
                   disabled={hasChecked || wrongOptions.has(idx)}
                   onClick={() => handleSelectOption(idx)}
                   className={cn(
-                    "p-4 sm:p-5 text-left border-2 rounded-2xl group transition-all min-h-[80px]",
+                    "p-4 sm:p-5 text-left border-2 rounded-[24px] group transition-all duration-150 flex items-center min-h-[90px]",
                     stateClass
                   )}
                 >
-                  <div className="flex items-start gap-4">
-                    <span className={cn("w-10 h-10 sm:w-12 sm:h-12 text-base flex shrink-0 items-center justify-center border-2 rounded-xl font-black transition-colors mt-0.5", numberClass)}>
+                  <div className="flex items-center gap-4 w-full">
+                    <span className={cn("w-10 h-10 sm:w-12 sm:h-12 text-sm sm:text-base flex shrink-0 items-center justify-center border-2 rounded-[14px] font-black transition-colors", numberClass)}>
                       {String.fromCharCode(65 + idx)}
                     </span>
-                    <span className="text-base sm:text-lg font-bold leading-snug">{opt}</span>
+                    <span className="text-base sm:text-lg font-bold leading-snug flex-1">{opt}</span>
                   </div>
                 </button>
               );
@@ -440,21 +440,21 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
               <button
                 onClick={() => handleCheck('low')}
                 disabled={!optionsRevealed ? selectedRecallWords.length === 0 : selectedOption === null}
-                className="flex-1 sm:flex-none bg-[#FF4B4B] border-b-4 border-[#D80000] disabled:bg-gray-200 disabled:dark:bg-[#334155] disabled:border-gray-300 disabled:dark:border-[#475569] disabled:text-gray-400 disabled:dark:text-gray-600 text-white font-black uppercase text-xs sm:text-sm py-3 sm:py-4 px-4 rounded-xl transition-all active:border-b-0 active:translate-y-1"
+                className="flex-1 sm:flex-none bg-[#FF4B4B] hover:bg-[#E63E3E] border-b-4 border-[#D80000] disabled:bg-gray-200 disabled:dark:bg-[#334155] disabled:border-gray-300 disabled:dark:border-[#475569] disabled:text-gray-400 disabled:dark:text-gray-600 text-white font-black uppercase text-xs sm:text-sm py-4 px-5 rounded-[20px] transition-all active:border-b-0 active:translate-y-[2px] duration-150"
               >
                 Indovino
               </button>
               <button
                 onClick={() => handleCheck('medium')}
                 disabled={!optionsRevealed ? selectedRecallWords.length === 0 : selectedOption === null}
-                className="flex-1 sm:flex-none bg-[#FFC800] border-b-4 border-[#E5B400] disabled:bg-gray-200 disabled:dark:bg-[#334155] disabled:border-gray-300 disabled:dark:border-[#475569] disabled:text-gray-400 disabled:dark:text-gray-600 text-white font-black uppercase text-xs sm:text-sm py-3 sm:py-4 px-4 rounded-xl transition-all active:border-b-0 active:translate-y-1"
+                className="flex-1 sm:flex-none bg-[#FFC800] hover:bg-[#F0BD00] border-b-4 border-[#E5B400] disabled:bg-gray-200 disabled:dark:bg-[#334155] disabled:border-gray-300 disabled:dark:border-[#475569] disabled:text-gray-400 disabled:dark:text-gray-600 text-white font-black uppercase text-xs sm:text-sm py-4 px-5 rounded-[20px] transition-all active:border-b-0 active:translate-y-[2px] duration-150"
               >
                 Incerto
               </button>
               <button
                 onClick={() => handleCheck('high')}
                 disabled={!optionsRevealed ? selectedRecallWords.length === 0 : selectedOption === null}
-                className="flex-1 sm:flex-none bg-[#58CC02] border-b-4 border-[#46A302] disabled:bg-gray-200 disabled:dark:bg-[#334155] disabled:border-gray-300 disabled:dark:border-[#475569] disabled:text-gray-400 disabled:dark:text-gray-600 text-white font-black uppercase text-xs sm:text-sm py-3 sm:py-4 px-4 rounded-xl transition-all active:border-b-0 active:translate-y-1"
+                className="flex-1 sm:flex-none bg-[#58CC02] hover:bg-[#46A302] border-b-4 border-[#46A302] disabled:bg-gray-200 disabled:dark:bg-[#334155] disabled:border-gray-300 disabled:dark:border-[#475569] disabled:text-gray-400 disabled:dark:text-gray-600 text-white font-black uppercase text-xs sm:text-sm py-4 px-5 rounded-[20px] transition-all active:border-b-0 active:translate-y-[2px] duration-150"
               >
                 Sicuro
               </button>
@@ -463,8 +463,8 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
             <button
               onClick={handleNext}
               className={cn(
-                "w-full sm:w-auto text-white font-black uppercase text-base sm:text-lg py-4 px-8 rounded-2xl transition-all active:border-b-0 active:translate-y-1 border-b-4 flex items-center justify-center gap-2",
-                isCorrect ? "bg-[#58CC02] border-[#46A302] dark:bg-[#10B981] dark:border-[#059669]" : "bg-[#FF4B4B] border-[#D80000] dark:bg-[#EF4444] dark:border-[#DC2626]"
+                "w-full sm:w-auto text-white font-black uppercase text-base sm:text-lg py-4 px-8 rounded-[20px] transition-all active:border-b-0 active:translate-y-[2px] border-b-4 flex items-center justify-center gap-2 duration-150",
+                isCorrect ? "bg-[#58CC02] hover:bg-[#46A302] border-[#46A302] dark:bg-[#10B981] dark:border-[#059669]" : "bg-[#FF4B4B] hover:bg-[#E63E3E] border-[#D80000] dark:bg-[#EF4444] dark:border-[#DC2626]"
               )}
             >
               {isCorrect ? (

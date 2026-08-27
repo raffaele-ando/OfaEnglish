@@ -30,69 +30,69 @@ export default function PracticeMenu({ onSelectMode, onBack }: PracticeMenuProps
       <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 min-h-0 items-stretch">
         <button
           onClick={() => onSelectMode('standard')}
-          className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] border-b-4 hover:bg-gray-50 dark:hover:bg-[#1E293B] text-left p-3 sm:p-4 rounded-2xl transition-all active:border-b-0 active:translate-y-1 flex items-start gap-3 h-full"
+          className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] border-b-4 hover:bg-gray-50 dark:hover:bg-[#1E293B] text-left p-4 sm:p-5 rounded-[24px] transition-all duration-200 active:border-b-0 active:translate-y-1 flex items-center gap-4 h-full"
         >
-          <div className="bg-[#1CB0F6]/10 text-[#1CB0F6] p-2 sm:p-3 rounded-xl shrink-0">
-            <BookOpen className="w-5 sm:w-6 h-5 sm:h-6" />
+          <div className="bg-[#1CB0F6]/10 text-[#1CB0F6] p-3 sm:p-4 rounded-[16px] shrink-0">
+            <BookOpen className="w-6 sm:w-7 h-6 sm:h-7" />
           </div>
           <div>
-            <h3 className="font-black text-[#4B4B4B] dark:text-[#F8FAFC] text-base sm:text-lg mb-1">Standard</h3>
-            <p className="text-gray-500 dark:text-gray-400 font-bold text-xs">Spaced repetition classica.</p>
+            <h3 className="font-black text-[#4B4B4B] dark:text-[#F8FAFC] text-base sm:text-lg mb-0.5">Standard</h3>
+            <p className="text-gray-500 dark:text-gray-400 font-bold text-xs sm:text-sm">Spaced repetition classica.</p>
           </div>
         </button>
 
         <button
           onClick={() => onSelectMode('weakness')}
-          className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] border-b-4 hover:bg-gray-50 dark:hover:bg-[#1E293B] text-left p-3 sm:p-4 rounded-2xl transition-all active:border-b-0 active:translate-y-1 flex items-start gap-3 h-full"
+          className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] border-b-4 hover:bg-gray-50 dark:hover:bg-[#1E293B] text-left p-4 sm:p-5 rounded-[24px] transition-all duration-200 active:border-b-0 active:translate-y-1 flex items-center gap-4 h-full"
         >
-          <div className="bg-[#FF4B4B]/10 text-[#FF4B4B] p-2 sm:p-3 rounded-xl shrink-0">
-            <Target className="w-5 sm:w-6 h-5 sm:h-6" />
+          <div className="bg-[#FF4B4B]/10 text-[#FF4B4B] p-3 sm:p-4 rounded-[16px] shrink-0">
+            <Target className="w-6 sm:w-7 h-6 sm:h-7" />
           </div>
           <div>
-            <h3 className="font-black text-[#4B4B4B] dark:text-[#F8FAFC] text-base sm:text-lg mb-1">Weakness</h3>
-            <p className="text-gray-500 dark:text-gray-400 font-bold text-xs">Focalizzati sugli errori.</p>
+            <h3 className="font-black text-[#4B4B4B] dark:text-[#F8FAFC] text-base sm:text-lg mb-0.5">Weakness</h3>
+            <p className="text-gray-500 dark:text-gray-400 font-bold text-xs sm:text-sm">Focalizzati sugli errori.</p>
           </div>
         </button>
 
         <button
           onClick={() => onSelectMode('blitz')}
-          className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] border-b-4 hover:bg-gray-50 dark:hover:bg-[#1E293B] text-left p-3 sm:p-4 rounded-2xl transition-all active:border-b-0 active:translate-y-1 flex items-start gap-3 h-full"
+          className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] border-b-4 hover:bg-gray-50 dark:hover:bg-[#1E293B] text-left p-4 sm:p-5 rounded-[24px] transition-all duration-200 active:border-b-0 active:translate-y-1 flex items-center gap-4 h-full"
         >
-          <div className="bg-[#FFC800]/10 text-[#FFC800] p-2 sm:p-3 rounded-xl shrink-0">
-            <Zap className="w-5 sm:w-6 h-5 sm:h-6" />
+          <div className="bg-[#FFC800]/10 text-[#FFC800] p-3 sm:p-4 rounded-[16px] shrink-0">
+            <Zap className="w-6 sm:w-7 h-6 sm:h-7" />
           </div>
           <div>
-            <h3 className="font-black text-[#4B4B4B] dark:text-[#F8FAFC] text-base sm:text-lg mb-1">Blitz</h3>
-            <p className="text-gray-500 dark:text-gray-400 font-bold text-xs">Timer aggressivo (10s).</p>
+            <h3 className="font-black text-[#4B4B4B] dark:text-[#F8FAFC] text-base sm:text-lg mb-0.5">Blitz</h3>
+            <p className="text-gray-500 dark:text-gray-400 font-bold text-xs sm:text-sm">Timer aggressivo (10s).</p>
           </div>
         </button>
 
         <button
           onClick={() => onSelectMode('recall')}
-          className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] border-b-4 hover:bg-gray-50 dark:hover:bg-[#1E293B] text-left p-3 sm:p-4 rounded-2xl transition-all active:border-b-0 active:translate-y-1 flex items-start gap-3 h-full"
+          className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] border-b-4 hover:bg-gray-50 dark:hover:bg-[#1E293B] text-left p-4 sm:p-5 rounded-[24px] transition-all duration-200 active:border-b-0 active:translate-y-1 flex items-center gap-4 h-full"
         >
-          <div className="bg-[#CE82FF]/10 text-[#CE82FF] p-2 sm:p-3 rounded-xl shrink-0">
-            <BrainCircuit className="w-5 sm:w-6 h-5 sm:h-6" />
+          <div className="bg-[#CE82FF]/10 text-[#CE82FF] p-3 sm:p-4 rounded-[16px] shrink-0">
+            <BrainCircuit className="w-6 sm:w-7 h-6 sm:h-7" />
           </div>
           <div>
-            <h3 className="font-black text-[#4B4B4B] dark:text-[#F8FAFC] text-base sm:text-lg mb-1">Active Recall</h3>
-            <p className="text-gray-500 dark:text-gray-400 font-bold text-xs">Nasconde le opzioni.</p>
+            <h3 className="font-black text-[#4B4B4B] dark:text-[#F8FAFC] text-base sm:text-lg mb-0.5">Active Recall</h3>
+            <p className="text-gray-500 dark:text-gray-400 font-bold text-xs sm:text-sm">Nasconde le opzioni.</p>
           </div>
         </button>
 
-        <div className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] border-b-4 p-3 sm:p-4 rounded-2xl flex flex-col justify-between gap-3 sm:col-span-2 h-full">
-          <div className="flex items-start gap-3">
-            <div className="bg-[#58CC02]/10 text-[#58CC02] p-2 sm:p-3 rounded-xl shrink-0">
-              <Folder className="w-5 sm:w-6 h-5 sm:h-6" />
+        <div className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] border-b-4 p-4 sm:p-6 rounded-[24px] flex flex-col justify-between gap-4 sm:col-span-2 h-full">
+          <div className="flex items-center gap-4">
+            <div className="bg-[#58CC02]/10 text-[#58CC02] p-3 sm:p-4 rounded-[16px] shrink-0">
+              <Folder className="w-6 sm:w-7 h-6 sm:h-7" />
             </div>
             <div>
-              <h3 className="font-black text-[#4B4B4B] dark:text-[#F8FAFC] text-base sm:text-lg mb-1">Filtro Mirato</h3>
-              <p className="text-gray-500 dark:text-gray-400 font-bold text-xs">Allenati su una categoria, livello o argomento specifico.</p>
+              <h3 className="font-black text-[#4B4B4B] dark:text-[#F8FAFC] text-base sm:text-lg mb-0.5">Filtro Mirato</h3>
+              <p className="text-gray-500 dark:text-gray-400 font-bold text-xs sm:text-sm">Allenati su una categoria o argomento specifico.</p>
             </div>
           </div>
           <div className="flex flex-row gap-3 mt-auto">
             <select 
-              className="flex-1 min-w-0 bg-gray-50 dark:bg-[#1E293B] border-2 border-gray-200 dark:border-[#334155] rounded-xl px-3 py-2 text-sm font-bold text-[#4B4B4B] dark:text-[#F8FAFC] outline-none focus:border-[#1CB0F6] transition-colors"
+              className="flex-1 min-w-0 bg-gray-50 dark:bg-[#1E293B] border-2 border-gray-200 dark:border-[#334155] rounded-xl px-4 py-3 text-sm font-bold text-[#4B4B4B] dark:text-[#F8FAFC] outline-none focus:border-[#1CB0F6] transition-colors appearance-none"
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
@@ -116,7 +116,7 @@ export default function PracticeMenu({ onSelectMode, onBack }: PracticeMenuProps
             <button
               disabled={!selectedCategory}
               onClick={() => onSelectMode('category', selectedCategory)}
-              className="bg-[#58CC02] border-b-4 border-[#46A302] disabled:bg-gray-200 disabled:border-gray-300 disabled:dark:bg-[#334155] disabled:dark:border-[#475569] disabled:text-gray-400 text-white font-black px-6 py-2 text-sm sm:text-base rounded-xl transition-all active:border-b-0 active:translate-y-1"
+              className="bg-[#58CC02] hover:bg-[#46A302] border-b-4 border-[#46A302] disabled:bg-gray-200 disabled:border-gray-300 disabled:dark:bg-[#334155] disabled:dark:border-[#475569] disabled:text-gray-400 text-white font-black px-6 sm:px-8 py-3 text-sm sm:text-base rounded-[16px] transition-all duration-200 active:border-b-0 active:translate-y-1"
             >
               INIZIA
             </button>

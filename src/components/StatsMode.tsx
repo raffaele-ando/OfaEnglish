@@ -348,25 +348,25 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
         <div className="flex flex-col gap-4 sm:gap-6">
           {/* Overview Cards */}
           <div className="grid grid-cols-2 gap-3 sm:gap-4">
-            <div className="bg-[#E5F5FF] dark:bg-[#0EA5E9]/10 border-2 border-[#84D8FF] dark:border-[#0284C7] rounded-2xl p-3 sm:p-4 flex flex-col items-center text-center transition-colors">
-              <Trophy className="text-[#1CB0F6] dark:text-[#38BDF8] mb-1 sm:mb-2 w-6 h-6 sm:w-8 sm:h-8 shrink-0" />
-              <span className="text-xl sm:text-2xl font-black text-[#1CB0F6] dark:text-[#38BDF8] leading-none mb-1">{masteryPercentage}%</span>
-              <span className="text-[10px] sm:text-xs font-bold text-[#1899D6] dark:text-[#0284C7] uppercase tracking-widest">Maestria</span>
+            <div className="bg-[#E5F5FF] dark:bg-[#0EA5E9]/10 border-2 border-[#84D8FF] dark:border-[#0284C7] rounded-[24px] p-4 sm:p-5 flex flex-col items-center text-center transition-colors">
+              <Trophy className="text-[#1CB0F6] dark:text-[#38BDF8] mb-2 sm:mb-3 w-8 h-8 sm:w-10 sm:h-10 shrink-0" />
+              <span className="text-2xl sm:text-3xl font-black text-[#1CB0F6] dark:text-[#38BDF8] leading-none mb-1">{masteryPercentage}%</span>
+              <span className="text-[10px] sm:text-xs font-bold text-[#1899D6] dark:text-[#0284C7] uppercase tracking-widest mt-1">Maestria</span>
             </div>
-            <div className="bg-[#D7FFB8] dark:bg-[#059669]/10 border-2 border-[#58CC02] dark:border-[#059669] rounded-2xl p-3 sm:p-4 flex flex-col items-center text-center transition-colors">
-              <Target className="text-[#58CC02] dark:text-[#10B981] mb-1 sm:mb-2 w-6 h-6 sm:w-8 sm:h-8 shrink-0" />
-              <span className="text-xl sm:text-2xl font-black text-[#46A302] dark:text-[#34D399] leading-none mb-1">{globalAccuracy}%</span>
-              <span className="text-[10px] sm:text-xs font-bold text-[#46A302] dark:text-[#059669] uppercase tracking-widest">Accuratezza</span>
+            <div className="bg-[#D7FFB8] dark:bg-[#059669]/10 border-2 border-[#58CC02] dark:border-[#059669] rounded-[24px] p-4 sm:p-5 flex flex-col items-center text-center transition-colors">
+              <Target className="text-[#58CC02] dark:text-[#10B981] mb-2 sm:mb-3 w-8 h-8 sm:w-10 sm:h-10 shrink-0" />
+              <span className="text-2xl sm:text-3xl font-black text-[#46A302] dark:text-[#34D399] leading-none mb-1">{globalAccuracy}%</span>
+              <span className="text-[10px] sm:text-xs font-bold text-[#46A302] dark:text-[#059669] uppercase tracking-widest mt-1">Precisione</span>
             </div>
-            <div className="bg-[#FFF4E5] dark:bg-[#F59E0B]/10 border-2 border-[#FFC800] dark:border-[#D97706] rounded-2xl p-3 sm:p-4 flex flex-col items-center text-center transition-colors">
-              <TrendingUp className="text-[#FFC800] dark:text-[#FBBF24] mb-1 sm:mb-2 w-6 h-6 sm:w-8 sm:h-8 shrink-0" />
-              <span className="text-xl sm:text-2xl font-black text-[#E5B400] dark:text-[#F59E0B] leading-none mb-1">{passRate}%</span>
-              <span className="text-[10px] sm:text-xs font-bold text-[#E5B400] dark:text-[#D97706] uppercase tracking-widest">Esami Superati</span>
+            <div className="bg-[#FFF4E5] dark:bg-[#F59E0B]/10 border-2 border-[#FFC800] dark:border-[#D97706] rounded-[24px] p-4 sm:p-5 flex flex-col items-center text-center transition-colors">
+              <TrendingUp className="text-[#FFC800] dark:text-[#FBBF24] mb-2 sm:mb-3 w-8 h-8 sm:w-10 sm:h-10 shrink-0" />
+              <span className="text-2xl sm:text-3xl font-black text-[#E5B400] dark:text-[#F59E0B] leading-none mb-1">{passRate}%</span>
+              <span className="text-[10px] sm:text-xs font-bold text-[#E5B400] dark:text-[#D97706] uppercase tracking-widest mt-1">Pass Rate</span>
             </div>
-            <div className="bg-[#F5E5FF] dark:bg-[#D946EF]/10 border-2 border-[#CE82FF] dark:border-[#C026D3] rounded-2xl p-3 sm:p-4 flex flex-col items-center text-center transition-colors">
-              <Trophy className="text-[#CE82FF] dark:text-[#E879F9] mb-1 sm:mb-2 w-6 h-6 sm:w-8 sm:h-8 shrink-0" />
-              <span className="text-xl sm:text-2xl font-black text-[#A568CC] dark:text-[#E879F9] leading-none mb-1">{bestScore}/30</span>
-              <span className="text-[10px] sm:text-xs font-bold text-[#A568CC] dark:text-[#C026D3] uppercase tracking-widest">Punteggio Max</span>
+            <div className="bg-[#F5E5FF] dark:bg-[#D946EF]/10 border-2 border-[#CE82FF] dark:border-[#C026D3] rounded-[24px] p-4 sm:p-5 flex flex-col items-center text-center transition-colors">
+              <Trophy className="text-[#CE82FF] dark:text-[#E879F9] mb-2 sm:mb-3 w-8 h-8 sm:w-10 sm:h-10 shrink-0" />
+              <span className="text-2xl sm:text-3xl font-black text-[#A568CC] dark:text-[#E879F9] leading-none mb-1">{bestScore}/30</span>
+              <span className="text-[10px] sm:text-xs font-bold text-[#A568CC] dark:text-[#C026D3] uppercase tracking-widest mt-1">Record</span>
             </div>
           </div>
 

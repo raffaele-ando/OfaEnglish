@@ -97,12 +97,12 @@ export default function Menu({ appState, user, onStartSmart, onStartLearn, onSta
           {/* Top Stats Row: Mastery & Accuracy */}
           <div className="grid grid-cols-2 gap-3 sm:gap-4 shrink-0">
             {/* Domande Imparate */}
-            <div className="bg-white dark:bg-[#0F172A] rounded-2xl p-3 sm:p-4 border-2 border-gray-200 dark:border-[#334155] border-b-4 flex flex-col justify-center gap-2 shadow-sm transition-colors">
+            <div className="bg-white dark:bg-[#0F172A] rounded-[24px] p-4 sm:p-5 border-2 border-gray-200 dark:border-[#334155] border-b-4 flex flex-col justify-center gap-3 shadow-sm transition-colors">
               <div className="flex justify-between items-center">
-                <span className="text-sm sm:text-base font-black text-[#4B4B4B] dark:text-[#F8FAFC]">Domande Imparate</span>
-                <span className="text-sm sm:text-base font-black text-[#58CC02]">{masteryPercent}%</span>
+                <span className="text-sm sm:text-base font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Maestria</span>
+                <span className="text-lg sm:text-xl font-black text-[#58CC02]">{masteryPercent}%</span>
               </div>
-              <div className="w-full bg-gray-200 dark:bg-[#334155] h-2 sm:h-3 rounded-full overflow-hidden flex relative">
+              <div className="w-full bg-gray-100 dark:bg-[#334155] h-3 sm:h-4 rounded-full overflow-hidden flex relative">
                 <div 
                   className="bg-[#58CC02] h-full rounded-full transition-all duration-700 ease-out" 
                   style={{ width: `${masteryPercent}%` }} 
@@ -111,12 +111,12 @@ export default function Menu({ appState, user, onStartSmart, onStartLearn, onSta
             </div>
 
             {/* Accuratezza */}
-            <div className="bg-white dark:bg-[#0F172A] rounded-2xl p-3 sm:p-4 border-2 border-gray-200 dark:border-[#334155] border-b-4 flex flex-col justify-center gap-2 shadow-sm transition-colors">
+            <div className="bg-white dark:bg-[#0F172A] rounded-[24px] p-4 sm:p-5 border-2 border-gray-200 dark:border-[#334155] border-b-4 flex flex-col justify-center gap-3 shadow-sm transition-colors">
               <div className="flex justify-between items-center">
-                <span className="text-sm sm:text-base font-black text-[#4B4B4B] dark:text-[#F8FAFC]">Accuratezza</span>
-                <span className="text-sm sm:text-base font-black text-[#CE82FF] dark:text-[#D946EF]">{accuracyPercent}%</span>
+                <span className="text-sm sm:text-base font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Precisione</span>
+                <span className="text-lg sm:text-xl font-black text-[#CE82FF] dark:text-[#D946EF]">{accuracyPercent}%</span>
               </div>
-              <div className="w-full bg-gray-200 dark:bg-[#334155] h-2 sm:h-3 rounded-full overflow-hidden flex relative">
+              <div className="w-full bg-gray-100 dark:bg-[#334155] h-3 sm:h-4 rounded-full overflow-hidden flex relative">
                 <div 
                   className="bg-[#CE82FF] dark:bg-[#D946EF] h-full rounded-full transition-all duration-700 ease-out" 
                   style={{ width: `${accuracyPercent}%` }} 
@@ -128,7 +128,7 @@ export default function Menu({ appState, user, onStartSmart, onStartLearn, onSta
           <div className="flex flex-col gap-3 sm:gap-4 shrink-0 mt-auto pt-2">
             <button
               onClick={onStartSmart}
-              className="w-full bg-[#1CB0F6] border-b-4 border-[#1899D6] text-white font-black p-6 sm:p-8 rounded-2xl shadow-sm flex flex-col items-center justify-center active:border-b-0 active:translate-y-1 transition-all"
+              className="w-full bg-[#1CB0F6] hover:bg-[#1899D6] border-b-4 border-[#1899D6] active:border-b-0 active:translate-y-1 text-white font-black p-6 sm:p-8 rounded-[20px] sm:rounded-2xl shadow-sm flex flex-col items-center justify-center transition-all duration-200"
             >
               <span className="text-2xl sm:text-3xl leading-tight uppercase tracking-widest mb-2">Inizia Sessione</span>
               <span className="text-[#DDF4FF] text-xs sm:text-sm uppercase font-bold tracking-widest bg-black/10 px-4 py-1.5 rounded-full">Algoritmo Ottimizzato</span>
@@ -137,17 +137,17 @@ export default function Menu({ appState, user, onStartSmart, onStartLearn, onSta
             <div className="grid grid-cols-2 gap-3 sm:gap-4">
               <button
                 onClick={onStartLearn}
-                className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] border-b-4 text-gray-400 dark:text-gray-500 font-black p-3 sm:p-4 rounded-2xl shadow-sm flex flex-col items-center justify-center active:border-b-0 active:translate-y-1 transition-all hover:bg-gray-50 dark:hover:bg-[#1E293B]"
+                className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] border-b-4 text-gray-400 dark:text-gray-500 font-black p-3 sm:p-4 rounded-[20px] sm:rounded-2xl shadow-sm flex flex-col items-center justify-center active:border-b-0 active:translate-y-1 transition-all duration-200 hover:bg-gray-50 dark:hover:bg-[#1E293B] hover:text-gray-500 dark:hover:text-gray-400"
               >
-                <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 mb-1 sm:mb-2" />
+                <BookOpen className="w-6 h-6 sm:w-7 sm:h-7 mb-2 text-[#CE82FF] dark:text-[#D946EF]" />
                 <span className="text-[10px] sm:text-xs uppercase tracking-widest text-center">Modalità Custom</span>
               </button>
 
               <button
                 onClick={onStartExam}
-                className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] border-b-4 text-gray-400 dark:text-gray-500 font-black p-3 sm:p-4 rounded-2xl shadow-sm flex flex-col items-center justify-center active:border-b-0 active:translate-y-1 transition-all hover:bg-gray-50 dark:hover:bg-[#1E293B]"
+                className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] border-b-4 text-gray-400 dark:text-gray-500 font-black p-3 sm:p-4 rounded-[20px] sm:rounded-2xl shadow-sm flex flex-col items-center justify-center active:border-b-0 active:translate-y-1 transition-all duration-200 hover:bg-gray-50 dark:hover:bg-[#1E293B] hover:text-gray-500 dark:hover:text-gray-400"
               >
-                <GraduationCap className="w-5 h-5 sm:w-6 sm:h-6 mb-1 sm:mb-2" />
+                <GraduationCap className="w-6 h-6 sm:w-7 sm:h-7 mb-2 text-[#FFC800]" />
                 <span className="text-[10px] sm:text-xs uppercase tracking-widest text-center">Simulazione Esame</span>
               </button>
             </div>

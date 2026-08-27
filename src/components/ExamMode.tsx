@@ -228,10 +228,10 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
             <li className="flex gap-3 sm:gap-4 items-center"><span className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-[#CE82FF] dark:bg-[#D946EF] rounded-full shrink-0"></span> No immediate feedback</li>
           </ul>
           <div className="flex flex-col gap-3 sm:gap-4 w-full shrink-0">
-            <button onClick={handleStart} className="w-full py-4 sm:py-5 font-black tracking-widest text-white bg-[#58CC02] border-b-4 border-[#46A302] rounded-2xl active:border-b-0 active:translate-y-1 transition-all uppercase text-base sm:text-lg">
+            <button onClick={handleStart} className="w-full py-4 sm:py-5 font-black tracking-widest text-white bg-[#1CB0F6] hover:bg-[#1899D6] border-b-4 border-[#1899D6] rounded-[24px] active:border-b-0 active:translate-y-[2px] transition-all uppercase text-base sm:text-lg duration-150">
               Start Exam
             </button>
-            <button onClick={onExit} className="w-full py-4 sm:py-5 font-black tracking-widest text-gray-400 dark:text-gray-500 bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] border-b-4 rounded-2xl active:border-b-0 active:translate-y-1 transition-all uppercase hover:bg-gray-50 dark:hover:bg-[#1E293B] text-base sm:text-lg">
+            <button onClick={onExit} className="w-full py-4 sm:py-5 font-black tracking-widest text-gray-400 dark:text-gray-500 bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] border-b-4 rounded-[24px] active:border-b-0 active:translate-y-[2px] transition-all uppercase hover:bg-gray-50 dark:hover:bg-[#1E293B] text-base sm:text-lg duration-150">
               Cancel
             </button>
           </div>
@@ -345,7 +345,7 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
           {question.prompt}
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 flex-1">
           {question.options.map((opt, idx) => {
             const isSelected = answers[question.id] === idx;
             return (
@@ -353,19 +353,19 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
                 key={idx}
                 onClick={() => handleOptionSelect(question.id, idx)}
                 className={cn(
-                  "p-4 sm:p-5 text-left border-2 rounded-2xl group transition-all min-h-[80px]",
+                  "p-4 sm:p-5 text-left border-2 rounded-[24px] group transition-all duration-150 flex items-center min-h-[90px]",
                   isSelected 
-                    ? "bg-[#DDF4FF] dark:bg-[#0369A1] border-[#84D8FF] dark:border-[#38BDF8] text-[#1899D6] dark:text-[#E0F2FE]" 
-                    : "border-gray-200 dark:border-[#334155] bg-white dark:bg-[#0F172A] hover:bg-gray-50 dark:hover:bg-[#1E293B] hover:border-blue-400 dark:hover:border-blue-500 text-[#4B4B4B] dark:text-gray-200"
+                    ? "bg-[#DDF4FF] dark:bg-[#0369A1] border-[#84D8FF] dark:border-[#38BDF8] text-[#1899D6] dark:text-[#E0F2FE] border-b-4" 
+                    : "border-gray-200 dark:border-[#334155] bg-white dark:bg-[#0F172A] hover:bg-gray-50 dark:hover:bg-[#1E293B] hover:border-gray-300 dark:hover:border-gray-400 text-[#4B4B4B] dark:text-gray-200 border-b-4 active:border-b-2 active:translate-y-[2px]"
                 )}
               >
-                <div className="flex items-start gap-4">
-                  <span className={cn("w-10 h-10 sm:w-12 sm:h-12 text-base flex shrink-0 items-center justify-center border-2 rounded-xl font-black transition-colors mt-0.5", 
-                    isSelected ? "border-[#84D8FF] dark:border-[#38BDF8] bg-white dark:bg-[#0369A1] text-[#1899D6] dark:text-[#E0F2FE]" : "border-gray-200 dark:border-[#334155] text-gray-400 dark:text-gray-500 group-hover:bg-blue-100 dark:group-hover:bg-[#1E293B] group-hover:border-blue-400 dark:group-hover:border-blue-500 group-hover:text-blue-600 dark:group-hover:text-blue-400"
+                <div className="flex items-center gap-4 w-full">
+                  <span className={cn("w-10 h-10 sm:w-12 sm:h-12 text-sm sm:text-base flex shrink-0 items-center justify-center border-2 rounded-[14px] font-black transition-colors", 
+                    isSelected ? "border-[#84D8FF] dark:border-[#38BDF8] bg-white dark:bg-[#0369A1] text-[#1899D6] dark:text-[#E0F2FE]" : "border-gray-200 dark:border-[#334155] text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-[#1E293B]"
                   )}>
                     {String.fromCharCode(65 + idx)}
                   </span>
-                  <span className="text-base sm:text-lg font-bold leading-snug">{opt}</span>
+                  <span className="text-base sm:text-lg font-bold leading-snug flex-1">{opt}</span>
                 </div>
               </button>
             );
