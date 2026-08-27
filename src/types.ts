@@ -41,6 +41,8 @@ export interface AppState {
     maxTimeMs: number;
     avgTimeMs: number;
     totalAnswers: number;
+    avgWpm?: number;
+    speedFactor?: number;
   };
   examCategoryStats?: Record<string, { correct: number; total: number; }>;
   dailyActivity?: Record<string, number>;

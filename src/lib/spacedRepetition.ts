@@ -112,97 +112,164 @@ export function selectPracticeQuestions(stats: UserStats, options: { numQuestion
   return scoredQuestions.slice(0, numQuestions).map(sq => sq.question);
 }
 
-// Update stats after answering based on SM-2 and fluency (time)
+// Helper to calculate total word count and complexity for a question (Prompt + Options)
+export function calculateItemTextMetrics(question?: Question) {
+  if (!question) {
+    return { wordCount: 8, charCount: 40 };
+  }
+  const fullText = question.prompt + ' ' + (question.options || []).join(' ');
+  const words = fullText.trim().split(/\s+/).filter(w => w.length > 0);
+  return {
+    wordCount: Math.max(4, words.length),
+    charCount: Math.max(20, fullText.length),
+  };
+}
+
+// Calculate the item-specific expected time (in ms) adapting to item length and user speed baseline
+export function calculateExpectedResponseTimeMs(question?: Question, userSpeedFactor: number = 1.0, userWpm: number = 180): number {
+  const { wordCount, charCount } = calculateItemTextMetrics(question);
+  
+  // Cognitive reading time: WPM to ms + character processing sanity floor (50ms/char)
+  const readingTimeFromWordsMs = (wordCount / (userWpm / 60)) * 1000;
+  const readingTimeFromCharsMs = charCount * 45;
+  const baseReadingTimeMs = Math.max(readingTimeFromWordsMs, readingTimeFromCharsMs * 0.7);
+
+  // Motor decision & recognition latency (1.2s base for EFL comprehension)
+  const decisionLatencyMs = 1200;
+
+  // Expected nominal time before user-specific speed factor
+  const nominalExpectedMs = baseReadingTimeMs + decisionLatencyMs;
+
+  // Apply user-specific speed factor (bounded between 0.5x and 2.5x)
+  const speedFactor = Math.min(2.5, Math.max(0.5, userSpeedFactor || 1.0));
+  const dynamicExpectedMs = nominalExpectedMs * speedFactor;
+
+  // Ensure minimum baseline of 2.2 seconds for any question
+  return Math.max(2200, Math.round(dynamicExpectedMs));
+}
+
+// Compute mathematically continuous quality rating (0.0 to 5.0) using response latency ratio
+export function calculateContinuousQuality(
+  isCorrect: boolean,
+  timeTakenMs: number,
+  expectedTimeMs: number,
+  attempts: number = 1,
+  confidence: 'low' | 'medium' | 'high' = 'high'
+): number {
+  if (!isCorrect) {
+    return 0;
+  }
+
+  // Latency ratio: R = ActualTime / ExpectedTime
+  const cappedTimeMs = Math.min(Math.max(800, timeTakenMs), 60000);
+  const ratio = cappedTimeMs / Math.max(1500, expectedTimeMs);
+
+  let quality = 5.0;
+
+  if (attempts === 1) {
+    // Continuous decay function based on response ratio (retrieval fluency)
+    if (ratio <= 1.0) {
+      // Fast, fluent, confident retrieval
+      quality = 5.0;
+    } else if (ratio <= 2.2) {
+      // Normal fluent retrieval with slight deliberation: smooth transition from 5.0 down to 3.5
+      quality = 5.0 - 1.5 * ((ratio - 1.0) / 1.2);
+    } else if (ratio <= 4.0) {
+      // Hesitant retrieval with effort: smooth transition from 3.5 down to 3.0
+      quality = 3.5 - 0.5 * ((ratio - 2.2) / 1.8);
+    } else {
+      // High-latency retrieval (passed, but with significant struggle / slow recall)
+      quality = 3.0;
+    }
+  } else {
+    // Multiple attempts required: quality is strictly < 3.0
+    const baseQuality = Math.max(1.0, 3.0 - (attempts - 1) * 0.6);
+    const speedDeduction = Math.min(0.8, ratio * 0.15);
+    quality = Math.max(0.1, baseQuality - speedDeduction);
+  }
+
+  // Subjective / metacognitive confidence modifiers
+  if (confidence === 'low') {
+    // Guessed: heavily penalize so the item is scheduled for immediate reinforcement
+    quality = Math.max(0.1, quality - 2.0);
+  } else if (confidence === 'medium') {
+    quality = Math.max(0.1, quality - 0.6);
+  }
+
+  return Math.round(quality * 100) / 100;
+}
+
+// Update stats after answering based on SM-2 and dynamic fluency (time & item complexity)
 export function updateStats(appState: AppState, questionId: string, isCorrect: boolean, timeTakenMs: number = 0, attempts: number = 1, confidence: 'low' | 'medium' | 'high' = 'high'): AppState {
   const stats = appState.stats;
-  const speedStats = appState.speedStats || { minTimeMs: 3000, maxTimeMs: 15000, avgTimeMs: 8000, totalAnswers: 0 };
+  const speedStats = appState.speedStats || { 
+    minTimeMs: 2500, 
+    maxTimeMs: 14000, 
+    avgTimeMs: 7000, 
+    totalAnswers: 0,
+    avgWpm: 180,
+    speedFactor: 1.0 
+  };
   const qStats = getQuestionStats(stats, questionId);
+  const question = questions.find(q => q.id === questionId);
   
   let newRepetitions = qStats.box;
   let newEasiness = qStats.easiness;
   let newInterval = qStats.interval;
 
-  let { minTimeMs, maxTimeMs, avgTimeMs, totalAnswers } = speedStats;
+  let { 
+    minTimeMs = 2500, 
+    maxTimeMs = 14000, 
+    avgTimeMs = 7000, 
+    totalAnswers = 0,
+    avgWpm = 180,
+    speedFactor = 1.0 
+  } = speedStats;
 
-  // Grade from 0 to 5 based on performance
-  let quality = 0;
+  // 1. Calculate dynamic expected response time based on this specific question text
+  const expectedTimeMs = calculateExpectedResponseTimeMs(question, speedFactor, avgWpm);
+
+  // 2. Grade continuously from 0.0 to 5.0 based on dynamic latency ratio
+  const quality = calculateContinuousQuality(isCorrect, timeTakenMs, expectedTimeMs, attempts, confidence);
   
-  if (isCorrect) {
-    if (attempts === 1) {
-      // Update global speed stats
-      totalAnswers += 1;
-      // Cap timeTakenMs so a 5-minute distraction doesn't ruin the average
-      const cappedTimeMs = Math.min(timeTakenMs, 60000); 
-      avgTimeMs = avgTimeMs + (cappedTimeMs - avgTimeMs) / totalAnswers;
-      
-      // Gradually learn the user's natural min and max speeds
-      if (cappedTimeMs < minTimeMs) {
-        minTimeMs = cappedTimeMs;
-      } else {
-        // slowly pull minTimeMs up over time in case they get slower
-        minTimeMs += 10;
-      }
-  
-      if (cappedTimeMs > maxTimeMs) {
-        maxTimeMs = cappedTimeMs;
-      } else {
-        // slowly pull maxTimeMs down over time in case they get faster
-        maxTimeMs -= 10;
-      }
-  
-      // Ensure safe bounds
-      minTimeMs = Math.max(1000, minTimeMs);
-      maxTimeMs = Math.max(minTimeMs + 2000, maxTimeMs);
-    }
+  if (isCorrect && attempts === 1) {
+    totalAnswers += 1;
+    // Winsorize timeTakenMs to [1000, 35000] ms so long distractions don't skew the user's reading baseline
+    const cleanTimeMs = Math.min(Math.max(1000, timeTakenMs), 35000);
+    
+    // Adaptive update of user speed factor using Exponential Moving Average (EMA)
+    const nominalItemTime = calculateExpectedResponseTimeMs(question, 1.0, 180);
+    const observedSpeedRatio = cleanTimeMs / Math.max(1500, nominalItemTime);
+    
+    const alpha = Math.max(0.05, 1 / Math.min(25, totalAnswers));
+    speedFactor = speedFactor * (1 - alpha) + observedSpeedRatio * alpha;
+    speedFactor = Math.min(2.5, Math.max(0.5, speedFactor));
 
-    // Calculate a speed penalty from 0.0 to 1.0 based on the user's boundaries
-    let speedPenalty = 0;
-    if (timeTakenMs >= maxTimeMs) {
-      speedPenalty = 1.0;
-    } else if (timeTakenMs > minTimeMs) {
-      speedPenalty = (timeTakenMs - minTimeMs) / (maxTimeMs - minTimeMs);
-    }
-
-    if (attempts === 1) {
-      // First try: Quality ranges smoothly from 3.0 to 5.0
-      quality = 5.0 - (speedPenalty * 2.0);
-    } else {
-      // Multiple attempts: Quality is strictly less than 3.0 (meaning an "incorrect" flag in SM-2),
-      // but it smoothly decays based on how many attempts it took and how long it took.
-      const baseQuality = Math.max(1.0, 3.0 - (attempts - 1) * 0.5);
-      quality = Math.max(0.1, baseQuality - (speedPenalty * 0.5));
-    }
-
-    if (confidence === 'low') {
-      // If they guessed, heavily penalize quality so they see it again soon
-      quality = Math.max(0.1, quality - 2.5);
-    } else if (confidence === 'medium') {
-      quality = Math.max(0.1, quality - 1.0);
-    }
-  } else {
-    // Completely incorrect / unrecoverable
-    quality = 0;
+    // Update rolling averages
+    avgTimeMs = Math.round(avgTimeMs + (cleanTimeMs - avgTimeMs) / Math.min(50, totalAnswers));
+    minTimeMs = Math.min(minTimeMs, cleanTimeMs);
+    maxTimeMs = Math.max(maxTimeMs, cleanTimeMs);
   }
 
-  if (quality >= 3) {
-    // Correct answer
+  if (quality >= 3.0) {
+    // Successful recall: increment spaced repetition interval
     if (newRepetitions === 0) {
       newInterval = 1;
     } else if (newRepetitions === 1) {
       newInterval = 6;
     } else {
-      newInterval = Math.round(newInterval * newEasiness);
+      newInterval = Math.max(1, Math.round(newInterval * newEasiness));
     }
     newRepetitions += 1;
   } else {
-    // Incorrect answer
+    // Unsuccessful or high struggle: reset interval for immediate recovery
     newRepetitions = 0;
     newInterval = 1;
   }
 
-  // Update easiness factor based on quality
-  newEasiness = newEasiness + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02));
-  newEasiness = Math.max(1.3, newEasiness); // Minimum easiness is 1.3
+  // Update SuperMemo-2 easiness factor continuously using the exact quality rating
+  newEasiness = newEasiness + (0.1 - (5.0 - quality) * (0.08 + (5.0 - quality) * 0.02));
+  newEasiness = Math.max(1.3, Math.round(newEasiness * 100) / 100); // Floor of 1.3
 
   const dateString = new Date().toISOString().split('T')[0];
   const dailyActivity = { ...(appState.dailyActivity || {}) };
@@ -210,14 +277,14 @@ export function updateStats(appState: AppState, questionId: string, isCorrect: b
 
   return {
     ...appState,
-    speedStats: { minTimeMs, maxTimeMs, avgTimeMs, totalAnswers },
+    speedStats: { minTimeMs, maxTimeMs, avgTimeMs, totalAnswers, avgWpm, speedFactor },
     dailyActivity,
     stats: {
       ...stats,
       [questionId]: {
         ...qStats,
         correct: qStats.correct + (isCorrect && attempts === 1 ? 1 : 0),
-        incorrect: qStats.incorrect + (quality < 3 ? 1 : 0),
+        incorrect: qStats.incorrect + (quality < 3.0 ? 1 : 0),
         lastSeen: Date.now(),
         box: newRepetitions,
         easiness: newEasiness,
