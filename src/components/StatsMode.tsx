@@ -248,7 +248,7 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
                       )}
                     </p>
 
-                    {/* Breakdown: Giuste, Sbagliate, Omesse */}
+                    {/* Breakdown: Giuste, Sbagliate, Omesse + Telemetria Cognitiva */}
                     <div className="flex items-center gap-1.5 sm:gap-2 mt-2.5 flex-wrap">
                       <span className={cn(
                         "inline-flex items-center gap-1 text-[11px] sm:text-xs font-bold px-2 py-0.5 rounded-lg border transition-colors",
@@ -279,6 +279,18 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
                         <Minus size={12} strokeWidth={3} />
                         {omittedCount} {omittedCount === 1 ? 'omessa' : 'omesse'}
                       </span>
+
+                      {stat?.lastSwitchCount !== undefined && stat.lastSwitchCount > 0 && (
+                        <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-bold px-2 py-0.5 rounded-lg bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-300/40">
+                          {stat.lastSwitchCount} {stat.lastSwitchCount === 1 ? 'cambio' : 'cambi'}
+                        </span>
+                      )}
+
+                      {stat?.lastResponseTimeMs !== undefined && (
+                        <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-bold px-2 py-0.5 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800">
+                          <Clock size={11} /> {(stat.lastResponseTimeMs / 1000).toFixed(1)}s
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>

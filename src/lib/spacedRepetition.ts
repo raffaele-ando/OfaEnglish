@@ -1,4 +1,4 @@
-import { Question, UserStats, AppState } from '../types';
+import { Question, UserStats, AppState, QuestionTelemetry } from '../types';
 import { questions } from '../data/questions';
 
 // Initialize or update stats for a question
@@ -148,13 +148,15 @@ export function calculateExpectedResponseTimeMs(question?: Question, userSpeedFa
   return Math.max(2200, Math.round(dynamicExpectedMs));
 }
 
-// Compute mathematically continuous quality rating (0.0 to 5.0) using response latency ratio
+// Compute mathematically continuous quality rating (0.0 to 5.0) using response latency ratio and trajectory analysis
 export function calculateContinuousQuality(
   isCorrect: boolean,
   timeTakenMs: number,
   expectedTimeMs: number,
   attempts: number = 1,
-  confidence: 'low' | 'medium' | 'high' = 'high'
+  confidence: 'low' | 'medium' | 'high' = 'high',
+  telemetry?: QuestionTelemetry,
+  question?: Question
 ): number {
   if (!isCorrect) {
     return 0;
@@ -167,22 +169,50 @@ export function calculateContinuousQuality(
   let quality = 5.0;
 
   if (attempts === 1) {
-    // Continuous decay function based on response ratio (retrieval fluency)
-    if (ratio <= 1.0) {
-      // Fast, fluent, confident retrieval
-      quality = 5.0;
-    } else if (ratio <= 2.2) {
-      // Normal fluent retrieval with slight deliberation: smooth transition from 5.0 down to 3.5
-      quality = 5.0 - 1.5 * ((ratio - 1.0) / 1.2);
-    } else if (ratio <= 4.0) {
-      // Hesitant retrieval with effort: smooth transition from 3.5 down to 3.0
-      quality = 3.5 - 0.5 * ((ratio - 2.2) / 1.8);
+    const switchCount = telemetry?.switchCount ?? 0;
+    const trajectory = telemetry?.trajectory ?? [];
+    const correctIdx = question?.correctIndex;
+    const firstOptionIdx = telemetry?.firstOptionIndex ?? (trajectory.length > 0 ? trajectory[0] : null);
+    const firstChoiceCorrect = correctIdx !== undefined && firstOptionIdx !== null ? firstOptionIdx === correctIdx : true;
+
+    if (switchCount === 0) {
+      // Direct confident retrieval (no switches)
+      if (ratio <= 1.0) {
+        quality = 5.0;
+      } else if (ratio <= 2.2) {
+        // Smooth transition from 5.0 down to 3.5
+        quality = 5.0 - 1.5 * ((ratio - 1.0) / 1.2);
+      } else if (ratio <= 4.0) {
+        // Hesitant retrieval with effort: smooth transition from 3.5 down to 3.0
+        quality = 3.5 - 0.5 * ((ratio - 2.2) / 1.8);
+      } else {
+        quality = 3.0;
+      }
     } else {
-      // High-latency retrieval (passed, but with significant struggle / slow recall)
-      quality = 3.0;
+      // Option switching detected before submission
+      if (firstChoiceCorrect) {
+        // Pattern: Correct -> Incorrect -> ... -> Correct (Second-guessing recovery)
+        // User had the right intuition, had moment of doubt with distractor, then recovered
+        const baseCeiling = Math.max(3.1, 3.6 - (switchCount - 1) * 0.15);
+        const latencyDeduction = Math.min(0.5, Math.max(0, (ratio - 1.0) * 0.25));
+        quality = Math.max(3.0, baseCeiling - latencyDeduction);
+      } else {
+        // Pattern: Incorrect -> ... -> Correct (Elimination / Trial-and-error / Guessing)
+        // User started on wrong option and switched into correct
+        const baseCeiling = Math.max(2.6, 3.1 - (switchCount - 1) * 0.2);
+        const latencyDeduction = Math.min(0.4, Math.max(0, (ratio - 1.0) * 0.2));
+        quality = Math.max(2.5, baseCeiling - latencyDeduction);
+      }
+    }
+
+    // Hesitation before final submission penalty (metacognitive uncertainty)
+    const hesitationMs = telemetry?.hesitationBeforeSubmitMs ?? 0;
+    if (hesitationMs > 4000) {
+      const hesitationPenalty = Math.min(0.35, ((hesitationMs - 4000) / 10000) * 0.35);
+      quality = Math.max(2.5, quality - hesitationPenalty);
     }
   } else {
-    // Multiple attempts required: quality is strictly < 3.0
+    // Multiple attempts required in learning session
     const baseQuality = Math.max(1.0, 3.0 - (attempts - 1) * 0.6);
     const speedDeduction = Math.min(0.8, ratio * 0.15);
     quality = Math.max(0.1, baseQuality - speedDeduction);
@@ -190,7 +220,6 @@ export function calculateContinuousQuality(
 
   // Subjective / metacognitive confidence modifiers
   if (confidence === 'low') {
-    // Guessed: heavily penalize so the item is scheduled for immediate reinforcement
     quality = Math.max(0.1, quality - 2.0);
   } else if (confidence === 'medium') {
     quality = Math.max(0.1, quality - 0.6);
@@ -199,8 +228,16 @@ export function calculateContinuousQuality(
   return Math.round(quality * 100) / 100;
 }
 
-// Update stats after answering based on SM-2 and dynamic fluency (time & item complexity)
-export function updateStats(appState: AppState, questionId: string, isCorrect: boolean, timeTakenMs: number = 0, attempts: number = 1, confidence: 'low' | 'medium' | 'high' = 'high'): AppState {
+// Update stats after answering based on SM-2, dynamic fluency, and trajectory telemetry
+export function updateStats(
+  appState: AppState, 
+  questionId: string, 
+  isCorrect: boolean, 
+  timeTakenMs: number = 0, 
+  attempts: number = 1, 
+  confidence: 'low' | 'medium' | 'high' = 'high',
+  telemetry?: QuestionTelemetry
+): AppState {
   const stats = appState.stats;
   const speedStats = appState.speedStats || { 
     minTimeMs: 2500, 
@@ -229,8 +266,8 @@ export function updateStats(appState: AppState, questionId: string, isCorrect: b
   // 1. Calculate dynamic expected response time based on this specific question text
   const expectedTimeMs = calculateExpectedResponseTimeMs(question, speedFactor, avgWpm);
 
-  // 2. Grade continuously from 0.0 to 5.0 based on dynamic latency ratio
-  const quality = calculateContinuousQuality(isCorrect, timeTakenMs, expectedTimeMs, attempts, confidence);
+  // 2. Grade continuously from 0.0 to 5.0 based on dynamic latency ratio and click trajectory
+  const quality = calculateContinuousQuality(isCorrect, timeTakenMs, expectedTimeMs, attempts, confidence, telemetry, question);
   
   if (isCorrect && attempts === 1) {
     totalAnswers += 1;
@@ -290,6 +327,11 @@ export function updateStats(appState: AppState, questionId: string, isCorrect: b
         easiness: newEasiness,
         previousEasiness: qStats.easiness,
         interval: newInterval,
+        lastResponseTimeMs: timeTakenMs,
+        lastFirstClickTimeMs: telemetry?.firstClickTimeMs,
+        lastSwitchCount: telemetry?.switchCount ?? 0,
+        lastTrajectory: telemetry?.trajectory,
+        lastQuality: quality,
       }
     }
   };

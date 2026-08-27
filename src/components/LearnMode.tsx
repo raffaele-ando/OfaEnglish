@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Question, AppState } from '../types';
+import { Question, AppState, QuestionClickEvent, QuestionTelemetry } from '../types';
 import { selectPracticeQuestions, updateStats } from '../lib/spacedRepetition';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Check, ArrowRight, RotateCcw, Lightbulb } from 'lucide-react';
@@ -24,6 +24,8 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
   const [startTime, setStartTime] = useState<number>(Date.now());
   const [attempts, setAttempts] = useState(0);
   const [wrongOptions, setWrongOptions] = useState<Set<number>>(new Set());
+  const [selectionHistory, setSelectionHistory] = useState<QuestionClickEvent[]>([]);
+  const [lastSelectionTimestamp, setLastSelectionTimestamp] = useState<number | null>(null);
   
   // Recall mode specific state
   const [recallWords, setRecallWords] = useState<string[]>([]);
@@ -42,6 +44,8 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
     setStartTime(Date.now());
     setAttempts(0);
     setWrongOptions(new Set());
+    setSelectionHistory([]);
+    setLastSelectionTimestamp(null);
     setTimeLeft(timeLimit);
     setOptionsRevealed(mode !== 'recall');
     setShowHint(false);
@@ -110,6 +114,19 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
   const question = questions[currentIndex];
   const isCorrect = selectedOption === question?.correctIndex;
 
+  const handleSelectOption = (idx: number) => {
+    if (hasChecked || wrongOptions.has(idx)) return;
+    setSelectedOption(idx);
+    const now = Date.now();
+    const elapsedMs = now - startTime;
+    const isOptionCorrect = idx === question.correctIndex;
+    setLastSelectionTimestamp(now);
+    setSelectionHistory(prev => [
+      ...prev,
+      { optionIndex: idx, timestamp: now, elapsedMs, isCorrect: isOptionCorrect }
+    ]);
+  };
+
   const handleCheck = (confidence: 'low' | 'medium' | 'high', isTimeout: boolean = false) => {
     if (!optionsRevealed && mode === 'recall') {
       if (selectedRecallWords.length === 0 && !isTimeout) return;
@@ -124,9 +141,20 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
       
       setSelectedOption(correct ? question.correctIndex : -1);
 
+      const timeTakenMs = Date.now() - startTime;
+      const hesitationBeforeSubmitMs = lastSelectionTimestamp ? Math.max(0, Date.now() - lastSelectionTimestamp) : 0;
+      const telemetry: QuestionTelemetry = {
+        firstClickTimeMs: selectionHistory.length > 0 ? selectionHistory[0].elapsedMs : timeTakenMs,
+        firstOptionIndex: selectionHistory.length > 0 ? selectionHistory[0].optionIndex : (correct ? question.correctIndex : null),
+        finalOptionIndex: correct ? question.correctIndex : null,
+        switchCount: Math.max(0, selectionHistory.length - 1),
+        trajectory: selectionHistory.map(h => h.optionIndex),
+        hesitationBeforeSubmitMs,
+        clickEvents: selectionHistory
+      };
+
       if (correct) {
-        const timeTakenMs = Date.now() - startTime;
-        const newState = updateStats(appState, question.id, true, timeTakenMs, currentAttempts, confidence);
+        const newState = updateStats(appState, question.id, true, timeTakenMs, currentAttempts, confidence, telemetry);
         onUpdateAppState(newState);
         
         if (currentAttempts === 1) {
@@ -136,8 +164,7 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
         }
       } else {
         if (currentAttempts === 1) {
-          const timeTakenMs = Date.now() - startTime;
-          const newState = updateStats(appState, question.id, false, timeTakenMs, currentAttempts, confidence);
+          const newState = updateStats(appState, question.id, false, timeTakenMs, currentAttempts, confidence, telemetry);
           onUpdateAppState(newState);
         }
       }
@@ -151,10 +178,21 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
     setAttempts(currentAttempts);
     
     const correct = !isTimeout && selectedOption === question.correctIndex;
+    const timeTakenMs = Date.now() - startTime;
+    const hesitationBeforeSubmitMs = lastSelectionTimestamp ? Math.max(0, Date.now() - lastSelectionTimestamp) : 0;
+
+    const telemetry: QuestionTelemetry = {
+      firstClickTimeMs: selectionHistory.length > 0 ? selectionHistory[0].elapsedMs : timeTakenMs,
+      firstOptionIndex: selectionHistory.length > 0 ? selectionHistory[0].optionIndex : selectedOption,
+      finalOptionIndex: selectedOption,
+      switchCount: Math.max(0, selectionHistory.length - 1),
+      trajectory: selectionHistory.map(h => h.optionIndex),
+      hesitationBeforeSubmitMs,
+      clickEvents: selectionHistory
+    };
     
     if (correct) {
-      const timeTakenMs = Date.now() - startTime;
-      const newState = updateStats(appState, question.id, true, timeTakenMs, currentAttempts, confidence);
+      const newState = updateStats(appState, question.id, true, timeTakenMs, currentAttempts, confidence, telemetry);
       onUpdateAppState(newState);
       
       if (currentAttempts === 1) {
@@ -169,8 +207,7 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
       
       // Update stats as incorrect on the first failed attempt
       if (currentAttempts === 1) {
-        const timeTakenMs = Date.now() - startTime;
-        const newState = updateStats(appState, question.id, false, timeTakenMs, currentAttempts, confidence);
+        const newState = updateStats(appState, question.id, false, timeTakenMs, currentAttempts, confidence, telemetry);
         onUpdateAppState(newState);
       }
     }
@@ -181,10 +218,14 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
       // Try again logic
       setHasChecked(false);
       setSelectedOption(null);
+      setSelectionHistory([]);
+      setLastSelectionTimestamp(null);
       return;
     }
     setSelectedOption(null);
     setHasChecked(false);
+    setSelectionHistory([]);
+    setLastSelectionTimestamp(null);
     setCurrentIndex(prev => prev + 1);
   };
 
@@ -347,7 +388,7 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
                 <button
                   key={idx}
                   disabled={hasChecked || wrongOptions.has(idx)}
-                  onClick={() => setSelectedOption(idx)}
+                  onClick={() => handleSelectOption(idx)}
                   className={cn(
                     "p-4 sm:p-5 text-left border-2 rounded-2xl group transition-all min-h-[80px]",
                     stateClass

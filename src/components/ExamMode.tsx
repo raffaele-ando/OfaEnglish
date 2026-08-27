@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { Question, ExamHistory } from '../types';
+import { Question, ExamHistory, ExamQuestionLog, QuestionClickEvent } from '../types';
 import { questions } from '../data/questions';
 import { motion } from 'motion/react';
 import { X, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -22,6 +22,14 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
   const [examQuestions, setExamQuestions] = useState<Question[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number>>({});
+  const [questionTimeSpent, setQuestionTimeSpent] = useState<Record<string, number>>({});
+  const [questionTelemetry, setQuestionTelemetry] = useState<Record<string, {
+    clicks: QuestionClickEvent[];
+    firstClickTimeMs?: number;
+    firstOptionIndex?: number;
+    lastClickTimestamp?: number;
+  }>>({});
+  const [questionStartTimestamp, setQuestionStartTimestamp] = useState<number>(Date.now());
   const [timeLeft, setTimeLeft] = useState(EXAM_DURATION);
   const [isFinished, setIsFinished] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
@@ -57,6 +65,18 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
     setExamQuestions(selected.map(shuffleQuestion));
   }, []);
 
+  const updateCurrentQuestionTime = () => {
+    if (examQuestions.length > 0 && examQuestions[currentIndex]) {
+      const qId = examQuestions[currentIndex].id;
+      const elapsed = Date.now() - questionStartTimestamp;
+      setQuestionTimeSpent(prev => ({
+        ...prev,
+        [qId]: (prev[qId] || 0) + elapsed
+      }));
+      setQuestionStartTimestamp(Date.now());
+    }
+  };
+
   useEffect(() => {
     let timer: any;
     if (hasStarted && !isFinished && timeLeft > 0) {
@@ -74,13 +94,19 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasStarted, isFinished, timeLeft]);
 
-  const handleStart = () => setHasStarted(true);
+  const handleStart = () => {
+    setHasStarted(true);
+    setQuestionStartTimestamp(Date.now());
+  };
 
   const handleFinish = (finalAnswers = answers) => {
     setIsFinished(true);
+    updateCurrentQuestionTime();
+
     let score = 0;
     const categoryUpdates: Record<string, { correct: number, total: number }> = {};
     const questionResults: Record<string, 'correct' | 'incorrect' | 'omitted'> = {};
+    const questionLogs: ExamQuestionLog[] = [];
 
     examQuestions.forEach(q => {
       if (!categoryUpdates[q.category]) {
@@ -88,15 +114,43 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
       }
       categoryUpdates[q.category].total++;
 
-      if (finalAnswers[q.id] === undefined) {
+      const isOmitted = finalAnswers[q.id] === undefined;
+      const isCorrect = !isOmitted && finalAnswers[q.id] === q.correctIndex;
+
+      if (isOmitted) {
         questionResults[q.id] = 'omitted';
-      } else if (finalAnswers[q.id] === q.correctIndex) {
+      } else if (isCorrect) {
         score++;
         categoryUpdates[q.category].correct++;
         questionResults[q.id] = 'correct';
       } else {
         questionResults[q.id] = 'incorrect';
       }
+
+      const tel = questionTelemetry[q.id];
+      const clicks = tel?.clicks || [];
+      const switchCount = Math.max(0, clicks.length - 1);
+      const trajectory = clicks.map(c => c.optionIndex);
+      const firstOptionIndex = clicks.length > 0 ? clicks[0].optionIndex : (isOmitted ? null : finalAnswers[q.id]);
+      const firstClickTimeMs = clicks.length > 0 ? clicks[0].elapsedMs : undefined;
+      const hesitationBeforeSubmitMs = tel?.lastClickTimestamp ? Math.max(0, Date.now() - tel.lastClickTimestamp) : undefined;
+
+      questionLogs.push({
+        questionId: q.id,
+        userAnswerIndex: isOmitted ? null : finalAnswers[q.id],
+        correctIndex: q.correctIndex,
+        isCorrect,
+        timeSpentMs: questionTimeSpent[q.id] || 0,
+        firstClickTimeMs,
+        firstOptionIndex,
+        switchCount,
+        trajectory,
+        hesitationBeforeSubmitMs,
+        clickEvents: clicks,
+        category: q.category,
+        grammarTopic: q.grammarTopic,
+        level: q.level
+      });
     });
 
     const passed = score >= PASSING_SCORE;
@@ -114,12 +168,41 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
       score,
       passed,
       timeSpentSeconds: EXAM_DURATION - timeLeft,
-      categoryStats: categoryUpdates
+      categoryStats: categoryUpdates,
+      questionLogs,
+      answers: finalAnswers,
+      questionIds: examQuestions.map(q => q.id)
     }, categoryUpdates, questionResults);
   };
 
   const handleOptionSelect = (qId: string, optIdx: number) => {
+    const now = Date.now();
+    const q = examQuestions.find(x => x.id === qId);
+    const isOptionCorrect = q ? optIdx === q.correctIndex : false;
+    const currentQuestionElapsed = (questionTimeSpent[qId] || 0) + (now - questionStartTimestamp);
+
     setAnswers(prev => ({ ...prev, [qId]: optIdx }));
+
+    setQuestionTelemetry(prev => {
+      const existing = prev[qId] || { clicks: [] };
+      return {
+        ...prev,
+        [qId]: {
+          clicks: [
+            ...existing.clicks,
+            { optionIndex: optIdx, timestamp: now, elapsedMs: currentQuestionElapsed, isCorrect: isOptionCorrect }
+          ],
+          firstClickTimeMs: existing.firstClickTimeMs !== undefined ? existing.firstClickTimeMs : currentQuestionElapsed,
+          firstOptionIndex: existing.firstOptionIndex !== undefined ? existing.firstOptionIndex : optIdx,
+          lastClickTimestamp: now
+        }
+      };
+    });
+  };
+
+  const handleNavigateQuestion = (newIndex: number) => {
+    updateCurrentQuestionTime();
+    setCurrentIndex(newIndex);
   };
 
   if (examQuestions.length === 0) return null;
@@ -285,7 +368,7 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
       <div className="p-3 sm:p-4 border-t-2 border-gray-200 dark:border-[#334155] bg-white dark:bg-[#1E293B] shrink-0 flex items-center transition-colors min-h-[70px] sm:min-h-[80px]">
         <div className="max-w-4xl w-full mx-auto flex justify-between items-center px-2 sm:px-4">
           <button
-            onClick={() => setCurrentIndex(prev => Math.max(0, prev - 1))}
+            onClick={() => handleNavigateQuestion(Math.max(0, currentIndex - 1))}
             disabled={currentIndex === 0}
             className="p-2 sm:p-3 text-gray-400 dark:text-gray-500 disabled:opacity-30 rounded-xl hover:bg-gray-100 dark:hover:bg-[#334155] transition-colors border-2 border-transparent active:bg-gray-200 dark:active:bg-[#475569]"
           >
@@ -294,10 +377,11 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
           
           <div className="flex gap-1 overflow-x-auto max-w-[150px] sm:max-w-xs px-1 scrollbar-hide items-center">
             {examQuestions.map((q, idx) => (
-              <div 
-                key={idx} 
+              <button 
+                key={idx}
+                onClick={() => handleNavigateQuestion(idx)}
                 className={cn(
-                  "h-1.5 sm:h-2 min-w-[6px] sm:min-w-[8px] flex-1 rounded-full transition-all", 
+                  "h-1.5 sm:h-2 min-w-[6px] sm:min-w-[8px] flex-1 rounded-full transition-all cursor-pointer", 
                   currentIndex === idx ? "bg-[#4B4B4B] dark:bg-[#F8FAFC] h-2.5 sm:h-3" : answers[q.id] !== undefined ? "bg-[#1CB0F6] dark:bg-[#38BDF8]" : "bg-gray-200 dark:bg-[#334155]"
                 )}
               />
@@ -305,7 +389,7 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
           </div>
 
           <button
-            onClick={() => setCurrentIndex(prev => Math.min(29, prev + 1))}
+            onClick={() => handleNavigateQuestion(Math.min(29, currentIndex + 1))}
             disabled={currentIndex === 29}
             className="p-2 sm:p-3 text-gray-400 dark:text-gray-500 disabled:opacity-30 rounded-xl hover:bg-gray-100 dark:hover:bg-[#334155] transition-colors border-2 border-transparent active:bg-gray-200 dark:active:bg-[#475569]"
           >
