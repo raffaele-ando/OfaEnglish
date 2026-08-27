@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { Question, AppState, QuestionClickEvent, QuestionTelemetry } from '../types';
 import { selectPracticeQuestions, updateStats } from '../lib/spacedRepetition';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Check, ArrowRight, RotateCcw, Lightbulb } from 'lucide-react';
+import { X, Check, ArrowRight, RotateCcw, Lightbulb, Flame } from 'lucide-react';
 import { cn, shuffleQuestion } from '../lib/utils';
+import { playTapSound, playCorrectSound, playIncorrectSound, playVictorySound, triggerConfetti } from '../lib/audio';
 
 interface LearnModeProps {
   appState: AppState;
@@ -19,6 +20,7 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [hasChecked, setHasChecked] = useState(false);
   const [sessionStats, setSessionStats] = useState({ correct: 0, total: 0 });
+  const [streak, setStreak] = useState(0);
   const [optionsRevealed, setOptionsRevealed] = useState(mode !== 'recall');
   
   const [startTime, setStartTime] = useState<number>(Date.now());
@@ -39,6 +41,14 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
     setQuestions(selectPracticeQuestions(appState.stats, { numQuestions: 10, mode, category }).map(shuffleQuestion));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Play fanfare & celebration confetti when session completes
+  useEffect(() => {
+    if (questions.length > 0 && currentIndex >= questions.length) {
+      playVictorySound();
+      triggerConfetti('celebration');
+    }
+  }, [currentIndex, questions.length]);
 
   useEffect(() => {
     setStartTime(Date.now());
@@ -116,6 +126,7 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
 
   const handleSelectOption = (idx: number) => {
     if (hasChecked || wrongOptions.has(idx)) return;
+    playTapSound();
     setSelectedOption(idx);
     const now = Date.now();
     const elapsedMs = now - startTime;
@@ -154,6 +165,11 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
       };
 
       if (correct) {
+        const nextStreak = streak + 1;
+        setStreak(nextStreak);
+        playCorrectSound(nextStreak);
+        triggerConfetti(nextStreak >= 4 ? 'cannon' : (nextStreak >= 2 ? 'burst' : 'mini'));
+
         const newState = updateStats(appState, question.id, true, timeTakenMs, currentAttempts, confidence, telemetry);
         onUpdateAppState(newState);
         
@@ -163,6 +179,8 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
           setSessionStats(prev => ({ ...prev, total: prev.total + 1 }));
         }
       } else {
+        setStreak(0);
+        playIncorrectSound();
         if (currentAttempts === 1) {
           const newState = updateStats(appState, question.id, false, timeTakenMs, currentAttempts, confidence, telemetry);
           onUpdateAppState(newState);
@@ -192,6 +210,11 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
     };
     
     if (correct) {
+      const nextStreak = streak + 1;
+      setStreak(nextStreak);
+      playCorrectSound(nextStreak);
+      triggerConfetti(nextStreak >= 4 ? 'cannon' : (nextStreak >= 2 ? 'burst' : 'mini'));
+
       const newState = updateStats(appState, question.id, true, timeTakenMs, currentAttempts, confidence, telemetry);
       onUpdateAppState(newState);
       
@@ -201,6 +224,8 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
         setSessionStats(prev => ({ ...prev, total: prev.total + 1 }));
       }
     } else {
+      setStreak(0);
+      playIncorrectSound();
       if (selectedOption !== null) {
         setWrongOptions(prev => new Set(prev).add(selectedOption));
       }
@@ -214,6 +239,7 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
   };
 
   const handleNext = () => {
+    playTapSound();
     if (!isCorrect) {
       // Try again logic
       setHasChecked(false);
@@ -239,15 +265,15 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
         >
           <Check size={40} className="sm:w-12 sm:h-12" strokeWidth={3} />
         </motion.div>
-        <h2 className="text-2xl sm:text-3xl font-black text-[#4B4B4B] dark:text-[#F8FAFC] mb-2">Session Complete!</h2>
+        <h2 className="text-2xl sm:text-3xl font-black text-[#4B4B4B] dark:text-[#F8FAFC] mb-2">Sessione Completata!</h2>
         <p className="text-gray-500 dark:text-gray-400 mb-6 sm:mb-8 font-bold text-base sm:text-lg">
-          You got {sessionStats.correct} out of {sessionStats.total} correct on the first try.
+          Hai risposto a {sessionStats.correct} su {sessionStats.total} correttamente al primo tentativo.
         </p>
         <button
-          onClick={onExit}
+          onClick={() => { playTapSound(); onExit(); }}
           className="w-full max-w-sm bg-[#1CB0F6] border-b-4 border-[#1899D6] active:border-b-0 active:translate-y-1 text-white font-black text-base sm:text-lg py-3 sm:py-4 px-6 rounded-xl sm:rounded-2xl transition-all uppercase tracking-widest"
         >
-          Continue
+          Continua
         </button>
       </div>
     );
@@ -259,7 +285,7 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
     <div className="flex flex-col h-full w-full bg-white dark:bg-[#1E293B] sm:rounded-[32px] sm:border-2 sm:border-gray-200 dark:sm:border-[#334155] overflow-hidden shadow-sm transition-colors duration-300">
       {/* Header & Progress */}
       <header className="flex items-center gap-3 sm:gap-4 p-3 border-b-2 border-gray-200 dark:border-[#334155] h-12 shrink-0 transition-colors">
-        <button onClick={onExit} className="p-1 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 rounded-full transition-colors">
+        <button onClick={() => { playTapSound(); onExit(); }} className="p-1 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 rounded-full transition-colors">
           <X size={18} strokeWidth={3} />
         </button>
         <div className="flex-1 bg-gray-200 dark:bg-[#334155] h-3 rounded-full overflow-hidden transition-colors">
@@ -269,6 +295,12 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
             animate={{ width: `${progress}%` }}
           />
         </div>
+        {streak > 1 && (
+          <div className="flex items-center gap-1 text-[#FFC800] font-black text-xs sm:text-sm animate-bounce">
+            <Flame size={16} fill="currentColor" />
+            <span>{streak}x</span>
+          </div>
+        )}
         <div className={cn("font-black text-sm w-8 text-center", timeLeft <= 5 ? "text-[#FF4B4B] animate-pulse" : "text-gray-500 dark:text-gray-400")}>
           {timeLeft}s
         </div>
@@ -276,9 +308,9 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
 
       {/* Main Content */}
       <main className="flex-1 p-4 sm:p-8 flex flex-col w-full overflow-y-auto scrollbar-hide">
-        <div className="mb-4 shrink-0">
+        <div className="mb-4 shrink-0 flex items-center justify-between">
           <span className="px-4 py-1.5 bg-[#CE82FF] dark:bg-[#D946EF] text-white text-xs sm:text-sm font-black uppercase rounded-full tracking-widest shadow-sm">
-            Question {currentIndex + 1}
+            Domanda {currentIndex + 1}
           </span>
         </div>
         <h2 className="text-xl sm:text-3xl font-black text-[#3C3C3C] dark:text-[#F8FAFC] mb-6 sm:mb-8 leading-tight shrink-0">
@@ -292,7 +324,7 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
             <div className="flex flex-col items-center gap-2 mb-4 h-12 justify-center">
               {!showHint ? (
                 <button 
-                  onClick={() => setShowHint(true)}
+                  onClick={() => { playTapSound(); setShowHint(true); }}
                   className="flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-blue-500 dark:text-blue-400 font-bold rounded-xl hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors"
                 >
                   <Lightbulb size={20} />
@@ -316,7 +348,12 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
               {selectedRecallWords.map((wordIndex) => (
                 <button
                   key={`selected-${wordIndex}`}
-                  onClick={() => !hasChecked && setSelectedRecallWords(prev => prev.filter(i => i !== wordIndex))}
+                  onClick={() => {
+                    if (!hasChecked) {
+                      playTapSound();
+                      setSelectedRecallWords(prev => prev.filter(i => i !== wordIndex));
+                    }
+                  }}
                   disabled={hasChecked}
                   className={cn(
                     "bg-white dark:bg-[#1E293B] border-2 text-[#4B4B4B] dark:text-[#F8FAFC] px-4 py-2 rounded-xl font-bold shadow-sm transition-all",
@@ -335,7 +372,12 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
                 return (
                   <button
                     key={`pool-${index}`}
-                    onClick={() => !hasChecked && setSelectedRecallWords(prev => [...prev, index])}
+                    onClick={() => {
+                      if (!hasChecked) {
+                        playTapSound();
+                        setSelectedRecallWords(prev => [...prev, index]);
+                      }
+                    }}
                     disabled={isSelected || hasChecked}
                     className={cn(
                       "px-5 py-2.5 rounded-[16px] font-bold transition-all text-sm sm:text-base",
@@ -352,7 +394,7 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
             
             <div className="mt-8 flex flex-col items-center gap-4 pt-4">
               <button
-                onClick={() => setOptionsRevealed(true)}
+                onClick={() => { playTapSound(); setOptionsRevealed(true); }}
                 className="text-gray-400 font-bold text-xs sm:text-sm uppercase tracking-widest hover:text-gray-600 transition-colors"
               >
                 Troppo difficile? Usa le opzioni multiple
@@ -420,7 +462,7 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
                   isCorrect ? "text-[#58CC02] dark:text-[#10B981]" : "text-[#FF4B4B] dark:text-[#F87171]"
                 )}
               >
-                <span className="text-xl sm:text-2xl">{isCorrect ? "Ottimo!" : "Errata."}</span>
+                <span className="text-xl sm:text-2xl">{isCorrect ? (streak > 2 ? `Fantastico! 🔥 ${streak} di fila!` : "Ottimo!") : "Errata."}</span>
                 {!isCorrect && (
                   <p className="text-sm font-bold opacity-80 text-gray-700 dark:text-gray-200">
                     Riprova!
@@ -479,4 +521,5 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
     </div>
   );
 }
+
 

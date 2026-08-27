@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Target, Zap, Folder, BrainCircuit, ArrowLeft, BookOpen } from 'lucide-react';
 import { questions } from '../data/questions';
+import { playTapSound } from '../lib/audio';
 
 interface PracticeMenuProps {
   onSelectMode: (mode: 'standard' | 'weakness' | 'blitz' | 'category' | 'recall', category?: string) => void;
@@ -19,7 +20,7 @@ export default function PracticeMenu({ onSelectMode, onBack }: PracticeMenuProps
       <div className="flex flex-col h-full p-4 sm:p-6 gap-3 sm:gap-4 flex-1 min-h-0 overflow-y-auto scrollbar-hide">
       <header className="flex items-center gap-3 shrink-0">
         <button 
-          onClick={onBack}
+          onClick={() => { playTapSound(); onBack(); }}
           className="p-2 -ml-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors rounded-full"
         >
           <ArrowLeft size={24} strokeWidth={3} />
@@ -29,7 +30,7 @@ export default function PracticeMenu({ onSelectMode, onBack }: PracticeMenuProps
 
       <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 min-h-0 items-stretch">
         <button
-          onClick={() => onSelectMode('standard')}
+          onClick={() => { playTapSound(); onSelectMode('standard'); }}
           className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] border-b-4 hover:bg-gray-50 dark:hover:bg-[#1E293B] text-left p-4 sm:p-5 rounded-[24px] transition-all duration-200 active:border-b-0 active:translate-y-1 flex items-center gap-4 h-full"
         >
           <div className="bg-[#1CB0F6]/10 text-[#1CB0F6] p-3 sm:p-4 rounded-[16px] shrink-0">
@@ -42,7 +43,7 @@ export default function PracticeMenu({ onSelectMode, onBack }: PracticeMenuProps
         </button>
 
         <button
-          onClick={() => onSelectMode('weakness')}
+          onClick={() => { playTapSound(); onSelectMode('weakness'); }}
           className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] border-b-4 hover:bg-gray-50 dark:hover:bg-[#1E293B] text-left p-4 sm:p-5 rounded-[24px] transition-all duration-200 active:border-b-0 active:translate-y-1 flex items-center gap-4 h-full"
         >
           <div className="bg-[#FF4B4B]/10 text-[#FF4B4B] p-3 sm:p-4 rounded-[16px] shrink-0">
@@ -55,7 +56,7 @@ export default function PracticeMenu({ onSelectMode, onBack }: PracticeMenuProps
         </button>
 
         <button
-          onClick={() => onSelectMode('blitz')}
+          onClick={() => { playTapSound(); onSelectMode('blitz'); }}
           className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] border-b-4 hover:bg-gray-50 dark:hover:bg-[#1E293B] text-left p-4 sm:p-5 rounded-[24px] transition-all duration-200 active:border-b-0 active:translate-y-1 flex items-center gap-4 h-full"
         >
           <div className="bg-[#FFC800]/10 text-[#FFC800] p-3 sm:p-4 rounded-[16px] shrink-0">
@@ -68,7 +69,7 @@ export default function PracticeMenu({ onSelectMode, onBack }: PracticeMenuProps
         </button>
 
         <button
-          onClick={() => onSelectMode('recall')}
+          onClick={() => { playTapSound(); onSelectMode('recall'); }}
           className="bg-white dark:bg-[#0F172A] border-2 border-gray-200 dark:border-[#334155] border-b-4 hover:bg-gray-50 dark:hover:bg-[#1E293B] text-left p-4 sm:p-5 rounded-[24px] transition-all duration-200 active:border-b-0 active:translate-y-1 flex items-center gap-4 h-full"
         >
           <div className="bg-[#CE82FF]/10 text-[#CE82FF] p-3 sm:p-4 rounded-[16px] shrink-0">
@@ -115,7 +116,7 @@ export default function PracticeMenu({ onSelectMode, onBack }: PracticeMenuProps
             </select>
             <button
               disabled={!selectedCategory}
-              onClick={() => onSelectMode('category', selectedCategory)}
+              onClick={() => { playTapSound(); onSelectMode('category', selectedCategory); }}
               className="bg-[#58CC02] hover:bg-[#46A302] border-b-4 border-[#46A302] disabled:bg-gray-200 disabled:border-gray-300 disabled:dark:bg-[#334155] disabled:dark:border-[#475569] disabled:text-gray-400 text-white font-black px-6 sm:px-8 py-3 text-sm sm:text-base rounded-[16px] transition-all duration-200 active:border-b-0 active:translate-y-1"
             >
               INIZIA

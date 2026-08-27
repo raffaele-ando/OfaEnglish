@@ -351,12 +351,12 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
             <div className="bg-[#E5F5FF] dark:bg-[#0EA5E9]/10 border-2 border-[#84D8FF] dark:border-[#0284C7] rounded-[24px] p-4 sm:p-5 flex flex-col items-center text-center transition-colors">
               <Trophy className="text-[#1CB0F6] dark:text-[#38BDF8] mb-2 sm:mb-3 w-8 h-8 sm:w-10 sm:h-10 shrink-0" />
               <span className="text-2xl sm:text-3xl font-black text-[#1CB0F6] dark:text-[#38BDF8] leading-none mb-1">{masteryPercentage}%</span>
-              <span className="text-[10px] sm:text-xs font-bold text-[#1899D6] dark:text-[#0284C7] uppercase tracking-widest mt-1">Maestria</span>
+              <span className="text-[10px] sm:text-xs font-bold text-[#1899D6] dark:text-[#0284C7] uppercase tracking-widest mt-1">Domande Imparate</span>
             </div>
             <div className="bg-[#D7FFB8] dark:bg-[#059669]/10 border-2 border-[#58CC02] dark:border-[#059669] rounded-[24px] p-4 sm:p-5 flex flex-col items-center text-center transition-colors">
               <Target className="text-[#58CC02] dark:text-[#10B981] mb-2 sm:mb-3 w-8 h-8 sm:w-10 sm:h-10 shrink-0" />
               <span className="text-2xl sm:text-3xl font-black text-[#46A302] dark:text-[#34D399] leading-none mb-1">{globalAccuracy}%</span>
-              <span className="text-[10px] sm:text-xs font-bold text-[#46A302] dark:text-[#059669] uppercase tracking-widest mt-1">Precisione</span>
+              <span className="text-[10px] sm:text-xs font-bold text-[#46A302] dark:text-[#059669] uppercase tracking-widest mt-1">Accuratezza</span>
             </div>
             <div className="bg-[#FFF4E5] dark:bg-[#F59E0B]/10 border-2 border-[#FFC800] dark:border-[#D97706] rounded-[24px] p-4 sm:p-5 flex flex-col items-center text-center transition-colors">
               <TrendingUp className="text-[#FFC800] dark:text-[#FBBF24] mb-2 sm:mb-3 w-8 h-8 sm:w-10 sm:h-10 shrink-0" />

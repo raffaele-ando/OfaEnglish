@@ -4,7 +4,7 @@ import { questions } from '../data/questions';
 import { motion } from 'motion/react';
 import { X, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn, calculateSimilarity, shuffleQuestion } from '../lib/utils';
-import confetti from 'canvas-confetti';
+import { playTapSound, playVictorySound, triggerConfetti } from '../lib/audio';
 
 interface ExamModeProps {
   onComplete: (
@@ -163,11 +163,8 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
 
     const passed = score >= PASSING_SCORE;
     if (passed) {
-      confetti({
-        particleCount: 150,
-        spread: 70,
-        origin: { y: 0.6 }
-      });
+      playVictorySound();
+      triggerConfetti('celebration');
     }
 
     onComplete({
@@ -184,6 +181,7 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
   };
 
   const handleOptionSelect = (qId: string, optIdx: number) => {
+    playTapSound();
     const now = Date.now();
     const q = examQuestions.find(x => x.id === qId);
     const isOptionCorrect = q ? optIdx === q.correctIndex : false;
