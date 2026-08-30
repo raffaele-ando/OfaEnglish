@@ -23,7 +23,7 @@ export default function App() {
   const [view, setView] = useState<View>('menu');
   const [learnMode, setLearnMode] = useState<'standard' | 'weakness' | 'blitz' | 'category' | 'recall' | 'smart'>('smart');
   const [learnCategory, setLearnCategory] = useState<string | undefined>(undefined);
-  const [appState, setAppState] = useState<AppState>(loadState());
+  const [appState, setAppState] = useState<AppState>(() => loadState());
   const [user, setUser] = useState<User | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
