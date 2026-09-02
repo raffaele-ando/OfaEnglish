@@ -462,7 +462,15 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
                   isCorrect ? "text-[#58CC02] dark:text-[#10B981]" : "text-[#FF4B4B] dark:text-[#F87171]"
                 )}
               >
-                <span className="text-xl sm:text-2xl">{isCorrect ? (streak > 2 ? `Fantastico! 🔥 ${streak} di fila!` : "Ottimo!") : "Errata."}</span>
+                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                  <span className="text-xl sm:text-2xl">{isCorrect ? (streak > 2 ? `Fantastico! 🔥 ${streak} di fila!` : "Ottimo!") : "Errata."}</span>
+                  {isCorrect && question.category && (
+                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-black bg-white/80 dark:bg-black/30 text-[#46A302] dark:text-[#34D399] border border-[#58CC02]/30 dark:border-[#10B981]/30 shadow-xs">
+                      <span>Categoria:</span>
+                      <span className="font-extrabold">{question.category}{question.grammarTopic ? ` (${question.grammarTopic})` : ''}</span>
+                    </span>
+                  )}
+                </div>
                 {!isCorrect && (
                   <p className="text-sm font-bold opacity-80 text-gray-700 dark:text-gray-200">
                     Riprova!

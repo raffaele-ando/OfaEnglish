@@ -268,6 +268,11 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
           <div className="space-y-4 sm:space-y-6 pb-6">
             {examQuestions.filter(q => answers[q.id] !== q.correctIndex).map((q, idx) => (
               <div key={q.id} className="bg-[#FFE5E5] dark:bg-[#7F1D1D] border-2 border-[#FF4B4B] dark:border-[#EF4444] rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-sm transition-colors">
+                <div className="mb-2">
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-wider bg-white/70 dark:bg-black/30 border border-[#FF4B4B]/30 text-[#D80000] dark:text-[#FCA5A5]">
+                    Categoria: {q.category}{q.grammarTopic ? ` • ${q.grammarTopic}` : ''}
+                  </span>
+                </div>
                 <p className="font-bold text-base sm:text-lg text-[#3C3C3C] dark:text-[#F8FAFC] mb-3 sm:mb-4">{q.prompt}</p>
                 <div className="space-y-2 sm:space-y-3 text-xs sm:text-sm">
                   <div className="flex gap-2 items-center">
