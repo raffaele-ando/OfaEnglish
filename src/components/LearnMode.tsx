@@ -38,7 +38,12 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
   const [timeLeft, setTimeLeft] = useState(timeLimit);
 
   useEffect(() => {
-    setQuestions(selectPracticeQuestions(appState.stats, { numQuestions: 10, mode, category }).map(shuffleQuestion));
+    setQuestions(selectPracticeQuestions(appState.stats, { 
+      numQuestions: 10, 
+      mode, 
+      category, 
+      corpus: appState.selectedCorpus 
+    }).map(shuffleQuestion));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -312,6 +317,11 @@ export default function LearnMode({ appState, mode, category, onUpdateAppState, 
           <span className="px-4 py-1.5 bg-[#CE82FF] dark:bg-[#D946EF] text-white text-xs sm:text-sm font-black uppercase rounded-full tracking-widest shadow-sm">
             Domanda {currentIndex + 1}
           </span>
+          {(category === 'corpus:initial' || appState.selectedCorpus === 'initial') && (
+            <span className="px-3 py-1 bg-[#58CC02]/10 text-[#58CC02] border border-[#58CC02]/30 text-xs font-black uppercase rounded-full tracking-wider">
+              Primo Corpus (60)
+            </span>
+          )}
         </div>
         <h2 className="text-xl sm:text-3xl font-black text-[#3C3C3C] dark:text-[#F8FAFC] mb-6 sm:mb-8 leading-tight shrink-0">
           {question.prompt}

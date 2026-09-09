@@ -73,6 +73,8 @@ export interface ExamHistory {
   questionIds?: string[];
 }
 
+export type CorpusType = 'all' | 'initial';
+
 export interface AppState {
   stats: UserStats;
   history: ExamHistory[];
@@ -89,4 +91,5 @@ export interface AppState {
   examCategoryStats?: Record<string, { correct: number; total: number; }>;
   dailyActivity?: Record<string, number>;
   dailyTimeSpent?: Record<string, number>;
+  selectedCorpus?: CorpusType;
 }

@@ -1,5 +1,5 @@
-import { Question, UserStats, AppState, QuestionTelemetry } from '../types';
-import { questions } from '../data/questions';
+import { Question, UserStats, AppState, QuestionTelemetry, CorpusType } from '../types';
+import { questions, getQuestionsByCorpus } from '../data/questions';
 
 // Initialize or update stats for a question
 export function getQuestionStats(stats: UserStats, questionId: string) {
@@ -27,21 +27,34 @@ export function getQuestionStats(stats: UserStats, questionId: string) {
 }
 
 // Select questions for practice using SuperMemo-2 (SM-2) algorithm
-export function selectPracticeQuestions(stats: UserStats, options: { numQuestions?: number, mode?: 'standard' | 'weakness' | 'blitz' | 'category' | 'recall' | 'smart', category?: string } = {}): Question[] {
-  const { numQuestions = 10, mode = 'standard', category } = options;
+export function selectPracticeQuestions(stats: UserStats, options: { 
+  numQuestions?: number, 
+  mode?: 'standard' | 'weakness' | 'blitz' | 'category' | 'recall' | 'smart', 
+  category?: string,
+  corpus?: CorpusType
+} = {}): Question[] {
+  const { numQuestions = 10, mode = 'standard', category, corpus = 'all' } = options;
   const now = Date.now();
   
-  let pool = questions;
+  let pool = getQuestionsByCorpus(corpus);
   if (category && mode === 'category') {
-    if (category.startsWith('level:')) {
-      pool = questions.filter(q => q.level === category.substring(6));
+    if (category === 'corpus:initial') {
+      pool = getQuestionsByCorpus('initial');
+    } else if (category === 'corpus:all') {
+      pool = questions;
+    } else if (category.startsWith('level:')) {
+      pool = pool.filter(q => q.level === category.substring(6));
     } else if (category.startsWith('topic:')) {
-      pool = questions.filter(q => q.grammarTopic === category.substring(6));
+      pool = pool.filter(q => q.grammarTopic === category.substring(6));
     } else if (category.startsWith('category:')) {
-      pool = questions.filter(q => q.category === category.substring(9));
+      pool = pool.filter(q => q.category === category.substring(9));
     } else {
-      pool = questions.filter(q => q.category === category);
+      pool = pool.filter(q => q.category === category);
     }
+  }
+
+  if (pool.length === 0) {
+    pool = getQuestionsByCorpus(corpus);
   }
 
   const scoredQuestions = pool.map(q => {

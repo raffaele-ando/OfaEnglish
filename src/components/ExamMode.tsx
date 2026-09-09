@@ -1,8 +1,8 @@
 import { useState, useEffect, useMemo } from 'react';
-import { Question, ExamHistory, ExamQuestionLog, QuestionClickEvent } from '../types';
-import { questions } from '../data/questions';
+import { Question, ExamHistory, ExamQuestionLog, QuestionClickEvent, CorpusType } from '../types';
+import { questions, getQuestionsByCorpus } from '../data/questions';
 import { motion } from 'motion/react';
-import { X, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X, Clock, ChevronLeft, ChevronRight, BookmarkCheck } from 'lucide-react';
 import { cn, calculateSimilarity, shuffleQuestion } from '../lib/utils';
 import { playTapSound, playVictorySound, triggerConfetti } from '../lib/audio';
 
@@ -13,12 +13,13 @@ interface ExamModeProps {
     questionResults?: Record<string, 'correct' | 'incorrect' | 'omitted'>
   ) => void;
   onExit: () => void;
+  corpus?: CorpusType;
 }
 
 const EXAM_DURATION = 15 * 60; // 15 minutes
 const PASSING_SCORE = 25;
 
-export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
+export default function ExamMode({ onComplete, onExit, corpus = 'all' }: ExamModeProps) {
   const [examQuestions, setExamQuestions] = useState<Question[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number>>({});
@@ -35,8 +36,9 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
   const [hasStarted, setHasStarted] = useState(false);
 
   useEffect(() => {
-    // Pick 30 distinct questions avoiding high similarity
-    const shuffled = [...questions].sort(() => 0.5 - Math.random());
+    // Pick 30 distinct questions avoiding high similarity from active corpus
+    const sourcePool = getQuestionsByCorpus(corpus);
+    const shuffled = [...sourcePool].sort(() => 0.5 - Math.random());
     const selected: Question[] = [];
     
     for (const q of shuffled) {
@@ -63,7 +65,7 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
     }
 
     setExamQuestions(selected.map(shuffleQuestion));
-  }, []);
+  }, [corpus]);
 
   const updateCurrentQuestionTime = () => {
     if (examQuestions.length > 0 && examQuestions[currentIndex]) {
@@ -339,10 +341,16 @@ export default function ExamMode({ onComplete, onExit }: ExamModeProps) {
       </header>
 
       <main className="flex-1 p-4 sm:p-8 flex flex-col w-full overflow-y-auto scrollbar-hide">
-        <div className="mb-4 shrink-0">
+        <div className="mb-4 shrink-0 flex items-center justify-between">
           <span className="px-4 py-1.5 bg-[#FFC800] dark:bg-[#F59E0B] text-white text-xs sm:text-sm font-black uppercase rounded-full tracking-widest shadow-sm">
             Question {currentIndex + 1}
           </span>
+          {corpus === 'initial' && (
+            <span className="inline-flex items-center gap-1 px-3 py-1 bg-[#58CC02]/10 text-[#58CC02] border border-[#58CC02]/30 text-xs font-black uppercase rounded-full tracking-wider">
+              <BookmarkCheck size={14} />
+              Primo Corpus (60)
+            </span>
+          )}
         </div>
         <h2 className="text-xl sm:text-3xl font-black text-[#3C3C3C] dark:text-[#F8FAFC] mb-6 sm:mb-8 leading-tight shrink-0">
           {question.prompt}

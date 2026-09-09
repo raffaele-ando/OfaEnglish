@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { AppState } from '../types';
-import { BookOpen, GraduationCap, Download, Flame, Award, BarChart2, Upload, Cloud, Moon, Sun, Crown, Gift, CheckCircle, Bug, Volume2, VolumeX } from 'lucide-react';
+import { AppState, CorpusType } from '../types';
+import { BookOpen, GraduationCap, Download, Flame, Award, BarChart2, Upload, Cloud, Moon, Sun, Crown, Gift, CheckCircle, Bug, Volume2, VolumeX, Layers, BookmarkCheck } from 'lucide-react';
 import { User } from 'firebase/auth';
 import { useTheme } from '../hooks/useTheme';
 import { cn } from '../lib/utils';
@@ -19,9 +19,10 @@ interface MenuProps {
   onLogin: () => void;
   onLogout: () => void;
   onOpenDebug: () => void;
+  onSelectCorpus?: (corpus: CorpusType) => void;
 }
 
-export default function Menu({ appState, user, onStartSmart, onStartLearn, onStartExam, onOpenStats, onExport, onImport, onLogin, onLogout, onOpenDebug }: MenuProps) {
+export default function Menu({ appState, user, onStartSmart, onStartLearn, onStartExam, onOpenStats, onExport, onImport, onLogin, onLogout, onOpenDebug, onSelectCorpus }: MenuProps) {
   const { isDark, toggleTheme } = useTheme();
   const [muted, setMuted] = useState(isAudioMuted());
 
@@ -34,16 +35,20 @@ export default function Menu({ appState, user, onStartSmart, onStartLearn, onSta
     }
   };
 
-  // Global Progress Stats
-  const totalQuestions = questions.length;
-  const masteredQuestions = Object.values(appState.stats).filter(stat => stat.box > 0).length;
+  const selectedCorpus: CorpusType = appState.selectedCorpus || 'all';
+  const activeQuestions = selectedCorpus === 'initial' ? questions.slice(0, 60) : questions;
+  const totalQuestions = activeQuestions.length;
+  const masteredQuestions = activeQuestions.filter(q => (appState.stats[q.id]?.box ?? 0) > 0).length;
   const masteryPercent = totalQuestions > 0 ? Math.min(100, Math.round((masteredQuestions / totalQuestions) * 100)) : 0;
 
   let totalCorrect = 0;
   let totalIncorrect = 0;
-  Object.values(appState.stats).forEach(stat => {
-    totalCorrect += stat.correct;
-    totalIncorrect += stat.incorrect;
+  activeQuestions.forEach(q => {
+    const stat = appState.stats[q.id];
+    if (stat) {
+      totalCorrect += stat.correct;
+      totalIncorrect += stat.incorrect;
+    }
   });
   const totalAttempts = totalCorrect + totalIncorrect;
   const accuracyPercent = totalAttempts > 0 ? Math.round((totalCorrect / totalAttempts) * 100) : 0;
@@ -113,12 +118,46 @@ export default function Menu({ appState, user, onStartSmart, onStartLearn, onSta
         )}
 
         <div className="flex flex-col gap-3 sm:gap-4 flex-1">
+          {/* Corpus Switcher */}
+          {onSelectCorpus && (
+            <div className="flex items-center justify-between bg-gray-100 dark:bg-[#0F172A] p-1.5 rounded-2xl border-2 border-gray-200 dark:border-[#334155] shrink-0">
+              <button
+                type="button"
+                onClick={() => { playTapSound(); onSelectCorpus('all'); }}
+                className={cn(
+                  "flex-1 py-2 px-3 rounded-xl text-xs sm:text-sm font-black transition-all flex items-center justify-center gap-1.5",
+                  selectedCorpus !== 'initial'
+                    ? "bg-white dark:bg-[#1E293B] text-[#1CB0F6] shadow-xs border border-gray-200/50 dark:border-[#334155]"
+                    : "text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                )}
+              >
+                <Layers size={15} />
+                <span>Tutte le frasi (606)</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => { playTapSound(); onSelectCorpus('initial'); }}
+                className={cn(
+                  "flex-1 py-2 px-3 rounded-xl text-xs sm:text-sm font-black transition-all flex items-center justify-center gap-1.5",
+                  selectedCorpus === 'initial'
+                    ? "bg-white dark:bg-[#1E293B] text-[#58CC02] shadow-xs border border-gray-200/50 dark:border-[#334155]"
+                    : "text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                )}
+              >
+                <BookmarkCheck size={15} />
+                <span>Primo Corpus (60)</span>
+              </button>
+            </div>
+          )}
+
           {/* Top Stats Row: Domande Imparate & Accuratezza */}
           <div className="grid grid-cols-2 gap-3 sm:gap-4 shrink-0">
             {/* Domande Imparate */}
             <div className="bg-white dark:bg-[#0F172A] rounded-[24px] p-4 sm:p-5 border-2 border-gray-200 dark:border-[#334155] border-b-4 flex flex-col justify-center gap-3 shadow-sm transition-colors">
               <div className="flex justify-between items-center">
-                <span className="text-xs sm:text-sm font-black text-gray-400 dark:text-gray-500 uppercase tracking-wider">Domande imparate</span>
+                <span className="text-xs sm:text-sm font-black text-gray-400 dark:text-gray-500 uppercase tracking-wider">
+                  Imparate {selectedCorpus === 'initial' ? '(su 60)' : ''}
+                </span>
                 <span className="text-lg sm:text-xl font-black text-[#58CC02]">{masteryPercent}%</span>
               </div>
               <div className="w-full bg-gray-100 dark:bg-[#334155] h-3 sm:h-4 rounded-full overflow-hidden flex relative">
@@ -150,7 +189,9 @@ export default function Menu({ appState, user, onStartSmart, onStartLearn, onSta
               className="w-full bg-[#1CB0F6] hover:bg-[#1899D6] border-b-4 border-[#1899D6] active:border-b-0 active:translate-y-1 text-white font-black p-6 sm:p-8 rounded-[20px] sm:rounded-2xl shadow-sm flex flex-col items-center justify-center transition-all duration-200"
             >
               <span className="text-2xl sm:text-3xl leading-tight uppercase tracking-widest mb-2">Inizia Sessione</span>
-              <span className="text-[#DDF4FF] text-xs sm:text-sm uppercase font-bold tracking-widest bg-black/10 px-4 py-1.5 rounded-full">Algoritmo Ottimizzato</span>
+              <span className="text-[#DDF4FF] text-xs sm:text-sm uppercase font-bold tracking-widest bg-black/10 px-4 py-1.5 rounded-full">
+                {selectedCorpus === 'initial' ? "Primo Corpus (60 frasi)" : "Algoritmo Ottimizzato (606)"}
+              </span>
             </button>
 
             <div className="grid grid-cols-2 gap-3 sm:gap-4">

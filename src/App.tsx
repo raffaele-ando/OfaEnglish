@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
-import { AppState, UserStats, ExamHistory } from './types';
+import { AppState, UserStats, ExamHistory, CorpusType } from './types';
 import { loadState, saveState, updateStreak, exportData, importData, syncToCloud, syncFromCloud } from './lib/storage';
 import { getQuestionStats } from './lib/spacedRepetition';
 import { auth, signInWithGoogle, logout } from './lib/firebase';
@@ -180,6 +180,13 @@ export default function App() {
     }
   };
 
+  const handleSelectCorpus = (corpus: CorpusType) => {
+    handleUpdateAppState({
+      ...appState,
+      selectedCorpus: corpus
+    });
+  };
+
   return (
     <Layout>
       {view === 'menu' && (
@@ -199,10 +206,13 @@ export default function App() {
           onLogin={signInWithGoogle}
           onLogout={logout}
           onOpenDebug={() => setView('debug')}
+          onSelectCorpus={handleSelectCorpus}
         />
       )}
       {view === 'practiceMenu' && (
         <PracticeMenu 
+          selectedCorpus={appState.selectedCorpus || 'all'}
+          onSelectCorpus={handleSelectCorpus}
           onSelectMode={(mode, category) => {
             setLearnMode(mode);
             setLearnCategory(category);
@@ -222,6 +232,7 @@ export default function App() {
       )}
       {view === 'exam' && (
         <ExamMode 
+          corpus={appState.selectedCorpus || 'all'}
           onComplete={handleExamComplete}
           onExit={() => setView('menu')}
         />

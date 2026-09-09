@@ -157,7 +157,9 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
 
   const filteredAndSortedQuestions = useMemo(() => {
     let filtered = questions;
-    if (filterCategory !== 'all') {
+    if (filterCategory === 'corpus:initial') {
+      filtered = questions.slice(0, 60);
+    } else if (filterCategory !== 'all') {
       filtered = filtered.filter(q => q.category === filterCategory);
     }
     
@@ -198,6 +200,7 @@ export default function StatsMode({ appState, onExit }: StatsModeProps) {
               className="bg-transparent border-none text-sm font-bold text-[#4B4B4B] dark:text-[#F8FAFC] focus:ring-0 cursor-pointer"
             >
               <option value="all">Tutte le categorie</option>
+              <option value="corpus:initial">⭐ Primo Corpus (60 frasi)</option>
               {categories.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
           </div>

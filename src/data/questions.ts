@@ -1,4 +1,13 @@
-import { Question } from '../types';
+import { Question, CorpusType } from '../types';
+
+export const INITIAL_CORPUS_COUNT = 60;
+
+export const getQuestionsByCorpus = (corpus: CorpusType = 'all'): Question[] => {
+  if (corpus === 'initial') {
+    return questions.slice(0, INITIAL_CORPUS_COUNT);
+  }
+  return questions;
+};
 
 export const questions: Question[] = [
   {
