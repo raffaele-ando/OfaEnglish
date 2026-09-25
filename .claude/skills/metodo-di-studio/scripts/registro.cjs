@@ -13,19 +13,22 @@
  *   stato [--nucleo]
  *   simulazione <punteggio> <totale> [--soglia X]
  *
- * Voto (references/algoritmo.md §7): giusta+S = 5, giusta+In = 4,4, giusta+I = 2,5 (torna presto);
- * ogni aiuto −1,5; più tentativi → al massimo 2,2; --punti k/n (domande aperte) = 5·k/n meno la
- * penalità di sicurezza; sbagliata = 0; omessa = 0 e conteggiata a parte.
+ * Voto (references/algoritmo.md §7): giusta+S = 5, giusta+In = 4,4, giusta+I = al massimo 2,5 (torna presto);
+ * ogni aiuto −1,5 (1 aiuto = 3,5; 2 aiuti = 2,0); più tentativi → al massimo 2,2; --punti k/n (domande aperte)
+ * = 5·k/n meno la penalità di sicurezza (imparata con S da 60% dei punti, con In da 72%); sbagliata = 0.
+ * Omessa: contata a parte, non abbassa la facilità ma torna domani.
+ * Esiti accettati: giusta/sbagliata/omessa (anche giusto, errato, saltata…); sicurezza: S/In/I o Sicuro/Incerto/Indovino.
  */
 const fs = require('fs');
 
 const argv = process.argv.slice(2);
 const flags = {};
 const pos = [];
+const BOOL = new Set(['nucleo']);
 for (let i = 0; i < argv.length; i++) {
   if (argv[i].startsWith('--')) {
     const k = argv[i].slice(2);
-    const v = argv[i + 1] && !argv[i + 1].startsWith('--') ? argv[++i] : true;
+    const v = !BOOL.has(k) && argv[i + 1] && !argv[i + 1].startsWith('--') ? argv[++i] : true;
     flags[k] = v;
   } else pos.push(argv[i]);
 }
@@ -41,19 +44,39 @@ const newItem = (o) => ({ argomento: o.argomento || 'Altro', categoria: o.catego
 const pct = (a, b) => (b ? Math.round((100 * a) / b) : 0);
 const light = (p) => (p > 70 ? '🟢' : p > 40 ? '🟡' : '🔴');
 const r2 = (x) => Math.round(x * 100) / 100;
+const die = (m) => { console.error(m); process.exit(1); };
+
+function normEsito(e) {
+  const x = String(e || '').toLowerCase();
+  if (/^(giust[ao]|corrett[ao]|ok)$/.test(x)) return 'giusta';
+  if (/^(sbagliat[ao]|errat[ao])$/.test(x)) return 'sbagliata';
+  if (/^(omess[ao]|saltat[ao]|bianco)$/.test(x)) return 'omessa';
+  return die(`Esito non valido: "${e}". Usa giusta, sbagliata oppure omessa.`);
+}
+function normSicurezza(v) {
+  const x = String(v || 'S').toLowerCase();
+  if (/^(i|indovino)$/.test(x)) return 'I';
+  if (/^(in|incerto)$/.test(x)) return 'In';
+  if (/^(s|sicuro)$/.test(x)) return 'S';
+  return die(`Sicurezza non valida: "${v}". Usa S (Sicuro), In (Incerto) oppure I (Indovino).`);
+}
 
 function quality(esito) {
   if (esito !== 'giusta') return 0;
-  const sic = String(flags.sicurezza || 'S');
+  const sic = normSicurezza(flags.sicurezza);
   const pen = sic === 'I' ? 2 : sic === 'In' ? 0.6 : 0;
   let q;
   if (flags.punti) {
-    const [k, n] = String(flags.punti).split('/').map(Number);
-    q = 5 * (k / n) - pen;
+    const m = String(flags.punti).match(/^(\d+)\/(\d+)$/);
+    if (!m || Number(m[2]) <= 0 || Number(m[1]) > Number(m[2])) die(`--punti non valido: "${flags.punti}". Formato k/n con 0 ≤ k ≤ n e n > 0 (es. 3/4).`);
+    q = 5 * (Number(m[1]) / Number(m[2])) - pen;
   } else {
-    q = sic === 'I' ? 2.5 : 5 - pen;
+    q = 5 - pen;
   }
-  q -= 1.5 * Number(flags.aiuti || 0);
+  if (sic === 'I') q = Math.min(q, 2.5); // giusto per caso non è imparato
+  const aiuti = Number(flags.aiuti || 0);
+  if (!Number.isFinite(aiuti) || aiuti < 0) die(`--aiuti non valido: "${flags.aiuti}".`);
+  q -= 1.5 * aiuti;
   if (Number(flags.tentativi || 1) > 1) q = Math.min(q, 2.2);
   return Math.max(0, Math.min(5, r2(q)));
 }
@@ -84,8 +107,16 @@ if (cmd === 'init') {
   console.log(`Registro creato: ${FILE}`);
 } else if (cmd === 'add') {
   const db = need();
-  db.items[pos[1]] = newItem(flags);
-  save(db); console.log(`Aggiunto ${pos[1]} (${flags.argomento || 'Altro'})`);
+  if (!pos[1]) die('Specifica un id.');
+  const ex = db.items[pos[1]];
+  if (ex) {
+    ['argomento', 'categoria', 'livello', 'testo'].forEach((k) => { if (typeof flags[k] === 'string') ex[k] = flags[k]; });
+    if (flags.nucleo) ex.nucleo = true;
+    save(db); console.log(`${pos[1]} esisteva già: aggiornate solo le etichette, i progressi restano.`);
+  } else {
+    db.items[pos[1]] = newItem(flags);
+    save(db); console.log(`Aggiunto ${pos[1]} (${flags.argomento || 'Altro'})`);
+  }
 } else if (cmd === 'import') {
   const db = need();
   const arr = JSON.parse(fs.readFileSync(pos[1], 'utf8'));
@@ -96,12 +127,16 @@ if (cmd === 'init') {
   const db = need();
   const it = db.items[pos[1]];
   if (!it) { console.error(`Elemento ${pos[1]} non trovato.`); process.exit(1); }
-  const esito = pos[2];
+  const esito = normEsito(pos[2]);
   const q = quality(esito);
   const first = Number(flags.tentativi || 1) === 1;
-  if (esito === 'omessa') it.omitted++;
-  else if (first) esito === 'giusta' ? it.correct++ : it.incorrect++;
-  sm2(it, q);
+  if (esito === 'omessa') {
+    // come nell'app: le omesse si contano a parte e non abbassano la facilità; tornano però domani
+    it.omitted++; it.box = 0; it.interval = 1; it.previousEasiness = it.easiness;
+  } else {
+    if (first) esito === 'giusta' ? it.correct++ : it.incorrect++;
+    sm2(it, q);
+  }
   it.lastSeen = now; it.lastQuality = q;
   db.log.push({ id: pos[1], t: now, esito, q });
   save(db);
@@ -136,7 +171,7 @@ if (cmd === 'init') {
     const a = pct(t.c, t.c + t.w);
     console.log(`${t.c + t.w ? light(a) : '⚪'} ${k}: ${t.c + t.w ? a + '%' : 'mai visto'} · ${t.imp}/${t.tot}`);
   });
-  const worst = items.filter(([, it]) => it.correct + it.incorrect + it.omitted > 0)
+  const worst = items.filter(([, it]) => it.incorrect + it.omitted > 0)
     .map(([id, it]) => ({ id, it, err: (it.incorrect + it.omitted) / (it.correct + it.incorrect + it.omitted) }))
     .sort((a, b) => b.err - a.err || a.it.easiness - b.it.easiness).slice(0, 5);
   if (worst.length) {
@@ -155,7 +190,11 @@ if (cmd === 'init') {
 } else if (cmd === 'simulazione') {
   const db = need();
   const [p, t] = [Number(pos[1]), Number(pos[2])];
-  const soglia = flags.soglia ? Number(flags.soglia) : db.esame.soglia ? Number(String(db.esame.soglia).split('/')[0]) + 1 : null;
+  let soglia = flags.soglia ? Number(flags.soglia) : null;
+  if (soglia == null && db.esame.soglia) {
+    const [s0, T0] = String(db.esame.soglia).split('/').map(Number);
+    soglia = T0 ? Math.ceil(((s0 + 1) / T0) * t) : s0 + 1; // soglia reale +1, riscalata sul totale di questa simulazione
+  }
   db.simulazioni.push({ t: now, punteggio: p, totale: t, soglia, superata: soglia != null ? p >= soglia : null });
   save(db);
   console.log(`Simulazione registrata: ${p}/${t}${soglia != null ? ` · soglia di sicurezza ${soglia} → ${p >= soglia ? 'SUPERATA ✅' : 'non superata ⚠️'}` : ''}`);

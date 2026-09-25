@@ -29,7 +29,7 @@ Queste regole vengono da un controllo domanda per domanda delle 606 domande dell
 - Tieni un campo che indica se la domanda appartiene al **nucleo** (es. `core: true`) invece di affidarti alla posizione nel file.
 
 ## Come organizzare il banco
-- **Prima il nucleo** (le domande più vicine all'esame vero), poi **blocchi per argomento**. Nell'OFA erano circa 18 domande per argomento, metà teoria e metà applicazione, in ordine di difficoltà.
+- **Prima il nucleo** (un sottoinsieme piccolo, meglio se con le domande più frequenti all'esame), poi **blocchi per argomento**. Nell'OFA erano circa 18 domande per argomento, metà teoria e metà applicazione, in ordine di difficoltà.
 - **ID stabili** (`q1`, `q2`…) che non cambiano quando aggiungi domande, perché le statistiche dell'utente sono legate agli ID.
 
 ## Controllo finale

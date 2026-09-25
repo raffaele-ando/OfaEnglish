@@ -20,7 +20,7 @@ Indice:
 - Un banco di domande con 4 opzioni, spiegazione, categoria, argomento e livello. Metà grammatica o concetti, metà applicazione (per le lingue: traduzione dall'italiano).
 - Distrattori costruiti sugli **errori tipici** di chi studia (per le lingue, i calchi dall'italiano). Vedi `banco-domande.md`.
 - Simulazione identica al test vero, con la soglia un punto più alta.
-- Nucleo: le domande più vicine all'esame reale, cioè quelle ricordate da chi l'ha già fatto o prese dalle simulazioni ufficiali.
+- Nucleo: un sottoinsieme piccolo da cui partire (nell'OFA il banco originale di 60), meglio se formato dalle domande più frequenti all'esame (ricordate da chi l'ha già fatto o prese dalle simulazioni ufficiali).
 
 ## B. Test d'ingresso con calcoli e penalità
 *Esempi: TOLC-I (matematica, logica, scienze, comprensione verbale), TOL Polimi.*

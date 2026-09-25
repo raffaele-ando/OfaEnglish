@@ -27,21 +27,24 @@ Da queste quattro etichette, più lo stato dell'algoritmo, nascono tutte le vist
 - **Intestazione**: chiudi (X) · barra di avanzamento · timer (rosso negli ultimi 5 s).
 - **Corpo**: "Domanda N", etichetta *Nucleo* se lo è, testo della domanda, opzioni (oppure le parole da riordinare in Active Recall, con il pulsante "Mostra suggerimento" che rivela solo *Argomento (Livello)*).
 - **Conferma** con tre pulsanti: **Indovino / Incerto / Sicuro**. La scelta pesa sul voto.
-- **Dopo la conferma**: pannello verde o rosso con la risposta giusta, la **spiegazione** e **categoria • argomento**. Se è sbagliata compare *Riprova*: l'opzione sbagliata resta disattivata e si ritenta.
+- **Dopo la conferma.** Se è giusta: pannello verde con "Ottimo!" (o "Fantastico! 🔥 N di fila!" dalla terza), badge *Categoria (argomento)* e **spiegazione**. Se è sbagliata: pannello rosso con solo "Errata. Riprova!"; nella griglia la giusta diventa verde e la scelta sbagliata rossa. Con *Riprova* il verde sparisce, l'opzione sbagliata resta disattivata e la giusta va ritrovata. **La spiegazione arriva solo quando si arriva alla risposta giusta**: è la ricompensa della correzione.
 - **Fine**: "Sessione completata! Hai risposto a X su N correttamente al primo tentativo."
 
 ## 4. Simulazione
 - **Schermata iniziale** con le regole reali: numero di domande, tempo, soglia, "nessun feedback".
 - **Durante**: timer globale, navigazione libera avanti e indietro, griglia delle domande.
-- **Risultato**: SUPERATO o NON SUPERATO, **punteggio/totale**, tempo impiegato, poi la revisione di ogni domanda: la tua risposta e quella giusta, **Categoria • Argomento**, spiegazione. Le **omesse** sono segnate a parte.
+- **Risultato**: SUPERATO o NON SUPERATO, **punteggio/totale**, tempo impiegato, poi la revisione **solo delle sbagliate e delle omesse** (le omesse come "Nessuna risposta"): la tua risposta, quella giusta, **Categoria • Argomento**, spiegazione. Con il punteggio pieno: "niente da rivedere".
+- Le domande della simulazione sono estratte **a caso** dal materiale scelto (non con l'algoritmo): è una misura imparziale. Il timer globale diventa rosso negli ultimi 2 minuti.
 - Si salva uno storico per ogni esame: data, punteggio, superato sì o no, tempo, risultati per categoria, dettaglio delle risposte.
 
 ## 5. Statistiche (dal generale al particolare)
+Nell'app: colonna sinistra con i riquadri, la Costanza e le Simulazioni; colonna destra che **apre con il pulsante blu "Vedi Dettaglio Frasi"** (il dettaglio è in primo piano, non in fondo), poi radar, livelli, argomenti ed errori comuni. Il radar compare solo con almeno 3 argomenti con dati: era nato sulle 2 categorie dell'esame (poco utile) ed è passato agli argomenti, prova che le etichette devono essere fini.
+
 1. **Riquadri di sintesi**: *Domande Imparate* (padronanza %), *Accuratezza*, *Esami completati*, *Esami superati* e *Pass Rate*, *Record* (miglior punteggio).
 2. **Skill Profile (radar)**: accuratezza per argomento. Se i dati sono pochi: "Rispondi a più domande su diversi argomenti per vedere il tuo Skill Profile".
 3. **Barre impilate per livello**: *Imparate* e *Da imparare*.
 4. **Barre per argomento**: *Imparate* e *Da imparare*, ordinate per numero di elementi.
-5. **Attività**: domande e minuti al giorno (ultimi 7 giorni oppure calendario di 4 settimane da lunedì a domenica). È un dato informativo, non un obiettivo.
+5. **Attività**: "Costanza (ultimi 7 giorni)", domande e minuti al giorno. È un dato informativo, non un obiettivo. (Il calendario "Consistency" di 4 settimane stava nel menu ed è stato tolto per lasciare spazio all'avvio con un tocco.)
 6. **Errori più frequenti** (i 5 peggiori per tasso di errore).
 7. Pulsante **"Dettaglio Frasi"** che apre il dettaglio per elemento.
 
@@ -62,7 +65,7 @@ Da queste quattro etichette, più lo stato dell'algoritmo, nascono tutte le vist
 - Ogni grafico ha uno stato vuoto che spiega cosa fare per riempirlo.
 
 ## 8. Da non mostrare come motivazione
-XP, livelli, "Fase N" delle sfide quotidiane, obiettivi giornalieri fissi, serie di giorni consecutivi. Nell'app OFA sono rimasti solo in fondo alle statistiche, come residuo: in un progetto nuovo **non vanno messi**. Se serve qualcosa che dia la sensazione di avanzare, usa la **padronanza che cresce** e la **distanza dalla soglia** delle simulazioni.
+XP, livelli, "Fase N" delle sfide quotidiane, obiettivi giornalieri fissi, serie di giorni consecutivi. Nell'app OFA XP e sfida sono rimasti in fondo alle statistiche e il contatore dei giorni come numerino nell'intestazione, come residui: in un progetto nuovo **non vanno messi**. Se serve qualcosa che dia la sensazione di avanzare, usa la **padronanza che cresce** e la **distanza dalla soglia** delle simulazioni.
 
 ## 9. Adattamenti per altri esami
 | Esame | Elemento | Etichette | Cosa vuol dire "imparato" | Viste in più |
@@ -70,7 +73,7 @@ XP, livelli, "Fase N" delle sfide quotidiane, obiettivi giornalieri fissi, serie
 | Risposta multipla (OFA, lingue) | domanda | categoria · argomento · livello · nucleo | ultimo voto ≥ 3 | — |
 | TOLC con penalità | quesito | sezione · argomento · difficoltà | voto ≥ 3 entro il tempo per quesito | **punteggio netto**, saltate e sbagliate separate, tempo medio per quesito rispetto a quello disponibile |
 | Esercizi di ingegneria | esercizio-tipo (con varianti) | argomento · metodo · frequenza nei temi passati | risolto con voto ≥ 3 in una variante nuova | **aiuti usati**, **errori per tipo** (concetto / metodo / calcolo / distrazione), copertura del nucleo dei temi |
-| Teoria e orali | domanda aperta / dimostrazione | argomento · tipo (definizione, teorema, dimostrazione) | almeno l'80% dei punti chiave con sicurezza In o S | **punti chiave mancanti** più frequenti |
+| Teoria e orali | domanda aperta / dimostrazione | argomento · tipo (definizione, teorema, dimostrazione) | voto ≥ 3: con S almeno il 60% dei punti chiave, con In circa il 72% | **punti chiave mancanti** più frequenti |
 | Programmazione | esercizio di codice | argomento · tipo (output, bug, scrittura) | test superati con al massimo 1 aiuto | errori per tipo (sintassi, logica, complessità) |
 | Memorizzazione | flashcard | argomento | voto ≥ 3 | elementi in scadenza oggi |
 

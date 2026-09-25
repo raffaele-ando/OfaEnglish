@@ -65,11 +65,11 @@ Le opzioni vengono **rimescolate** a ogni presentazione. In simulazione le doman
 - **Pass rate** delle simulazioni = superate / svolte; **record** = punteggio massimo.
 
 ## 7. Adattamenti
-**Esercizi a passaggi (ingegneria).** L'elemento è l'**esercizio-tipo**. Voto = 5 senza aiuti; con 1 aiuto circa 3,5; con 2 aiuti circa 2,5; soluzione guardata o errore di metodo → sotto 2. Un errore solo di calcolo, con il metodo giusto, vale circa 3 (e si annota come "calcolo"). Il tempo atteso lo decide il tempo reale disponibile all'esame per quell'esercizio. "Imparato" vuol dire risolto con voto ≥ 3 in una **variante numerica nuova**.
+**Esercizi a passaggi (ingegneria).** L'elemento è l'**esercizio-tipo**. Voto = 5 senza aiuti; con 1 aiuto 3,5; con 2 aiuti 2,0; soluzione guardata o errore di metodo → sotto 2. Un errore solo di calcolo, con il metodo giusto, vale circa 3 (e si annota come "calcolo"). Il tempo atteso lo decide il tempo reale disponibile all'esame per quell'esercizio. "Imparato" vuol dire risolto con voto ≥ 3 in una **variante numerica nuova**.
 
 **Domande aperte e orali.** L'elemento è la domanda. Voto = percentuale di punti chiave coperti, portata su una scala da 0 a 5, meno la penalità per la sicurezza dichiarata. Con meno della metà dei punti chiave coperti, torna tra 1 giorno.
 
-**In chat (senza cronometro).** Usa la sicurezza dichiarata, i tentativi e gli aiuti: giusta + Sicuro = 5; giusta + Incerto ≈ 4, oppure 3 se incompleta; giusta + Indovino ≈ 2,5 (torna nella stessa sessione); con un aiuto circa 3; sbagliata = 0. Tieni una tabella di stato (elemento, argomento, voto, data) e scegli le domande successive con la stessa logica di Smart: prima gli elementi da ripassare o deboli, poi quelli nuovi, mescolando gli argomenti.
+**In chat (senza cronometro).** Usa la sicurezza dichiarata, i tentativi e gli aiuti, con **gli stessi valori di `scripts/registro.cjs`**: giusta + Sicuro = 5; giusta + Incerto = 4,4; giusta + Indovino = al massimo 2,5 (torna nella stessa sessione); ogni aiuto −1,5 (1 aiuto = 3,5; 2 aiuti = 2,0); giusta solo al secondo tentativo = al massimo 2,2; sbagliata = 0; omessa = contata a parte, torna domani senza abbassare la facilità. Tieni una tabella di stato (elemento, argomento, voto, data) e scegli le domande successive con la stessa logica di Smart: prima gli elementi da ripassare o deboli, poi quelli nuovi, mescolando gli argomenti.
 
 **Test con penalità (TOLC).** Aggiungi lo stato "saltata" (distinto da "omessa per tempo") e tieni l'accuratezza *delle risposte date*, così si può allenare la decisione tra rispondere e saltare.
 
@@ -80,3 +80,8 @@ L'analisi dell'app OFA ha trovato alcuni punti in cui l'algoritmo non rispetta d
 - **Anche la simulazione deve aggiornare SM-2** (voto calcolato da tempo e cambi di risposta, già registrati), non solo `box`.
 - **Tempo atteso per elementi non testuali** (calcoli, esercizi): la formula di lettura non basta. Metti un tempo atteso per elemento (per esempio il tempo disponibile all'esame diviso per il numero di quesiti) e un fattore di velocità **per categoria**.
 - **Un solo modo di contare "imparata"**: nell'app il menu la calcolava sul materiale scelto e le statistiche sempre sul totale. Mostra sempre su quale insieme è calcolato il numero.
+- **Doppia penalità dopo il Riprova.** Un errore seguito da Riprova produce due aggiornamenti SM-2 (0, poi ~2,2–2,4): la facilità crolla quasi al minimo per un solo sbaglio, e il tempo del secondo tentativo include il primo (il cronometro non riparte). Fai **un solo aggiornamento per domanda e per sessione** (il primo tentativo); il Riprova serve solo per imparare.
+- **Il tetto di 2,5 a "Indovino" ripristina il comportamento originale**: nella prima versione le penalità erano Indovino −2,5 e Incerto −1,0; sono state ammorbidite a −2 e −0,6 insieme all'introduzione della telemetria, ed è così che Indovino è arrivato a 3,0.
+- **Accuratezza e qualità restano separate** (anche questa è una scelta fatta nella storia dell'app): accuratezza = esito oggettivo del primo tentativo; imparato/confidenza = qualità del richiamo.
+- **Esitazione in simulazione**: nell'app viene calcolata alla consegna per tutte le domande, quindi non ha significato. Se dai un voto alle risposte della simulazione, escludila.
+- **Attività gonfiata**: una simulazione aggiunge sempre 30 domande anche con risposte omesse e un Riprova conta due volte. Conta solo le risposte date, una volta.

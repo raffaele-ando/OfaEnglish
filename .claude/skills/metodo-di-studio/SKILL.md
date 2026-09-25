@@ -24,7 +24,7 @@ L'OFA era un quiz a risposta multipla. Un esame di Analisi, un orale di Fisica o
 
 - **L'attenzione cala con la monotonia e la costanza è difficile.** Nel codice l'utente ha descritto la modalità principale come pensata per *"ADHD & Low Conscientiousness"*. Da qui: poco attrito, sessioni brevi, varietà, un riscontro immediato.
 - **Lo motivano i dati veri su di sé.** Vuole vedere quanto sa, dove sbaglia, se sta migliorando. Gli piacciono le spiegazioni con il perché e le basi scientifiche (SM-2, interleaving).
-- **Studia soprattutto dal telefono**, in tema scuro e con i dati sincronizzati.
+- **Studia soprattutto dal telefono** (molte modifiche all'app sono servite solo al layout mobile), con tema chiaro/scuro a scelta e i dati sincronizzati.
 - **Lingua**: italiano. Tono diretto e concreto.
 
 ## 2. Pilastro 1: l'algoritmo (misurare davvero quanto sa)
@@ -36,7 +36,7 @@ L'idea centrale: **una cosa è imparata solo se la ricorda bene, non se ci azzec
   - quanto tempo ha impiegato rispetto al tempo atteso;
   - se ha cambiato risposta, partendo da quella giusta o da una sbagliata;
   - quanto ha esitato prima di confermare;
-  - quanti tentativi o aiuti gli sono serviti;
+  - quanti tentativi gli sono serviti (nell'app gli aiuti — suggerimento dell'argomento, passaggio alle opzioni multiple — erano **gratuiti**, così la via d'uscita più facile non spaventava; negli adattamenti con aiuti a scalini gli aiuti invece pesano, vedi `references/algoritmo.md` §7);
   - e infine la **sicurezza dichiarata**: *Indovino* toglie 2 punti, *Incerto* 0,6, *Sicuro* niente;
 - **SM-2**: con un voto di almeno 3 l'intervallo di ripasso cresce (1 giorno → 6 giorni → intervallo × facilità); sotto 3 si riparte da zero. Si tengono anche la **facilità** attuale e quella **precedente**, per mostrare la tendenza;
 - **velocità personale**: il tempo atteso si adatta a lui con una media mobile esponenziale.
@@ -54,7 +54,7 @@ Formule, soglie e come adattarle a esercizi, domande aperte e chat sono in **`re
 | Momento | Cosa si mostra |
 |---|---|
 | **Apertura** | Un solo pulsante per iniziare (Smart). Subito sotto: **% padronanza** e **accuratezza** del materiale scelto (nucleo o tutto) |
-| **Durante la domanda** | Numero della domanda, barra di avanzamento, timer. Niente altro che distragga |
+| **Durante la domanda** | Numero della domanda, barra di avanzamento, timer e, dalla seconda giusta di fila, il contatore 🔥 "N x" che rimbalza. Niente altro che distragga |
 | **Risposta** | In due tempi: tocca l'opzione (può cambiarla), poi **conferma con Indovino / Incerto / Sicuro**. I tre pulsanti *sono* il tasto di conferma: dichiarare la sicurezza non costa un tocco in più |
 | **Subito dopo la risposta** | Se giusta: "Ottimo!", **spiegazione** (perché è giusta e perché la trappola è sbagliata), **categoria e argomento**. Se sbagliata: la giusta si illumina di verde, poi *Riprova* con l'opzione sbagliata disattivata; la spiegazione arriva quando ci arriva da solo |
 | **Fine sessione** | "X su N **al primo tentativo**": conta solo il richiamo vero |
@@ -70,7 +70,7 @@ Tutti i dettagli (definizioni delle metriche, colori semaforo, dettaglio per ele
 La motivazione viene da **numeri che misurano l'apprendimento reale** e che si muovono solo se sta imparando davvero:
 
 - **% di padronanza (Domande Imparate)**: elementi imparati sul totale, dove "imparato" vuol dire che l'ultimo richiamo è stato buono (voto ≥ 3). Se poi sbaglia, l'elemento torna "da imparare": il numero è onesto.
-- **Accuratezza**: giuste sul totale dei tentativi, globale, per argomento e per elemento, con colori semaforo (oltre 70% verde, 40–70% giallo, sotto 40% rosso).
+- **Accuratezza**: **esito oggettivo del primo tentativo** (giuste / giuste + sbagliate), globale, per argomento e per elemento; per elemento con colori semaforo (oltre 70% verde, 40–70% giallo, sotto 40% rosso). Tienila **separata** dalla qualità del richiamo (voto, confidenza, imparato): sono due misure diverse e non vanno mescolate.
 - **Profilo per argomento (radar)** e barre **imparate / da imparare** per argomento e per livello: si vede a colpo d'occhio dove è forte e dove no.
 - **Confidenza per elemento** (dalla facilità SM-2, da 0 a 100%) con **freccia di tendenza** ↑ ↓ – rispetto al tentativo precedente.
 - **Simulazioni**: esami superati, **pass rate**, **record**, distanza dalla soglia di sicurezza. È la misura di prontezza.
@@ -78,7 +78,9 @@ La motivazione viene da **numeri che misurano l'apprendimento reale** e che si m
 
 **I dati sui progressi sono preziosi**, perché sono loro la ricompensa: salvali sempre (in locale e sul cloud, con export) e non farli mai perdere o azzerare per errore.
 
-**Cosa non lo motiva (non costruirci sopra niente):** livelli e XP immaginari (anche con i 50 XP regalati all'inizio), la **serie di giorni consecutivi**, obiettivi giornalieri fissi o sfide a fasi. Nell'app sono stati provati, tolti dal menu e relegati in fondo alle statistiche; l'utente ha detto chiaramente che non sono quello che funziona con lui. Non vanno confusi con il **feedback progressivo dentro la sessione** (§5), che invece gli piace.
+**Cosa non lo motiva (non costruirci sopra niente):** livelli e XP immaginari (anche con i 50 XP regalati all'inizio), la **serie di giorni consecutivi**, obiettivi giornalieri fissi o sfide a fasi. XP, livello e sfida quotidiana sono stati provati nel menu e poi sostituiti da Imparate % e Accuratezza % (restano solo in fondo alle statistiche); il contatore dei giorni è rimasto come numerino nell'intestazione senza mai avere un ruolo (conta anche le semplici aperture dell'app). L'utente ha detto chiaramente che non sono quello che funziona con lui: in un progetto nuovo non metterli.
+
+**Cosa conta come "imparato" è una scelta precisa.** La *copertura* (domande viste / totale) è stata provata e scartata perché cresce anche sbagliando. "Imparata" = ultimo voto ≥ 3 è volutamente una soglia bassa, così la padronanza si muove dal primo giorno; se la rendi più severa, accanto serve un numero che si muova subito. Mostra percentuali con una barra, non conteggi assoluti. Non vanno confusi con il **feedback progressivo dentro la sessione** (§5), che invece gli piace.
 
 ## 5. Tutto è dinamico e progressivo
 
@@ -96,7 +98,9 @@ L'utente ci tiene molto: **niente è fisso, tutto si calcola e si adatta a lui m
   - coriandoli: *mini* → *burst* dalla seconda di fila → *cannon* (due cannoni laterali) dalla quarta;
   - a fine sessione ed esame superato: fanfara e *celebration*;
   - vibrazione diversa per tocco, risposta giusta, risposta sbagliata e celebrazione;
-  - un errore riporta tutto a zero, con un suono discendente morbido.
+  - un errore riporta tutto a zero, con un suono discendente morbido;
+  - **anche la risposta giusta dopo il Riprova viene premiata** (serie che riparte da 1, accordo, coriandoli *mini*, spiegazione): la correzione si chiude con un piccolo premio;
+  - i pulsanti **Indovino / Incerto / Sicuro sono rosso / giallo / verde**: il semaforo vale anche per l'autovalutazione.
 
   È una ricompensa **immediata e proporzionata a quanto sta andando bene adesso**. È diversa dalla serie di giorni (che non lo motiva): qui la serie dura una sessione e premia risposte vere. Suoni sintetizzati al momento (Web Audio API, niente file), con il pulsante per disattivarli. Codice: `assets/codice-ofa/audio.ts`.
 - **Anche i dettagli visivi sono progressivi**: la barra di avanzamento si riempie con un'animazione, il timer diventa rosso e lampeggia negli ultimi 5 s, le barre si colorano a semaforo.
@@ -111,6 +115,8 @@ Il metodo è pensato perché **i primi passi riescano bene**, così da voler con
 - **Dopo un errore si chiude comunque con la risposta giusta** (Riprova), così nessuna domanda finisce con un fallimento.
 - **Da piccolo a grande**: prima il nucleo, poi il resto a blocchi per argomento; prima le sessioni, poi le simulazioni complete.
 
+**Quando il materiale cresce, ricrea un nucleo piccolo.** Anche l'app è partita con 50 domande ed è cresciuta a blocchi fino a 606. Quando la barra "Imparate" non si muoveva quasi più, l'utente ha aggiunto la scelta "Primo Corpus (60)" con la sua padronanza separata. Se il materiale di un esame diventa grande, fai lo stesso.
+
 **Vale anche per come rispondi.** Apri con **cosa fare adesso**: poche righe, il primo passo concreto (o direttamente la prima domanda). Poi il resto, in ordine di urgenza. Il piano completo, le tabelle e il materiale lungo vanno in fondo o in un file a parte. Niente muri di testo prima di poter cominciare: un messaggio iniziale lungo è attrito, come un menu con troppe scelte.
 
 Per un esame nuovo: individua subito un nucleo **piccolo** (poche decine di elementi: gli esercizi-tipo più frequenti, le domande che tornano sempre) e mostrane la padronanza separata dal totale.
@@ -118,12 +124,12 @@ Per un esame nuovo: individua subito un nucleo **piccolo** (poche decine di elem
 ## 7. Principi della sessione
 
 - **Si parte con un tocco solo**: un pulsante che avvia subito la modalità Smart. Ogni scelta prima di cominciare è attrito.
-- **Sessioni brevi e con un tempo**: circa 10 domande, 30 s a domanda (Blitz 10 s). Per esercizi lunghi: un esercizio-tipo o un blocco di 20–25 minuti.
+- **Sessioni brevi e con un tempo**: circa 10 domande, 30 s a domanda (Blitz 10 s). Il timer nasce dal ritmo dell'esame (OFA: 15 minuti / 30 domande = 30 s): **timer per elemento = tempo d'esame / numero di quesiti, Blitz ≈ un terzo**. Per esercizi lunghi: un esercizio-tipo o un blocco di 20–25 minuti.
 - **Dopo un errore si riprova finché non è giusta**, con l'opzione sbagliata disattivata. Dopo il primo errore il timer si ferma: il nuovo tentativo è per capire, non per correre. Il tempo scaduto conta come "Indovino" sbagliato.
 - **C'è sempre una via d'uscita più facile invece di mollare**: in Active Recall "Troppo difficile? Usa le opzioni multiple" riporta alle 4 opzioni; negli esercizi il prossimo aiuto a scalino. Si scende di un gradino, non si abbandona.
 - **Richiamo attivo**: produrre la risposta invece di riconoscerla; il suggerimento dice solo l'**argomento**, gli aiuti arrivano a scalini.
 - **Argomenti mescolati** e dritti sui punti deboli.
-- **Prima il nucleo** (il materiale più vicino all'esame vero, per l'OFA le prime 60 domande), poi il resto a blocchi per argomento.
+- **Prima il nucleo** (per l'OFA le prime 60 domande, cioè il banco originale; in generale le domande più frequenti all'esame, se le conosci), poi il resto a blocchi per argomento.
 - **Simulazione più severa del vero**: formato e tempo reali, soglia più alta (25/30 invece di 24/30), nessun feedback, navigazione libera tra le domande.
 
 ## 8. Come lavorare quando arriva un esame nuovo
@@ -141,7 +147,7 @@ Per un esame nuovo: individua subito un nucleo **piccolo** (poche decine di elem
 In chat non si possono misurare i tempi, ma l'algoritmo e la gamification vera si applicano lo stesso:
 - **Parti subito** con la prima domanda: una o due righe di contesto, niente menu. Le prime domande devono essere alla sua portata e dal nucleo, così si comincia bene.
 - **Blocchi da circa 10**, con contatore "3/10". **Una domanda alla volta.**
-- **Chiedi la sicurezza (I / In / S).** Per le domande aperte e gli orali il voto si basa sui punti chiave coperti (`references/algoritmo.md` §7). Per le altre, voto approssimato: giusta + S = 5; giusta + In ≈ 4, oppure 3 se era lenta o incompleta; giusta + I = sotto 3, cioè da ripassare; con un aiuto circa 3; sbagliata = 0.
+- **Chiedi la sicurezza (I / In / S).** Per le domande aperte e gli orali il voto si basa sui punti chiave coperti (`references/algoritmo.md` §7). Per le altre usa gli stessi valori del registro: giusta + S = 5; giusta + In = 4,4; giusta + I = al massimo 2,5, cioè da ripassare; ogni aiuto −1,5; giusta solo al secondo tentativo = al massimo 2,2; sbagliata = 0.
 - **Dopo ogni risposta**: giusto o sbagliato, spiegazione breve, **argomento**. Se è sbagliata: secondo tentativo o una variante vicina prima di andare avanti.
 - **Tieni lo stato di ogni elemento** e **riproponi** più avanti, in forma diversa, quelli con voto sotto 3.
 - **Feedback progressivo anche in chat**: "Giusta ✅", poi "3 di fila 🔥", "5 di fila 🔥🔥". Si azzera con l'errore, senza drammi.
