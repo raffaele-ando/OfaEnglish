@@ -83,4 +83,5 @@ Anche il piano rispetta i principi:
 - **Un blocco al giorno dichiarato, piccolo e fattibile** ("oggi: 1 sessione Smart + 1 esercizio-tipo di serie"), **non quote rigide**. Gli obiettivi giornalieri fissi e le serie di giorni sono stati provati e non funzionano con lui: se salta un giorno, il piano si ricalcola senza sensi di colpa.
 - **Simulazioni complete a intervalli** (per esempio ogni 5–7 giorni nella fase finale), confrontando il risultato con la soglia di sicurezza.
 - **Il progresso si misura con quanto sa**: padronanza del nucleo e dell'intero programma, accuratezza per argomento, risultati delle simulazioni rispetto alla soglia. Non con giorni o ore accumulate (vedi `informazioni-e-statistiche.md`).
+- **Registro dei progressi dal primo giorno**: `scripts/registro.cjs` (init con data e soglia, import degli elementi con argomento e nucleo). Ogni giorno `prossimi 10` dice cosa fare e `stato` mostra padronanza, argomenti a semaforo e giorni mancanti.
 - **Criterio di prontezza esplicito**: "sei pronto quando superi stabilmente la simulazione con margine". Per l'OFA era 25/30 con una soglia reale di 24.

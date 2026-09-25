@@ -556,6 +556,26 @@ Leggendo i 39 commit si vede come l'app sia stata raffinata:
 3. Allungare le spiegazioni della parte centrale, dicendo perché le altre opzioni sono sbagliate.
 4. Aggiungere la penalità di −0,25 come opzione nel simulatore e mostrare anche il punteggio netto.
 5. Risolvere il limite di Firestore, rigenerare il lockfile, pulire la root e dividere il bundle in più parti.
+6. **Rendere l'algoritmo coerente con il suo principio**: un tetto di 2,5 alle risposte "Indovino" (oggi una risposta veloce azzeccata a caso vale 3,0 e conta come imparata); normalizzare la confidenza su un intervallo più largo (oggi è al 100% dopo una sola risposta perfetta); aggiornare SM-2 anche con le risposte date nella simulazione.
+7. Rimettere in uso il calendario delle 4 settimane (`ActivityChart.tsx`) oppure eliminarlo, e mostrare il risultato per categoria nelle simulazioni, visto che viene già calcolato.
+
+---
+
+## 9. Dal progetto alla skill "metodo-di-studio"
+
+Quello che funziona in quest'app è stato estratto in una skill riutilizzabile per qualsiasi esame (`.claude/skills/metodo-di-studio/`). La skill **non copia** il formato dell'OFA; ne tiene i principi:
+
+| Principio (dall'app) | Come la skill lo riusa per altri esami |
+|---|---|
+| Algoritmo onesto (voto 0–5 da tempo, cambi di opzione, sicurezza; SM-2) | Stesso algoritmo, con voti adattati per esercizi (aiuti usati), orali (punti chiave coperti) e chat. Lo script `registro.cjs` lo applica anche senza app |
+| Etichette categoria / argomento / livello / nucleo | Ridefinite per ogni esame (per esempio esercizio-tipo × metodo × frequenza nei temi passati) |
+| Informazioni al momento giusto | Stessa sequenza: apertura → risposta → spiegazione → fine sessione → simulazione → statistiche dal generale al particolare |
+| Gamification vera (Imparate %, accuratezza, radar, confidenza con tendenza, pass rate) | Stesse metriche, niente XP, livelli o serie di giorni |
+| Tutto dinamico e progressivo | Tempo atteso e velocità personale, feedback che cresce nella sessione |
+| Cominciare con poco | Un nucleo piccolo per ogni esame, sessioni brevi, un tocco per iniziare |
+| Simulazione più severa del vero | Formato reale ricostruito con esattezza, poi reso più duro |
+
+Nei test la skill ha superato 30 verifiche su 30 su tre richieste realistiche (piano per Analisi 1, interrogazione orale di Fisica in chat, progetto di un'app per il TOLC-I). Claude senza skill ne ha superate 20 su 30.
 
 ---
 

@@ -53,7 +53,7 @@ Da queste quattro etichette, più lo stato dell'algoritmo, nascono tutte le vist
   - etichette con il numero di **giuste**, **sbagliate**, **omesse**;
   - telemetria: **cambi** di risposta, **tempo** dell'ultima risposta;
   - a destra, **Accuratezza %** colorata a semaforo;
-  - barra di **Confidenza %** con la freccia di **tendenza** ↑ ↓ –;
+  - barra di **Confidenza %** con la freccia di **tendenza** ↑ ↓ – (in un progetto nuovo normalizzala su un intervallo più largo, vedi `algoritmo.md` §8, altrimenti è quasi sempre al 100%);
   - "Mai visto" se non è ancora stato proposto.
 
 ## 7. Stile visivo dei dati

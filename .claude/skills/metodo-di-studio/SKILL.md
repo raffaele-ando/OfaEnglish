@@ -55,10 +55,13 @@ Formule, soglie e come adattarle a esercizi, domande aperte e chat sono in **`re
 |---|---|
 | **Apertura** | Un solo pulsante per iniziare (Smart). Subito sotto: **% padronanza** e **accuratezza** del materiale scelto (nucleo o tutto) |
 | **Durante la domanda** | Numero della domanda, barra di avanzamento, timer. Niente altro che distragga |
-| **Subito dopo la risposta** | Giusto/sbagliato, **spiegazione** (perché è giusta e perché la trappola è sbagliata), **categoria, argomento e livello**. Se è sbagliata: *Riprova* finché non è giusta |
+| **Risposta** | In due tempi: tocca l'opzione (può cambiarla), poi **conferma con Indovino / Incerto / Sicuro**. I tre pulsanti *sono* il tasto di conferma: dichiarare la sicurezza non costa un tocco in più |
+| **Subito dopo la risposta** | Se giusta: "Ottimo!", **spiegazione** (perché è giusta e perché la trappola è sbagliata), **categoria e argomento**. Se sbagliata: la giusta si illumina di verde, poi *Riprova* con l'opzione sbagliata disattivata; la spiegazione arriva quando ci arriva da solo |
 | **Fine sessione** | "X su N **al primo tentativo**": conta solo il richiamo vero |
-| **Simulazione** | Durante: nessun feedback. Alla fine: punteggio rispetto alla soglia, tempo impiegato, risultato per categoria, **omesse** separate, revisione domanda per domanda con argomento e spiegazione |
+| **Simulazione** | Durante: nessun feedback, contatore delle risposte date, griglia per saltare tra le domande. Alla fine: SUPERATO/NON SUPERATO, punteggio rispetto alla soglia, tempo impiegato, e una revisione **solo delle sbagliate e delle omesse** (tua risposta, quella giusta, argomento, spiegazione): si guarda dove si è perso punti |
 | **Statistiche** | Numeri di sintesi → profilo per argomento → per livello → andamento nel tempo → dettaglio per elemento ordinato **dai peggiori** |
+
+La **scelta del materiale** (nucleo o tutto) si fa una volta e vale ovunque: sessioni, simulazione e numeri del menu.
 
 Tutti i dettagli (definizioni delle metriche, colori semaforo, dettaglio per elemento, come tradurre le viste per esercizi e orali) sono in **`references/informazioni-e-statistiche.md`**.
 
@@ -71,7 +74,9 @@ La motivazione viene da **numeri che misurano l'apprendimento reale** e che si m
 - **Profilo per argomento (radar)** e barre **imparate / da imparare** per argomento e per livello: si vede a colpo d'occhio dove è forte e dove no.
 - **Confidenza per elemento** (dalla facilità SM-2, da 0 a 100%) con **freccia di tendenza** ↑ ↓ – rispetto al tentativo precedente.
 - **Simulazioni**: esami superati, **pass rate**, **record**, distanza dalla soglia di sicurezza. È la misura di prontezza.
-- **Tempo e attività**: domande al giorno e minuti studiati. È un dato informativo, non una quota.
+- **Tempo e attività**: domande al giorno e minuti studiati. È un dato informativo, non una quota, e anche lui è **onesto**: il tempo si conta solo quando la schermata è davvero aperta.
+
+**I dati sui progressi sono preziosi**, perché sono loro la ricompensa: salvali sempre (in locale e sul cloud, con export) e non farli mai perdere o azzerare per errore.
 
 **Cosa non lo motiva (non costruirci sopra niente):** livelli e XP immaginari (anche con i 50 XP regalati all'inizio), la **serie di giorni consecutivi**, obiettivi giornalieri fissi o sfide a fasi. Nell'app sono stati provati, tolti dal menu e relegati in fondo alle statistiche; l'utente ha detto chiaramente che non sono quello che funziona con lui. Non vanno confusi con il **feedback progressivo dentro la sessione** (§5), che invece gli piace.
 
@@ -112,7 +117,8 @@ Per un esame nuovo: individua subito un nucleo **piccolo** (poche decine di elem
 
 - **Si parte con un tocco solo**: un pulsante che avvia subito la modalità Smart. Ogni scelta prima di cominciare è attrito.
 - **Sessioni brevi e con un tempo**: circa 10 domande, 30 s a domanda (Blitz 10 s). Per esercizi lunghi: un esercizio-tipo o un blocco di 20–25 minuti.
-- **Dopo un errore si riprova finché non è giusta**, con l'opzione sbagliata disattivata.
+- **Dopo un errore si riprova finché non è giusta**, con l'opzione sbagliata disattivata. Dopo il primo errore il timer si ferma: il nuovo tentativo è per capire, non per correre. Il tempo scaduto conta come "Indovino" sbagliato.
+- **C'è sempre una via d'uscita più facile invece di mollare**: in Active Recall "Troppo difficile? Usa le opzioni multiple" riporta alle 4 opzioni; negli esercizi il prossimo aiuto a scalino. Si scende di un gradino, non si abbandona.
 - **Richiamo attivo**: produrre la risposta invece di riconoscerla; il suggerimento dice solo l'**argomento**, gli aiuti arrivano a scalini.
 - **Argomenti mescolati** e dritti sui punti deboli.
 - **Prima il nucleo** (il materiale più vicino all'esame vero, per l'OFA le prime 60 domande), poi il resto a blocchi per argomento.
@@ -125,7 +131,8 @@ Per un esame nuovo: individua subito un nucleo **piccolo** (poche decine di elem
 3. **Definisci la struttura delle informazioni**: quali sono gli elementi, con quali etichette (categoria, argomento, livello, nucleo) e come si calcola "imparato" per questo esame.
 4. **Scegli cosa produrre**, partendo dalla cosa più piccola che permette di iniziare oggi: interrogazione in chat (§9), piano di studio, materiale (domande, esercizi con aiuti, flashcard), oppure un'app (leggi **`references/app-blueprint.md`** e riusa `assets/codice-ofa/`). Se non è chiaro, proponi una sola opzione consigliata e parti.
 5. **Costruisci prima il nucleo**, poi il resto a blocchi per argomento.
-6. **Controlla la qualità**: **`references/banco-domande.md`**, più `node scripts/audit_bank.cjs <file>` per i banchi a risposta multipla.
+6. **Misura dal primo giorno**: crea il registro (`scripts/registro.cjs init` + `import` degli elementi con argomento e nucleo), così padronanza e punti deboli sono calcolati e non stimati.
+7. **Controlla la qualità**: **`references/banco-domande.md`**, più `node scripts/audit_bank.cjs <file>` per i banchi a risposta multipla.
 
 ## 9. Modalità tutor in chat
 
@@ -137,7 +144,7 @@ In chat non si possono misurare i tempi, ma l'algoritmo e la gamification vera s
 - **Tieni lo stato di ogni elemento** e **riproponi** più avanti, in forma diversa, quelli con voto sotto 3.
 - **Feedback progressivo anche in chat**: "Giusta ✅", poi "3 di fila 🔥", "5 di fila 🔥🔥". Si azzera con l'errore, senza drammi.
 - **Mostra quanto ne sa, non punti**: alla fine del blocco dai un riepilogo con "X/10 al primo tentativo", accuratezza per argomento, cosa è ora *imparato* e cosa resta *da imparare*, e la tendenza rispetto alla sessione precedente se la conosci. Esempio: `Cinematica 4/5 ✅ · Dinamica 2/5 ⚠️ → da ripassare: attrito, piano inclinato`.
-- Se puoi salvare file o memoria, **tieni un registro dei progressi** (elemento, argomento, voto, data) per ripartire dai punti deboli.
+- **Tieni un registro dei progressi vero** se puoi eseguire comandi: `node scripts/registro.cjs` applica lo stesso algoritmo dell'app (voto, SM-2, scelta Smart) e calcola padronanza, accuratezza per argomento a semaforo, i peggiori con confidenza e tendenza, simulazioni. Comandi principali: `init`, `import`, `risposta <id> giusta --sicurezza In`, `prossimi 10`, `stato`, `simulazione 22 30`. Salva il file `progressi-studio.json` insieme al materiale. Se non puoi eseguire comandi, tieni la stessa tabella a mano (elemento, argomento, voto, data).
 
 ## 10. Cose da ricordare sempre
 

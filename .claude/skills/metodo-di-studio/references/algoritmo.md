@@ -2,7 +2,7 @@
 
 È il primo dei tre pilastri. Qui trovi le formule usate nell'app OFA (codice in `assets/codice-ofa/spacedRepetition.ts`) e come applicarle quando l'elemento di studio non è una domanda a risposta multipla, o quando si studia in chat.
 
-Indice: 1. Stato di un elemento · 2. Voto di qualità · 3. Aggiornamento SM-2 · 4. Velocità personale · 5. Scelta delle domande · 6. Metriche derivate · 7. Adattamenti
+Indice: 1. Stato di un elemento · 2. Voto di qualità · 3. Aggiornamento SM-2 · 4. Velocità personale · 5. Scelta delle domande · 6. Metriche derivate · 7. Adattamenti · 8. Miglioramenti da fare quando lo ricostruisci
 
 ---
 
@@ -72,3 +72,11 @@ Le opzioni vengono **rimescolate** a ogni presentazione. In simulazione le doman
 **In chat (senza cronometro).** Usa la sicurezza dichiarata, i tentativi e gli aiuti: giusta + Sicuro = 5; giusta + Incerto ≈ 4, oppure 3 se incompleta; giusta + Indovino ≈ 2,5 (torna nella stessa sessione); con un aiuto circa 3; sbagliata = 0. Tieni una tabella di stato (elemento, argomento, voto, data) e scegli le domande successive con la stessa logica di Smart: prima gli elementi da ripassare o deboli, poi quelli nuovi, mescolando gli argomenti.
 
 **Test con penalità (TOLC).** Aggiungi lo stato "saltata" (distinto da "omessa per tempo") e tieni l'accuratezza *delle risposte date*, così si può allenare la decisione tra rispondere e saltare.
+
+## 8. Miglioramenti da fare quando lo ricostruisci
+L'analisi dell'app OFA ha trovato alcuni punti in cui l'algoritmo non rispetta del tutto il suo principio ("giusto per caso non è imparato"). In un nuovo progetto correggili:
+- **Indovino veloce = 3,0 → conta come imparata.** Con la penalità di −2 una risposta giusta, veloce e "Indovino" arriva esattamente alla soglia. Metti un tetto di 2,5 alle risposte "Indovino" (come fa `scripts/registro.cjs`), così tornano presto.
+- **La confidenza si satura.** (facilità − 1,3) / 1,3 vale già il 92% alla prima vista e il 100% dopo una risposta perfetta. Normalizza su un intervallo più largo, per esempio (facilità − 1,3) / 1,7, oppure combinala con `box` e con l'intervallo, così cresce davvero con il tempo.
+- **Anche la simulazione deve aggiornare SM-2** (voto calcolato da tempo e cambi di risposta, già registrati), non solo `box`.
+- **Tempo atteso per elementi non testuali** (calcoli, esercizi): la formula di lettura non basta. Metti un tempo atteso per elemento (per esempio il tempo disponibile all'esame diviso per il numero di quesiti) e un fattore di velocità **per categoria**.
+- **Un solo modo di contare "imparata"**: nell'app il menu la calcolava sul materiale scelto e le statistiche sempre sul totale. Mostra sempre su quale insieme è calcolato il numero.

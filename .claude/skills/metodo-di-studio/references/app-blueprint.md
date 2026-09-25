@@ -63,7 +63,8 @@ Tutto in **`algoritmo.md`**: stato di ogni elemento, voto continuo da 0 a 5, SM-
 4. Niente script e dump di lavoro nella cartella principale: mettili in `scripts/` e aggiungi a `.gitignore` i file generati.
 5. Non chiamare funzioni con effetti collaterali dentro gli updater di `setState`: con StrictMode l'esame veniva registrato due volte in sviluppo.
 6. Anche le risposte date nella simulazione devono aggiornare SM-2 (intervallo e facilità), non solo il contatore.
-7. Non rimettere XP, livelli e sfide quotidiane (nell'app OFA sono rimasti in fondo alle statistiche solo come residuo).
-8. Niente conteggi scritti a mano nell'interfaccia ("606", "60"): calcolali dai dati.
-9. Dividi il bundle in più parti (`import()` dinamico per statistiche e grafici): l'app OFA aveva un unico file da 1,7 MB.
-10. Non lasciare nell'interfaccia pagine di debug o dipendenze inutili (per esempio `@google/genai` ed `express` residui di AI Studio).
+7. Correggi i punti deboli dell'algoritmo elencati in `algoritmo.md` §8 (Indovino a 3,0, confidenza che si satura).
+8. Non rimettere XP, livelli e sfide quotidiane (nell'app OFA sono rimasti in fondo alle statistiche solo come residuo).
+9. Niente conteggi scritti a mano nell'interfaccia ("606", "60"): calcolali dai dati.
+10. Dividi il bundle in più parti (`import()` dinamico per statistiche e grafici): l'app OFA aveva un unico file da 1,7 MB.
+11. Non lasciare nell'interfaccia pagine di debug o dipendenze inutili (per esempio `@google/genai` ed `express` residui di AI Studio).
