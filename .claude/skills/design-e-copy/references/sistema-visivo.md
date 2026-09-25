@@ -1,17 +1,18 @@
 # Sistema visivo
 
-Token, ricette e regole visive. Vengono dall'app *OFA Polimi Prep*, con i difetti corretti (contrasto, stati senza colore, movimento ridotto, tema scuro dei grafici). Tutte le coppie testo/sfondo consigliate qui sono in `assets/palette.json` e passano la verifica:
+Token, ricette e regole visive. Vengono dall'app *OFA Polimi Prep*, con i difetti corretti (contrasto del testo e della grafica, testo troppo piccolo, stati senza colore, movimento ridotto, tema scuro dei grafici). Tutte le coppie consigliate qui (testo e grafica) sono in `assets/palette.json` e passano la verifica:
 
 ```bash
 node scripts/contrasto.cjs --palette assets/palette.json     # tutte le coppie OK (exit 0)
-node scripts/contrasto.cjs "#FFFFFF" "#1CB0F6"               # una coppia qualsiasi
+node scripts/contrasto.cjs "#FFFFFF" "#1CB0F6"               # una coppia di testo (min 4,5)
+node scripts/contrasto.cjs --grafica "#2F8500:#E5E7EB"       # una coppia grafica (min 3)
 node scripts/contrasto.cjs --suggerisci "#58CC02" --su "#FFFFFF" --min 4.5   # trova la tonalità giusta
 ```
 
-Soglie WCAG: **4,5:1** testo normale · **3:1** testo grande (≥ 24 px, o ≥ 18,66 px in grassetto), bordi di controlli, icone che portano significato, serie di grafici.
+Soglie WCAG: **4,5:1** testo normale · **3:1** testo grande (≥ 24 px, o ≥ 18,66 px in grassetto) · **3:1 per la grafica** (WCAG 1.4.11): il riempimento di barre e anelli contro la traccia e la superficie accanto, icone che portano significato, anello di focus, bordi di input, serie di grafici. Nel file palette le coppie grafiche hanno `"tipo": "grafica"`.
 
 ## Indice
-1. Palette e ruoli · 2. Abbinamenti accessibili · 3. Variabili CSS e Tailwind · 4. Tipografia · 5. Raggi · 6. Il pulsante «premibile» · 7. Spaziature e layout · 8. Tema scuro · 9. Movimento · 10. Icone · 11. Grafici · 12. Stati
+1. Palette e ruoli · 2. Abbinamenti accessibili (testo e grafica) · 3. Token, font e tema scuro · 4. Tipografia · 5. Raggi · 6. Il pulsante «premibile» · 7. Spaziature e layout · 8. Tema scuro · 9. Movimento · 10. Icone · 11. Grafici · 12. Stati
 
 ---
 
@@ -31,8 +32,8 @@ Ogni tinta ha **cinque tonalità con compiti diversi**. È la correzione princip
 
 | Tonalità | A cosa serve | Blu | Verde | Rosso | Viola | Giallo |
 |---|---|---|---|---|---|---|
-| `vivo` | barre con il numero accanto, bordi di stato, icone, coriandoli, testo **nel tema scuro** | `#1CB0F6` | `#58CC02` | `#FF4B4B` | `#CE82FF` | `#FFC800` |
-| `pieno` | fondo dei pulsanti con testo bianco | `#1078C0` | `#2F8500` | `#DC2626` | `#9B3FE0` | — (giallo vivo + testo scuro `#3D2E00`) |
+| `vivo` | coriandoli, bordi di stato (rinforzo, non unico segnale), fondo del giallo; nel **tema scuro** testo, barre e icone | `#1CB0F6` | `#58CC02` | `#FF4B4B` | `#CE82FF` | `#FFC800` |
+| `pieno` | fondo dei pulsanti con testo bianco; nel **tema chiaro** riempimento di barre e anelli | `#1078C0` | `#2F8500` | `#DC2626` | `#9B3FE0` | — (giallo vivo + testo scuro `#3D2E00`) |
 | `bordo3d` | bordo inferiore di 4 px del pulsante premibile | `#0B5E96` | `#236300` | `#A91B1B` | `#7426B0` | `#E5B400` |
 | `testo` | testo colorato su bianco **e** sulla sua tinta (tema chiaro) | `#0B6FA8` | `#2B7A00` | `#C81E1E` | `#8A2BD6` | `#8F6200` |
 | `tinta` | sfondo pallido di stato (chiaro) | `#DDF4FF` | `#D7FFB8` | `#FFE5E5` | `#F5E5FF` | `#FFF4E5` |
@@ -45,8 +46,10 @@ Ogni tinta ha **cinque tonalità con compiti diversi**. È la correzione princip
 | superficie (cornice dell'app) | `#FFFFFF` | `#1E293B` |
 | card (dentro la cornice) | `#FFFFFF` | `#0F172A` (più scura: effetto «incassato») |
 | superficie alternativa (binario del selettore) | `#F3F4F6` | `#0F172A` |
-| bordo | `#E5E7EB` | `#334155` |
+| bordo (card, pulsanti con testo, traccia delle barre) | `#E5E7EB` | `#334155` |
 | bordo forte / hover | `#D1D5DB` | `#475569` |
+| bordo di input (campi, select, checkbox) | `#6B7280` | `#94A3B8` |
+| anello di focus | `#1078C0` | `#1CB0F6` |
 | testo | `#4B4B4B` | `#E2E8F0` |
 | testo forte (titoli, domanda) | `#3C3C3C` | `#F8FAFC` |
 | testo tenue (etichette, descrizioni) | `#6B7280` su bianco (**non** `#9CA3AF`, che fa 2,54:1); `#4B5563` su superfici grigie | `#94A3B8` |
@@ -73,57 +76,86 @@ Ogni tinta ha **cinque tonalità con compiti diversi**. È la correzione princip
 | Scuro: rosso come testo | `#FF6B6B` su `#1E293B` (il `#FF4B4B` fa 4,43) | 5,27 |
 | Scuro: stati su tinta | `#E0F2FE`/`#0C4A6E` · `#86EFAC`/`#14532D` · `#FECACA`/`#7F1D1D` | 8,24 · 6,49 · 6,93 |
 
+**Grafica (3:1, WCAG 1.4.11)**. Una barra, un anello o un'icona che dice qualcosa (quanto sai, giusto/sbagliato) deve vedersi anche per chi vede meno contrasto, non solo il numero accanto. Nell'app il verde vivo sulla traccia grigia faceva **1,69:1** (`#58CC02` su `#E5E7EB`) e il blu 1,97:1.
+
+| Uso | Chiaro | Scuro |
+|---|---|---|
+| Riempimento barra/anello contro la traccia | `pieno` su `#E5E7EB`: blu 3,79 · verde 3,79 · viola 4,06 · rosso 3,90 | `vivo` su `#334155`: blu 4,24 · verde 4,96 · viola 4,07 · rosso `#FF6B6B` 3,73 |
+| Riempimento contro la card (anelli, barre senza traccia) | `pieno` su bianco: 4,70 · 4,69 · 5,02 · 4,83 | `vivo` su `#0F172A`: 7,30 · 8,55 · 7,02 · 6,43 |
+| Anello di focus | `#1078C0` su bianco / `#F7F9FB` / `#F3F4F6`: 4,70 / 4,45 / 4,27 | `#1CB0F6` su `#1E293B` / `#0F172A`: 5,98 / 7,30 |
+| Bordo di input | `#6B7280` su bianco / `#F3F4F6`: 4,83 / 4,39 | `#94A3B8` su `#0F172A` / `#1E293B`: 6,96 / 5,71 |
+| Icona che porta significato | tono `testo` (verde `#2B7A00` 5,40 su bianco, 4,86 sulla tinta) | tono `vivo` |
+| Opzione selezionata | badge `pieno` blu sulla tinta: 4,13 | badge `vivo` sulla tinta: 3,87 |
+
+Perché questa scelta e non un'altra: il verde vivo non arriva a 3:1 contro **nessuna** traccia chiara (servirebbe un grigio scuro come `#565F70`, pesante nel tema chiaro) e una traccia più scura come `#9CA3AF` peggiora le cose (1,22:1). Quindi nel chiaro la traccia resta leggera e il riempimento passa al `pieno`, che è lo stesso colore dei pulsanti: la barra resta «Duolingo» ma si legge. Nello scuro il vivo passa già. Il token `--color-*-barra` (§3) fa il cambio da solo. La traccia contro la card non deve arrivare a 3:1: la parte che porta il valore è il riempimento, e il numero resta sempre scritto accanto (serve a chi non distingue le lunghezze, non sostituisce il contrasto).
+
+Cosa **non** serve a 3:1: il bordo `#E5E7EB` di card e pulsanti che hanno un testo (il testo identifica il controllo) e le decorazioni (coriandoli, fiamma accanto al numero). Il bordo vivo dell'opzione selezionata/giusta/sbagliata è un rinforzo: lo stato lo portano il badge pieno, l'icona ✓/✗ e l'`aria-checked`.
+
 Regole pratiche:
 - **Il colore vivo non porta testo bianco.** Per un pulsante usa il `pieno`; per il giallo usa testo scuro.
-- **Una barra vivace è ammessa solo se il suo numero è scritto accanto** (la barra verde su binario grigio fa 1,69:1: l'informazione vera è nel «72%»). Senza numero, usa il `pieno`.
+- **Nel chiaro la grafica che significa qualcosa usa `pieno` o `testo`, nello scuro il `vivo`.** Usa i token `*-barra` e `*-testo`, che cambiano col tema.
 - **Nel tema scuro i colori vivi diventano il testo colorato** (tutti passano tranne il rosso, che diventa `#FF6B6B`). I pulsanti restano uguali nei due temi.
-- Se aggiungi un colore, verificalo con `contrasto.cjs` e aggiungilo a `palette.json`.
+- Se aggiungi un colore, verificalo con `contrasto.cjs` (con `--grafica` per barre, icone e bordi) e aggiungilo a `palette.json`.
 
-## 3. Variabili CSS e Tailwind
+## 3. Token, font e tema scuro (un blocco solo)
 
-**Tailwind v4** (come l'app): i token in `@theme` generano classi come `bg-blu-pieno`, `text-testo-tenue`; ridefinendoli sotto `.dark` il tema scuro è automatico e non servono più `dark:` ripetuti su ogni elemento (nell'app ogni classe era duplicata a mano, ed è così che grafici e schermata Debug sono rimasti chiari).
+Un solo blocco da copiare, uguale per Tailwind v4 e per CSS semplice. **Ogni colore è scritto una volta** con `light-dark(chiaro, scuro)`: il tema lo sceglie `color-scheme`, che segue il sistema oppure la scelta salvata. Così non esistono tre copie dei valori scuri (`.dark`, `[data-theme]`, `@media`) che prima o poi divergono: nell'app ogni classe era duplicata a mano con `dark:`, ed è così che grafici e schermata Debug sono rimasti chiari. Con questi token non serve la variante `dark:`.
+
+```html
+<!-- <head>: font (con fallback di sistema) e scelta salvata prima del primo disegno, niente lampo -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600;700;900&display=swap">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1E293B" media="(prefers-color-scheme: dark)">
+<script>try{const t=localStorage.getItem('tema');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch{}</script>
+```
 
 ```css
+/* Tailwind v4: così com'è. CSS semplice: togli @import e scrivi :root al posto di @theme.
+   Senza <link> puoi mettere in cima: @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600;700;900&display=swap"); */
 @import "tailwindcss";
-@custom-variant dark (&:where(.dark, .dark *));
+
+:root { color-scheme: light dark; }                                   /* segue il sistema */
+:root:is(.light, [data-theme="light"]) { color-scheme: light; }      /* scelta dell'utente */
+:root:is(.dark,  [data-theme="dark"])  { color-scheme: dark; }
 
 @theme {
   --font-sans: "Nunito Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  /* neutri che cambiano col tema */
-  --color-pagina: #F7F9FB;  --color-superficie: #FFFFFF;  --color-card: #FFFFFF;
-  --color-superficie-alt: #F3F4F6;  --color-bordo: #E5E7EB;  --color-bordo-forte: #D1D5DB;
-  --color-testo: #4B4B4B;  --color-testo-forte: #3C3C3C;  --color-testo-tenue: #6B7280;  --color-testo-tenue-su-grigio: #4B5563;
-  /* tinte fisse */
-  --color-blu-vivo: #1CB0F6;  --color-blu-pieno: #1078C0;  --color-blu-bordo3d: #0B5E96;
+  /* neutri */
+  --color-pagina: light-dark(#F7F9FB, #111B21);      --color-superficie: light-dark(#FFFFFF, #1E293B);
+  --color-card: light-dark(#FFFFFF, #0F172A);        --color-superficie-alt: light-dark(#F3F4F6, #0F172A);
+  --color-bordo: light-dark(#E5E7EB, #334155);       --color-bordo-forte: light-dark(#D1D5DB, #475569);
+  --color-bordo-input: light-dark(#6B7280, #94A3B8); --color-focus: light-dark(#1078C0, #1CB0F6);
+  --color-testo: light-dark(#4B4B4B, #E2E8F0);       --color-testo-forte: light-dark(#3C3C3C, #F8FAFC);
+  --color-testo-tenue: light-dark(#6B7280, #94A3B8); --color-testo-tenue-su-grigio: light-dark(#4B5563, #94A3B8);
+  /* tinte fisse (pulsanti, coriandoli): uguali nei due temi */
+  --color-blu-vivo: #1CB0F6;   --color-blu-pieno: #1078C0;   --color-blu-bordo3d: #0B5E96;
   --color-verde-vivo: #58CC02; --color-verde-pieno: #2F8500; --color-verde-bordo3d: #236300;
   --color-rosso-vivo: #FF4B4B; --color-rosso-pieno: #DC2626; --color-rosso-bordo3d: #A91B1B;
   --color-viola-vivo: #CE82FF; --color-viola-pieno: #9B3FE0; --color-viola-bordo3d: #7426B0;
   --color-giallo-vivo: #FFC800; --color-giallo-bordo3d: #E5B400; --color-su-giallo: #3D2E00;
-  /* testo colorato e tinte: cambiano col tema */
-  --color-blu-testo: #0B6FA8;   --color-blu-tinta: #DDF4FF;   --color-blu-tinta-testo: #0B6FA8;
-  --color-verde-testo: #2B7A00; --color-verde-tinta: #D7FFB8; --color-verde-tinta-testo: #2B7A00;
-  --color-rosso-testo: #C81E1E; --color-rosso-tinta: #FFE5E5; --color-rosso-tinta-testo: #C81E1E;
-  --color-viola-testo: #8A2BD6; --color-viola-tinta: #F5E5FF; --color-viola-tinta-testo: #8A2BD6;
-  --color-giallo-testo: #8F6200; --color-giallo-tinta: #FFF4E5; --color-giallo-tinta-testo: #8F6200;
+  /* barre e anelli (3:1): pieno nel chiaro, vivo nello scuro */
+  --color-blu-barra: light-dark(#1078C0, #1CB0F6);   --color-verde-barra: light-dark(#2F8500, #58CC02);
+  --color-viola-barra: light-dark(#9B3FE0, #CE82FF); --color-rosso-barra: light-dark(#DC2626, #FF6B6B);
+  /* testo e icone colorati, stati su tinta */
+  --color-blu-testo: light-dark(#0B6FA8, #1CB0F6);    --color-blu-tinta: light-dark(#DDF4FF, #0C4A6E);    --color-blu-tinta-testo: light-dark(#0B6FA8, #E0F2FE);
+  --color-verde-testo: light-dark(#2B7A00, #58CC02);  --color-verde-tinta: light-dark(#D7FFB8, #14532D);  --color-verde-tinta-testo: light-dark(#2B7A00, #86EFAC);
+  --color-rosso-testo: light-dark(#C81E1E, #FF6B6B);  --color-rosso-tinta: light-dark(#FFE5E5, #7F1D1D);  --color-rosso-tinta-testo: light-dark(#C81E1E, #FECACA);
+  --color-viola-testo: light-dark(#8A2BD6, #CE82FF);  --color-viola-tinta: light-dark(#F5E5FF, #3B0764);  --color-viola-tinta-testo: light-dark(#8A2BD6, #E9D5FF);
+  --color-giallo-testo: light-dark(#8F6200, #FFC800); --color-giallo-tinta: light-dark(#FFF4E5, #422006); --color-giallo-tinta-testo: light-dark(#8F6200, #FDE68A);
   /* raggi */
   --radius-cornice: 32px; --radius-card: 24px; --radius-pulsante: 20px; --radius-chip: 16px; --radius-badge: 14px;
 }
 
-.dark {
-  --color-pagina: #111B21;  --color-superficie: #1E293B;  --color-card: #0F172A;
-  --color-superficie-alt: #0F172A;  --color-bordo: #334155;  --color-bordo-forte: #475569;
-  --color-testo: #E2E8F0;  --color-testo-forte: #F8FAFC;  --color-testo-tenue: #94A3B8;
-  --color-blu-testo: #1CB0F6;  --color-verde-testo: #58CC02;  --color-rosso-testo: #FF6B6B;
-  --color-viola-testo: #CE82FF; --color-giallo-testo: #FFC800;
-  --color-blu-tinta: #0C4A6E;   --color-blu-tinta-testo: #E0F2FE;
-  --color-verde-tinta: #14532D; --color-verde-tinta-testo: #86EFAC;
-  --color-rosso-tinta: #7F1D1D; --color-rosso-tinta-testo: #FECACA;
-  --color-viola-tinta: #3B0764; --color-viola-tinta-testo: #E9D5FF;
-  --color-giallo-tinta: #422006; --color-giallo-tinta-testo: #FDE68A;
-}
+body { background: var(--color-pagina); color: var(--color-testo); font-family: var(--font-sans); }
 ```
 
-**CSS semplice** (artifact o pagina senza build): stessi nomi senza il prefisso `color-` (`--blu-pieno`, `--testo-tenue`…) su `:root`, ridefiniti in `@media (prefers-color-scheme: dark)` protetto da `:root:not([data-theme="light"])` e di nuovo in `:root[data-theme="dark"]`, e `body { background: var(--pagina); color: var(--testo); }`.
+Note:
+- **Interruttore del tema**: imposta `document.documentElement.dataset.theme = 'dark' | 'light'` e salvalo in `localStorage` (dentro `try`); per tornare al sistema togli l'attributo. `color-scheme` sistema anche barre di scorrimento e campi nativi.
+- `light-dark()` funziona in tutti i browser attuali (dal 2024). Solo se devi supportare browser più vecchi scrivi i valori scuri in un blocco `:root:is(.dark,[data-theme="dark"])` e in un `@media (prefers-color-scheme: dark){ :root:not(.light,[data-theme="light"]) {…} }`.
+- In SVG e grafici usa `var(--color-…)` negli attributi o nello stile: il browser risolve il tema. Per un `<canvas>` leggi il colore già risolto (`getComputedStyle(el).color` di un elemento che usa il token), non il valore della variabile.
+- Il font: pesi 600/700/900 soltanto; `display=swap` mostra subito il fallback di sistema.
 
 ## 4. Tipografia
 
@@ -136,15 +168,17 @@ Regole pratiche:
 | Titolo di intro / fine | `text-2xl sm:text-3xl font-black` |
 | Titolo di schermata | `text-xl sm:text-2xl font-black tracking-tight` |
 | Testo della domanda | `text-xl sm:text-3xl font-black leading-tight text-testo-forte` |
-| Etichetta della CTA | `text-2xl sm:text-3xl font-black uppercase tracking-widest` |
+| Etichetta della CTA | `text-xl sm:text-2xl font-black` in maiuscola iniziale; `uppercase tracking-wide` solo se è una parola corta («Inizia») |
 | Opzione | `text-base sm:text-lg font-bold leading-snug` |
 | Titolo del feedback | `text-xl sm:text-2xl font-black` |
 | Numero nelle tile | `text-2xl sm:text-3xl font-black` |
 | Corpo / spiegazione | `text-sm sm:text-base font-semibold` |
-| Etichetta | `text-xs sm:text-sm font-black uppercase tracking-wider text-testo-tenue` |
+| Etichetta, descrizione, pillola, voce della barra in basso | `text-sm font-black text-testo-tenue` (+ `uppercase tracking-wide` solo se ≤ 2 parole) |
+| Didascalia non essenziale | `text-xs font-bold text-testo-tenue` |
 
-- **Minimo 12 px** (`text-xs`) per qualsiasi testo che serve leggere. L'app ha provato a stringere tutto fino a 9-10 px per stare in uno schermo (`5c9cab7`) e lo ha annullato lo stesso giorno (`72b0a14`): il testo grande vince sul far stare tutto.
-- **Maiuscolo con spaziatura** solo per etichette e pulsanti brevi (≤ 3 parole), sempre via CSS (`uppercase`) e mai scritto in maiuscolo nel sorgente: gli screen reader leggono il sorgente, e il sorgente resta in maiuscola iniziale (vedi `copy.md`). Mai per frasi.
+- **Minimo 14 px** (`text-sm`) per etichette e testo secondario: tutto ciò che serve per capire o decidere. **12 px** (`text-xs`) solo per didascalie di cui si può fare a meno (tick degli assi quando il valore è anche nel tooltip o scritto, nota di versione). Nell'app le etichette erano `text-xs` maiuscole con spaziatura larga: il maiuscolo toglie la forma delle parole e a 12 px rallenta la lettura, su telefono all'aperto ancora di più. L'app ha provato a stringere tutto fino a 9-10 px (`5c9cab7`) e lo ha annullato lo stesso giorno (`72b0a14`): il testo grande vince sul far stare tutto.
+- **Maiuscolo solo via CSS e solo per etichette brevi** (≤ 2 parole): mai scritto in maiuscolo nel sorgente (gli screen reader leggono il sorgente, alcuni lettera per lettera) e mai per frasi. Spaziatura `tracking-wide`, non `tracking-widest`.
+- **La CTA deve stare su una riga a 320 px.** Lì il testo ha circa 240 px (320 − 2 × 16 di margine − 2 × 24 di padding). In `text-2xl` maiuscolo con `tracking-widest` una lettera occupa ~20 px, quindi ci stanno ~12 caratteri: «INIZIA SESSIONE» va a capo. In maiuscola iniziale `text-xl` ne stanno ~20. Per questo la CTA è in maiuscola iniziale; il maiuscolo va bene solo per una parola corta.
 - Numeri che cambiano (timer, contatori): `tabular-nums` così non ballano; niente `font-mono`.
 
 ## 5. Raggi
@@ -162,9 +196,9 @@ La firma visiva: blocco con bordo di 2 px e **bordo inferiore di 4 px** più scu
 ```html
 <!-- primario -->
 <button class="w-full min-h-12 rounded-pulsante bg-blu-pieno border-b-4 border-blu-bordo3d
-  text-white font-black uppercase tracking-widest py-4 px-6
+  text-white text-lg font-black py-4 px-6
   hover:brightness-95 active:border-b-0 active:translate-y-1
-  focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-blu-pieno dark:focus-visible:outline-blu-vivo
+  focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-focus
   disabled:bg-bordo disabled:border-bordo-forte disabled:text-testo-tenue disabled:active:translate-y-0 disabled:cursor-not-allowed
   transition-[transform,border-width,filter] duration-150 motion-reduce:transition-none">Inizia</button>
 
@@ -184,7 +218,7 @@ Varianti: verde `bg-verde-pieno border-verde-bordo3d`, rosso `bg-rosso-pieno bor
 ## 7. Spaziature e layout
 
 - **Mobile prima di tutto, una schermata senza scroll di pagina**: radice `h-[100dvh] overflow-hidden`; su `sm:` la pagina può scorrere con `sm:p-6`.
-- **Cornice su desktop**: `max-w-3xl mx-auto sm:h-[800px] sm:my-auto`, e ogni schermata `bg-superficie sm:rounded-cornice sm:border-2 sm:border-bordo`: su desktop l'app è un «telefono» centrato, su mobile è a tutto schermo.
+- **Desktop: una colonna centrata, non un finto telefono.** Contenuto in `mx-auto w-full max-w-[480px]` (flusso a una colonna, sessioni) fino a `max-w-3xl` (768 px: statistiche, dashboard, due colonne da `sm:`), con `px-4` di margine. Una pagina, un artifact o una dashboard scorrono normalmente (`min-h-dvh`). Solo un'**app shell** (sessione con barra azioni fissata in basso) usa `h-dvh` con la colonna alta quanto la finestra: mai un'altezza fissa come `sm:h-[800px]` dell'app, che su un portatile da 700 px taglia la barra azioni e su un monitor grande sembra un giocattolo. Su `sm:` la colonna può avere `sm:border-x-2 sm:border-bordo` o, per l'app shell, `sm:rounded-cornice sm:border-2 sm:my-6`.
 - **Scheletro di ogni schermata**: intestazione fissa (`shrink-0 border-b-2`) → contenuto che scorre (`flex-1 overflow-y-auto`) → barra azioni fissa (`shrink-0 border-t-2 p-4`, con `pb-[max(1rem,env(safe-area-inset-bottom))]`).
 - **Azione principale all'altezza del pollice**: in fondo (`mt-auto`) o nella barra azioni.
 - Spaziature: schermata `p-4 sm:p-6`, contenuto `p-4 sm:p-8`, card `p-4 sm:p-5`, CTA eroe `p-6 sm:p-8`; griglie `gap-3 sm:gap-4`. Opzioni `grid-cols-1 sm:grid-cols-2`, `min-h-[72px]`.
@@ -194,11 +228,11 @@ Varianti: verde `bg-verde-pieno border-verde-bordo3d`, rosso `bg-rosso-pieno bor
 ## 8. Tema scuro
 
 Gemello completo, non un ripensamento:
-- Script anti-lampo nell'`<head>` che legge la preferenza salvata o `prefers-color-scheme`; interruttore sole/luna con `aria-label`.
+- Token, font e script anti-lampo sono nel blocco di §3; interruttore sole/luna con `aria-label`.
 - Cornice `#1E293B`, card più scure `#0F172A`, bordi `#334155`.
 - Transizione di colore breve (`transition-colors duration-300`) sulle superfici.
 - **Grafici, tooltip, schermate di servizio e `manifest`/`theme-color` inclusi** (nell'app erano rimasti chiari). Con i token di §3 basta usare `var(--color-…)` anche nei grafici.
-- `<meta name="theme-color">` doppio con `media="(prefers-color-scheme: dark)"`.
+- `<meta name="theme-color">` doppio con `media` (è nel blocco di §3).
 
 ## 9. Movimento
 
@@ -223,7 +257,8 @@ if (!ridotto) confetti({ ...opzioni, disableForReducedMotion: true });
 ## 10. Icone
 
 - `lucide-react` (o lucide via CDN), tratto pesante: `strokeWidth={2.5}` per l'intestazione, `3` per X, frecce e spunta. 20-24 px nelle intestazioni, 28 nelle tile.
-- **Un'icona colorata + un'etichetta tenue**: il colore dell'icona è quello della metrica o modalità.
+- **Un'icona colorata + un'etichetta tenue**: il colore dell'icona è quello della metrica o modalità, con il token `*-testo` (tono scuro nel chiaro, vivo nello scuro), così passa 3:1. Un'icona vivace nel chiaro (`#58CC02` su bianco 2,09:1) va bene solo se è decorativa.
+- Fiamma della serie: `fill-giallo-vivo` + tratto `text-giallo-testo` (5,36:1 su bianco); il numero accanto resta scritto.
 - Pulsante solo icona = sempre `aria-label` (in italiano) e area 44 px. Icona decorativa accanto a un testo = `aria-hidden="true"`.
 - Emoji solo dove un'icona non si può mettere (dentro `<option>`) o nei messaggi di successo (🔥): vedi `copy.md`.
 
@@ -231,25 +266,27 @@ if (!ridotto) confetti({ ...opzioni, disableForReducedMotion: true });
 
 Prima di disegnare un grafico carica la skill `dataviz`. In più, per restare coerente:
 - Card del grafico: `bg-card border-2 border-bordo rounded-2xl p-4 sm:p-6`, titolo come etichetta con icona colorata.
-- Assi senza linee, tick 12 px `fill: var(--color-testo-tenue)` in grassetto, griglia tratteggiata in una sola direzione `var(--color-bordo)`.
-- Barre con angoli arrotondati (`radius [4,4,0,0]`), impilate «Imparate» (colore) + «Da imparare» (`var(--color-bordo)`).
+- Assi senza linee, tick 12 px `fill: var(--color-testo-tenue)` in grassetto (didascalia: il valore è anche nel tooltip o scritto; se il tick è l'unico posto dove si legge, 14 px), griglia tratteggiata in una sola direzione `var(--color-bordo)`.
+- Barre con angoli arrotondati (`radius [4,4,0,0]`), impilate «Imparate» (`var(--color-verde-barra)`) + «Da imparare» (`var(--color-bordo)`): 3,79:1 nel chiaro, 4,96:1 nello scuro.
 - Tooltip con i token: `background: var(--color-card)`, `border: 2px solid var(--color-bordo)`, `color: var(--color-testo)`, raggio 12. Mai colori fissi chiari.
 - Radar del profilo per argomento solo con almeno 3 argomenti; altrimenti uno stato vuoto che dice cosa fare.
 - Giorni con `toLocaleDateString('it-IT', { weekday: 'short' })`.
-- Una serie che non ha etichetta numerica usa il `pieno`, non il `vivo`.
+- Serie, barre e anelli usano i token `*-barra` (pieno nel chiaro, vivo nello scuro), mai il vivo fisso.
+- **Costanza (ultimi 7 giorni)**: un grafico informativo dell'attività (domande o minuti al giorno) va bene, perché dice quanto ha studiato. **Non** va bene trasformarlo in serie di giorni: niente contatore «N giorni di fila», niente fiamme sui giorni, niente giorni «persi» in rosso. La serie di giorni non lo motiva (`metodo-di-studio` §4) e conta anche le aperture a vuoto; 🔥 resta solo per le giuste di fila dentro la sessione (§5).
 
 ## 12. Stati
 
 | Stato | Ricetta | Mai solo colore |
 |---|---|---|
 | **Inattivo** (opzione) | `bg-card border-2 border-bordo border-b-4`, hover grigio (`hover:bg-superficie-alt hover:border-bordo-forte`) | — |
-| **Selezionato** | `bg-blu-tinta border-blu-vivo text-blu-tinta-testo`, `aria-pressed="true"` / `aria-checked` | badge lettera pieno blu |
+| **Selezionato** | `bg-blu-tinta border-blu-vivo text-blu-tinta-testo`, `aria-pressed="true"` / `aria-checked` | badge pieno `bg-blu-barra text-card` (porta lo stato; il bordo vivo è solo rinforzo) |
 | **Giusto** | `bg-verde-tinta border-verde-vivo text-verde-tinta-testo` | icona ✓ (lucide `Check`) nel badge |
 | **Sbagliato** | `bg-rosso-tinta border-rosso-vivo text-rosso-tinta-testo` | icona ✗ (lucide `X`) nel badge |
 | **Eliminato / già usato** | `opacity-50 border-b-2 translate-y-[2px]`, `disabled` | resta «premuto» |
 | **Disabilitato** | `bg-bordo border-bordo-forte text-testo-tenue cursor-not-allowed`, niente affondamento | testo invariato |
 | **Vuoto** | card centrata, icona tenue, una frase che dice **cosa fare** per riempirla | — |
 | **Caricamento** | scheletro con le forme finali (`animate-pulse`, spento con movimento ridotto), mai schermata bianca (`return null` nell'app) | testo «Caricamento…» per screen reader |
-| **Focus** | `focus-visible:outline-3 outline-offset-2 outline-blu-pieno` (scuro: `blu-vivo`) | sempre visibile da tastiera |
+| **Focus** | `focus-visible:outline-3 outline-offset-2 outline-focus` (blu pieno nel chiaro, vivo nello scuro, ≥ 4,27:1) | sempre visibile da tastiera |
+| **Campo di testo / select** | `bg-card border-2 border-bordo-input rounded-xl` (il bordo grigio chiaro `bordo` qui non basta: 1,24:1) | etichetta visibile sopra |
 
 Il feedback testuale dopo la risposta va in una regione `aria-live="polite"`.

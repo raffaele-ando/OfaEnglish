@@ -17,6 +17,8 @@ Ogni revisione dei testi li ha **accorciati**, mai allungati:
 
 Il gusto che ne viene fuori: **testi brevi, letterali, in italiano; festa vera sui successi, fatti asciutti sugli errori; niente prediche né tifo.** L'unica parte mai sistemata è la simulazione, rimasta tutta in inglese: qui sotto trovi la versione corretta.
 
+Due forme dell'app qui sono corrette di proposito: «Fantastico! 🔥 3 di fila!» aveva due esclamativi (ora «Fantastico, 3 di fila! 🔥», §4) mentre «Errata.» resta: è una scelta dell'utente, ottenuta accorciando «Risposta errata.» (§8).
+
 ## 2. Voce e tono
 
 - **Italiano, "tu", imperativo diretto**: «Inizia», «Riprova», «Tocca le parole», «Focalizzati sugli errori». Mai «Lei», «voi», e l'app non dice «noi» («Stiamo caricando…» → «Caricamento…»).
@@ -25,8 +27,8 @@ Il gusto che ne viene fuori: **testi brevi, letterali, in italiano; festa vera s
 
 | Momento | Tono | Esempio |
 |---|---|---|
-| Successo | festoso e crescente | «Ottimo!» → «Fantastico! 🔥 3 di fila!» |
-| Errore dell'utente | neutro, breve, operativo; mai colpa | «Errata.» + pulsante «Riprova» |
+| Successo | festoso e crescente | «Ottimo!» → «Fantastico, 3 di fila! 🔥» |
+| Errore dell'utente | neutro, breve, operativo; mai colpa; dipende dall'interazione (§8) | «Errata.» + pulsante «Riprova» |
 | Dati | nomi semplici, niente aggettivi | «Esami completati», «Miglior punteggio», «Mai vista» |
 | Aiuto | domanda + soluzione | «Troppo difficile? Usa le opzioni multiple» |
 | Guasto | rassicurante + cosa fare | «I tuoi progressi sono al sicuro. Ricarica l'app.» |
@@ -49,11 +51,11 @@ Test: se togli una parola e il senso resta, toglila.
 
 ## 4. Punteggiatura, esclamazioni, emoji
 
-- **Punto esclamativo solo per un successo vero**, uno per messaggio: «Ottimo!», «Sessione completata!», «10 su 10 al primo tentativo!». Mai sugli errori, mai «!!».
-- Frasi complete con il punto; **etichette e frammenti senza punto** («Focalizzati sugli errori», non «…errori.»). Il titolo di feedback negativo è l'eccezione voluta: «Errata.» (il punto lo rende piatto, di proposito).
+- **Punto esclamativo solo per un successo vero, al massimo uno per messaggio** (e per blocco di feedback: titolo e riga sotto contano insieme): «Ottimo!», «Sessione completata!», «Fantastico, 4 di fila! 🔥» e non «Fantastico! 🔥 4 di fila!». Due esclamativi urlano e il secondo toglie forza al primo. Mai sugli errori, mai «!!». `controlla_copy.cjs` segnala più di un «!» nella stessa stringa.
+- Frasi complete con il punto; **etichette e frammenti senza punto** («Focalizzati sugli errori», non «…errori.»). Il titolo di feedback negativo è l'eccezione voluta: «Errata.», «Tempo scaduto.» (il punto lo rende piatto, di proposito).
 - Puntini: il carattere **«…»**, non tre punti. Solo per azioni in corso («Caricamento…») e segnaposto («Tocca le parole per formare la frase…»).
 - Separatore tra dati: « · » («Grammatica · B1 · Present perfect»). Due punti per etichetta + valore («La tua risposta: …»).
-- **Emoji**: solo 🔥 per la serie di giuste dentro la sessione (e ✅ ⚠️ nelle risposte in chat, come in `metodo-di-studio` §9). Mai in titoli, pulsanti, errori. Nell'interfaccia preferisci un'icona; l'emoji serve dove un'icona non entra (dentro `<option>`).
+- **Emoji**: solo 🔥 per la serie di giuste dentro la sessione, in fondo al messaggio dopo l'esclamativo (e ✅ ⚠️ nelle risposte in chat, come in `metodo-di-studio` §9). Mai in titoli, pulsanti, errori, né per i giorni di studio. Nell'interfaccia preferisci un'icona; l'emoji serve dove un'icona non entra (dentro `<option>`).
 - Virgolette italiane « » nei testi; apostrofo tipografico ’ se il font lo rende bene.
 
 ## 5. Maiuscole
@@ -62,7 +64,7 @@ Test: se togli una parola e il senso resta, toglila.
 
 Perché: il *Title Case* («Sessione Completata!», «Vedi Dettaglio Frasi») è un'abitudine inglese che in italiano sembra una traduzione; l'app lo mescolava con il sentence case («Esami completati», «Peggiori prima»).
 
-Il maiuscolo spaziato di pulsanti ed etichette si fa **solo con CSS** (`uppercase`): nel sorgente la stringa resta «Inizia», non «INIZIA» (lo screen reader legge il sorgente, e alcuni leggono il maiuscolo lettera per lettera).
+Il maiuscolo spaziato si fa **solo con CSS** (`uppercase`) e **solo per etichette brevi, fino a 2 parole** («Imparate», «Altre modalità»): nel sorgente la stringa resta «Inizia», non «INIZIA» (lo screen reader legge il sorgente, e alcuni leggono il maiuscolo lettera per lettera). Le etichette dei pulsanti grandi restano in maiuscola iniziale, così stanno su una riga anche a 320 px (`sistema-visivo.md` §4).
 
 ## 6. Numeri
 
@@ -104,7 +106,7 @@ plurale(3, 'giusta', 'giuste');      // "3 giuste"
 | Non risposte | **omesse** | saltate, non date, vuote (alternati) | |
 | Argomento / categoria / livello | **argomento**, **categoria**, **livello** (tre livelli fissi) | tema, sezione, topic | |
 | Errori ricorrenti | **Errori comuni** | Errori frequenti, Weakness | |
-| Attività nei giorni | **Costanza (ultimi 7 giorni)** | Consistency, Attività | |
+| Attività nei giorni | **Costanza (ultimi 7 giorni)**: grafico di domande o minuti al giorno | Consistency, Attività, «N giorni di fila», «Non perdere la serie» | è un dato informativo, non una serie da difendere: niente contatore di giorni né fiamme (🔥 solo per le giuste di fila nella sessione) |
 | Aiuto | **Suggerimento** | Hint, Aiutino, Indizio | |
 | Insieme piccolo iniziale | un nome e basta (es. **Primo corpus**) | Primo corpus iniziale, Nucleo, Base, alternati | |
 | Tutto il materiale | **Tutte le domande** | Tutto il database, Tutte le frasi | |
@@ -129,14 +131,23 @@ Le parti tra `{}` vengono dai dati. Le varianti sono in ordine di preferenza.
 - Intestazione domanda: «Domanda {i}» · contatore «{i}/{n}»
 
 **Risposta giusta**
-- «Ottimo!» (1ª e 2ª di fila) → «Fantastico! 🔥 {k} di fila!» (dalla 3ª)
+- «Ottimo!» (1ª e 2ª di fila) → «Fantastico, {k} di fila! 🔥» (dalla 3ª)
 - Sotto: «{categoria} · {argomento}» e la spiegazione
 - Pulsante: «Continua»
 - Giusta dopo un Riprova: «Giusta.» + spiegazione (piccolo premio, serie che riparte da 1)
 
-**Risposta sbagliata**
-- Titolo «Errata.» · pulsante «Riprova» (l'opzione scelta resta disattivata). Niente seconda riga «Riprova!»: il pulsante lo dice già.
-- Tempo scaduto: «Tempo scaduto.» · «Riprova»
+**Feedback per tipo di interazione** (la risposta sbagliata non ha una frase sola: dipende da cosa può fare lo studente dopo)
+
+| Interazione | Dopo una risposta sbagliata | Pulsanti |
+|---|---|---|
+| Quiz a scelta con Riprova (il modello OFA) | «Errata.» + ✗ (alternativa: «Non è questa.»); l'opzione scelta resta disattivata; la spiegazione arriva quando trova la giusta | «Riprova» |
+| Risposta costruita con Riprova (banca di parole, risposta scritta) | «Non è così.»; se una parte è giusta «Non proprio.» | «Riprova» · aiuto a scalino «Troppo difficile? Usa le opzioni multiple» |
+| Tempo scaduto | «Tempo scaduto.» | «Riprova» |
+| Flashcard, richiamo autovalutato | nessun verdetto: dopo «Mostra risposta» compare «Risposta: {…}» (+ spiegazione) e giudica lo studente | «Ripeti più tardi» (secondario) · «Continua» (primario), oppure Indovino / Incerto / Sicuro se il metodo li usa |
+| Quiz senza secondo tentativo | «Risposta giusta: {…}» + spiegazione | «Continua» |
+| Simulazione, esame | nessun feedback fino alla consegna: l'opzione resta solo «scelta» (blu); giuste e sbagliate si vedono nella revisione finale | frecce, «Consegna» |
+
+**«Errata.» è la forma predefinita** perché è la scelta collaudata dell'utente: breve, piatta, senza colpa, e il pulsante «Riprova» dice cosa fare. Quando vuoi un tono ancora più morbido o il titolo deve indicare l'opzione toccata, l'alternativa è «Non è questa.»: in un quiz che fa riprovare il titolo deve spingere verso l'opzione giusta, non chiudere con un verdetto. «Errata.» è un aggettivo senza nome, suona come un timbro sul compito; «Non è questa.» indica l'opzione appena toccata («questa» = la risposta), dice che la giusta è tra le altre, non dà colpa (nessun «hai») e sta in tre parole. «Non proprio.» invece suggerisce «quasi giusta»: va bene solo quando una parte della risposta è davvero giusta. Niente seconda riga «Riprova!»: il pulsante lo dice già.
 
 **Aiuti**
 - «Mostra suggerimento» → «Argomento: {argomento} ({livello})»
@@ -145,7 +156,7 @@ Le parti tra `{}` vengono dai dati. Le varianti sono in ordine di preferenza.
 
 **Fine sessione**
 - «Sessione completata!» · «Giuste al primo tentativo: {x} su {n}» · «Continua»
-- Tutte giuste: «{n} su {n} al primo tentativo!»
+- Tutte giuste: «Sessione completata!» · «Tutte giuste al primo tentativo: {n} su {n}» (un solo esclamativo per schermata di esito; la festa la fanno coriandoli e fanfara)
 
 **Simulazione: introduzione**
 - Titolo «Simulazione d'esame»
@@ -159,12 +170,13 @@ Le parti tra `{}` vengono dai dati. Le varianti sono in ordine di preferenza.
 
 **Simulazione: esito**
 - «Superata!» (verde) / «Non superata» (neutro, senza punto esclamativo) · «{p}/{n}» · «Tempo: {m}:{ss}»
-- Non superata, cosa fare: «Ti mancano {soglia − p} punti. Ripassa gli errori qui sotto.»
+- Non superata, cosa fare: «Ti mancano {plurale(soglia − p, 'punto', 'punti')}. Ripassa gli errori qui sotto.»
 - Revisione: titolo «Da rivedere» · «La tua risposta: …» / «Omessa» · «Risposta giusta: …»
-- Nessun errore: «{n} su {n}! Niente da rivedere.»
+- Nessun errore: «Nessun errore da rivedere.» (il «Superata!» sopra ha già l'esclamativo)
 - Pulsante «Torna al menu»
 
 **Statistiche e stati vuoti** (sempre con cosa fare)
+- Attività: «Costanza (ultimi 7 giorni)» con domande o minuti per giorno; giorno senza studio = barra vuota, senza rosso né commenti
 - Profilo con meno di 3 argomenti: «Rispondi a domande di almeno 3 argomenti per vedere il profilo.»
 - Nessun errore registrato: «Ancora nessun errore. Qui vedrai quelli che si ripetono.»
 - Nessuna simulazione: «Nessuna simulazione. Fanne una per vedere il punteggio.» (e il valore mancante è «—», non «-»)
@@ -172,7 +184,7 @@ Le parti tra `{}` vengono dai dati. Le varianti sono in ordine di preferenza.
 - Ordinamento: «Peggiori prima» / «Migliori prima»
 
 **Salvataggio, sync, dati**
-- «Sincronizzato» · «Sincronizzazione…» · «Offline: salvo sul telefono e sincronizzo appena torna la rete.»
+- «Sincronizzato» · «Sincronizzazione…» · «Offline. I progressi si sincronizzano appena torna la rete.»
 - Accesso: «Accedi con Google» · «Esci»
 - Esportazione: «Progressi esportati.» · Importazione: «Progressi importati.»
 - Import fallito: «Questo file non contiene progressi validi. Scegli il file .json esportato dall'app.»
@@ -201,7 +213,7 @@ Le parti tra `{}` vengono dai dati. Le varianti sono in ordine di preferenza.
 | Return to Menu | Torna al menu |
 | Review Incorrect Answers | Da rivedere |
 | Your Answer: · No answer · Correct: | La tua risposta: · Omessa · Risposta giusta: |
-| Perfect score! Nothing to review. | 30 su 30! Niente da rivedere. |
+| Perfect score! Nothing to review. | Nessun errore da rivedere. |
 | Next | Continua |
 | Stats · Import · Export | Statistiche · Importa · Esporta |
 | Sign in · Logout | Accedi · Esci |

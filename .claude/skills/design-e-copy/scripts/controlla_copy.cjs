@@ -9,7 +9,8 @@
  *
  * Controlli:
  *   inglese     parole inglesi tipiche dell'interfaccia in stringhe mostrate all'utente
- *   glossario   parole della colonna «non usare» di references/copy.md (+ tifo, colpa, burocratese)
+ *   glossario   parole della colonna «non usare» di references/copy.md (+ tifo, colpa, burocratese),
+ *               più di un «!» nello stesso messaggio
  *   sinonimi    due termini per lo stesso concetto nello stesso progetto (frasi/domande…)
  *   maiuscole   Title Case italiano o MAIUSCOLO scritto nel sorgente
  *   conteggi    numeri scritti a mano nei testi: "(606)", "(su 60)", "/30", "25/30", "(10s)"
@@ -93,12 +94,12 @@ const GLOSSARIO = [
   [/\bCustom\b/, 'Altre modalità'], [/\bTutto il Database\b/i, 'Tutte le domande'], [/\bPrimo Corpus Iniziale\b/i, 'Primo corpus'],
   [/\bRecord\b/, 'Miglior punteggio'], [/\bPuoi farcela\b/i, 'togli (tifo)'], [/\bCi sei quasi\b/i, 'togli (tifo)'],
   [/\bContinua ad esercitarti\b/i, 'togli (predica)'], [/\bOttimo lavoro\b/i, 'togli o usa solo per un successo vero'],
-  [/\bNon mollare\b/i, 'togli (tifo)'], [/\bPeccato\b/i, '«Errata.» (niente dramma)'], [/\bOps\b/i, 'frase neutra'],
-  [/\bPurtroppo\b/i, 'frase neutra'], [/\bHai sbagliato\b/i, '«Errata.»'], [/\bSbagliato!/i, '«Errata.»'], [/\bRisposta errata\b/i, '«Errata.»'],
+  [/\bNon mollare\b/i, 'togli (tifo)'], [/\bPeccato\b/i, '«Non è questa.» (niente dramma)'], [/\bOps\b/i, 'frase neutra'],
+  [/\bPurtroppo\b/i, 'frase neutra'], [/\bHai sbagliato\b/i, '«Non è questa.» (quiz con Riprova)'], [/\bSbagliato!/i, '«Non è questa.»'], [/\bRisposta errata\b/i, '«Errata.» (quiz con Riprova) / «Risposta: …» (flashcard)'],
   [/\bSi prega\b/i, 'imperativo con il tu'], [/\bGentile utente\b/i, 'togli'], [/\bSiamo spiacenti\b/i, 'togli, di\' cosa fare'],
   [/\bcon successo\b/i, 'frase concreta («Progressi importati.»)'], [/\bSi è verificato un errore\b/i, 'cosa è successo + cosa fare'],
   [/\bclicca(re|ndo)?\b/i, '«tocca» o un verbo neutro (scegli, apri)'], [/\bsemplicemente\b/i, 'togli (condiscendente)'],
-  [/!{2,}/, 'un solo punto esclamativo'], [/\.\.\./, 'il carattere «…»'], [/\bFirebase\b/, 'gergo tecnico: spostalo nei «Dettagli»'],
+  [/!{2,}/, 'un solo punto esclamativo'], [/![^!]+!/, 'al massimo un «!» per messaggio: «Fantastico, {k} di fila! 🔥»'], [/\.\.\./, 'il carattere «…»'], [/\bFirebase\b/, 'gergo tecnico: spostalo nei «Dettagli»'],
 ];
 
 // sinonimi: gruppi di termini che non devono convivere nello stesso progetto

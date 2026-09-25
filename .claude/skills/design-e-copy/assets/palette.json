@@ -1,5 +1,5 @@
 {
-  "_nota": "Palette consigliata dalla skill design-e-copy. Verifica: node scripts/contrasto.cjs --palette assets/palette.json. min 4.5 = testo normale, 3 = testo grande (>=24px o >=18.66px bold), bordi/icone/grafici.",
+  "_nota": "Palette consigliata dalla skill design-e-copy. Verifica: node scripts/contrasto.cjs --palette assets/palette.json. Soglia: 4.5 testo normale (default); \"tipo\": \"grafica\" = 3 (WCAG 1.4.11: riempimento di barre e anelli contro la traccia e la superficie, icone che portano significato, anello di focus, bordi di input); \"tipo\": \"testo-grande\" = 3; oppure \"min\" esplicito. Per la grafica si possono usare \"colore\"/\"adiacente\" al posto di \"testo\"/\"sfondo\".",
   "colori": {
     "bianco": "#FFFFFF",
     "pagina": "#F7F9FB",
@@ -53,7 +53,9 @@
     "d-giallo-tinta": "#422006",
     "d-giallo-tinta-testo": "#FDE68A",
     "testo-tenue-su-grigio": "#4B5563",
-    "superficie-grigia": "#F3F4F6"
+    "superficie-grigia": "#F3F4F6",
+    "bordo-input": "#6B7280",
+    "d-bordo-input": "#94A3B8"
   },
   "coppie": {
     "chiaro: testo su superfici": [
@@ -192,30 +194,126 @@
         "uso": "segmento inattivo del selettore"
       }
     ],
-    "chiaro: elementi non testuali (3:1)": [
+    "chiaro: grafica (3:1)": [
       {
-        "testo": "blu-pieno",
-        "sfondo": "bianco",
-        "min": 3,
-        "uso": "anello di focus, serie grafico senza etichetta"
+        "colore": "blu-pieno",
+        "adiacente": "bordo",
+        "tipo": "grafica",
+        "uso": "barra/anello blu: riempimento (tono pieno) contro la traccia #E5E7EB"
       },
       {
-        "testo": "rosso-vivo",
-        "sfondo": "bianco",
-        "min": 3,
-        "uso": "bordo opzione sbagliata"
+        "colore": "blu-pieno",
+        "adiacente": "bianco",
+        "tipo": "grafica",
+        "uso": "barra/anello blu: riempimento contro la card (anelli e barre senza traccia)"
       },
       {
-        "testo": "verde-pieno",
-        "sfondo": "bianco",
-        "min": 3,
-        "uso": "serie grafico verde senza etichetta"
+        "colore": "verde-pieno",
+        "adiacente": "bordo",
+        "tipo": "grafica",
+        "uso": "barra/anello verde: riempimento (tono pieno) contro la traccia #E5E7EB"
       },
       {
-        "testo": "testo-tenue",
-        "sfondo": "bianco",
-        "min": 3,
-        "uso": "bordo di input/select"
+        "colore": "verde-pieno",
+        "adiacente": "bianco",
+        "tipo": "grafica",
+        "uso": "barra/anello verde: riempimento contro la card (anelli e barre senza traccia)"
+      },
+      {
+        "colore": "viola-pieno",
+        "adiacente": "bordo",
+        "tipo": "grafica",
+        "uso": "barra/anello viola: riempimento (tono pieno) contro la traccia #E5E7EB"
+      },
+      {
+        "colore": "viola-pieno",
+        "adiacente": "bianco",
+        "tipo": "grafica",
+        "uso": "barra/anello viola: riempimento contro la card (anelli e barre senza traccia)"
+      },
+      {
+        "colore": "rosso-pieno",
+        "adiacente": "bordo",
+        "tipo": "grafica",
+        "uso": "barra/anello rosso: riempimento (tono pieno) contro la traccia #E5E7EB"
+      },
+      {
+        "colore": "rosso-pieno",
+        "adiacente": "bianco",
+        "tipo": "grafica",
+        "uso": "barra/anello rosso: riempimento contro la card (anelli e barre senza traccia)"
+      },
+      {
+        "colore": "verde-pieno",
+        "adiacente": "pagina",
+        "tipo": "grafica",
+        "uso": "barra verde direttamente sul fondo pagina"
+      },
+      {
+        "colore": "blu-pieno",
+        "adiacente": "bianco",
+        "tipo": "grafica",
+        "uso": "anello di focus su card e superficie"
+      },
+      {
+        "colore": "blu-pieno",
+        "adiacente": "pagina",
+        "tipo": "grafica",
+        "uso": "anello di focus sul fondo pagina"
+      },
+      {
+        "colore": "blu-pieno",
+        "adiacente": "superficie-alt",
+        "tipo": "grafica",
+        "uso": "anello di focus sul binario del selettore"
+      },
+      {
+        "colore": "blu-pieno",
+        "adiacente": "blu-tinta",
+        "tipo": "grafica",
+        "uso": "badge pieno dell'opzione selezionata (porta lo stato, non il bordo vivo)"
+      },
+      {
+        "colore": "bordo-input",
+        "adiacente": "bianco",
+        "tipo": "grafica",
+        "uso": "bordo di input, select, checkbox"
+      },
+      {
+        "colore": "bordo-input",
+        "adiacente": "superficie-alt",
+        "tipo": "grafica",
+        "uso": "bordo di input su superficie grigia"
+      },
+      {
+        "colore": "verde-testo",
+        "adiacente": "bianco",
+        "tipo": "grafica",
+        "uso": "icona con significato (✓, Imparate) su card"
+      },
+      {
+        "colore": "verde-testo",
+        "adiacente": "verde-tinta",
+        "tipo": "grafica",
+        "uso": "icona ✓ nell'opzione giusta"
+      },
+      {
+        "colore": "rosso-testo",
+        "adiacente": "rosso-tinta",
+        "tipo": "grafica",
+        "uso": "icona ✗ nell'opzione sbagliata"
+      },
+      {
+        "colore": "giallo-testo",
+        "adiacente": "bianco",
+        "tipo": "grafica",
+        "uso": "contorno della fiamma 🔥 (riempimento giallo vivo, tratto giallo-testo)"
+      },
+      {
+        "colore": "viola-testo",
+        "adiacente": "bianco",
+        "tipo": "grafica",
+        "uso": "icona viola (Accuratezza, Altre modalità)"
       }
     ],
     "scuro: testo su superfici": [
@@ -356,30 +454,119 @@
         "uso": "giallo"
       }
     ],
-    "scuro: non testuali (3:1)": [
+    "scuro: grafica (3:1)": [
       {
-        "testo": "blu-vivo",
-        "sfondo": "d-superficie",
-        "min": 3,
+        "colore": "blu-vivo",
+        "adiacente": "d-bordo",
+        "tipo": "grafica",
+        "uso": "barra/anello blu: riempimento (tono vivo) contro la traccia #334155"
+      },
+      {
+        "colore": "blu-vivo",
+        "adiacente": "d-card",
+        "tipo": "grafica",
+        "uso": "barra/anello blu contro la card scura"
+      },
+      {
+        "colore": "blu-vivo",
+        "adiacente": "d-superficie",
+        "tipo": "grafica",
+        "uso": "barra/anello blu contro la superficie scura"
+      },
+      {
+        "colore": "verde-vivo",
+        "adiacente": "d-bordo",
+        "tipo": "grafica",
+        "uso": "barra/anello verde: riempimento (tono vivo) contro la traccia #334155"
+      },
+      {
+        "colore": "verde-vivo",
+        "adiacente": "d-card",
+        "tipo": "grafica",
+        "uso": "barra/anello verde contro la card scura"
+      },
+      {
+        "colore": "verde-vivo",
+        "adiacente": "d-superficie",
+        "tipo": "grafica",
+        "uso": "barra/anello verde contro la superficie scura"
+      },
+      {
+        "colore": "viola-vivo",
+        "adiacente": "d-bordo",
+        "tipo": "grafica",
+        "uso": "barra/anello viola: riempimento (tono vivo) contro la traccia #334155"
+      },
+      {
+        "colore": "viola-vivo",
+        "adiacente": "d-card",
+        "tipo": "grafica",
+        "uso": "barra/anello viola contro la card scura"
+      },
+      {
+        "colore": "viola-vivo",
+        "adiacente": "d-superficie",
+        "tipo": "grafica",
+        "uso": "barra/anello viola contro la superficie scura"
+      },
+      {
+        "colore": "d-rosso-testo",
+        "adiacente": "d-bordo",
+        "tipo": "grafica",
+        "uso": "barra/anello rosso: riempimento (tono vivo) contro la traccia #334155"
+      },
+      {
+        "colore": "d-rosso-testo",
+        "adiacente": "d-card",
+        "tipo": "grafica",
+        "uso": "barra/anello rosso contro la card scura"
+      },
+      {
+        "colore": "d-rosso-testo",
+        "adiacente": "d-superficie",
+        "tipo": "grafica",
+        "uso": "barra/anello rosso contro la superficie scura"
+      },
+      {
+        "colore": "blu-vivo",
+        "adiacente": "d-superficie",
+        "tipo": "grafica",
         "uso": "anello di focus"
       },
       {
-        "testo": "blu-vivo",
-        "sfondo": "d-bordo",
-        "min": 3,
-        "uso": "barra blu su traccia scura"
+        "colore": "blu-vivo",
+        "adiacente": "d-card",
+        "tipo": "grafica",
+        "uso": "anello di focus nelle card"
       },
       {
-        "testo": "verde-vivo",
-        "sfondo": "d-bordo",
-        "min": 3,
-        "uso": "barra verde su traccia scura"
+        "colore": "d-bordo-input",
+        "adiacente": "d-card",
+        "tipo": "grafica",
+        "uso": "bordo di input nelle card scure"
       },
       {
-        "testo": "viola-vivo",
-        "sfondo": "d-bordo",
-        "min": 3,
-        "uso": "barra viola su traccia scura"
+        "colore": "d-bordo-input",
+        "adiacente": "d-superficie",
+        "tipo": "grafica",
+        "uso": "bordo di input sulla superficie scura"
+      },
+      {
+        "colore": "giallo-vivo",
+        "adiacente": "d-card",
+        "tipo": "grafica",
+        "uso": "fiamma 🔥 nel tema scuro"
+      },
+      {
+        "colore": "blu-vivo",
+        "adiacente": "d-blu-tinta",
+        "tipo": "grafica",
+        "uso": "badge pieno dell'opzione selezionata nello scuro (blu-barra)"
+      },
+      {
+        "testo": "d-card",
+        "sfondo": "blu-vivo",
+        "uso": "lettera nel badge selezionato nello scuro (text-card)"
       }
     ]
   }

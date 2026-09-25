@@ -11,13 +11,13 @@ Ogni ricetta dice **quando usarla** e **cosa corregge** rispetto all'app.
 
 ## 1. Cornice e scheletro
 
-Una schermata = intestazione fissa, contenuto che scorre, barra azioni fissa. Su desktop, un «telefono» centrato.
+Una schermata = intestazione fissa, contenuto che scorre, barra azioni fissa. Su desktop una colonna centrata alta quanto la finestra, non un telefono ad altezza fissa (`sistema-visivo.md` §7). Questo è lo scheletro di un'**app shell**; una pagina o una dashboard scorre normalmente con `min-h-dvh` e la stessa colonna.
 
 ```tsx
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="h-[100dvh] w-full overflow-hidden sm:overflow-auto sm:p-6 bg-pagina text-testo font-sans">
-      <div className="w-full max-w-3xl mx-auto h-full sm:h-[800px] sm:my-auto">{children}</div>
+    <div className="h-dvh w-full bg-pagina text-testo font-sans sm:py-6">
+      <div className="h-full w-full max-w-[480px] md:max-w-3xl mx-auto">{children}</div>
     </div>
   );
 }
@@ -42,11 +42,11 @@ export function Schermata({ header, children, azioni }: { header: React.ReactNod
 
 ```tsx
 <header className="shrink-0 border-b-2 border-bordo px-2 h-14 flex items-center gap-2">
-  <PulsanteIcona label="Esci dalla sessione" onClick={chiediUscita}><X strokeWidth={3} /></PulsanteIcona>
+  <PulsanteIcona label="Esci dalla sessione" onClick={chiediUscita}><X strokeWidth={3} aria-hidden /></PulsanteIcona>
   <BarraAvanzamento valore={fatte} max={totale} label="Avanzamento della sessione" colore="verde" sottile />
   {serie > 1 && (
     <span className="flex items-center gap-1 font-black text-giallo-testo motion-safe:animate-bounce" aria-label={`${serie} di fila`}>
-      <Flame className="fill-giallo-vivo text-giallo-vivo" size={20} aria-hidden /> {serie}
+      <Flame className="fill-giallo-vivo text-giallo-testo" size={20} aria-hidden /> {serie}
     </span>
   )}
   <span className={`font-black tabular-nums w-12 text-right ${restano <= 5 ? 'text-rosso-testo motion-safe:animate-pulse' : 'text-testo-tenue'}`}
@@ -63,7 +63,7 @@ export function PulsanteIcona({ label, children, ...p }: { label: string } & Rea
   return (
     <button aria-label={label} title={label} {...p}
       className="inline-flex items-center justify-center size-11 rounded-xl text-testo-tenue hover:bg-superficie-alt
-                 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-blu-pieno">
+                 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-focus">
       {children}
     </button>
   );
@@ -79,14 +79,14 @@ Interruttori (suono, tema): `aria-pressed={attivo}` e un'etichetta che dice l'az
 <button onClick={inizia}
   className="mt-auto w-full rounded-pulsante bg-blu-pieno border-b-4 border-blu-bordo3d text-white p-6 sm:p-8
              flex flex-col items-center gap-2 hover:brightness-95 active:border-b-0 active:translate-y-1
-             focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-blu-pieno transition-all duration-200 motion-reduce:transition-none">
-  <span className="text-2xl sm:text-3xl font-black uppercase tracking-widest">Inizia</span>
-  <span className="text-xs sm:text-sm font-bold uppercase tracking-widest bg-black/15 px-4 py-1.5 rounded-full">
+             focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-focus transition-all duration-200 motion-reduce:transition-none">
+  <span className="text-2xl sm:text-3xl font-black">Inizia</span>
+  <span className="text-sm font-bold bg-black/15 px-4 py-1.5 rounded-full">
     {ambito.nome} · {ambito.domande.length}
   </span>
 </button>
 ```
-Corregge: bianco su `#1CB0F6` (2,44:1) → su `#1078C0` (4,70:1); sottotitolo bianco invece di `#DDF4FF` (2,15:1); conteggio dai dati invece di «(606)».
+Corregge: bianco su `#1CB0F6` (2,44:1) → su `#1078C0` (4,70:1); sottotitolo bianco a 14 px invece di `#DDF4FF` (2,15:1) a 12 px maiuscolo; conteggio dai dati invece di «(606)». Etichetta in maiuscola iniziale: a 320 px «INIZIA SESSIONE» in maiuscolo spaziato va a capo (`sistema-visivo.md` §4).
 
 ## 5. Tile secondarie
 
@@ -97,12 +97,12 @@ Azioni secondarie sotto la CTA: blocchi bianchi 3D, icona colorata sopra, etiche
   <button className="bg-card border-2 border-bordo border-b-4 rounded-pulsante p-4 min-h-24 flex flex-col items-center justify-center gap-2
                      text-testo-tenue hover:bg-superficie-alt active:border-b-2 active:translate-y-[2px] transition-all duration-150">
     <BookOpen className="size-7 text-viola-testo" aria-hidden />
-    <span className="text-xs sm:text-sm font-black uppercase tracking-widest text-center">Altre modalità</span>
+    <span className="text-sm font-black uppercase tracking-wide text-center">Altre modalità</span>
   </button>
   {/* Simulazione d'esame: GraduationCap text-giallo-testo */}
 </div>
 ```
-Una **barra di navigazione in basso** (Statistiche · Importa · Esporta) usa lo stesso schema con icona 24 + etichetta `text-xs`, ogni voce alta almeno 44 px.
+Una **barra di navigazione in basso** (Statistiche · Importa · Esporta) usa lo stesso schema con icona 24 + etichetta `text-sm` (non 12 px: è l'unico modo di sapere cosa fa la voce), ogni voce alta almeno 44 px.
 
 ## 6. Triade di sicurezza
 
@@ -134,9 +134,9 @@ const giusta = esito === 'giusta';
                     className={giusta ? 'text-verde-tinta-testo' : 'text-rosso-tinta-testo'}>
           <p className="text-xl sm:text-2xl font-black flex items-center gap-2">
             {giusta ? <Check aria-hidden strokeWidth={3} /> : <X aria-hidden strokeWidth={3} />}
-            {giusta ? (serie > 2 ? `Fantastico! 🔥 ${serie} di fila!` : 'Ottimo!') : 'Errata.'}
+            {giusta ? (serie > 2 ? `Fantastico, ${serie} di fila! 🔥` : 'Ottimo!') : 'Non è questa.'}
           </p>
-          {giusta && <p className="text-xs font-black mt-1">{d.categoria} · {d.argomento}</p>}
+          {giusta && <p className="text-sm font-black mt-1">{d.categoria} · {d.argomento}</p>}
           {giusta && <p className="text-sm font-semibold text-testo mt-1">{d.spiegazione}</p>}
         </motion.div>
       )}
@@ -151,7 +151,7 @@ const giusta = esito === 'giusta';
   </div>
 </div>
 ```
-Corregge: «Next» / «Riprova» in due lingue sullo stesso pulsante; esito solo a colori (ora icona ✓/✗); nessun `aria-live`.
+Corregge: «Next» / «Riprova» in due lingue sullo stesso pulsante; esito solo a colori (ora icona ✓/✗); nessun `aria-live`; due «!» nello stesso messaggio; «Errata.» come titolo di un quiz che fa riprovare. Questa barra è per il quiz con Riprova: per flashcard e simulazione il feedback cambia (`copy.md` §8, «Feedback per tipo di interazione»).
 
 ## 8. Card opzione
 
@@ -169,27 +169,28 @@ const stile: Record<Stato, string> = {
 <button role="radio" aria-checked={stato === 'scelta'} disabled={stato === 'spenta'} onClick={scegli}
   className={`w-full min-h-[72px] rounded-card border-2 border-b-4 p-4 flex items-center gap-4 text-left transition-all duration-150
               active:border-b-2 active:translate-y-[2px] ${stile[stato]}`}>
-  <span className="size-10 shrink-0 rounded-badge border-2 border-current/30 bg-card grid place-items-center font-black">
+  <span className={`size-10 shrink-0 rounded-badge border-2 grid place-items-center font-black ${
+    stato === 'scelta' ? 'bg-blu-barra border-blu-barra text-card' : 'border-current/30 bg-card'}`}>
     {stato === 'giusta' ? <Check strokeWidth={3} aria-label="giusta" /> : stato === 'sbagliata' ? <X strokeWidth={3} aria-label="sbagliata" /> : lettera}
   </span>
   <span className="text-base sm:text-lg font-bold leading-snug">{testo}</span>
 </button>
 ```
-Contenitore: `<div role="radiogroup" aria-label="Risposte" className="grid grid-cols-1 sm:grid-cols-2 gap-3">`. Hover **grigio**: il blu significa solo «scelta».
+Contenitore: `<div role="radiogroup" aria-label="Risposte" className="grid grid-cols-1 sm:grid-cols-2 gap-3">`. Hover **grigio**: il blu significa solo «scelta». Lo stato «scelta» lo porta il badge pieno (4,13:1 sulla tinta nel chiaro, 3,87:1 nello scuro), non il bordo vivo che da solo non arriva a 3:1. La lettera usa `text-card`: bianca sul blu pieno nel chiaro (4,70), scura sul blu vivo nello scuro (7,30).
 
 ## 9. Pillole
 
 ```tsx
 // pillola piena (numero della domanda): stesso colore in sessione e simulazione
-<span className="px-4 py-1.5 rounded-full bg-viola-pieno text-white text-xs sm:text-sm font-black uppercase tracking-widest">Domanda {i}</span>
+<span className="px-4 py-1.5 rounded-full bg-viola-pieno text-white text-sm font-black uppercase tracking-wide">Domanda {i}</span>
 
 // pillola di contesto (ambito attivo)
-<span className="px-3 py-1 rounded-full border border-verde-vivo bg-verde-tinta text-verde-tinta-testo text-xs font-black">{ambito.nome} · {ambito.n}</span>
+<span className="px-3 py-1 rounded-full border border-verde-vivo bg-verde-tinta text-verde-tinta-testo text-sm font-black">{ambito.nome} · {ambito.n}</span>
 
 // pillole dati: colorate solo se > 0, sempre con icona
-<span className={`inline-flex items-center gap-1 text-xs font-bold px-2 py-0.5 rounded-lg border ${
+<span className={`inline-flex items-center gap-1 text-sm font-bold px-2 py-0.5 rounded-lg border ${
   k > 0 ? 'bg-verde-tinta border-verde-vivo text-verde-tinta-testo' : 'bg-card border-bordo text-testo-tenue'}`}>
-  <Check size={12} strokeWidth={3} aria-hidden /> {plurale(k, 'giusta', 'giuste')}
+  <Check size={14} strokeWidth={3} aria-hidden /> {plurale(k, 'giusta', 'giuste')}
 </span>
 ```
 Corregge: «Question N» gialla in simulazione vs «Domanda N» viola in sessione; pillole con Tailwind fuori palette (`blue-500`, `amber-*`).
@@ -201,7 +202,7 @@ Corregge: «Question N» gialla in simulazione vs «Domanda N» viola in session
 ```tsx
 <div className="bg-card rounded-card border-2 border-bordo p-4 sm:p-5 flex flex-col gap-3">
   <div className="flex justify-between items-baseline">
-    <span id="lbl-imp" className="text-xs sm:text-sm font-black uppercase tracking-wider text-testo-tenue">Imparate</span>
+    <span id="lbl-imp" className="text-sm font-black uppercase tracking-wide text-testo-tenue">Imparate</span>
     <span className="text-xl font-black text-verde-testo tabular-nums">{pct}%</span>
   </div>
   <BarraAvanzamento valore={pct} max={100} labelledBy="lbl-imp" colore="verde" />
@@ -216,7 +217,7 @@ Corregge: «Question N» gialla in simulazione vs «Domanda N» viola in session
 ```tsx
 export function BarraAvanzamento({ valore, max, colore = 'blu', label, labelledBy, sottile }: {...}) {
   const pct = Math.round((valore / max) * 100);
-  const fill = { blu: 'bg-blu-vivo', verde: 'bg-verde-vivo', viola: 'bg-viola-vivo' }[colore];
+  const fill = { blu: 'bg-blu-barra', verde: 'bg-verde-barra', viola: 'bg-viola-barra', rosso: 'bg-rosso-barra' }[colore];
   return (
     <div role="progressbar" aria-valuenow={valore} aria-valuemin={0} aria-valuemax={max}
          aria-label={label} aria-labelledby={labelledBy}
@@ -226,7 +227,7 @@ export function BarraAvanzamento({ valore, max, colore = 'blu', label, labelledB
   );
 }
 ```
-Il colore vivo va bene perché **il numero è scritto accanto** (o nell'intestazione). Navigatore della simulazione: pallini da 12 px dentro pulsanti da 44 px, risposta data = pieno + spunta minuscola, corrente = anello, `aria-label` con lo stato.
+Riempimento `*-barra` (pieno nel chiaro, vivo nello scuro) su traccia `bordo`: 3,79:1 o più in entrambi i temi, contro 1,69:1 del verde vivo dell'app. Il numero resta **scritto accanto** (o nell'intestazione), ma non sostituisce il contrasto. Un anello di avanzamento segue le stesse regole (`stroke: var(--color-verde-barra)` su traccia `var(--color-bordo)`). Navigatore della simulazione: pallini da 12 px dentro pulsanti da 44 px, risposta data = pieno + spunta minuscola, corrente = anello, `aria-label` con lo stato.
 
 ## 12. Selettore a segmenti
 
@@ -254,7 +255,7 @@ Icona in un quadrato tinto al 10%, titolo di 1-2 parole, descrizione di 2-5 paro
   <span className="size-12 rounded-chip bg-rosso-vivo/10 grid place-items-center"><Target className="text-rosso-testo" aria-hidden /></span>
   <span>
     <span className="block font-black text-base sm:text-lg text-testo-forte">Punti deboli</span>
-    <span className="block text-xs sm:text-sm font-bold text-testo-tenue">Focalizzati sugli errori</span>
+    <span className="block text-sm font-bold text-testo-tenue">Focalizzati sugli errori</span>
   </span>
 </button>
 ```
@@ -282,7 +283,7 @@ Per errori nelle statistiche e revisione della simulazione (solo sbagliate e ome
 
 ```tsx
 <article className="rounded-card border-2 border-rosso-vivo bg-rosso-tinta p-4 sm:p-5 flex flex-col gap-2 text-testo">
-  <p className="text-xs font-black text-rosso-tinta-testo">{d.categoria} · {d.argomento}</p>
+  <p className="text-sm font-black text-rosso-tinta-testo">{d.categoria} · {d.argomento}</p>
   <p className="font-bold text-testo-forte">{d.testo}</p>
   <p className="text-sm font-semibold">La tua risposta:{' '}
     {risposta ? <del className="text-rosso-tinta-testo font-bold">{risposta}</del> : <span className="font-bold">Omessa</span>}</p>
@@ -298,7 +299,7 @@ Cerchio con spunta che scala (fine sessione) oppure verdetto + punteggio gigante
 
 ```tsx
 <section className="flex flex-col items-center text-center gap-4 py-8">
-  <p className={`text-lg font-black uppercase tracking-widest ${superata ? 'text-verde-testo' : 'text-testo'}`}>
+  <p className={`text-lg font-black uppercase tracking-wide ${superata ? 'text-verde-testo' : 'text-testo'}`}>
     {superata ? 'Superata!' : 'Non superata'}
   </p>
   <p className="text-5xl sm:text-6xl font-black leading-none tabular-nums text-testo-forte">{punti}/{n}</p>

@@ -5,6 +5,7 @@
  * Uso:
  *   node contrasto.cjs "#FFFFFF" "#1CB0F6"            un confronto
  *   node contrasto.cjs "#fff:#1CB0F6" "#4B4B4B:#fff"  più coppie testo:sfondo
+ *   node contrasto.cjs --grafica "#2F8500:#E5E7EB"    coppia grafica (min 3 invece di 4.5)
  *   node contrasto.cjs --palette ../assets/palette.json   controlla tutte le coppie del file
  *   node contrasto.cjs --suggerisci "#58CC02" --su "#FFFFFF" [--min 4.5]
  *        trova la tonalità più vicina (stessa tinta, più scura o più chiara)
@@ -12,7 +13,10 @@
  *
  * Soglie: testo normale 4.5, testo grande (>= 24px, o >= 18.66px bold) 3,
  * componenti UI e grafici (bordi di input, barre, icone significative) 3.
- * Nel file palette ogni coppia ha "min": 4.5 | 3 (default 4.5).
+ * Nel file palette ogni coppia ha "testo" e "sfondo" (per la grafica anche "colore" e
+ * "adiacente") e la soglia si decide così: "min" esplicito, altrimenti "tipo": "grafica"
+ * (barra/traccia, anelli, icone con significato, anello di focus, bordi di input) = 3,
+ * "tipo": "testo-grande" = 3, altrimenti 4.5.
  * Exit code 1 se almeno una coppia non passa (utile in CI).
  */
 const fs = require('fs');
@@ -106,17 +110,23 @@ if (args[0] === '--palette') {
   const data = JSON.parse(fs.readFileSync(file, 'utf8'));
   const colors = data.colori || {};
   const res = c => (colors[c] ? colors[c] : c);
+  let tot = 0, ko = 0;
   for (const group of Object.keys(data.coppie || {})) {
     console.log(`\n== ${group} ==`);
     for (const p of data.coppie[group]) {
-      allOk = row(res(p.testo), res(p.sfondo), p.min || 4.5, `${p.uso || ''} (${p.testo} / ${p.sfondo})`) && allOk;
+      const fg = p.testo || p.colore, bg = p.sfondo || p.adiacente;
+      const min = p.min || (p.tipo === 'grafica' || p.tipo === 'testo-grande' ? 3 : 4.5);
+      const ok = row(res(fg), res(bg), min, `${p.tipo === 'grafica' ? '[grafica] ' : ''}${p.uso || ''} (${fg} / ${bg})`);
+      tot++; if (!ok) ko++;
+      allOk = ok && allOk;
     }
   }
+  console.log(`\n${tot} coppie, ${ko} FAIL`);
 } else if (args[0] === '--suggerisci') {
   const color = args[1];
   const suIdx = args.indexOf('--su');
   const bg = suIdx >= 0 ? args[suIdx + 1] : '#FFFFFF';
-  const min = minArg || 4.5;
+  const min = minArg || (args.includes('--grafica') ? 3 : 4.5);
   const s = suggest(color, bg, min);
   console.log(`Per ${color} su ${bg} (min ${min}):`);
   for (const [k, v] of Object.entries(s)) console.log(`  ${k}: ${v}  -> ${ratio(v, bg).toFixed(2)}:1`);
@@ -126,6 +136,7 @@ if (args[0] === '--palette') {
   const plain = args.filter((a, i) => !a.startsWith('--') && args[i - 1] !== '--min');
   if (plain.length === 2 && !plain[0].includes(':')) pairs.push(plain);
   else for (const a of plain) pairs.push(a.split(':'));
-  for (const [fg, bg] of pairs) allOk = row(fg, bg, minArg || 4.5) && allOk;
+  const def = minArg || (args.includes('--grafica') ? 3 : 4.5);
+  for (const [fg, bg] of pairs) allOk = row(fg, bg, def) && allOk;
 }
 process.exit(allOk ? 0 : 1);
