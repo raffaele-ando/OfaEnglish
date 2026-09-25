@@ -1,6 +1,6 @@
 # Adattare il metodo al tipo di esame
 
-I 12 principi di `SKILL.md` restano gli stessi. Quello che cambia è la loro **forma concreta**. Qui sotto trovi come tradurli per i tipi di esame più comuni. Molti esami sono misti (per esempio uno scritto con esercizi e domande di teoria): in quel caso combina le sezioni.
+I tre pilastri di `SKILL.md` (algoritmo, struttura delle informazioni, gamification basata su quanto sa) e i principi della sessione restano gli stessi. Per ogni tipo di esame, ridefinisci l'elemento di studio, le etichette e cosa vuol dire "imparato" (tabella al §9 di `informazioni-e-statistiche.md`). Quello che cambia è la loro **forma concreta**. Qui sotto trovi come tradurli per i tipi di esame più comuni. Molti esami sono misti (per esempio uno scritto con esercizi e domande di teoria): in quel caso combina le sezioni.
 
 Indice:
 - A. Test a risposta multipla su un programma definito (OFA, test di lingua)
@@ -80,6 +80,7 @@ Organizzazione:
 
 Anche il piano rispetta i principi:
 - **Conto alla rovescia** e fasi chiare: **nucleo** (circa i primi 40% dei giorni) → **ampiezza e punti deboli** (circa 40%) → **simulazioni e ripasso** (circa il 20% finale).
-- **Un blocco al giorno dichiarato, piccolo e fattibile** ("oggi: 1 sessione Smart + 1 esercizio-tipo di serie"), **non quote rigide**. Gli obiettivi giornalieri fissi sono stati provati e tolti dall'app: se salta un giorno, il piano si ricalcola senza sensi di colpa e la serie riparte.
+- **Un blocco al giorno dichiarato, piccolo e fattibile** ("oggi: 1 sessione Smart + 1 esercizio-tipo di serie"), **non quote rigide**. Gli obiettivi giornalieri fissi e le serie di giorni sono stati provati e non funzionano con lui: se salta un giorno, il piano si ricalcola senza sensi di colpa.
 - **Simulazioni complete a intervalli** (per esempio ogni 5–7 giorni nella fase finale), confrontando il risultato con la soglia di sicurezza.
+- **Il progresso si misura con quanto sa**: padronanza del nucleo e dell'intero programma, accuratezza per argomento, risultati delle simulazioni rispetto alla soglia. Non con giorni o ore accumulate (vedi `informazioni-e-statistiche.md`).
 - **Criterio di prontezza esplicito**: "sei pronto quando superi stabilmente la simulazione con margine". Per l'OFA era 25/30 con una soglia reale di 24.

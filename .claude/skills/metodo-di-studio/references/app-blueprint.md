@@ -36,30 +36,20 @@ Le statistiche per domanda sono quelle di `UserStats`: corrette, errate, omesse,
 ## 3. Schermate
 | Schermata | Contenuto |
 |---|---|
-| **Menu** | Pulsante grande **"Inizia Sessione"** (Smart, parte subito). Sotto: Modalità Custom, Simulazione Esame, Statistiche. In alto: giorni consecutivi, % di padronanza, accuratezza, scelta tra nucleo e tutto il materiale, tema scuro, audio on/off, login |
+| **Menu** | Pulsante grande **"Inizia Sessione"** (Smart, parte subito). Sotto: Modalità Custom, Simulazione Esame, Statistiche. In evidenza: **% di padronanza** e **accuratezza** del materiale scelto; scelta tra nucleo e tutto il materiale, tema scuro, audio on/off, login |
 | **Modalità Custom** | Standard (SM-2), Weakness, Blitz (10 s), Active Recall, Filtro mirato (nucleo / categoria / livello / argomento). Per gli esami a esercizi aggiungi "Riconosci il tipo" e "Esercizio guidato" |
-| **Sessione** | 10 domande, barra di avanzamento, timer (30 s, oppure libero per gli esercizi lunghi), serie 🔥, pulsanti **Indovino / Incerto / Sicuro** come conferma, spiegazione con argomento, "Riprova" dopo un errore, riepilogo finale "X su N al primo tentativo" |
+| **Sessione** | 10 domande, barra di avanzamento, timer (30 s, oppure libero per gli esercizi lunghi), pulsanti **Indovino / Incerto / Sicuro** come conferma, spiegazione con argomento, "Riprova" dopo un errore, riepilogo finale "X su N al primo tentativo" |
 | **Simulazione** | Formato e tempo reali, soglia più alta di quella reale, nessun feedback, navigazione libera, riepilogo con le omesse; per i test con penalità, anche il punteggio netto |
-| **Statistiche** | Esami superati e miglior punteggio, radar per argomento, barre per livello, calendario delle ultime 4 settimane (lunedì–domenica), tempo studiato, elenco delle domande ordinabile per tasso di errore |
+| **Statistiche** | Vedi `informazioni-e-statistiche.md` §5–6: padronanza, accuratezza, simulazioni (superate, pass rate, record), radar per argomento, imparate/da imparare per livello e argomento, attività, dettaglio per elemento con accuratezza, confidenza e tendenza. **Niente XP, livelli, serie o sfide quotidiane** |
 
-## 4. Algoritmi (in `spacedRepetition.ts`)
-- **Scelta delle domande nella modalità Smart**: punteggio = urgenza SM-2 (mai vista: 800–1000; da ripassare: 500 + giorni di ritardo × 10) + debolezza (tasso di errore × 400 + (5 − facilità) × 40) + un valore casuale tra 0 e 100. Si prendono le prime 10.
-- **Voto continuo da 0 a 5** (`calculateContinuousQuality`):
-  - risposta sbagliata = 0;
-  - giusta senza cambi di opzione: 5 se il rapporto tra tempo effettivo e tempo atteso è ≤ 1, poi scende fino a 3 per le risposte lente;
-  - giusta con cambi partendo dall'opzione giusta: 3,1–3,6; partendo da quella sbagliata: 2,5–3,1;
-  - esitazione prima di confermare oltre 4 s: fino a −0,35;
-  - più tentativi: sotto 3;
-  - *Indovino* −2, *Incerto* −0,6.
-- **Tempo atteso**: dipende dalla lunghezza del testo (lettura a 180 parole al minuto) più 1,2 s per decidere, moltiplicato per un fattore di velocità personale aggiornato con una media mobile esponenziale.
-- **SM-2**: con voto ≥ 3 l'intervallo diventa 1 giorno, poi 6, poi intervallo × facilità; con voto < 3 si riparte da 0. La facilità si aggiorna con la formula SM-2 e non scende sotto 1,3.
-- **Per gli esercizi a passaggi**: il voto parte da 5 e perde circa 1–1,5 punti per ogni aiuto usato, più una penalità per gli errori di metodo.
+## 4. Algoritmi
+Tutto in **`algoritmo.md`**: stato di ogni elemento, voto continuo da 0 a 5, SM-2, velocità personale, punteggio delle modalità, metriche derivate. Il codice è in `assets/codice-ofa/spacedRepetition.ts`. Cosa mostrare e dove è in **`informazioni-e-statistiche.md`**: segui quella struttura per menu, sessione, simulazione e statistiche.
 
 ## 5. Stile grafico (tipo Duolingo)
 - Font **Nunito Sans**, testi in grassetto molto marcato (`font-black`), angoli molto arrotondati (`rounded-[24px]`), pulsanti "a rilievo" (`border-b-4` che si schiaccia con `active:border-b-0 active:translate-y-1`).
-- Colori: azzurro principale `#1CB0F6` (bordo `#1899D6`), verde giusto `#58CC02` (bordo `#46A302`), rosso sbagliato `#FF4B4B`, giallo serie `#FFC800`, viola `#CE82FF`, testo `#4B4B4B`, sfondo `#F7F9FB`. Tema scuro: `#111B21`, `#0F172A`, `#1E293B`, bordi `#334155`, testo `#F8FAFC`.
+- Colori: azzurro principale `#1CB0F6` (bordo `#1899D6`), verde giusto `#58CC02` (bordo `#46A302`), rosso sbagliato `#FF4B4B`, giallo `#FFC800` (fascia media del semaforo), viola `#CE82FF`, testo `#4B4B4B`, sfondo `#F7F9FB`. Tema scuro: `#111B21`, `#0F172A`, `#1E293B`, bordi `#334155`, testo `#F8FAFC`.
 - Tema scuro con classe `.dark` salvata in `localStorage`, applicata in `index.html` prima che React si carichi (così non c'è il lampo bianco all'apertura).
-- **Audio e vibrazione** (`audio.ts`): suoni generati con la Web Audio API, senza file audio; un accordo che sale di tono con la serie di risposte giuste; vibrazione breve; coriandoli `mini → burst → cannon` man mano che la serie cresce, e `celebration` a fine sessione o per un esame superato. Deve esserci sempre il pulsante per togliere l'audio.
+- **Audio e vibrazione** (`audio.ts`): suoni generati con la Web Audio API, senza file audio; un accordo breve sulla risposta giusta; vibrazione leggera; coriandoli a fine sessione o per un esame superato. Sono una **reazione immediata**, non una metrica: la motivazione vera sta nei numeri su quanto sa. Deve esserci sempre il pulsante per togliere l'audio.
 
 ## 6. Dati e sincronizzazione
 - Salvataggio in `localStorage`, più export e import in JSON.
@@ -73,6 +63,7 @@ Le statistiche per domanda sono quelle di `UserStats`: corrette, errate, omesse,
 4. Niente script e dump di lavoro nella cartella principale: mettili in `scripts/` e aggiungi a `.gitignore` i file generati.
 5. Non chiamare funzioni con effetti collaterali dentro gli updater di `setState`: con StrictMode l'esame veniva registrato due volte in sviluppo.
 6. Anche le risposte date nella simulazione devono aggiornare SM-2 (intervallo e facilità), non solo il contatore.
-7. Niente conteggi scritti a mano nell'interfaccia ("606", "60"): calcolali dai dati.
-8. Dividi il bundle in più parti (`import()` dinamico per statistiche e grafici): l'app OFA aveva un unico file da 1,7 MB.
-9. Non lasciare nell'interfaccia pagine di debug o dipendenze inutili (per esempio `@google/genai` ed `express` residui di AI Studio).
+7. Non rimettere XP, livelli e sfide quotidiane (nell'app OFA sono rimasti in fondo alle statistiche solo come residuo).
+8. Niente conteggi scritti a mano nell'interfaccia ("606", "60"): calcolali dai dati.
+9. Dividi il bundle in più parti (`import()` dinamico per statistiche e grafici): l'app OFA aveva un unico file da 1,7 MB.
+10. Non lasciare nell'interfaccia pagine di debug o dipendenze inutili (per esempio `@google/genai` ed `express` residui di AI Studio).
