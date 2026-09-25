@@ -1,6 +1,6 @@
 ---
 name: metodo-di-studio
-description: Il metodo di studio personale dell'utente, nato dall'app con cui ha superato l'OFA di Inglese del Politecnico di Milano. Le sue parti migliori sono tre: un algoritmo di ripasso che misura davvero quanto sa, un modo preciso di organizzare e mostrare le informazioni, e una gamification "vera" basata su quanto ne sa (padronanza %, accuratezza, profilo per argomento) invece di livelli, XP o streak. Il metodo va adattato a qualsiasi esame. Usa questa skill ogni volta che l'utente deve preparare un esame o un test, qualunque sia il formato — esami universitari di ingegneria (Analisi, Fisica, Geometria, Informatica…), TOLC, test d'ingresso, OFA, orali, certificazioni — e anche quando chiede un piano di studio, di essere interrogato in chat, esercizi, flashcard, statistiche sui progressi, simulazioni d'esame o un'app/sito per studiare. Usala anche se non nomina il "metodo": basta che si parli di studiare o prepararsi per una prova.
+description: Il metodo di studio personale dell'utente, nato dall'app con cui ha superato l'OFA di Inglese del Politecnico di Milano. Le sue parti migliori sono tre: un algoritmo di ripasso che misura davvero quanto sa, un modo preciso di organizzare e mostrare le informazioni, e una gamification "vera" basata su quanto ne sa (padronanza %, accuratezza, profilo per argomento) invece di livelli, XP o streak. In più tutto è dinamico e progressivo (tempo atteso, voto, confidenza e feedback che crescono con lui) e si comincia con poco (nucleo piccolo, sessioni brevi) per partire bene. Il metodo va adattato a qualsiasi esame. Usa questa skill ogni volta che l'utente deve preparare un esame o un test, qualunque sia il formato — esami universitari di ingegneria (Analisi, Fisica, Geometria, Informatica…), TOLC, test d'ingresso, OFA, orali, certificazioni — e anche quando chiede un piano di studio, di essere interrogato in chat, esercizi, flashcard, statistiche sui progressi, simulazioni d'esame o un'app/sito per studiare. Usala anche se non nomina il "metodo": basta che si parli di studiare o prepararsi per una prova.
 ---
 
 # Il mio metodo di studio
@@ -11,6 +11,10 @@ L'utente è stato esplicito su quali sono le parti migliori, cioè quelle su cui
 1. **l'algoritmo**, cioè come si scelgono le domande e come si misura se una cosa è davvero imparata;
 2. **come sono strutturate e mostrate le informazioni**: cosa vede, dove e quando;
 3. **la gamification vera**: la motivazione viene dal vedere **quanto ne sa** (padronanza, accuratezza, argomenti forti e deboli), **non** da livelli immaginari, XP o streak.
+
+A questi si aggiungono due caratteristiche che attraversano tutto:
+- **tutto è dinamico e progressivo** (§5): i numeri si calcolano e si adattano a lui (tempo atteso, voto, confidenza con tendenza, intervalli) e il feedback cresce con le risposte giuste della sessione (suoni che salgono di tono, coriandoli sempre più grandi);
+- **si comincia con poco** (§6): un nucleo piccolo e sessioni brevi, così i primi passi riescono bene e la padronanza sale in fretta.
 
 L'OFA era un quiz a risposta multipla. Un esame di Analisi, un orale di Fisica o un esame di programmazione sono un'altra cosa. **I tre pilastri restano, la forma cambia**: ogni volta chiediti "come si misura *quanto ne so* in questo esame, e come glielo mostro?".
 
@@ -69,9 +73,42 @@ La motivazione viene da **numeri che misurano l'apprendimento reale** e che si m
 - **Simulazioni**: esami superati, **pass rate**, **record**, distanza dalla soglia di sicurezza. È la misura di prontezza.
 - **Tempo e attività**: domande al giorno e minuti studiati. È un dato informativo, non una quota.
 
-**Cosa non lo motiva (non costruirci sopra niente):** livelli e XP immaginari (anche con i 50 XP regalati all'inizio), serie di giorni consecutivi, obiettivi giornalieri fissi o sfide a fasi. Nell'app sono stati provati, tolti dal menu e relegati in fondo alle statistiche; l'utente ha detto chiaramente che non sono quello che funziona con lui. Suoni, coriandoli e vibrazione possono restare come **reazione immediata** a una risposta giusta o a un esame superato, ma non sono una metrica e non devono sostituire i numeri veri.
+**Cosa non lo motiva (non costruirci sopra niente):** livelli e XP immaginari (anche con i 50 XP regalati all'inizio), la **serie di giorni consecutivi**, obiettivi giornalieri fissi o sfide a fasi. Nell'app sono stati provati, tolti dal menu e relegati in fondo alle statistiche; l'utente ha detto chiaramente che non sono quello che funziona con lui. Non vanno confusi con il **feedback progressivo dentro la sessione** (§5), che invece gli piace.
 
-## 5. Principi della sessione
+## 5. Tutto è dinamico e progressivo
+
+L'utente ci tiene molto: **niente è fisso, tutto si calcola e si adatta a lui mentre studia.** Quando costruisci qualcosa per lui, fai in modo che ogni numero e ogni reazione sia calcolato dai suoi dati e cambi man mano.
+
+- **Il tempo atteso** si calcola per ogni domanda (lunghezza del testo) ed è moltiplicato per il suo **fattore di velocità personale**, che si aggiorna a ogni risposta giusta con una media mobile.
+- **Il voto** è continuo (per esempio 4,38 e non solo giusto/sbagliato) e viene da tempo, cambi di opzione, esitazione e sicurezza.
+- **La confidenza per elemento** (dalla facilità SM-2) cambia a ogni risposta e mostra la **tendenza** ↑ ↓ – rispetto alla volta prima.
+- **Gli intervalli di ripasso** crescono (1 → 6 → 16 → 45 giorni…) oppure crollano a 1 dopo un errore; la facilità ricorda che quella domanda era difficile.
+- **La scelta delle domande** si riordina a ogni sessione in base a urgenza, debolezza e un po' di casualità.
+- **Padronanza, accuratezza, radar e barre** si ricalcolano dopo ogni risposta.
+- **Il feedback cresce con la serie di risposte giuste dentro la sessione**:
+  - messaggio: "Ottimo!", poi "Fantastico! 🔥 N di fila!" dalla terza;
+  - suono: accordo di Do maggiore con una scintilla acuta, il cui **tono sale** del 4% per ogni risposta giusta dopo la seconda, fino a +20%;
+  - coriandoli: *mini* → *burst* dalla seconda di fila → *cannon* (due cannoni laterali) dalla quarta;
+  - a fine sessione ed esame superato: fanfara e *celebration*;
+  - vibrazione diversa per tocco, risposta giusta, risposta sbagliata e celebrazione;
+  - un errore riporta tutto a zero, con un suono discendente morbido.
+
+  È una ricompensa **immediata e proporzionata a quanto sta andando bene adesso**. È diversa dalla serie di giorni (che non lo motiva): qui la serie dura una sessione e premia risposte vere. Suoni sintetizzati al momento (Web Audio API, niente file), con il pulsante per disattivarli. Codice: `assets/codice-ofa/audio.ts`.
+- **Anche i dettagli visivi sono progressivi**: la barra di avanzamento si riempie con un'animazione, il timer diventa rosso e lampeggia negli ultimi 5 s, le barre si colorano a semaforo.
+
+## 6. Cominciare con poco, per iniziare bene
+
+Il metodo è pensato perché **i primi passi riescano bene**, così da voler continuare:
+- **Un nucleo piccolo prima di tutto**: il "Primo Corpus" di 60 domande invece di 606. Con poco materiale la **padronanza sale in fretta e si vede** ("Imparate (su 60)": ogni domanda vale quasi il 2%), mentre su 606 la barra si muoverebbe appena. È la gamification vera che funziona fin dal primo giorno.
+- **Sessioni da 10**: un traguardo vicino, che si chiude sempre con una schermata di fine ("X su N al primo tentativo") e una celebrazione.
+- **Un tocco per iniziare**, senza configurare niente.
+- **All'inizio vince il nuovo**: nella modalità Smart le domande mai viste hanno la priorità più alta (800–1000), quindi le prime sessioni sono varie e fresche. Il ripasso degli errori entra man mano che ci sono dati.
+- **Dopo un errore si chiude comunque con la risposta giusta** (Riprova), così nessuna domanda finisce con un fallimento.
+- **Da piccolo a grande**: prima il nucleo, poi il resto a blocchi per argomento; prima le sessioni, poi le simulazioni complete.
+
+Per un esame nuovo: individua subito un nucleo **piccolo** (poche decine di elementi: gli esercizi-tipo più frequenti, le domande che tornano sempre) e mostrane la padronanza separata dal totale.
+
+## 7. Principi della sessione
 
 - **Si parte con un tocco solo**: un pulsante che avvia subito la modalità Smart. Ogni scelta prima di cominciare è attrito.
 - **Sessioni brevi e con un tempo**: circa 10 domande, 30 s a domanda (Blitz 10 s). Per esercizi lunghi: un esercizio-tipo o un blocco di 20–25 minuti.
@@ -81,29 +118,31 @@ La motivazione viene da **numeri che misurano l'apprendimento reale** e che si m
 - **Prima il nucleo** (il materiale più vicino all'esame vero, per l'OFA le prime 60 domande), poi il resto a blocchi per argomento.
 - **Simulazione più severa del vero**: formato e tempo reali, soglia più alta (25/30 invece di 24/30), nessun feedback, navigazione libera tra le domande.
 
-## 6. Come lavorare quando arriva un esame nuovo
+## 8. Come lavorare quando arriva un esame nuovo
 
 1. **Ricostruisci l'esame vero**: tipo di prova, durata, punteggio e penalità, soglia, data, materiali (i **temi d'esame passati** sono la fonte più preziosa). Se non lo sai, chiedi o cerca. Non inventare il formato di un esame universitario.
 2. **Scegli l'adattamento**: leggi **`references/adattamento-per-esame.md`** (risposta multipla, TOLC con penalità, esercizi di ingegneria, teoria e orali, programmazione, memorizzazione, piano di studio).
 3. **Definisci la struttura delle informazioni**: quali sono gli elementi, con quali etichette (categoria, argomento, livello, nucleo) e come si calcola "imparato" per questo esame.
-4. **Scegli cosa produrre**, partendo dalla cosa più piccola che permette di iniziare oggi: interrogazione in chat (§7), piano di studio, materiale (domande, esercizi con aiuti, flashcard), oppure un'app (leggi **`references/app-blueprint.md`** e riusa `assets/codice-ofa/`). Se non è chiaro, proponi una sola opzione consigliata e parti.
+4. **Scegli cosa produrre**, partendo dalla cosa più piccola che permette di iniziare oggi: interrogazione in chat (§9), piano di studio, materiale (domande, esercizi con aiuti, flashcard), oppure un'app (leggi **`references/app-blueprint.md`** e riusa `assets/codice-ofa/`). Se non è chiaro, proponi una sola opzione consigliata e parti.
 5. **Costruisci prima il nucleo**, poi il resto a blocchi per argomento.
 6. **Controlla la qualità**: **`references/banco-domande.md`**, più `node scripts/audit_bank.cjs <file>` per i banchi a risposta multipla.
 
-## 7. Modalità tutor in chat
+## 9. Modalità tutor in chat
 
 In chat non si possono misurare i tempi, ma l'algoritmo e la gamification vera si applicano lo stesso:
-- **Parti subito** con la prima domanda: una o due righe di contesto, niente menu.
+- **Parti subito** con la prima domanda: una o due righe di contesto, niente menu. Le prime domande devono essere alla sua portata e dal nucleo, così si comincia bene.
 - **Blocchi da circa 10**, con contatore "3/10". **Una domanda alla volta.**
-- **Chiedi la sicurezza (I / In / S).** Voto approssimato: giusta + S = 5; giusta + In ≈ 4, oppure 3 se era lenta o incompleta; giusta + I = sotto 3, cioè da ripassare; con un aiuto circa 3; sbagliata = 0.
+- **Chiedi la sicurezza (I / In / S).** Per le domande aperte e gli orali il voto si basa sui punti chiave coperti (`references/algoritmo.md` §7). Per le altre, voto approssimato: giusta + S = 5; giusta + In ≈ 4, oppure 3 se era lenta o incompleta; giusta + I = sotto 3, cioè da ripassare; con un aiuto circa 3; sbagliata = 0.
 - **Dopo ogni risposta**: giusto o sbagliato, spiegazione breve, **argomento**. Se è sbagliata: secondo tentativo o una variante vicina prima di andare avanti.
 - **Tieni lo stato di ogni elemento** e **riproponi** più avanti, in forma diversa, quelli con voto sotto 3.
+- **Feedback progressivo anche in chat**: "Giusta ✅", poi "3 di fila 🔥", "5 di fila 🔥🔥". Si azzera con l'errore, senza drammi.
 - **Mostra quanto ne sa, non punti**: alla fine del blocco dai un riepilogo con "X/10 al primo tentativo", accuratezza per argomento, cosa è ora *imparato* e cosa resta *da imparare*, e la tendenza rispetto alla sessione precedente se la conosci. Esempio: `Cinematica 4/5 ✅ · Dinamica 2/5 ⚠️ → da ripassare: attrito, piano inclinato`.
 - Se puoi salvare file o memoria, **tieni un registro dei progressi** (elemento, argomento, voto, data) per ripartire dai punti deboli.
 
-## 8. Cose da ricordare sempre
+## 10. Cose da ricordare sempre
 
 - I tre pilastri: **algoritmo onesto**, **informazioni strutturate e mostrate al momento giusto**, **gamification basata su quanto ne sa**.
 - Il metodo si adatta, non si copia: per ogni esame ridefinisci gli elementi, le etichette e cosa vuol dire "imparato".
-- Niente livelli, XP, streak o quote giornalieri come motore della motivazione.
+- Niente livelli, XP, serie di giorni o quote giornaliere come motore della motivazione. Sì al feedback progressivo dentro la sessione e a numeri che si calcolano e si aggiornano in continuo.
+- **Si comincia con poco** (nucleo piccolo, sessioni brevi) perché i primi passi riescano bene.
 - Ciò che è giusto per caso torna indietro. Il formato reale va ricostruito con esattezza e la simulazione va resa più severa.

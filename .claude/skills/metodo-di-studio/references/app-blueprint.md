@@ -49,7 +49,7 @@ Tutto in **`algoritmo.md`**: stato di ogni elemento, voto continuo da 0 a 5, SM-
 - Font **Nunito Sans**, testi in grassetto molto marcato (`font-black`), angoli molto arrotondati (`rounded-[24px]`), pulsanti "a rilievo" (`border-b-4` che si schiaccia con `active:border-b-0 active:translate-y-1`).
 - Colori: azzurro principale `#1CB0F6` (bordo `#1899D6`), verde giusto `#58CC02` (bordo `#46A302`), rosso sbagliato `#FF4B4B`, giallo `#FFC800` (fascia media del semaforo), viola `#CE82FF`, testo `#4B4B4B`, sfondo `#F7F9FB`. Tema scuro: `#111B21`, `#0F172A`, `#1E293B`, bordi `#334155`, testo `#F8FAFC`.
 - Tema scuro con classe `.dark` salvata in `localStorage`, applicata in `index.html` prima che React si carichi (così non c'è il lampo bianco all'apertura).
-- **Audio e vibrazione** (`audio.ts`): suoni generati con la Web Audio API, senza file audio; un accordo breve sulla risposta giusta; vibrazione leggera; coriandoli a fine sessione o per un esame superato. Sono una **reazione immediata**, non una metrica: la motivazione vera sta nei numeri su quanto sa. Deve esserci sempre il pulsante per togliere l'audio.
+- **Audio e vibrazione** (`audio.ts`): suoni generati con la Web Audio API, senza file audio; il feedback **cresce con la serie di risposte giuste nella sessione**: il tono dell'accordo sale del 4% per ogni risposta dopo la seconda (fino a +20%); coriandoli *mini* → *burst* dalla seconda di fila → *cannon* dalla quarta; *celebration* e fanfara a fine sessione o per un esame superato; vibrazioni diverse per ogni evento; suono discendente morbido sull'errore. Dettagli e razionale in `SKILL.md` §5. Deve esserci sempre il pulsante per togliere l'audio.
 
 ## 6. Dati e sincronizzazione
 - Salvataggio in `localStorage`, più export e import in JSON.
