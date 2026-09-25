@@ -128,7 +128,7 @@ if (cmd === 'init') {
   });
   const acc = pct(c, c + w);
   console.log(`# ${db.esame.nome}${db.esame.data ? ` · esame il ${db.esame.data} (tra ${Math.ceil((new Date(db.esame.data) - now) / DAY)} giorni)` : ''}${flags.nucleo ? ' · solo nucleo' : ''}`);
-  console.log(`Padronanza: ${pct(imp, tot)}% (${imp}/${tot} imparati) · Accuratezza: ${acc}% ${light(acc)} · Omesse: ${om} · Da ripassare oggi: ${due}`);
+  console.log(`Padronanza: ${pct(imp, tot)}% (${imp}/${tot} imparati) · Accuratezza: ${c + w ? `${acc}% ${light(acc)}` : 'nessun tentativo ancora ⚪'} · Omesse: ${om} · Da ripassare oggi: ${due}`);
   const nucleo = Object.values(db.items).filter((it) => it.nucleo);
   if (!flags.nucleo && nucleo.length) console.log(`Nucleo: ${pct(nucleo.filter((it) => it.box > 0).length, nucleo.length)}% imparato (${nucleo.length} elementi)`);
   console.log('\n## Per argomento (accuratezza · imparati/totale)');

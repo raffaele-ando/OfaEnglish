@@ -111,6 +111,8 @@ Il metodo è pensato perché **i primi passi riescano bene**, così da voler con
 - **Dopo un errore si chiude comunque con la risposta giusta** (Riprova), così nessuna domanda finisce con un fallimento.
 - **Da piccolo a grande**: prima il nucleo, poi il resto a blocchi per argomento; prima le sessioni, poi le simulazioni complete.
 
+**Vale anche per come rispondi.** Apri con **cosa fare adesso**: poche righe, il primo passo concreto (o direttamente la prima domanda). Poi il resto, in ordine di urgenza. Il piano completo, le tabelle e il materiale lungo vanno in fondo o in un file a parte. Niente muri di testo prima di poter cominciare: un messaggio iniziale lungo è attrito, come un menu con troppe scelte.
+
 Per un esame nuovo: individua subito un nucleo **piccolo** (poche decine di elementi: gli esercizi-tipo più frequenti, le domande che tornano sempre) e mostrane la padronanza separata dal totale.
 
 ## 7. Principi della sessione
@@ -129,7 +131,7 @@ Per un esame nuovo: individua subito un nucleo **piccolo** (poche decine di elem
 1. **Ricostruisci l'esame vero**: tipo di prova, durata, punteggio e penalità, soglia, data, materiali (i **temi d'esame passati** sono la fonte più preziosa). Se non lo sai, chiedi o cerca. Non inventare il formato di un esame universitario.
 2. **Scegli l'adattamento**: leggi **`references/adattamento-per-esame.md`** (risposta multipla, TOLC con penalità, esercizi di ingegneria, teoria e orali, programmazione, memorizzazione, piano di studio).
 3. **Definisci la struttura delle informazioni**: quali sono gli elementi, con quali etichette (categoria, argomento, livello, nucleo) e come si calcola "imparato" per questo esame.
-4. **Scegli cosa produrre**, partendo dalla cosa più piccola che permette di iniziare oggi: interrogazione in chat (§9), piano di studio, materiale (domande, esercizi con aiuti, flashcard), oppure un'app (leggi **`references/app-blueprint.md`** e riusa `assets/codice-ofa/`). Se non è chiaro, proponi una sola opzione consigliata e parti.
+4. **Scegli cosa produrre**, partendo dalla cosa più piccola che permette di iniziare oggi (e metti in cima alla risposta cosa fare adesso, §6): interrogazione in chat (§9), piano di studio, materiale (domande, esercizi con aiuti, flashcard), oppure un'app (leggi **`references/app-blueprint.md`** e riusa `assets/codice-ofa/`). Se non è chiaro, proponi una sola opzione consigliata e parti.
 5. **Costruisci prima il nucleo**, poi il resto a blocchi per argomento.
 6. **Misura dal primo giorno**: crea il registro (`scripts/registro.cjs init` + `import` degli elementi con argomento e nucleo), così padronanza e punti deboli sono calcolati e non stimati.
 7. **Controlla la qualità**: **`references/banco-domande.md`**, più `node scripts/audit_bank.cjs <file>` per i banchi a risposta multipla.
