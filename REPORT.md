@@ -15,7 +15,7 @@
 | **Correttezza** | **Nessuna risposta segnata come corretta è sbagliata** su 606. Ci sono 82 segnalazioni minori su 79 domande (13%), quasi tutte distrattori "troppo corretti" o metadati imprecisi |
 | **Motore di studio** | Ripetizione dilazionata SM-2 con voto continuo (0–5) calcolato da tempo di risposta rispetto a un tempo atteso personale, cambi di opzione, esitazione e sicurezza dichiarata; 6 modalità di pratica. Esempi reali al §6.4–6.7 |
 | **Gamification** | Basata su **quanto sai**: Imparate %, accuratezza, radar per argomento, confidenza con tendenza, pass rate. Feedback che **cresce con la serie della sessione** (tono dei suoni che sale, coriandoli sempre più grandi). XP, livelli e serie di giorni sono residui (§6.8) |
-| **Filosofia** | Tutto è **dinamico** (tempo atteso, voto, intervalli e confidenza si adattano a te) e si **comincia con poco** (Primo Corpus da 60, sessioni da 10, un tocco per iniziare): §6.11–6.12 |
+| **Filosofia** | Tutto è **dinamico** (tempo atteso, voto, intervalli e confidenza si adattano a te) e si **comincia con poco** (Primo Corpus da 60, sessioni da 10, un tocco per iniziare): §6.12–6.13 |
 | **Stato tecnico** | Typecheck e build **passano**. Ci sono alcuni problemi pratici (lockfile non allineato, file di lavoro rimasti in root, limite di 1 MB del documento Firestore) |
 | **Perché ha funzionato** | Il banco copre in modo sistematico il sillabo A1–B1 che l'OFA misura e allena proprio le trappole tipiche di chi parla italiano. In più il simulatore è più difficile dell'esame vero |
 
@@ -36,7 +36,7 @@
 | 30/08 | `f314d3c` | **606** |
 | 09/09 | `0a7163d` selezione del corpus ("Primo Corpus" = prime 60) | 606 |
 
-Il codice sorgente vero e proprio sta in `src/`: 10 componenti, 5 moduli in `lib/`, un hook e `data/questions.ts`, che da solo occupa 9.103 righe.
+Il codice sorgente vero e proprio sta in `src/`: 9 componenti più `App.tsx`, 5 moduli in `lib/`, un hook e `data/questions.ts`, che da solo occupa 9.103 righe.
 
 ---
 
@@ -98,7 +98,7 @@ Fonti: [Futura – Bando Polimi 2026/27](https://futura.study/blog/ingegneria/ba
 | 16 | Present Perfect | 18 | B1 | **15** |
 | 17 | There is / There are | 18 | A1 | 4 |
 | 18 | Questions and Origins | 18 | A1 | 1 |
-| 19 | Possessive 's | 18 | A1 | 1 |
+| 19 | Possessive S | 18 | A1 | 1 |
 | 20 | Possessives | 18 | A1 | 0 |
 | 21 | Demonstratives | 18 | A1 | 0 |
 | 22 | Prepositions of Place | 18 | A1 | 0 |
@@ -112,11 +112,11 @@ Fonti: [Futura – Bando Polimi 2026/27](https://futura.study/blog/ingegneria/ba
 | 30 | Prepositions of Time | 9 | B1 | 1 |
 | 31 | Modals of Ability and Permission | 3 | B1 | 3 |
 
-**Come è costruito il file.** Le prime 60 domande sono il nucleo originale. Da `q61` a circa `q216` c'è una prima espansione sugli stessi temi. Da `q217` in poi ogni argomento ha il suo blocco di circa 18 domande (9 di grammatica e 9 di traduzione), in ordine di sillabo A1 → A2 → B1. La parte finale (`q559`–`q606`) aggiunge approfondimenti B1 con spiegazioni più lunghe e glosse in italiano.
+**Come è costruito il file.** Le prime 60 domande sono il nucleo originale di 50 (primo commit) più le prime 10 aggiunte (25 e 27 luglio). Da `q61` a circa `q216` c'è una prima espansione sugli stessi temi. Da `q217` in poi ogni argomento ha il suo blocco di circa 18 domande (9 di grammatica e 9 di traduzione), in ordine di sillabo A1 → A2 → B1. La parte finale (`q559`–`q606`) aggiunge approfondimenti B1 con spiegazioni più lunghe e glosse in italiano.
 
 ### 3.3 Il "Primo Corpus" (le prime 60 domande)
 
-È il nucleo da cui è partito tutto, e l'app permette di allenarsi solo su quello. Il profilo è molto netto:
+Comprende il banco con cui è partita l'app (50 domande) più le prime aggiunte, e l'app permette di allenarsi solo su quello. Il profilo è molto netto:
 
 - **Present Perfect (15) e Past Simple (12) da soli fanno il 45%.** È il contrasto *"Sei mai stato…?" / "Sono stato in Africa nel 2009"* che mette in difficoltà l'italiano, perché il passato prossimo si traduce a volte in un modo e a volte nell'altro.
 - Poi vengono Present Simple (6), There is/are (4), comparativi (4), Present Continuous (4) e modali di abilità e permesso (3).
@@ -149,7 +149,7 @@ Se il nucleo ricalca le domande dell'esame vero, come fa pensare il nome, il mes
 
 3. **Le traduzioni sono il 38% del banco.** Obbligano a passare dall'italiano all'inglese, che è proprio il passaggio dove nascono gli errori.
 4. **Il simulatore è più severo del vero**: soglia a 25 contro 24, stesso tempo, nessun feedback.
-5. **Il motore di studio segue principi solidi** (§6): ripetizione dilazionata SM-2, *active recall* (la modalità che nasconde le opzioni), *interleaving* (la modalità "Smart" mescola gli argomenti) e un voto di sicurezza (*Indovino / Incerto / Sicuro*) che non premia le risposte azzeccate per caso.
+5. **Il motore di studio segue principi solidi** (§6): ripetizione dilazionata SM-2, *active recall* (la modalità che nasconde le opzioni), *interleaving* (la modalità "Smart" mescola gli argomenti) e un voto di sicurezza (*Indovino / Incerto / Sicuro*) che abbassa il voto delle risposte incerte o tirate a caso (con un limite: un "Indovino" giusto e veloce vale 3,0 e conta ancora come imparata, §7).
 6. **L'ordine delle opzioni viene rimescolato a ogni domanda** (`shuffleQuestion`, algoritmo Fisher-Yates). Nel file sorgente la risposta giusta è la **A nell'89% dei casi** (542 su 606), ma grazie al rimescolamento nell'app non si può imparare "la posizione": bisogna imparare davvero la regola.
 
 ### 4.1 Le regole da ricordare (ricavate dal banco)
@@ -206,7 +206,7 @@ Ho letto tutte le 606 domande (divise in 4 blocchi controllati in parallelo, voc
 
 1. **Troppa rigidità.** Alcune regole sono presentate come assolute ("always", "only gerund"), mentre l'inglese reale le rende opzionali: il backshift nel discorso indiretto, il past perfect quando la sequenza è già chiara, *can't stand to*, *used not to*. Per il test va bene (si sceglie la forma "da manuale"), ma conviene saperlo.
 2. **Deduzioni con indizi deboli** (q553–q555): *must be* viene giustificato da indizi che reggerebbero anche *might*.
-3. **Quasi duplicati**: 6 coppie hanno lo stesso prompt (q1/q45, q4/q35, q13/q24, q34/q51, q41/q54, q146/q349), più 2 molto simili (q481/q493, q539/q576). Il simulatore ha un filtro di similarità (soglia 0,45) che evita di proporne due insieme.
+3. **Quasi duplicati**: 3 coppie hanno un prompt letteralmente identico (q4/q35, q34/q51, q146/q349) e altre 3 sono identiche a meno di parole comuni (q1/q45, q13/q24, q41/q54), più 2 molto simili (q481/q493, q539/q576). Il simulatore ha un filtro di similarità (soglia 0,45) che evita di proporne due insieme.
 4. **Spiegazioni troppo brevi** nella parte centrale ("Advice.", "Prohibition.", "If + Past Simple."). Dicono la regola, ma non perché le altre opzioni sono sbagliate.
 5. **Nessun indizio dalla lunghezza.** La risposta giusta è l'opzione più lunga solo nel 18% dei casi e la più corta nel 12% (a caso sarebbe circa il 25%): non si può indovinare guardando la lunghezza.
 
@@ -278,9 +278,9 @@ Per ognuna delle 606 domande l'app tiene (in `stats[id]`):
 
 **Modalità Custom** (`PracticeMenu`)
 - Scelta del materiale (come nel menu), poi quattro schede: **Standard** ("Spaced repetition classica"), **Weakness** ("Focalizzati sugli errori"), **Blitz** ("Timer aggressivo (10s)") e **Active Recall** ("Nasconde le opzioni").
-- **Filtro Mirato**: un menu a tendina diviso in *Corpus* (Primo Corpus o tutto il database), *Categorie* (Grammatica, Traduzione), *Livelli* (A1, A2, B1) e *Argomenti grammaticali* (31). Poi si preme "INIZIA".
+- **Filtro Mirato**: un menu a tendina diviso in *Corpus* (Primo Corpus o tutto il database), *Categorie* (Grammatica, Traduzione), *Livelli* (A1, A2, B1) e *Argomenti grammaticali* (31, oppure 17 se è attivo il Primo Corpus: le liste si costruiscono sul materiale scelto). Poi si preme "INIZIA".
 
-**Sessione di studio** (`LearnMode`), sempre 10 domande
+**Sessione di studio** (`LearnMode`), fino a 10 domande (meno se il filtro scelto ne contiene meno, per esempio 3 su "Modals of Ability and Permission")
 1. **Scelta**: l'algoritmo (§6.6) sceglie 10 domande dal materiale attivo e **rimescola le opzioni** di ognuna (algoritmo Fisher-Yates).
 2. **Schermo**:
    - in alto: X per uscire, barra di avanzamento verde, fiammella "N x" se la serie di risposte giuste è > 1, timer (**30 s**, oppure **10 s** in Blitz), che diventa rosso e lampeggia sotto i 5 s;
@@ -301,20 +301,20 @@ Per ognuna delle 606 domande l'app tiene (in `stats[id]`):
 7. **Fine**: una schermata con "Sessione Completata! Hai risposto a X su N correttamente **al primo tentativo**", fanfara e coriandoli *celebration*.
 
 **Active Recall**
-- Le opzioni sono nascoste. Si ricostruisce la frase giusta toccando le parole da una riserva che contiene **le parole della risposta più alcune parole trappola**: 8 se la risposta ha al massimo 3 parole, altrimenti 5. Le trappole sono prese prima dalle opzioni sbagliate della stessa domanda, poi dalle altre domande della sessione. Le parole scelte si possono togliere con un tocco.
+- Le opzioni sono nascoste. Si ricostruisce la frase giusta toccando le parole da una riserva che contiene **le parole della risposta più alcune parole trappola**: al massimo 8 se la risposta ha fino a 3 parole, altrimenti al massimo 5. Le trappole vengono dalle opzioni sbagliate della domanda e, se non bastano, dalle opzioni delle altre domande della sessione; poi l'insieme viene mescolato e tagliato a caso. In caso di errore la risposta giusta non viene mostrata e le parole scelte restano al loro posto dopo "Riprova". Le parole scelte si possono togliere con un tocco.
 - **"Mostra Suggerimento"** rivela solo *Argomento: … (Livello)*, mai la risposta.
 - **"Troppo difficile? Usa le opzioni multiple"** fa tornare alla scelta tra 4 opzioni.
 - La risposta è giusta solo se la sequenza di parole è **identica** a quella attesa.
 
 **Simulazione d'esame** (`ExamMode`)
 1. **Scelta delle 30 domande**: le domande del materiale attivo vengono mescolate e scelte una per una, scartando quelle **troppo simili** a una già presa (similarità di Jaccard tra i testi > 0,45, calcolata ignorando parole comuni come "the", "choose", "translate"). Se non se ne trovano 30 abbastanza diverse, si completa con le altre. Anche qui le opzioni sono rimescolate.
-2. **Schermata iniziale**: "30 Multiple choice questions · 15 Minutes · 25/30 required to pass · No immediate feedback", con i pulsanti *Start Exam* e *Cancel*.
+2. **Schermata iniziale**: titolo "Mock Exam" e "30 Multiple choice questions · 15 Minutes time limit · 25/30 required to pass · No immediate feedback", con i pulsanti *Start Exam* e *Cancel*.
 3. **Durante la prova**:
    - in alto: X, conto alla rovescia *m:ss* e "Submit";
    - sotto: "risposte date/30" con una barra;
-   - si può cambiare risposta e muoversi liberamente con le frecce o con la griglia delle 30 domande;
+   - si può cambiare risposta e muoversi liberamente con le frecce o con la striscia scorrevole delle 30 domande;
    - nessun feedback;
-   - per ogni domanda si registrano il tempo speso, ogni clic (opzione, momento, giusta o no), il primo clic, i cambi e l'esitazione prima dell'ultima scelta.
+   - per ogni domanda si registrano il tempo speso, ogni clic (opzione, momento, giusta o no), il primo clic e i cambi (il campo "esitazione" qui misura in realtà il tempo tra l'ultimo clic e la consegna dell'intero esame, quindi non è utilizzabile).
 4. **Fine** (con "Submit" o a tempo scaduto):
    - "PASSED" o "FAILED", **punteggio/30**, tempo impiegato, fanfara e coriandoli se è superata;
    - poi **"Review Incorrect Answers"**, cioè solo le sbagliate e le omesse, ognuna con *Categoria • Argomento*, "Your Answer" (oppure "No answer"), "Correct" e la spiegazione.
@@ -334,13 +334,14 @@ Per ognuna delle 606 domande l'app tiene (in `stats[id]`):
    - **Record**: il punteggio migliore su 30.
 2. **"Costanza (Ultimi 7 Giorni)"**: barre giornaliere con **domande** (azzurro) e **minuti** (verde).
 3. **"Simulazioni"**: esami completati, esami superati, miglior punteggio.
-4. **"Skill Profile"**: un radar con l'**accuratezza per argomento**. Compare solo dopo aver risposto su almeno 3 argomenti; prima dice "Rispondi a più domande su diversi argomenti…".
-5. **"Progresso per Livello"** e **"Progresso per Argomento"**: barre orizzontali impilate, **Imparate** (verde) contro **Da imparare** (grigio).
-6. In fondo, ancora visibili: la barra **XP/Livello** e la **"Sfida Quotidiana – Fase N"** (vedi §6.8).
-7. Il pulsante **"Vedi Dettaglio Frasi"** apre il dettaglio.
+4. **"Skill Profile"**: un radar con l'**accuratezza per argomento**. Compare solo quando ci sono dati su almeno 3 argomenti (basta anche una domanda omessa in simulazione); prima dice "Rispondi a più domande su diversi argomenti…".
+5. **"Progresso per Livello"** e **"Progresso per Argomento"**: barre orizzontali impilate, **Imparate** (verde per livello, azzurro per argomento) contro **Da imparare** (grigio).
+6. **"Errori Comuni"**: le 5 domande con il tasso di errore più alto (le omesse contano come errori), con giuste/sbagliate/omesse, % di errore e la risposta giusta in verde. Senza dati: "Non ci sono ancora dati sufficienti."
+7. In fondo, ancora visibili: la barra **XP/Livello** e la **"Sfida Quotidiana – Fase N"** (vedi §6.8).
+Il pulsante blu **"Vedi Dettaglio Frasi"**, che apre il dettaglio, non sta in fondo: è il primo elemento della colonna destra, sopra lo Skill Profile. La colonna sinistra ha i riquadri, la Costanza e le Simulazioni.
 
 **Dettaglio Frasi**
-- **Filtri**: tutte le categorie, solo il Primo Corpus, oppure una singola categoria. **Ordinamento**: "Peggiori prima" o "Migliori prima" in base alla confidenza. Un contatore mostra quante domande restano dopo il filtro.
+- **Filtri**: tutte le categorie, solo il Primo Corpus, oppure una singola categoria. **Ordinamento**: "Peggiori prima" (predefinito: le domande mai viste compaiono per prime) o "Migliori prima" in base alla confidenza. Un contatore mostra quante domande restano dopo il filtro.
 - **Per ogni domanda**:
   - il testo, con *categoria · livello · argomento*;
   - etichette colorate con giuste, sbagliate e omesse;
@@ -356,11 +357,11 @@ Per ogni domanda l'app calcola quanto ci metterebbe una persona che la sa (`calc
 - **+ 1,2 s** per decidere.
 - **× fattore di velocità personale**, tra 0,5 e 2,5. Il minimo assoluto è 2,2 s.
 
-Esempi reali: **q1** ("Sei mai stato in Brasile?", 34 parole e 181 caratteri tra domanda e opzioni) → **12,5 s** per un utente con velocità nella media, **18,8 s** per uno con fattore 1,5. La domanda più corta (q429) → 3,9 s; la più lunga (q606) → 21,5 s.
+Esempi reali: **q1** ("Sei mai stato in Brasile?", 34 parole e 181 caratteri tra domanda e opzioni) → **12,5 s** per un utente con velocità nella media, **18,8 s** per uno con fattore 1,5. La domanda più corta (q429) → 3,9 s; quella con il tempo atteso più alto (q25, 64 parole) → 22,5 s.
 
 **Il fattore di velocità impara da te.** Dopo ogni risposta giusta al primo tentativo, il tempo impiegato (limitato tra 1 e 35 s, così una distrazione non falsa la media) viene confrontato con il tempo nominale della domanda. Il fattore si aggiorna con una media mobile esponenziale:
-- con peso α = 1/n per le prime 25 risposte;
-- poi con peso fisso di circa 0,04 (α non scende mai sotto 0,05).
+- con peso α = 1/n per le prime 20 risposte giuste;
+- poi con peso fisso 0,05.
 
 In pratica, se sei lento a leggere l'inglese l'app non ti penalizza per sempre: si adatta a te.
 
@@ -375,8 +376,8 @@ Il voto (`calculateContinuousQuality`) mette insieme **velocità relativa**, **c
 | Giusta, ma in 3 volte il tempo atteso | 3,28 | sì, appena |
 | Giusta, entro il tempo, ma **Incerto** | 4,40 | sì |
 | Giusta, entro il tempo, ma **Indovino** | **3,00** | sì, per un soffio (vedi §7) |
-| Giusta dopo 1 cambio, partendo dall'opzione **giusta** (dubbio poi ritorno) | 3,55 | sì |
-| Giusta dopo 1 cambio, partendo da un'opzione **sbagliata** (per esclusione) | 3,06 | sì, appena |
+| Giusta dopo 1 cambio, partendo dall'opzione **giusta** (dubbio poi ritorno) | 3,60 (3,55 se in 1,2× il tempo) | sì |
+| Giusta dopo 1 cambio, partendo da un'opzione **sbagliata** (per esclusione) | 3,10 (3,06 se in 1,2× il tempo) | sì, appena |
 | Giusta entro il tempo, ma con **10 s di esitazione** prima di confermare | 4,79 | sì |
 | Giusta solo **al secondo tentativo** (dopo Riprova) | **2,22** | **no**, torna domani |
 | Sbagliata o tempo scaduto | **0** | **no** |
@@ -391,7 +392,7 @@ Le regole dietro la tabella:
 
 **Regola**: con un voto ≥ 3 la domanda "passa". `box` aumenta di 1 e l'intervallo diventa 1 giorno, poi 6, poi intervallo × facilità. Con un voto < 3 si torna a zero (`box` = 0, intervallo 1 giorno). La facilità cambia a ogni risposta con la formula SM-2: +0,1 con voto 5, circa −0,14 con voto 3, −0,8 con voto 0.
 
-Una storia reale di q1, simulata con la funzione vera:
+Una storia di q1, simulata con la funzione vera (senza il passaggio "Riprova", vedi la nota sotto la tabella):
 
 | Risposta | Voto | `box` | Facilità | Prossimo ripasso |
 |---|---|---|---|---|
@@ -401,6 +402,8 @@ Una storia reale di q1, simulata con la funzione vera:
 | Giusta ma Incerto | 4,4 | 4 | 2,84 | tra 45 giorni |
 | **Sbagliata** | 0 | **0** | 2,04 | **tra 1 giorno** |
 | Giusta e sicura | 5 | 1 | 2,14 | tra 1 giorno |
+
+**Nota — nell'uso reale l'errore pesa di più.** In una sessione, dopo l'errore bisogna rispondere di nuovo (Riprova), e anche quel secondo tentativo aggiorna SM-2 con un voto di circa 2. La sequenza reale diventa: sbagliata → facilità 2,04; Riprova giusto → **1,73**; poi giusta e sicura → **1,83** (non 2,14). Ogni errore fa quindi calare la facilità due volte.
 
 Si vede la logica: **un solo errore azzera il percorso**, e la facilità che resta più bassa fa crescere gli intervalli più lentamente. La domanda "si ricorda" di essere stata difficile.
 
@@ -425,17 +428,17 @@ Cosa succede in pratica con Smart:
 | Metrica | Formula | Dove si vede | Che cosa misura |
 |---|---|---|---|
 | **Imparate %** | domande con `box > 0` / totale | Menu (sul materiale scelto), Statistiche (sulle 606) | Quanto sai **adesso**: scende se sbagli |
-| **Accuratezza** | giuste / (giuste + sbagliate), solo primi tentativi | Menu, Statistiche, Dettaglio (per domanda, a semaforo) | Quanto sei preciso |
+| **Accuratezza** | giuste / (giuste + sbagliate), solo primi tentativi più le risposte date in simulazione | Menu, Statistiche, Dettaglio (per domanda, a semaforo) | Quanto sei preciso |
 | **Skill Profile** | accuratezza per argomento | Radar in Statistiche | Argomenti forti e deboli |
 | **Imparate / Da imparare** | conteggio di `box > 0` per livello e per argomento | Barre in Statistiche | Quanto manca, e dove |
 | **Confidenza** | (facilità − 1,3) / 1,3 × 100, massimo 100 | Dettaglio, con freccia di tendenza | Quanto una domanda è "facile" per te |
 | **Pass Rate / Record** | superate / svolte; punteggio massimo | Statistiche | Quanto sei pronto per l'esame |
 | **Costanza** | domande e minuti al giorno | Grafico degli ultimi 7 giorni | Quanto studi (informativo) |
-| Serie di giorni | giorni consecutivi con attività | Fiammella nel menu | *residuo* |
+| Serie di giorni | giorni consecutivi in cui l'app è stata aperta (basta aprirla) | Fiammella nel menu | *residuo* |
 | XP / Livello | 50 + 10 per ogni risposta giusta; livello = ⌊√(XP/50)⌋ + 1 | In fondo alle Statistiche | *residuo* |
 | Sfida quotidiana | traguardi 10 → 25 → 50 → 100 → 150 → … domande | In fondo alle Statistiche | *residuo* |
 
-**La gamification che funziona è quella delle prime sette righe**: sono tutti numeri che si muovono **solo se impari davvero**. Imparate % scende quando sbagli, l'accuratezza conta solo il primo tentativo, il radar mostra senza pietà gli argomenti deboli. Le ultime tre righe sono tentativi più "da videogioco" (XP con bonus iniziale regalato, sfida a fasi, serie di giorni). La storia dei commit mostra che sono stati tolti dal menu e spostati in fondo alle statistiche.
+**La gamification che funziona è quella delle prime sette righe**: sono tutti numeri che si muovono **solo se impari davvero**. Imparate % scende quando sbagli, l'accuratezza conta solo il primo tentativo, il radar mostra senza pietà gli argomenti deboli. Le ultime tre righe sono tentativi più "da videogioco" (XP con bonus iniziale regalato, sfida a fasi, serie di giorni). La storia dei commit mostra che XP e sfida quotidiana sono stati tolti dal menu e spostati in fondo alle statistiche; la serie di giorni è rimasta come numerino nel menu. Con i 50 XP regalati si parte già da "Liv. 2", e la sfida aggiunge ogni giorno 1 passo gratis.
 
 Due dettagli da sapere:
 - La **confidenza si satura subito**. Parte da 2,5, cioè 92%, e arriva al 100% già con una risposta perfetta (facilità 2,6). In pratica **segnala soprattutto i cali**.
@@ -447,7 +450,7 @@ Tutti i suoni sono **sintetizzati al momento** con la Web Audio API: niente file
 
 | Evento | Suono | Vibrazione | Coriandoli |
 |---|---|---|---|
-| Tocco su un pulsante | "pop" 440 → 880 Hz in 40 ms | 10 ms | — |
+| Tocco su un pulsante | "pop" 440 → 880 Hz in 40 ms | — | — |
 | Risposta giusta | accordo di Do maggiore (Do5–Mi5–Sol5–Do6) più una scintilla acuta; **dalla terza di fila il tono sale** fino a +20% | 15–30–25 ms | *mini* (28 particelle) → *burst* (65) dalla seconda di fila → *cannon* (due cannoni laterali) dalla quarta |
 | Risposta sbagliata | due toni discendenti (260 → 180 Hz, 190 → 120 Hz) | 30–40–30 ms | — |
 | Fine sessione / esame superato | fanfara | 40–40–60–40–100 ms | *celebration* (120 particelle più due raffiche laterali) |
@@ -469,7 +472,20 @@ I colori dei coriandoli sono quelli dell'app: azzurro, verde, giallo, viola, ros
   7. **Tempo di studio**: per ogni giorno si tiene il valore più alto.
 - Dopo l'unione, ogni modifica viene salvata subito sia in locale sia sul cloud.
 
-### 6.11 Tutto è dinamico e progressivo
+### 6.11 Comportamenti meno visibili (da sapere)
+
+- **La simulazione altera la scelta di Smart**: imposta `lastSeen` ma lascia l'intervallo a 0, quindi le domande mai viste che compaiono in un esame perdono la priorità "nuova" (800–1000) e diventano subito "in scadenza" (500+).
+- **Toccare di nuovo la stessa opzione conta come un cambio**: una risposta giusta toccata due volte ha un voto massimo di 3,6 invece di 5.
+- **Nel Riprova la risposta è già svelata** (la giusta è stata evidenziata in verde) e il cronometro non riparte: il secondo tentativo include tutto il tempo dall'inizio della domanda.
+- **Attività gonfiata**: una domanda sbagliata e poi corretta conta 2 nelle domande del giorno; una simulazione ne aggiunge sempre 30.
+- **Il "tempo di studio" è il tempo con l'app aperta** su qualsiasi schermata (anche menu e statistiche).
+- **Il pulsante muto disattiva anche le vibrazioni** (i coriandoli restano).
+- **Simulazione**: il timer diventa rosso negli ultimi 2 minuti; la X esce senza conferma e senza salvare; "Submit" non chiede conferma anche con domande in bianco; con 30/30 compare "Perfect score! Nothing to review."
+- **Weakness con pochi dati**: le domande mai viste valgono tutte 0 e la sessione si riempie con le prime del file (q1, q2…).
+- **Date miste**: attività e tempo usano giorni UTC, la serie giorni locali; in Italia lo studio tra mezzanotte e le 2 finisce nel giorno prima.
+- **Minori**: tema e muto stanno fuori dallo stato (in `localStorage`); Import sostituisce tutto senza unire; "PWA" vuol dire solo `manifest.json` (niente funzionamento offline).
+
+### 6.12 Tutto è dinamico e progressivo
 
 Uno dei tratti più riusciti dell'app è che **quasi nulla è fisso**: ogni numero viene calcolato dai tuoi dati e cambia mentre studi.
 
@@ -486,7 +502,7 @@ Uno dei tratti più riusciti dell'app è che **quasi nulla è fisso**: ogni nume
 
 È una differenza importante rispetto alla gamification "a punti": la serie *dentro la sessione* premia risposte vere nel momento in cui avvengono e dura pochi minuti. La serie *di giorni* (la fiammella nel menu) misura solo la presenza.
 
-### 6.12 Cominciare con poco, per iniziare bene
+### 6.13 Cominciare con poco, per iniziare bene
 
 L'app è costruita perché **i primi passi riescano**:
 - **Il Primo Corpus da 60 domande.** È selezionabile dal menu e vale per tutte le modalità, per la simulazione e per le statistiche del menu ("Imparate (su 60)"). Con 60 domande ogni domanda imparata vale l'1,7% e la barra si muove subito; sulle 606 varrebbe lo 0,17%. Cominciare dal nucleo rende visibile il progresso vero fin dal primo giorno.
@@ -496,7 +512,7 @@ L'app è costruita perché **i primi passi riescano**:
 - **Ogni domanda si chiude con la risposta giusta** (Riprova), mai con un fallimento.
 - **Aiuti che non spoilerano**: in Active Recall il suggerimento mostra solo l'argomento, e se è troppo difficile si può passare alle 4 opzioni invece di arrendersi.
 
-### 6.13 Come si è arrivati a questa versione
+### 6.14 Come si è arrivati a questa versione
 
 Leggendo i 39 commit si vede come l'app sia stata raffinata:
 
@@ -509,9 +525,9 @@ Leggendo i 39 commit si vede come l'app sia stata raffinata:
 | 24/07 | Obiettivo giornaliero fisso (5) → **traguardi a fasi senza fine** | La quota fissa non convinceva |
 | 24/07 | "Imparate" contate solo con `box > 0`; accuratezza globale | Metriche più oneste |
 | 25/07 | Login e sincronizzazione più robusti; **tempo di studio** misurato; `previousEasiness` per la **tendenza** | Più dati, più dinamica |
-| 27/07 | Menu con **Imparate % e Accuratezza %**; etichette **livello e argomento**; **radar**; filtri per livello e argomento; suggerimento in Active Recall; da 56 a 216 domande | La struttura delle informazioni prende forma |
+| 27/07 | Menu con **Imparate % e Accuratezza %**; etichette **livello e argomento**; radar **per argomento** (prima era sulle 2 categorie d'esame, dal 23/07); filtri per livello e argomento; suggerimento in Active Recall; da 56 a 216 domande | La struttura delle informazioni prende forma |
 | 24/08 | **XP e sfida quotidiana spostati fuori dal menu**; domande omesse tracciate; 378 domande | La gamification a punti viene declassata |
-| 27/08 | **Telemetria** (cambi, primo clic, esitazione), **velocità personale**, voto continuo; font Nunito; **sistema audio** | L'algoritmo diventa "onesto" e il feedback progressivo |
+| 27/08 | **Telemetria** (cambi, primo clic, esitazione), **velocità personale**, voto continuo; font Nunito Sans; **sistema audio** | L'algoritmo diventa "onesto" e il feedback progressivo |
 | 30/08 – 09/09 | 606 domande; categoria e argomento mostrati anche nelle revisioni; **selezione del Primo Corpus** | Si comincia con poco |
 
 ---
@@ -548,7 +564,7 @@ Leggendo i 39 commit si vede come l'app sia stata raffinata:
 1. Parti dal **Primo Corpus**: Present Perfect e Past Simple sono metà del nucleo.
 2. Usa *Smart* ogni giorno, *Weakness* per rimediare e *Active Recall* sugli argomenti B1 (condizionali, discorso indiretto, gerundio/infinito).
 3. Considerati pronto quando superi **stabilmente 25/30** nel simulatore: al test reale ne bastano 24.
-4. Rispondi con sincerità *Indovino / Incerto / Sicuro*, perché l'algoritmo ti ripropone le domande azzeccate per caso.
+4. Rispondi con sincerità *Indovino / Incerto / Sicuro*: "Indovino" e "Incerto" abbassano il voto e la facilità. Attenzione però: oggi un "Indovino" giusto e veloce vale esattamente 3,0 e conta ancora come imparata (§7), quindi le domande azzeccate per caso tornano più tardi del dovuto.
 
 **Per migliorare il progetto:**
 1. Correggere le 82 segnalazioni dell'Appendice A, dando priorità ai 44 distrattori ambigui e alle 6 traduzioni imprecise.
