@@ -5,6 +5,7 @@
  *
  * Uso:
  *   node controlla_copy.cjs [percorsi...] [--ext .tsx,.jsx,.html,.ts] [--max 20] [--json] [--solo inglese,glossario,...]
+ *   node controlla_copy.cjs testi.txt      file di soli testi (.txt/.md/.csv): una stringa per riga
  *   (senza percorsi: la cartella corrente)
  *
  * Controlli:
@@ -36,7 +37,7 @@ function opt(name, def) {
   const i = argv.indexOf(name);
   return i >= 0 ? argv[i + 1] : def;
 }
-const EXT = opt('--ext', '.tsx,.jsx,.html,.ts,.js,.vue,.svelte').split(',').map(s => s.trim());
+const EXT = opt('--ext', '.tsx,.jsx,.html,.ts,.js,.vue,.svelte,.txt').split(',').map(s => s.trim());
 const MAX = parseInt(opt('--max', '20'), 10);
 const JSON_OUT = argv.includes('--json');
 const SOLO = opt('--solo', '') ? opt('--solo', '').split(',') : null;
@@ -148,6 +149,16 @@ function isUiString(s, ctx) {
 
 function extract(src, ext) {
   const out = []; // {text, idx, kind}
+  if (ext === '.txt' || ext === '.md' || ext === '.csv') {
+    // file di soli testi: ogni riga non vuota è una stringa dell'interfaccia
+    let idx = 0;
+    for (const line of src.split('\n')) {
+      const t = line.replace(/^[-*]\s+/, '').trim();
+      if (t && !t.startsWith('#')) out.push({ text: t, idx: idx + line.indexOf(t.charAt(0)), kind: 'riga' });
+      idx += line.length + 1;
+    }
+    return out;
+  }
   const jsxLike = ext !== '.ts' && ext !== '.js';
   let rest = src;
   if (jsxLike) {
