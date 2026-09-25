@@ -13,7 +13,7 @@ Riporta i problemi in ordine di gravità (blocca l'uso → confonde → rifinitu
 ## 1. Contrasto e colore
 - [ ] Testo normale ≥ 4,5:1, testo grande (≥ 24 px o ≥ 18,66 px bold) ≥ 3:1, in **entrambi i temi**.
 - [ ] Nessun testo bianco su colore vivo (`#1CB0F6`, `#58CC02`, `#FFC800`, `#CE82FF`): usa i toni `pieno`, o testo scuro sul giallo.
-- [ ] Etichette tenui `#6B7280` (chiaro) / `#94A3B8` (scuro), non `gray-400`.
+- [ ] Etichette tenui `#6B7280` su bianco, `#4B5563` su superfici grigie (`#F3F4F6`), `#94A3B8` in scuro; mai `gray-400`.
 - [ ] Bordi di input, icone che portano significato, serie di grafici senza etichetta ≥ 3:1.
 - [ ] **Mai solo colore**: giusto/sbagliato con icona ✓/✗ e testo; semaforo con il numero; timer rosso con i secondi scritti; navigatore della simulazione con stato nell'`aria-label`.
 - [ ] Ogni colore nuovo è verificato con `contrasto.cjs` (e aggiunto a `palette.json` se diventa un token).

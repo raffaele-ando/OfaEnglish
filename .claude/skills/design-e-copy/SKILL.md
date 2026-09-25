@@ -58,7 +58,7 @@ Glossario completo usa/non usare, frasi pronte per ogni momento e traduzioni deg
 1. **Capisci l'azione principale** di ogni schermata: cosa deve poter fare con un tocco? Tutto il resto è secondario. Per uno strumento di studio leggi anche `metodo-di-studio` (cosa mostrare e quando).
 2. **Parti dai token** (`references/sistema-visivo.md` §3): copia le variabili CSS o il blocco `@theme` di Tailwind v4, con il tema scuro già incluso. Se sei in un artifact, carica prima anche la skill `artifact-design` e rispettane il contratto; questa skill decide lo stile.
 3. **Componi con le ricette** di `references/componenti.md` (CTA eroe, triade di sicurezza, barra azioni con feedback, card opzione, tile, barre, selettore a segmenti, stati vuoti, conferme). Adatta, non incollare alla cieca.
-4. **Scrivi i testi con `references/copy.md`**: glossario prima, frasi pronte poi. Scegli i termini del progetto una volta (es. «domanda», «simulazione») e usali ovunque.
+4. **Scrivi i testi con `references/copy.md`**: glossario prima, frasi pronte poi. Scegli i termini del progetto una volta (es. «domanda», «simulazione») e usali ovunque. Se l'utente ha già un suo termine (per esempio «flashcard»), usa il suo, sempre quello: il glossario vale quando non c'è una scelta dell'utente.
 5. **Per i grafici** carica la skill `dataviz`, poi applica §11 di `sistema-visivo.md`.
 6. **Verifica** prima di consegnare: `node scripts/controlla_copy.cjs <cartella>`, `node scripts/contrasto.cjs` per ogni colore nuovo, e la checklist.
 

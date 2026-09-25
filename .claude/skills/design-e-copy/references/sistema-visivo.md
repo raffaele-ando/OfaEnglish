@@ -49,7 +49,7 @@ Ogni tinta ha **cinque tonalità con compiti diversi**. È la correzione princip
 | bordo forte / hover | `#D1D5DB` | `#475569` |
 | testo | `#4B4B4B` | `#E2E8F0` |
 | testo forte (titoli, domanda) | `#3C3C3C` | `#F8FAFC` |
-| testo tenue (etichette, descrizioni) | `#6B7280` (**non** `#9CA3AF`, che fa 2,54:1) | `#94A3B8` |
+| testo tenue (etichette, descrizioni) | `#6B7280` su bianco (**non** `#9CA3AF`, che fa 2,54:1); `#4B5563` su superfici grigie | `#94A3B8` |
 
 ## 2. Abbinamenti accessibili (verificati)
 
@@ -57,6 +57,7 @@ Ogni tinta ha **cinque tonalità con compiti diversi**. È la correzione princip
 |---|---|---|
 | Corpo | `#4B4B4B` su bianco | 8,72 |
 | Etichette tenui | `#6B7280` su bianco / su `#F7F9FB` | 4,83 / 4,58 |
+| Etichette tenui su superfici grigie (`#F3F4F6`, `gray-100`, riquadri, chip) | `#4B5563` (**non** `#6B7280`, che fa 4,39:1) | 6,87 |
 | CTA e primario | bianco su `#1078C0` | 4,70 |
 | Sottotitolo nella CTA | bianco su pillola `bg-black/15` (≈ `#0B5E96`) | 6,87 |
 | Verde (Sicuro, Continua) | bianco su `#2F8500` | 4,69 |
@@ -91,7 +92,7 @@ Regole pratiche:
   /* neutri che cambiano col tema */
   --color-pagina: #F7F9FB;  --color-superficie: #FFFFFF;  --color-card: #FFFFFF;
   --color-superficie-alt: #F3F4F6;  --color-bordo: #E5E7EB;  --color-bordo-forte: #D1D5DB;
-  --color-testo: #4B4B4B;  --color-testo-forte: #3C3C3C;  --color-testo-tenue: #6B7280;
+  --color-testo: #4B4B4B;  --color-testo-forte: #3C3C3C;  --color-testo-tenue: #6B7280;  --color-testo-tenue-su-grigio: #4B5563;
   /* tinte fisse */
   --color-blu-vivo: #1CB0F6;  --color-blu-pieno: #1078C0;  --color-blu-bordo3d: #0B5E96;
   --color-verde-vivo: #58CC02; --color-verde-pieno: #2F8500; --color-verde-bordo3d: #236300;

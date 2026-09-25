@@ -9,13 +9,31 @@
     "testo-forte": "#3C3C3C",
     "testo-tenue": "#6B7280",
     "testo-segmento": "#4B5563",
-
-    "blu-vivo": "#1CB0F6", "blu-pieno": "#1078C0", "blu-bordo3d": "#0B5E96", "blu-testo": "#0B6FA8", "blu-tinta": "#DDF4FF",
-    "verde-vivo": "#58CC02", "verde-pieno": "#2F8500", "verde-bordo3d": "#236300", "verde-testo": "#2B7A00", "verde-tinta": "#D7FFB8",
-    "rosso-vivo": "#FF4B4B", "rosso-pieno": "#DC2626", "rosso-bordo3d": "#A91B1B", "rosso-testo": "#C81E1E", "rosso-tinta": "#FFE5E5",
-    "viola-vivo": "#CE82FF", "viola-pieno": "#9B3FE0", "viola-bordo3d": "#7426B0", "viola-testo": "#8A2BD6", "viola-tinta": "#F5E5FF",
-    "giallo-vivo": "#FFC800", "giallo-bordo3d": "#E5B400", "su-giallo": "#3D2E00", "giallo-testo": "#8F6200", "giallo-tinta": "#FFF4E5",
-
+    "blu-vivo": "#1CB0F6",
+    "blu-pieno": "#1078C0",
+    "blu-bordo3d": "#0B5E96",
+    "blu-testo": "#0B6FA8",
+    "blu-tinta": "#DDF4FF",
+    "verde-vivo": "#58CC02",
+    "verde-pieno": "#2F8500",
+    "verde-bordo3d": "#236300",
+    "verde-testo": "#2B7A00",
+    "verde-tinta": "#D7FFB8",
+    "rosso-vivo": "#FF4B4B",
+    "rosso-pieno": "#DC2626",
+    "rosso-bordo3d": "#A91B1B",
+    "rosso-testo": "#C81E1E",
+    "rosso-tinta": "#FFE5E5",
+    "viola-vivo": "#CE82FF",
+    "viola-pieno": "#9B3FE0",
+    "viola-bordo3d": "#7426B0",
+    "viola-testo": "#8A2BD6",
+    "viola-tinta": "#F5E5FF",
+    "giallo-vivo": "#FFC800",
+    "giallo-bordo3d": "#E5B400",
+    "su-giallo": "#3D2E00",
+    "giallo-testo": "#8F6200",
+    "giallo-tinta": "#FFF4E5",
     "d-pagina": "#111B21",
     "d-superficie": "#1E293B",
     "d-card": "#0F172A",
@@ -24,89 +42,345 @@
     "d-testo-forte": "#F8FAFC",
     "d-testo-tenue": "#94A3B8",
     "d-rosso-testo": "#FF6B6B",
-    "d-blu-tinta": "#0C4A6E", "d-blu-tinta-testo": "#E0F2FE",
-    "d-verde-tinta": "#14532D", "d-verde-tinta-testo": "#86EFAC",
-    "d-rosso-tinta": "#7F1D1D", "d-rosso-tinta-testo": "#FECACA",
-    "d-viola-tinta": "#3B0764", "d-viola-tinta-testo": "#E9D5FF",
-    "d-giallo-tinta": "#422006", "d-giallo-tinta-testo": "#FDE68A"
+    "d-blu-tinta": "#0C4A6E",
+    "d-blu-tinta-testo": "#E0F2FE",
+    "d-verde-tinta": "#14532D",
+    "d-verde-tinta-testo": "#86EFAC",
+    "d-rosso-tinta": "#7F1D1D",
+    "d-rosso-tinta-testo": "#FECACA",
+    "d-viola-tinta": "#3B0764",
+    "d-viola-tinta-testo": "#E9D5FF",
+    "d-giallo-tinta": "#422006",
+    "d-giallo-tinta-testo": "#FDE68A",
+    "testo-tenue-su-grigio": "#4B5563",
+    "superficie-grigia": "#F3F4F6"
   },
   "coppie": {
     "chiaro: testo su superfici": [
-      { "testo": "testo", "sfondo": "bianco", "uso": "corpo del testo" },
-      { "testo": "testo", "sfondo": "pagina", "uso": "corpo sul fondo pagina" },
-      { "testo": "testo-forte", "sfondo": "bianco", "uso": "titoli, testo della domanda" },
-      { "testo": "testo-tenue", "sfondo": "bianco", "uso": "etichette maiuscole, descrizioni (sostituisce gray-400)" },
-      { "testo": "testo-tenue", "sfondo": "pagina", "uso": "etichette sul fondo pagina" },
-      { "testo": "testo-segmento", "sfondo": "superficie-alt", "uso": "segmento inattivo del selettore" }
+      {
+        "testo": "testo",
+        "sfondo": "bianco",
+        "uso": "corpo del testo"
+      },
+      {
+        "testo": "testo",
+        "sfondo": "pagina",
+        "uso": "corpo sul fondo pagina"
+      },
+      {
+        "testo": "testo-forte",
+        "sfondo": "bianco",
+        "uso": "titoli, testo della domanda"
+      },
+      {
+        "testo": "testo-tenue",
+        "sfondo": "bianco",
+        "uso": "etichette maiuscole, descrizioni (sostituisce gray-400)"
+      },
+      {
+        "testo": "testo-tenue",
+        "sfondo": "pagina",
+        "uso": "etichette sul fondo pagina"
+      },
+      {
+        "testo": "testo-segmento",
+        "sfondo": "superficie-alt",
+        "uso": "segmento inattivo del selettore"
+      },
+      {
+        "testo": "testo-tenue-su-grigio",
+        "sfondo": "superficie-grigia",
+        "uso": "etichette su riquadri e chip grigi (#6B7280 qui fa 4,39:1)"
+      }
     ],
     "chiaro: pulsanti pieni": [
-      { "testo": "bianco", "sfondo": "blu-pieno", "uso": "CTA principale, pulsante primario" },
-      { "testo": "bianco", "sfondo": "verde-pieno", "uso": "Continua dopo giusta, Sicuro" },
-      { "testo": "bianco", "sfondo": "rosso-pieno", "uso": "Riprova, Indovino, azioni distruttive" },
-      { "testo": "bianco", "sfondo": "viola-pieno", "uso": "pillola Domanda N, pulsante viola" },
-      { "testo": "su-giallo", "sfondo": "giallo-vivo", "uso": "Incerto, pillole gialle: MAI testo bianco sul giallo" },
-      { "testo": "bianco", "sfondo": "blu-bordo3d", "uso": "sottotitolo nella CTA: testo bianco su pillola bg-black/15 (circa blu-bordo3d); non #DDF4FF" }
+      {
+        "testo": "bianco",
+        "sfondo": "blu-pieno",
+        "uso": "CTA principale, pulsante primario"
+      },
+      {
+        "testo": "bianco",
+        "sfondo": "verde-pieno",
+        "uso": "Continua dopo giusta, Sicuro"
+      },
+      {
+        "testo": "bianco",
+        "sfondo": "rosso-pieno",
+        "uso": "Riprova, Indovino, azioni distruttive"
+      },
+      {
+        "testo": "bianco",
+        "sfondo": "viola-pieno",
+        "uso": "pillola Domanda N, pulsante viola"
+      },
+      {
+        "testo": "su-giallo",
+        "sfondo": "giallo-vivo",
+        "uso": "Incerto, pillole gialle: MAI testo bianco sul giallo"
+      },
+      {
+        "testo": "bianco",
+        "sfondo": "blu-bordo3d",
+        "uso": "sottotitolo nella CTA: testo bianco su pillola bg-black/15 (circa blu-bordo3d); non #DDF4FF"
+      }
     ],
     "chiaro: testo colorato su bianco e su tinta": [
-      { "testo": "blu-testo", "sfondo": "bianco", "uso": "link, valore blu" },
-      { "testo": "blu-testo", "sfondo": "blu-tinta", "uso": "opzione selezionata" },
-      { "testo": "verde-testo", "sfondo": "bianco", "uso": "valore Imparate, stato Sincronizzato" },
-      { "testo": "verde-testo", "sfondo": "verde-tinta", "uso": "opzione giusta, barra feedback giusta" },
-      { "testo": "rosso-testo", "sfondo": "bianco", "uso": "messaggi di errore, timer in scadenza" },
-      { "testo": "rosso-testo", "sfondo": "rosso-tinta", "uso": "opzione sbagliata, barra feedback sbagliata, card errore" },
-      { "testo": "viola-testo", "sfondo": "bianco", "uso": "valore Accuratezza" },
-      { "testo": "viola-testo", "sfondo": "viola-tinta", "uso": "tile viola" },
-      { "testo": "giallo-testo", "sfondo": "bianco", "uso": "record, numeri gialli (mai #FFC800 come testo)" },
-      { "testo": "giallo-testo", "sfondo": "giallo-tinta", "uso": "tile gialla" },
-      { "testo": "verde-testo", "sfondo": "rosso-tinta", "uso": "risposta giusta nella card di revisione" },
-      { "testo": "testo", "sfondo": "rosso-tinta", "uso": "etichette nella card di revisione (non testo-tenue)" },
-      { "testo": "testo", "sfondo": "superficie-alt", "uso": "segmento inattivo del selettore" }
+      {
+        "testo": "blu-testo",
+        "sfondo": "bianco",
+        "uso": "link, valore blu"
+      },
+      {
+        "testo": "blu-testo",
+        "sfondo": "blu-tinta",
+        "uso": "opzione selezionata"
+      },
+      {
+        "testo": "verde-testo",
+        "sfondo": "bianco",
+        "uso": "valore Imparate, stato Sincronizzato"
+      },
+      {
+        "testo": "verde-testo",
+        "sfondo": "verde-tinta",
+        "uso": "opzione giusta, barra feedback giusta"
+      },
+      {
+        "testo": "rosso-testo",
+        "sfondo": "bianco",
+        "uso": "messaggi di errore, timer in scadenza"
+      },
+      {
+        "testo": "rosso-testo",
+        "sfondo": "rosso-tinta",
+        "uso": "opzione sbagliata, barra feedback sbagliata, card errore"
+      },
+      {
+        "testo": "viola-testo",
+        "sfondo": "bianco",
+        "uso": "valore Accuratezza"
+      },
+      {
+        "testo": "viola-testo",
+        "sfondo": "viola-tinta",
+        "uso": "tile viola"
+      },
+      {
+        "testo": "giallo-testo",
+        "sfondo": "bianco",
+        "uso": "record, numeri gialli (mai #FFC800 come testo)"
+      },
+      {
+        "testo": "giallo-testo",
+        "sfondo": "giallo-tinta",
+        "uso": "tile gialla"
+      },
+      {
+        "testo": "verde-testo",
+        "sfondo": "rosso-tinta",
+        "uso": "risposta giusta nella card di revisione"
+      },
+      {
+        "testo": "testo",
+        "sfondo": "rosso-tinta",
+        "uso": "etichette nella card di revisione (non testo-tenue)"
+      },
+      {
+        "testo": "testo",
+        "sfondo": "superficie-alt",
+        "uso": "segmento inattivo del selettore"
+      }
     ],
     "chiaro: elementi non testuali (3:1)": [
-      { "testo": "blu-pieno", "sfondo": "bianco", "min": 3, "uso": "anello di focus, serie grafico senza etichetta" },
-      { "testo": "rosso-vivo", "sfondo": "bianco", "min": 3, "uso": "bordo opzione sbagliata" },
-      { "testo": "verde-pieno", "sfondo": "bianco", "min": 3, "uso": "serie grafico verde senza etichetta" },
-      { "testo": "testo-tenue", "sfondo": "bianco", "min": 3, "uso": "bordo di input/select" }
+      {
+        "testo": "blu-pieno",
+        "sfondo": "bianco",
+        "min": 3,
+        "uso": "anello di focus, serie grafico senza etichetta"
+      },
+      {
+        "testo": "rosso-vivo",
+        "sfondo": "bianco",
+        "min": 3,
+        "uso": "bordo opzione sbagliata"
+      },
+      {
+        "testo": "verde-pieno",
+        "sfondo": "bianco",
+        "min": 3,
+        "uso": "serie grafico verde senza etichetta"
+      },
+      {
+        "testo": "testo-tenue",
+        "sfondo": "bianco",
+        "min": 3,
+        "uso": "bordo di input/select"
+      }
     ],
     "scuro: testo su superfici": [
-      { "testo": "d-testo", "sfondo": "d-superficie", "uso": "corpo" },
-      { "testo": "d-testo", "sfondo": "d-card", "uso": "corpo nelle card" },
-      { "testo": "d-testo-forte", "sfondo": "d-card", "uso": "titoli" },
-      { "testo": "d-testo-tenue", "sfondo": "d-superficie", "uso": "etichette" },
-      { "testo": "d-testo-tenue", "sfondo": "d-card", "uso": "etichette nelle card" }
+      {
+        "testo": "d-testo",
+        "sfondo": "d-superficie",
+        "uso": "corpo"
+      },
+      {
+        "testo": "d-testo",
+        "sfondo": "d-card",
+        "uso": "corpo nelle card"
+      },
+      {
+        "testo": "d-testo-forte",
+        "sfondo": "d-card",
+        "uso": "titoli"
+      },
+      {
+        "testo": "d-testo-tenue",
+        "sfondo": "d-superficie",
+        "uso": "etichette"
+      },
+      {
+        "testo": "d-testo-tenue",
+        "sfondo": "d-card",
+        "uso": "etichette nelle card"
+      }
     ],
     "scuro: colori vivi come testo": [
-      { "testo": "blu-vivo", "sfondo": "d-superficie", "uso": "valori blu" },
-      { "testo": "verde-vivo", "sfondo": "d-superficie", "uso": "valori verdi" },
-      { "testo": "d-rosso-testo", "sfondo": "d-superficie", "uso": "errori (il rosso vivo qui fa 4.43)" },
-      { "testo": "d-rosso-testo", "sfondo": "d-card", "uso": "errori nelle card" },
-      { "testo": "viola-vivo", "sfondo": "d-superficie", "uso": "Accuratezza" },
-      { "testo": "giallo-vivo", "sfondo": "d-superficie", "uso": "record, fiamma" },
-      { "testo": "blu-vivo", "sfondo": "d-card", "uso": "valori blu nelle card" },
-      { "testo": "verde-vivo", "sfondo": "d-card", "uso": "valori verdi nelle card" },
-      { "testo": "viola-vivo", "sfondo": "d-card", "uso": "valori viola nelle card" },
-      { "testo": "giallo-vivo", "sfondo": "d-card", "uso": "valori gialli nelle card" }
+      {
+        "testo": "blu-vivo",
+        "sfondo": "d-superficie",
+        "uso": "valori blu"
+      },
+      {
+        "testo": "verde-vivo",
+        "sfondo": "d-superficie",
+        "uso": "valori verdi"
+      },
+      {
+        "testo": "d-rosso-testo",
+        "sfondo": "d-superficie",
+        "uso": "errori (il rosso vivo qui fa 4.43)"
+      },
+      {
+        "testo": "d-rosso-testo",
+        "sfondo": "d-card",
+        "uso": "errori nelle card"
+      },
+      {
+        "testo": "viola-vivo",
+        "sfondo": "d-superficie",
+        "uso": "Accuratezza"
+      },
+      {
+        "testo": "giallo-vivo",
+        "sfondo": "d-superficie",
+        "uso": "record, fiamma"
+      },
+      {
+        "testo": "blu-vivo",
+        "sfondo": "d-card",
+        "uso": "valori blu nelle card"
+      },
+      {
+        "testo": "verde-vivo",
+        "sfondo": "d-card",
+        "uso": "valori verdi nelle card"
+      },
+      {
+        "testo": "viola-vivo",
+        "sfondo": "d-card",
+        "uso": "valori viola nelle card"
+      },
+      {
+        "testo": "giallo-vivo",
+        "sfondo": "d-card",
+        "uso": "valori gialli nelle card"
+      }
     ],
     "scuro: stati su tinta": [
-      { "testo": "d-blu-tinta-testo", "sfondo": "d-blu-tinta", "uso": "opzione selezionata" },
-      { "testo": "d-verde-tinta-testo", "sfondo": "d-verde-tinta", "uso": "opzione giusta, barra giusta" },
-      { "testo": "d-rosso-tinta-testo", "sfondo": "d-rosso-tinta", "uso": "opzione sbagliata, barra sbagliata" },
-      { "testo": "d-viola-tinta-testo", "sfondo": "d-viola-tinta", "uso": "tile viola" },
-      { "testo": "d-giallo-tinta-testo", "sfondo": "d-giallo-tinta", "uso": "tile gialla" },
-      { "testo": "verde-vivo", "sfondo": "d-rosso-tinta", "uso": "risposta giusta nella card di revisione" },
-      { "testo": "d-testo", "sfondo": "d-rosso-tinta", "uso": "etichette nella card di revisione" }
+      {
+        "testo": "d-blu-tinta-testo",
+        "sfondo": "d-blu-tinta",
+        "uso": "opzione selezionata"
+      },
+      {
+        "testo": "d-verde-tinta-testo",
+        "sfondo": "d-verde-tinta",
+        "uso": "opzione giusta, barra giusta"
+      },
+      {
+        "testo": "d-rosso-tinta-testo",
+        "sfondo": "d-rosso-tinta",
+        "uso": "opzione sbagliata, barra sbagliata"
+      },
+      {
+        "testo": "d-viola-tinta-testo",
+        "sfondo": "d-viola-tinta",
+        "uso": "tile viola"
+      },
+      {
+        "testo": "d-giallo-tinta-testo",
+        "sfondo": "d-giallo-tinta",
+        "uso": "tile gialla"
+      },
+      {
+        "testo": "verde-vivo",
+        "sfondo": "d-rosso-tinta",
+        "uso": "risposta giusta nella card di revisione"
+      },
+      {
+        "testo": "d-testo",
+        "sfondo": "d-rosso-tinta",
+        "uso": "etichette nella card di revisione"
+      }
     ],
     "scuro: pulsanti (stessi pieni del chiaro)": [
-      { "testo": "bianco", "sfondo": "blu-pieno", "uso": "primario" },
-      { "testo": "bianco", "sfondo": "verde-pieno", "uso": "verde" },
-      { "testo": "bianco", "sfondo": "rosso-pieno", "uso": "rosso" },
-      { "testo": "su-giallo", "sfondo": "giallo-vivo", "uso": "giallo" }
+      {
+        "testo": "bianco",
+        "sfondo": "blu-pieno",
+        "uso": "primario"
+      },
+      {
+        "testo": "bianco",
+        "sfondo": "verde-pieno",
+        "uso": "verde"
+      },
+      {
+        "testo": "bianco",
+        "sfondo": "rosso-pieno",
+        "uso": "rosso"
+      },
+      {
+        "testo": "su-giallo",
+        "sfondo": "giallo-vivo",
+        "uso": "giallo"
+      }
     ],
     "scuro: non testuali (3:1)": [
-      { "testo": "blu-vivo", "sfondo": "d-superficie", "min": 3, "uso": "anello di focus" },
-      { "testo": "blu-vivo", "sfondo": "d-bordo", "min": 3, "uso": "barra blu su traccia scura" },
-      { "testo": "verde-vivo", "sfondo": "d-bordo", "min": 3, "uso": "barra verde su traccia scura" },
-      { "testo": "viola-vivo", "sfondo": "d-bordo", "min": 3, "uso": "barra viola su traccia scura" }
+      {
+        "testo": "blu-vivo",
+        "sfondo": "d-superficie",
+        "min": 3,
+        "uso": "anello di focus"
+      },
+      {
+        "testo": "blu-vivo",
+        "sfondo": "d-bordo",
+        "min": 3,
+        "uso": "barra blu su traccia scura"
+      },
+      {
+        "testo": "verde-vivo",
+        "sfondo": "d-bordo",
+        "min": 3,
+        "uso": "barra verde su traccia scura"
+      },
+      {
+        "testo": "viola-vivo",
+        "sfondo": "d-bordo",
+        "min": 3,
+        "uso": "barra viola su traccia scura"
+      }
     ]
   }
 }
