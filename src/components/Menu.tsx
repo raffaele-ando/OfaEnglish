@@ -132,7 +132,7 @@ export default function Menu({ appState, user, onStartSmart, onStartLearn, onSta
                 )}
               >
                 <Layers size={15} />
-                <span>Tutte le frasi (606)</span>
+                <span>Tutte le frasi ({questions.length})</span>
               </button>
               <button
                 type="button"
@@ -190,7 +190,7 @@ export default function Menu({ appState, user, onStartSmart, onStartLearn, onSta
             >
               <span className="text-2xl sm:text-3xl leading-tight uppercase tracking-widest mb-2">Inizia Sessione</span>
               <span className="text-[#DDF4FF] text-xs sm:text-sm uppercase font-bold tracking-widest bg-black/10 px-4 py-1.5 rounded-full">
-                {selectedCorpus === 'initial' ? "Primo Corpus (60 frasi)" : "Algoritmo Ottimizzato (606)"}
+                {selectedCorpus === 'initial' ? "Primo Corpus (60 frasi)" : `Algoritmo Ottimizzato (${questions.length})`}
               </span>
             </button>
 

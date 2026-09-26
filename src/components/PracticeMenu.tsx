@@ -55,7 +55,7 @@ export default function PracticeMenu({ onSelectMode, onBack, selectedCorpus = 'a
             )}
           >
             <Layers size={15} />
-            <span>Tutte le frasi (606)</span>
+            <span>Tutte le frasi ({questions.length})</span>
           </button>
           <button
             type="button"
@@ -145,7 +145,7 @@ export default function PracticeMenu({ onSelectMode, onBack, selectedCorpus = 'a
               <option value="" disabled>Seleziona un filtro...</option>
               <optgroup label="Corpus / Raccolte">
                 <option value="corpus:initial">⭐ Primo Corpus Iniziale (60 frasi)</option>
-                <option value="corpus:all">🌐 Tutto il Database (606 frasi)</option>
+                <option value="corpus:all">🌐 Tutto il Database ({questions.length} frasi)</option>
               </optgroup>
               <optgroup label="Categorie">
                 {categories.map(c => (
