@@ -6,7 +6,8 @@
  *   node contrasto.cjs "#FFFFFF" "#1CB0F6"            un confronto
  *   node contrasto.cjs "#fff:#1CB0F6" "#4B4B4B:#fff"  più coppie testo:sfondo
  *   node contrasto.cjs --grafica "#2F8500:#E5E7EB"    coppia grafica (min 3 invece di 4.5)
- *   node contrasto.cjs --palette ../assets/palette.json   controlla tutte le coppie del file
+ *   node contrasto.cjs --palette palette.json   controlla tutte le coppie di un file JSON
+ *        (formato: { "colori": {nome: hex}, "coppie": {gruppo: [{testo, sfondo, tipo, uso}]} })
  *   node contrasto.cjs --suggerisci "#58CC02" --su "#FFFFFF" [--min 4.5]
  *        trova la tonalità più vicina (stessa tinta, più scura o più chiara)
  *        che raggiunge il contrasto minimo contro lo sfondo dato
@@ -106,7 +107,8 @@ const minIdx = args.indexOf('--min');
 const minArg = minIdx >= 0 ? parseFloat(args[minIdx + 1]) : null;
 
 if (args[0] === '--palette') {
-  const file = path.resolve(args[1] || path.join(__dirname, '../assets/palette.json'));
+  if (!args[1]) { console.error('Indica il file: --palette percorso/palette.json'); process.exit(2); }
+  const file = path.resolve(args[1]);
   const data = JSON.parse(fs.readFileSync(file, 'utf8'));
   const colors = data.colori || {};
   const res = c => (colors[c] ? colors[c] : c);
