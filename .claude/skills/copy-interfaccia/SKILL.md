@@ -43,6 +43,24 @@ Prima di aggiungere un testo conviene quindi chiedersi che cosa perderebbe la pe
 
 Non scrivere non vuol dire lasciare vuoto. Una schermata vuota o un trattino al posto di un dato fanno pensare che l'app non funzioni; in quei casi una riga che dice che cosa manca è necessaria. La domanda giusta non è quante parole togliere, ma quali parole servono a quella persona in quel momento.
 
+## Togliere il superfluo, non l'informazione
+
+Tagliare le parole inutili non significa ridurre ogni testo al minimo possibile. In una prova alla cieca l'utente ha preferito testi più completi a versioni troppo scarne, perché le versioni scarne avevano perso qualcosa che serviva.
+
+Un pulsante d'azione dice che cosa fa e, quando non è ovvio, su che cosa agisce o dove porta. «Annota» da solo lascia la domanda «annota che cosa?», mentre «Annota un pensiero» o «Aggiungi una nota» rispondono. «Salta le domande» dice che cosa si evita ma non dove si arriva; «Salta e vai alla demo» dice entrambe le cose. Un messaggio che chiude un'azione può indicare il passo successivo quando la persona deve davvero scegliere che cosa fare dopo, come alla fine di un timer: «Timer finito. Minuti registrati. Continua o fai una pausa.» è stato preferito alla versione che toglieva l'ultima frase.
+
+Prima di togliere una parola conviene quindi chiedersi se porta un'informazione che la persona non ha altrove. Se la porta, resta. Si tolgono i commenti, le spiegazioni ovvie, i permessi e le rassicurazioni vuote, non l'oggetto di un verbo, la destinazione di un pulsante o la conseguenza di un'azione.
+
+## Il testo deve dire il vero
+
+Un testo che descrive male quello che fa l'app è sbagliato anche se è scritto bene. Prima di scrivere un messaggio conviene verificare che cosa succede davvero dopo. Se chiudendo una richiesta sul sonno l'app domani chiederà gli orari della notte nuova, il messaggio non può dire «Richiesta rimandata a domani», perché non viene rimandata la stessa richiesta. Se un'importazione ha caricato solo una parte degli elementi, il titolo non può dire che l'importazione è completa. Quando il comportamento non è chiaro, va chiesto o letto nel codice prima di scrivere.
+
+## Stati vuoti e traguardi raggiunti
+
+Quando una lista si svuota perché la persona ha finito tutto, la prima domanda è se quell'elemento debba restare visibile. Una sezione come «Da sistemare» che resta sullo schermo senza niente dentro occupa spazio e non serve: spesso la scelta giusta è farla sparire.
+
+Se invece lo stato vuoto deve restare, bisogna distinguere perché è vuoto. Una lista vuota perché la persona non ha ancora iniziato ha bisogno di dire come si comincia. Una lista vuota perché la persona ha completato tutto è un traguardo, e merita un riscontro positivo che lo riconosca, breve e legato al fatto, come in un'app per studiare quando si finisce una sessione. In quel momento non si scrivono istruzioni d'uso: una frase come «Premi C per annotare un pensiero: lo ritrovi qui» spiega un meccanismo proprio quando la persona ha appena finito, e «lo ritrovi qui» è una rassicurazione che nessuno ha chiesto.
+
 ## Scegliere la parola che la lingua usa già
 
 Per quasi ogni cosa che compare in un'interfaccia esiste già una parola, e le persone la conoscono. Le operazioni si chiamano salvare, annullare, eliminare, modificare, accedere, procedere al pagamento. Una lista di cose da fare si chiama lista o elenco, oppure ha il nome che l'app le ha dato. Un'attività che nessuno tocca da settimane è inattiva. Il lavoro di chi scrive testi è trovare quella parola, non inventarne una più simpatica.
@@ -77,7 +95,7 @@ Le app dell'utente si rivolgono alla persona con il tu. Le maiuscole seguono la 
 
 Il tono di un testo deve corrispondere a quanto conta davvero quello che è appena successo. Per decidere conviene chiedersi che cosa ha fatto la persona e quanto le è costato.
 
-Un errore in un quiz è un evento frequente e senza drammi. Il riscontro è neutro e secco: nell'app per l'OFA il titolo è passato da «Risposta errata.» a «Errata.». Non servono consolazioni, perché una consolazione dopo ogni errore diventa rumore e tratta la persona come un bambino.
+Un errore in un quiz è un evento frequente e senza drammi. Il riscontro è neutro e secco: nell'app per l'OFA il titolo è passato da «Risposta errata.» a «Errata.». Non servono consolazioni, perché una consolazione dopo ogni errore diventa rumore e tratta la persona come un bambino. Quello che può servire è la correzione: dopo «Risposta sbagliata» mostrare subito la risposta giusta dà alla persona un'informazione utile invece di un incoraggiamento. Se si mostri o no dipende da come funziona il quiz, per esempio se prevede un secondo tentativo.
 
 Un risultato conquistato con uno sforzo reale merita invece una gratificazione, breve e legata al fatto. Nella stessa app, quando la serie arriva a tre o più risposte corrette di fila, il titolo diventa per esempio «Fantastico! 🔥 5 di fila!»: l'entusiasmo è giustificato dal numero, e il numero dice esattamente che cosa si sta festeggiando. Alla fine di una sessione compare «Sessione completata!», e nella prova di rebranding «Quiz completato!» è seguito da «Il tuo obiettivo è a portata di mano.». Questa gratificazione è voluta, soprattutto in un'app per studiare, perché premia uno sforzo che c'è stato davvero.
 
@@ -100,6 +118,8 @@ Per questo, quando l'utente dice che un testo è brutto, non bisogna spostarsi s
 ## Rileggere prima di consegnare
 
 Un testo va controllato insieme a tutti gli altri testi della stessa schermata, perché molti difetti si vedono solo così: due nomi per la stessa cosa, un pulsante che contraddice la frase sopra, un'informazione ripetuta tre volte. La procedura completa è in `references/revisione.md` e conviene seguirla ogni volta che si consegna una schermata, anche piccola.
+
+I casi raccolti nei riferimenti servono a capire il ragionamento, non a fornire frasi. Riusarne le parole in un contesto diverso produce testi che suonano copiati, e in una prova è successo proprio questo. Inoltre il gusto dell'utente si è evoluto: alcune versioni che aveva tenuto in passato oggi non le sceglierebbe. Un caso storico mostra una direzione, non una risposta definitiva.
 
 Se un testo resta incerto, va detto all'utente invece di presentarlo come giusto. Il giudizio sul copy delle sue app spetta a lui, e un dubbio dichiarato gli fa risparmiare tempo più di una proposta sicura che poi deve riscrivere.
 
