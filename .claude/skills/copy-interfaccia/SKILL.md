@@ -33,13 +33,17 @@ La seconda riguarda l'elemento. Ogni tipo di elemento ha un compito diverso, e i
 - Uno stato vuoto dice che non c'è niente e, se serve, che cosa si può fare per riempirlo.
 - Un messaggio di errore dice che cosa non ha funzionato e che cosa può fare la persona. Un codice numerico da solo non dice niente a chi non ha scritto il programma.
 
-La terza riguarda quello che la schermata dice già. Numeri, colori, icone, la posizione di un elemento e il pulsante che gli sta accanto comunicano quanto le parole. Se il contatore mostra che resta un'azione, una riga che dice «Ultima di oggi» ripete un'informazione già visibile e in più sembra un commento. Se un pulsante dice «Fatto», una frase sopra che invita a completare l'azione è superflua. Il testo deve aggiungere quello che la schermata da sola non dice.
+La terza riguarda l'ordine in cui la persona legge. Le parti di un testo vanno messe nell'ordine in cui vengono cercate. In una timeline oraria si scorre per orario, quindi l'ora viene prima del nome dell'attività: «alle 15:00 Confrontare piani telefonici», non il contrario.
+
+La quarta riguarda quello che la schermata dice già. Numeri, colori, icone, la posizione di un elemento e il pulsante che gli sta accanto comunicano quanto le parole. Se il contatore mostra che resta un'azione, una riga che dice «Ultima di oggi» ripete un'informazione già visibile e in più sembra un commento. Se un pulsante dice «Fatto», una frase sopra che invita a completare l'azione è superflua. Il testo deve aggiungere quello che la schermata da sola non dice.
 
 ## Quando è meglio non scrivere niente
 
 Molte delle correzioni dell'utente sono state cancellazioni. Sono sparite le istruzioni mostrate ogni giorno su gesti che si scoprono al primo uso, le spiegazioni sul funzionamento dell'app messe in testa alle sezioni, i contatori che contavano zero elementi, i pulsanti ripetuti su ogni riga quando toccare la riga faceva già la stessa cosa, le promesse di premio scritte sul pulsante prima ancora di premerlo.
 
 Prima di aggiungere un testo conviene quindi chiedersi che cosa perderebbe la persona se quel testo non ci fosse. Se la risposta è niente, il testo non va scritto. Se la risposta è un'informazione che non si può indovinare guardando lo schermo, come la conseguenza di una cancellazione o il significato di un valore su un grafico, il testo resta, nella forma più breve che la comunica.
+
+A volte il problema che si nota nel testo è in realtà un problema del controllo. Se un pulsante del timer elenca tre durate in fila con dei simboli incomprensibili, cambiare le parole non basta: bisogna decidere quante durate servono e con quale controllo si scelgono, e poi scrivere l'etichetta. In quei casi conviene dirlo e proporre la modifica all'interfaccia invece di limitarsi a riscrivere.
 
 Non scrivere non vuol dire lasciare vuoto. Una schermata vuota o un trattino al posto di un dato fanno pensare che l'app non funzioni; in quei casi una riga che dice che cosa manca è necessaria. La domanda giusta non è quante parole togliere, ma quali parole servono a quella persona in quel momento.
 
@@ -49,11 +53,13 @@ Tagliare le parole inutili non significa ridurre ogni testo al minimo possibile.
 
 Un pulsante d'azione dice che cosa fa e, quando non è ovvio, su che cosa agisce o dove porta. «Annota» da solo lascia la domanda «annota che cosa?», mentre «Annota un pensiero» o «Aggiungi una nota» rispondono. «Salta le domande» dice che cosa si evita ma non dove si arriva; «Salta e vai alla demo» dice entrambe le cose. Un messaggio che chiude un'azione può indicare il passo successivo quando la persona deve davvero scegliere che cosa fare dopo, come alla fine di un timer: «Timer finito. Minuti registrati. Continua o fai una pausa.» è stato preferito alla versione che toglieva l'ultima frase.
 
+Vale anche il contrario: se l'oggetto è già scritto sullo schermo, non serve ripeterlo. Un campo di ricerca in cima alla schermata Attività può dire «Cerca un'attività…», ma anche solo «Cerca», perché il titolo della schermata dice già dove si cerca.
+
 Prima di togliere una parola conviene quindi chiedersi se porta un'informazione che la persona non ha altrove. Se la porta, resta. Si tolgono i commenti, le spiegazioni ovvie, i permessi e le rassicurazioni vuote, non l'oggetto di un verbo, la destinazione di un pulsante o la conseguenza di un'azione.
 
 ## Il testo deve dire il vero
 
-Un testo che descrive male quello che fa l'app è sbagliato anche se è scritto bene. Prima di scrivere un messaggio conviene verificare che cosa succede davvero dopo. Se chiudendo una richiesta sul sonno l'app domani chiederà gli orari della notte nuova, il messaggio non può dire «Richiesta rimandata a domani», perché non viene rimandata la stessa richiesta. Se un'importazione ha caricato solo una parte degli elementi, il titolo non può dire che l'importazione è completa. Quando il comportamento non è chiaro, va chiesto o letto nel codice prima di scrivere.
+Un testo che descrive male quello che fa l'app è sbagliato anche se è scritto bene. Prima di scrivere un messaggio conviene verificare che cosa succede davvero dopo. Se chiudendo una richiesta sul sonno l'app domani chiederà gli orari della notte nuova, il messaggio non può dire «Richiesta rimandata a domani», perché non viene rimandata la stessa richiesta. Se un'importazione ha caricato solo una parte degli elementi, il titolo non può dire che l'importazione è completa. Lo stesso vale per chi ha fatto che cosa. Se il servizio delle notifiche rifiuta l'invio perché l'app ha mandato troppe richieste, il messaggio parla di «troppe richieste», non di «troppi tentativi», perché la persona non ha tentato niente e si chiederebbe che cosa ha sbagliato. Quando il comportamento non è chiaro, va chiesto o letto nel codice prima di scrivere.
 
 ## Stati vuoti e traguardi raggiunti
 
@@ -71,9 +77,11 @@ Il primo è il gergo, cioè le parole di un ambiente specialistico o gli anglici
 
 Il secondo è la perifrasi generica, cioè un giro di parole vago usato al posto del nome: «un posto per le cose da fare», «dargli un posto nella giornata» al posto di «dargli un orario», «una cosa in più». Suona gentile, ma costringe la persona a indovinare di che cosa si parla, e dà all'interfaccia un tono infantile.
 
-Il terzo è l'imprecisione: una parola che si avvicina al significato senza coglierlo. Un timer che conta alla rovescia i minuti rimasti mostra «restano», non «nel blocco». Un pulsante che sposta un'attività in un giorno qualsiasi, anche nel passato, non può dire «Rimanda». «Bassa evidenza» detto di una pratica ragionevole ma non ancora misurata fa pensare che sia falsa, e il termine corretto è «euristica». Il simbolo «′» dopo un numero non si legge come «minuti», quindi si scrive «min».
+Il terzo è l'imprecisione: una parola che si avvicina al significato senza coglierlo. Un timer che conta alla rovescia i minuti rimasti mostra «restano», non «nel blocco». Un pulsante che sposta un'attività in un giorno qualsiasi, anche nel passato, non può dire «Rimanda». «Bassa evidenza» detto di una pratica ragionevole ma non ancora misurata fa pensare che sia falsa, e il termine corretto è «euristica». Il simbolo «′» dopo un numero non si legge come «minuti», quindi si scrive «min». Per uno stato nelle impostazioni, «Disattivate» è preferibile a «Spente», perché è la parola che usano le impostazioni del telefono.
 
 Per scegliere la parola conviene fare tre verifiche. Una persona che parla italiano userebbe questa parola per questa cosa anche fuori dall'app? Il dizionario le dà proprio questo significato? Le app che la persona usa ogni giorno, come la banca, la posta o le impostazioni del telefono, chiamano questa cosa nello stesso modo?
+
+Un pulsante che avvia un'attività nomina quello che la persona fa o ottiene, non il nome interno che l'app dà alla funzione. Il pulsante che apre il rituale del mattino, dove si scelgono le azioni della giornata, è diventato «Pianifica la giornata»: dice lo scopo con un verbo comune, mentre «Fai il rituale del mattino» ripete un'etichetta dell'app e costringe a sapere che cosa sia il rituale. Anche «Pianifica il mattino» è meno preciso, perché quello che si pianifica è la giornata, non il mattino.
 
 Una volta scelto il nome, lo si usa sempre. Se la schermata si chiama «Oggi», il pulsante che ci porta dice «Oggi», e la sezione non ha un secondo nome nel sottotitolo e un terzo nella guida. Nell'app per l'OFA la stessa percentuale è stata chiamata prima «Accuratezza», poi «Precisione», poi di nuovo «Accuratezza»: ogni cambio obbliga chi la usa a chiedersi se si tratta di un dato diverso.
 
@@ -88,6 +96,8 @@ Il registro parlato si riconosce da alcuni tratti precisi, che nell'italiano scr
 Il software non è una persona e non parla di sé. Un'app non dice «Ti avviso quando finisce il timer», «Non ci sono riuscito», «Mostro le cose importanti» o «L'ho contattato», e non riferisce che cosa «ha detto» un server. Descrive lo stato: che cosa è stato salvato, che cosa non è riuscito, perché, e che cosa si può fare. Allo stesso modo il codice non ha sentimenti né opinioni: un servizio non «ha problemi suoi» e un registro non «dice com'è andata». C'è una sola eccezione, ed è di convenzione: l'utente ha apprezzato il titolo «Verifichiamo il tuo livello», dove la prima persona plurale è la forma esortativa con cui molte app italiane presentano un'attività da fare insieme. È diverso da un'app che racconta le proprie azioni o i propri fallimenti come farebbe un personaggio.
 
 Anche la voce della persona va usata con cautela. Un pulsante che dice «Mi funziona» mette in bocca all'utente una frase in prima persona; un'etichetta come «Funziona» ottiene lo stesso effetto senza fingere un dialogo.
+
+Quando il nome di una cosa è una parola comune, conviene dire di che cosa si tratta. «Le sue attività passano ad «Altro»» obbliga a ricordare che «Altro» è un'area; «Le sue attività passeranno all'area «Altro»» lo dice. In un avviso di conferma, la conseguenza avviene dopo che la persona ha confermato, quindi il futuro è più esatto del presente.
 
 Le app dell'utente si rivolgono alla persona con il tu. Le maiuscole seguono la grammatica italiana, con la maiuscola solo all'inizio della frase o del titolo.
 

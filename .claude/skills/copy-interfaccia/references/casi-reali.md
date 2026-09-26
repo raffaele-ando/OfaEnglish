@@ -411,3 +411,15 @@ Vengono da schermate generate per un possibile rebranding dell'app per l'OFA, co
 - **«Continua a studiare»** e **«Il tuo progresso»**. Un pulsante con un verbo e il suo complemento, un titolo che è un nome.
 
 Nessuna di queste frasi contiene gergo, battute, frammenti, dislocazioni o un software che parla di sé. Sono tutte frasi che un'app di una banca o di un'università potrebbe usare, ed è proprio questa normalità che l'utente ha apprezzato.
+
+## Dalle prove alla cieca (scelte dell'utente tra due proposte)
+
+Queste non sono versioni scritte dall'utente. Sono le sue preferenze tra due proposte generate, con il motivo quando l'ha detto. Mostrano un criterio da applicare, non frasi da copiare.
+
+- **Pulsante che apre il piano del mattino.** «Fai il rituale del mattino» ha perso contro «Pianifica il mattino», ma la versione che poi ha tenuto è «Pianifica la giornata». Il pulsante nomina lo scopo, cioè la giornata, e non il nome interno della funzione.
+- **Errore 429 del servizio push.** Ha scelto «Troppe richieste in poco tempo» invece di «Troppi tentativi». «Tentativi» fa credere che abbia sbagliato la persona, mentre le richieste le ha mandate l'app.
+- **Conferma prima di rimuovere un'area.** Ha preferito «Le sue attività passeranno all'area «Altro»» a «passano ad «Altro»». Il testo dice che «Altro» è un'area, e il futuro corrisponde a ciò che succede dopo la conferma.
+- **Stato delle notifiche.** Ha scelto «Disattivate su questo dispositivo» invece di «Spente…», perché è la parola delle impostazioni.
+- **Voce della timeline con un orario.** Ha detto che metterebbe prima l'orario e poi l'attività, perché in una timeline si legge per ora.
+- **Campo di ricerca.** Ha scelto «Cerca un'attività…» invece di «Cerca tra le attività», e ha proposto anche solo «Cerca», perché la schermata dice già dove si cerca.
+- **Timer con più durate.** Ha detto che il problema era «più ui/ux che scritte». Prima si decide il controllo, poi l'etichetta.

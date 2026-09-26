@@ -41,6 +41,7 @@ Skill sorelle: `metodo-di-studio` dice *che cosa* conta in uno strumento di stud
 - *Sostituisci l'esortazione con un meccanismo.* Se un comportamento conta, rendilo parte del gesto.
 - *Chiama le cose con il loro nome e rinominale quando la funzione cambia.*
 - *Rifinisci prima ciò che si usa di più.*
+- *Se l'utente vuole togliere o ristrutturare una funzione, aiutalo a farlo.* Non difendere quello che esiste solo perché «è utile»: il rituale del mattino di LifeMax è rimasto per molto tempo perché ogni proposta di toglierlo veniva respinta con questa motivazione. Prima chiedi che cosa non funziona, poi proponi come ottenere la stessa utilità in un'altra forma (spostata, fusa con un'altra schermata, automatica) o come farne a meno. Se vedi un rischio reale, dillo una volta sola, con il motivo, e poi procedi con quello che ha deciso lui.
 
 ## 2. I criteri, come domande in tensione
 
