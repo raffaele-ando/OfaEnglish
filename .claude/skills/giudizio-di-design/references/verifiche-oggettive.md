@@ -63,7 +63,7 @@ Qui il criterio 1 dell'utente smette di essere una questione di equilibrio e div
 - **Il nome dice che cosa è contato**, e la stessa etichetta mostra lo stesso numero in ogni schermata (stesso perimetro, stesso filtro).
 - **Un dato mancante non è uno zero.** «Mai vista», «—», «non ancora abbastanza dati» sono diversi da 0%.
 - **La metrica fa ciò che dice.** Verifica con un caso limite: se l'utente sbaglia tutto, sale? Se salta le domande difficili, migliora? Se apre soltanto l'app, conta? Se una risposta è dichiarata «a caso», finisce tra le imparate?
-- **Il perimetro è sempre dichiarato** quando i numeri sono calcolati su un sottoinsieme.
+- **Il perimetro è sempre dichiarato** quando i numeri sono calcolati su un sottoinsieme. Dichiarato vuol dire un'etichetta, un chip o un'icona «i», non un paragrafo (`esecuzione-visiva.md` §13).
 - **I grafici hanno una forma valida per i dati che ci sono**: niente radar con due assi, niente mappa di 28 giorni con tre giorni di dati, assi che partono da zero quando si confrontano grandezze.
 - **La telemetria nascosta è dichiarata** se misura la persona (tempi, esitazioni).
 
@@ -72,4 +72,5 @@ Qui il criterio 1 dell'utente smette di essere una questione di equilibrio e div
 - Contrasti di colori definiti a runtime, in immagini o in grafici generati: controllali uno per uno con `contrasto.cjs`.
 - Testo troppo piccolo, aree di tocco, layout a 320 px, zoom al 200%: vanno guardati (o misurati con gli strumenti del browser).
 - Ordine del focus, annunci `aria-live`, movimento ridotto: vanno provati.
+- La qualità visiva: gerarchia, punto focale, spazio, rifinitura. Per quella, `esecuzione-visiva.md` (§14 rifinitura, §16 confronto con il default).
 - Tutto ciò che riguarda il giudizio: se la parola è quella giusta, se il riscontro è proporzionato, se l'informazione arriva al momento giusto. Per quello, SKILL.md.

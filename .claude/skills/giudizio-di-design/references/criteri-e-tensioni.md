@@ -100,7 +100,7 @@ Prima di sacrificare un criterio, cerca una mossa che li tenga entrambi:
 - **Motore complesso, vista semplice.** Adattamento e prevedibilità convivono (C16).
 - **Gesto che verifica.** Comportamento voluto e zero attrito convivono (C12, C15).
 
-Se nessuna mossa funziona, scegli quale criterio cede e **scrivilo** nella presentazione del design (SKILL.md §5), con il segnale che ti farebbe tornare indietro.
+Se nessuna mossa funziona, scegli quale criterio cede e **scrivilo** nella presentazione del design (SKILL.md §6), con il segnale che ti farebbe tornare indietro.
 
 ## 4. Che cosa del contesto sposta l'equilibrio
 
@@ -134,4 +134,4 @@ Scelta: … perché, in questo contesto, …
 La cambierei se osservo: …
 ```
 
-Non serve mostrarla all'utente per intero: ne bastano le conclusioni (SKILL.md §5).
+Non serve mostrarla all'utente per intero: ne bastano le conclusioni (SKILL.md §6).

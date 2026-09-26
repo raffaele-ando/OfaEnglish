@@ -32,7 +32,7 @@ Le contraddizioni aperte (`casi.md` §9) mostrano dove l'app tradisce le proprie
 
 ## Che cosa cambierebbe in altri contesti
 
-Gli esempi mostrano il ragionamento, non una ricetta: parti comunque dal processo (SKILL.md §1).
+Gli esempi mostrano il ragionamento, non una ricetta né un elenco di categorie da cui scegliere: parti comunque dall'analisi della richiesta (SKILL.md §1). E dove un contesto chiede meno colore o meno festa, non chiede meno cura: gerarchia netta, un punto focale e stati rifiniti servono ovunque (`esecuzione-visiva.md`).
 
 **Dashboard da desktop per un docente che segue una classe.**
 Il momento che conta non è «iniziare», ma «capire chi è in difficoltà e su che cosa». Un pulsante eroe non ha senso: servono confronto e densità (tabella o matrice studenti × argomenti, ordinabile, con i peggiori in evidenza), testo più piccolo ma denso, filtri combinabili invece di una tendina. Niente coriandoli: è uno strumento di lavoro. Le parole diventano quelle del docente («padronanza», «argomento», «insufficiente» possono essere letterali per lui). Criterio 1 resta centrale, con un vincolo nuovo: i dati di ciascuno studente non devono diventare una classifica pubblica.
