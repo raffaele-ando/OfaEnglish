@@ -68,7 +68,7 @@ Riporta i problemi in ordine di gravità (blocca l'uso → confonde → rifinitu
 - [ ] **Nessun conteggio scritto a mano** («(606)», «/30», «25/30», «10s»): tutto dai dati o dalle costanti.
 - [ ] Numeri all'italiana (virgola decimale, «72%», «30 s») e plurali corretti.
 - [ ] Esclamativi solo sui successi, **al massimo uno per messaggio** («Fantastico, 4 di fila! 🔥»); 🔥 in fondo.
-- [ ] Feedback d'errore adatto all'interazione (`copy.md` §8): quiz con Riprova «Non è questa.» + «Riprova»; flashcard «Risposta: …» + «Ripeti più tardi» / «Continua»; simulazione niente feedback fino alla consegna.
+- [ ] Feedback d'errore adatto all'interazione (`copy.md` §8) (quiz con Riprova, flashcard, simulazione: vedi il paragrafo).
 - [ ] Errori brevi, senza colpa, con il prossimo passo.
 - [ ] Ogni testo passa il test «posso togliere una parola?».
 - [ ] Nessun `alert()`; nessun messaggio tecnico grezzo davanti all'utente.

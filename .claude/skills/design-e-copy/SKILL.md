@@ -42,14 +42,14 @@ Ognuno ha un perché, preso dalla storia dell'app. Sono criteri di giudizio, non
 1. **Italiano, con il tu, imperativo diretto.** «Inizia», «Riprova», «Tocca le parole». L'inglese resta solo nei contenuti che sono inglesi per natura. **Una schermata, una lingua**: la simulazione tutta in inglese era la parte peggiore dell'app.
 2. **Più corto possibile.** Etichette di 1-2 parole, descrizioni di 2-5, titoli di feedback di 1-3. Ogni revisione dell'app ha solo accorciato: «Risposta errata.» → «Errata.», «Riprova, puoi farcela!» → «Riprova!».
 3. **Festa sui successi, fatti asciutti sugli errori.** Esclamativo ed emoji (🔥) solo per un successo vero, al massimo un «!» per messaggio («Fantastico, 4 di fila! 🔥»); sugli errori una frase neutra e l'azione. Niente colpa, niente «peccato», niente tifo né prediche: li ha cancellati tutti.
-4. **Il feedback d'errore dipende dall'interazione.** Quiz con Riprova: «Errata.» + «Riprova» (la scelta dell'utente, accorciata apposta; «Non è questa.» è un'alternativa se il contesto la rende più naturale); flashcard e richiamo autovalutato: «Risposta: …» + «Ripeti più tardi» / «Continua»; simulazione: niente feedback fino alla consegna. Tabella in `references/copy.md` §8.
+4. **Il feedback d'errore dipende dall'interazione.** Quiz con Riprova: «Errata.» + «Riprova» (la scelta dell'utente, accorciata apposta; «Non è questa.» è un'alternativa se il contesto la rende più naturale); flashcard e richiamo autovalutato: «Risposta: …» + «Ripeti più tardi» / «Continua»; simulazione: niente feedback fino alla consegna. Descrizione in `references/copy.md` §8.
 5. **Nomi letterali, uno per concetto.** «Domande imparate», «Accuratezza», «Mai vista». «Maestria» e «Precisione» sono stati provati e tolti lo stesso giorno. Niente sinonimi per variare (frasi/domande, simulazione/mock exam, record/miglior punteggio).
 6. **Maiuscola solo iniziale**, sempre; il maiuscolo dei pulsanti si fa con CSS, non nel sorgente.
 7. **Sempre qualcosa da fare.** Errori e stati vuoti dicono il prossimo passo; i dettagli tecnici stanno in «Dettagli», mai in un `alert()`.
 8. **Numeri all'italiana e dai dati.** «4,38», «72%», «30 s», «22 su 30», plurali corretti; mai «(606)» scritto a mano.
 9. **Autovalutazione onesta nella voce dello studente**: «Indovino / Incerto / Sicuro».
 
-Glossario completo usa/non usare, frasi pronte per ogni momento e traduzioni degli avanzi inglesi: `references/copy.md`.
+Come scegliere un termine per concetto, feedback per tipo di interazione e regole di forma: `references/copy.md`. Per le parole, `copy-interfaccia`.
 
 ---
 
@@ -60,7 +60,7 @@ Leggi solo ciò che serve al compito: i riferimenti sono lunghi e leggerli tutti
 | Compito | Leggi |
 |---|---|
 | Un componente o una piccola modifica visiva | `references/componenti.md` (la ricetta che serve) + il blocco di token in `sistema-visivo.md` §3 |
-| Solo testi (etichetta, messaggio, errore) | `references/copy.md` (glossario §7, frasi pronte §8) |
+| Solo testi (etichetta, messaggio, errore) | `references/copy.md` (un termine per concetto §7, feedback §8) + `copy-interfaccia` |
 | Revisione di una UI esistente | gli script + `references/checklist-accessibilita-e-revisione.md`; apri gli altri file solo per le correzioni |
 | Un'app o una pagina nuova | tutto: `sistema-visivo.md`, `componenti.md`, `copy.md`, poi la checklist |
 | Un colore nuovo | `contrasto.cjs` (`--suggerisci` trova la tonalità) e `assets/palette.json` |
@@ -75,7 +75,7 @@ Script: `scripts/controlla_copy.cjs` (testi e un po' di accessibilità, `--help`
 1. **Capisci l'azione principale** di ogni schermata: cosa deve poter fare con un tocco? Tutto il resto è secondario. Per uno strumento di studio leggi anche `metodo-di-studio` (cosa mostrare e quando).
 2. **Parti dal blocco di token** (`references/sistema-visivo.md` §3): un solo blocco per Tailwind v4 o CSS semplice, con font, tema scuro (`light-dark()`, valori scritti una volta) e anti-lampo già inclusi. Se sei in un artifact, carica prima anche la skill `artifact-design` e rispettane il contratto; questa skill decide lo stile.
 3. **Componi con le ricette** di `references/componenti.md` (CTA eroe, triade di sicurezza, barra azioni con feedback, card opzione, tile, barre, selettore a segmenti, stati vuoti, conferme). Adatta, non incollare alla cieca.
-4. **Scrivi i testi con `references/copy.md`**: glossario prima, frasi pronte poi. Scegli i termini del progetto una volta (es. «domanda», «simulazione») e usali ovunque. Se l'utente ha già un suo termine (per esempio «flashcard»), usa il suo, sempre quello: il glossario vale quando non c'è una scelta dell'utente.
+4. **Scrivi i testi con `references/copy.md`**: prima le regole di forma e il termine per concetto, poi `copy-interfaccia` per le parole. Scegli i termini del progetto una volta (es. «domanda», «simulazione») e usali ovunque. Se l'utente ha già un suo termine (per esempio «flashcard»), usa il suo, sempre quello: la regola del §7 vale quando non c'è una scelta dell'utente.
 5. **Per i grafici** carica la skill `dataviz`, poi applica §11 di `sistema-visivo.md`.
 6. **Verifica** prima di consegnare: `node scripts/controlla_copy.cjs <cartella>`, `node scripts/contrasto.cjs` per ogni colore nuovo (`--grafica` per barre, icone, focus e bordi), e la checklist.
 
@@ -91,4 +91,4 @@ Script: `scripts/controlla_copy.cjs` (testi e un po' di accessibilità, `--help`
 4. Se modifichi, cambia il minimo necessario per ogni problema e mantieni lo stile esistente del progetto dove non contrasta con questi principi.
 
 ### Quando scrivi solo testi (un messaggio, un'etichetta)
-Rispondi con la stringa pronta (e al massimo un'alternativa), rispettando glossario, lunghezza, maiuscole e tono. Se il contesto non chiarisce il termine giusto, scegli quello del glossario.
+Rispondi con la stringa pronta (e al massimo un'alternativa), rispettando termine unico, lunghezza, maiuscole e tono. Se il contesto non chiarisce il termine giusto, chiedilo o dichiara l'ipotesi.

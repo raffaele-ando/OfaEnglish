@@ -1,9 +1,9 @@
 # Copy dell'interfaccia
 
-Come scrivere i testi di un'interfaccia per l'utente: voce, regole, glossario, frasi pronte. Viene dai testi di *OFA Polimi Prep* (i migliori tenuti, gli avanzi inglesi e le incoerenze corretti). Per controllare un progetto: `node scripts/controlla_copy.cjs <cartella>`.
+Come scrivere i testi di un'interfaccia per l'utente: voce, regole di forma, glossario, feedback per interazione. Viene dai testi di *OFA Polimi Prep* (i migliori tenuti, gli avanzi inglesi e le incoerenze corretti). Per controllare un progetto: `node scripts/controlla_copy.cjs <cartella>`.
 
 ## Indice
-1. Cosa dice la storia dell'app · 2. Voce e tono · 3. Lunghezza · 4. Punteggiatura, esclamazioni, emoji · 5. Maiuscole · 6. Numeri · 7. Glossario usa / non usare · 8. Frasi pronte per i momenti comuni · 9. Avanzi inglesi dell'app → italiano · 10. Da evitare · 11. Formula per i messaggi di errore
+1. Cosa dice la storia dell'app · 2. Voce e tono · 3. Lunghezza · 4. Punteggiatura, esclamazioni, emoji · 5. Maiuscole · 6. Numeri · 7. Un termine per concetto · 8. Feedback per tipo di interazione · 9. Da evitare · 10. Messaggi di errore
 
 ---
 
@@ -23,15 +23,7 @@ Due forme dell'app qui sono corrette di proposito: «Fantastico! 🔥 3 di fila!
 
 - **Italiano, "tu", imperativo diretto**: «Inizia», «Riprova», «Tocca le parole», «Focalizzati sugli errori». Mai «Lei», «voi», e l'app non dice «noi» («Stiamo caricando…» → «Caricamento…»).
 - **L'inglese resta solo nei contenuti** che sono inglesi per natura (le domande di un esame d'inglese, i nomi degli argomenti di grammatica come *Present perfect*, un termine tecnico senza equivalente usato dall'utente). L'interfaccia intorno è tutta italiana: una schermata, una lingua.
-- **Tono per momento**:
-
-| Momento | Tono | Esempio |
-|---|---|---|
-| Successo | festoso e crescente | «Ottimo!» → «Fantastico, 3 di fila! 🔥» |
-| Errore dell'utente | neutro, breve, operativo; mai colpa; dipende dall'interazione (§8) | «Errata.» + pulsante «Riprova» |
-| Dati | nomi semplici, niente aggettivi | «Esami completati», «Miglior punteggio», «Mai vista» |
-| Aiuto | domanda + soluzione | «Troppo difficile? Usa le opzioni multiple» |
-| Guasto | rassicurante + cosa fare | «I tuoi progressi sono al sicuro. Ricarica l'app.» |
+- **Tono per momento.** Il successo è festoso e cresce con la serie. L'errore dell'utente è neutro, breve e operativo, senza colpa, e dipende dall'interazione (§8). I dati hanno nomi semplici e niente aggettivi. L'aiuto è una domanda seguita dalla soluzione. Il guasto rassicura e dice che cosa fare. Per scegliere le parole di ciascun momento vale `copy-interfaccia`, non un elenco di frasi.
 
 - **Onestà**: l'autovalutazione è nella voce dello studente e non vergogna nessuno: **Indovino / Incerto / Sicuro**. Tienila così.
 - Il feedback che cresce con la serie dentro la sessione è parte del metodo: regole in `metodo-di-studio` §5.
@@ -84,169 +76,46 @@ plurale(3, 'giusta', 'giuste');      // "3 giuste"
 `${n.format(72.4)}%`;                // "72,4%"
 ```
 
-## 7. Glossario: usa / non usare
+## 7. Un termine per concetto
 
-**Una parola per concetto, sempre la stessa in tutta l'app** (niente «frasi» in un posto e «domande» in un altro). Se il progetto richiede un termine diverso, sceglilo una volta e aggiornalo ovunque.
+Ogni concetto ha un solo nome, sempre lo stesso in tutta l'app. Nell'app OFA lo stesso concetto era chiamato in quattro modi (simulazione, esame, mock exam, prova) e l'elemento di studio alternava «domanda», «frase» e «question»: ogni cambio di nome fa pensare che sia una cosa diversa. Si sceglie il nome una volta e si aggiorna ovunque, controllando con `scripts/controlla_copy.cjs`.
 
-| Concetto | Usa | Non usare | Perché |
-|---|---|---|---|
-| Elemento di studio | **domanda** (o l'unità dell'esame: esercizio, definizione) | frase, quesito, item, question, alternati tra loro | l'app mischiava frasi/domande/questions |
-| Elementi imparati | **Imparate**, **Domande imparate** (in % con barra) | Maestria, Mastery, Mastered, Syllabus coperto, Copertura, Padronanza come etichetta | tutti provati e scartati; «copertura» cresce anche sbagliando |
-| Non ancora imparate | **Da imparare** | Da studiare, Mancanti | |
-| Esito del primo tentativo | **Accuratezza** | Precisione, Accuracy, Tasso di successo | Precisione provata e tolta (`6ea4e84`) |
-| Forza del ricordo di una domanda | **Confidenza** (+ freccia di tendenza) | Sicurezza, Padronanza | non va confusa con l'autovalutazione |
-| Autovalutazione alla conferma | **Indovino / Incerto / Sicuro** | Basso/Medio/Alto, Facile/Difficile | parole dello studente, invariate dal primo giorno |
-| Blocco di domande | **sessione** | lezione, round, livello, partita | |
-| Giuste di fila nella sessione | **N di fila** + 🔥 | streak, combo, serie di giorni | è un feedback, non un contatore di giorni |
-| Esame di prova | **simulazione**, «Simulazione d'esame» | Mock exam, esame, test, prova (per lo stesso concetto) | l'app ne usava quattro |
-| Esito simulazione | **Superata / Non superata** | PASSED/FAILED, Promosso/Bocciato, Fallito | |
-| Quota superate | **Simulazioni superate** (%) | Pass rate, Tasso di promozione | |
-| Punteggio massimo | **Miglior punteggio** (una volta sola) | Record + Miglior punteggio insieme, Best score, Punteggio max | l'app mostrava lo stesso numero due volte |
-| Profilo per argomento | **Profilo per argomento** | Skill profile, Radar, Mastery | |
-| Non risposte | **omesse** | saltate, non date, vuote (alternati) | |
-| Argomento / categoria / livello | **argomento**, **categoria**, **livello** (tre livelli fissi) | tema, sezione, topic | |
-| Errori ricorrenti | **Errori comuni** | Errori frequenti, Weakness | |
-| Attività nei giorni | **Costanza (ultimi 7 giorni)**: grafico di domande o minuti al giorno | Consistency, Attività, «N giorni di fila», «Non perdere la serie» | è un dato informativo, non una serie da difendere: niente contatore di giorni né fiamme (🔥 solo per le giuste di fila nella sessione) |
-| Aiuto | **Suggerimento** | Hint, Aiutino, Indizio | |
-| Insieme piccolo iniziale | un nome e basta (es. **Primo corpus**) | Primo corpus iniziale, Nucleo, Base, alternati | |
-| Tutto il materiale | **Tutte le domande** | Tutto il database, Tutte le frasi | |
-| Modalità | **Standard, Punti deboli, Blitz, Richiamo attivo, Filtro mirato** | Weakness, Active Recall (se esiste l'italiano), Category Master, Modalità Custom | Blitz resta: breve e già italiano |
-| Continuare | **Continua** | Next, Avanti (sullo stesso pulsante) | |
-| Consegnare la simulazione | **Consegna** | Submit, Invia, Termina | |
-| Accesso | **Accedi / Esci** | Sign in, Login, Logout, Log out | |
-| Stato cloud | **Sincronizzato** | Synced | |
-| Import/export | **Importa progressi / Esporta progressi** | Import, Export, Backup | |
-| Statistiche | **Statistiche** | Stats, Analytics, Dashboard | |
-| Impostazioni | **Impostazioni** | Settings, Preferenze | |
+Come si sceglie:
+- Il nome è quello che il dizionario e le altre app italiane usano per quella cosa; il nome inglese si scarta se esiste l'italiano.
+- Il nome dice ciò che è, non ciò che suona bene. Nella storia dell'app «Maestria» e «Precisione» sono stati provati e tolti lo stesso giorno, e «Category Master» è diventato un nome descrittivo.
+- Un dato che non misura la conoscenza non si chiama come se la misurasse. «Copertura» cresce anche sbagliando, quindi non va usata per dire quanto si sa.
+- Due misure diverse hanno due nomi diversi (nell'app: l'esito del primo tentativo e la forza del ricordo non si chiamano allo stesso modo), e uno stesso numero non si mostra due volte con due etichette.
+- Se l'utente ha già un suo termine, vale il suo.
 
-**Gamification finta**: XP, punti, livello, «Liv.», badge, trofei, sfida quotidiana, obiettivo giornaliero, serie di giorni consecutivi. **Non usarli** a meno che l'utente li chieda esplicitamente: la motivazione viene da quanto sa (vedi `metodo-di-studio` §4).
+**Gamification finta**: XP, punti, livello, badge, trofei, sfida quotidiana, obiettivo giornaliero, serie di giorni consecutivi. Non usarli a meno che l'utente li chieda: la motivazione viene da quanto sa (`metodo-di-studio` §4). La serie di giuste di fila *dentro la sessione* è un feedback, non un contatore di giorni.
 
-## 8. Frasi pronte per i momenti comuni
+## 8. Feedback per tipo di interazione
 
-Le parti tra `{}` vengono dai dati. Le varianti sono in ordine di preferenza.
+La risposta sbagliata non ha un testo solo: dipende da che cosa può fare dopo la persona.
+- **Quiz con secondo tentativo**: un titolo breve e piatto, senza colpa, e un pulsante che dice che cosa fare. L'opzione scelta resta disattivata; la spiegazione arriva quando trova la giusta. Il titolo deve spingere verso l'opzione giusta, non chiudere con un verdetto.
+- **Risposta costruita con le parole o scritta**: il titolo dice se la risposta è del tutto o in parte sbagliata, e può offrire un aiuto a scalino verso una forma più semplice.
+- **Tempo scaduto**: lo dice e permette di riprovare.
+- **Flashcard e richiamo autovalutato**: nessun verdetto. Dopo aver mostrato la risposta giudica lo studente, con la scala di sicurezza o con «ripeti più tardi» e «continua».
+- **Quiz senza secondo tentativo**: mostra subito la risposta giusta e la spiegazione.
+- **Simulazione ed esame**: nessun feedback fino alla consegna; le giuste e le sbagliate si vedono nella revisione finale.
 
-**Inizio**
-- CTA: «Inizia» / «Inizia sessione» · sottotitolo con l'ambito: «Tutte le domande · {n}» o «Primo corpus · {n}»
-- Mode card: «Punti deboli» — «Focalizzati sugli errori» · «Blitz» — «{s} s a domanda» · «Richiamo attivo» — «Senza opzioni» · «Filtro mirato» — «Scegli argomento o livello»
-- Intestazione domanda: «Domanda {i}» · contatore «{i}/{n}»
+«Errata.» resta la forma scelta dall'utente per i quiz con Riprova: nasce accorciando «Risposta errata.» e il pulsante dice già che cosa fare. Una forma che indica l'opzione toccata è un'alternativa quando il quiz fa riprovare.
 
-**Risposta giusta**
-- «Ottimo!» (1ª e 2ª di fila) → «Fantastico, {k} di fila! 🔥» (dalla 3ª)
-- Sotto: «{categoria} · {argomento}» e la spiegazione
-- Pulsante: «Continua»
-- Giusta dopo un Riprova: «Giusta.» + spiegazione (piccolo premio, serie che riparte da 1)
+Altri momenti seguono le stesse regole di `copy-interfaccia`: le conferme hanno per titolo una domanda breve, per corpo la conseguenza e per pulsanti i verbi precisi (mai «Sì», «No» o «OK»); gli stati vuoti dicono che cosa fare per riempirli; le simulazioni dicono quante domande, quanto tempo, la soglia e che la correzione è solo alla fine; i conteggi si calcolano dai dati.
 
-**Feedback per tipo di interazione** (la risposta sbagliata non ha una frase sola: dipende da cosa può fare lo studente dopo)
+## 9. Da evitare
 
-| Interazione | Dopo una risposta sbagliata | Pulsanti |
-|---|---|---|
-| Quiz a scelta con Riprova (il modello OFA) | «Errata.» + ✗ (alternativa: «Non è questa.»); l'opzione scelta resta disattivata; la spiegazione arriva quando trova la giusta | «Riprova» |
-| Risposta costruita con Riprova (banca di parole, risposta scritta) | «Non è così.»; se una parte è giusta «Non proprio.» | «Riprova» · aiuto a scalino «Troppo difficile? Usa le opzioni multiple» |
-| Tempo scaduto | «Tempo scaduto.» | «Riprova» |
-| Flashcard, richiamo autovalutato | nessun verdetto: dopo «Mostra risposta» compare «Risposta: {…}» (+ spiegazione) e giudica lo studente | «Ripeti più tardi» (secondario) · «Continua» (primario), oppure Indovino / Incerto / Sicuro se il metodo li usa |
-| Quiz senza secondo tentativo | «Risposta giusta: {…}» + spiegazione | «Continua» |
-| Simulazione, esame | nessun feedback fino alla consegna: l'opzione resta solo «scelta» (blu); giuste e sbagliate si vedono nella revisione finale | frecce, «Consegna» |
-
-**«Errata.» è la forma predefinita** perché è la scelta collaudata dell'utente: breve, piatta, senza colpa, e il pulsante «Riprova» dice cosa fare. Quando vuoi un tono ancora più morbido o il titolo deve indicare l'opzione toccata, l'alternativa è «Non è questa.»: in un quiz che fa riprovare il titolo deve spingere verso l'opzione giusta, non chiudere con un verdetto. «Errata.» è un aggettivo senza nome, suona come un timbro sul compito; «Non è questa.» indica l'opzione appena toccata («questa» = la risposta), dice che la giusta è tra le altre, non dà colpa (nessun «hai») e sta in tre parole. «Non proprio.» invece suggerisce «quasi giusta»: va bene solo quando una parte della risposta è davvero giusta. Niente seconda riga «Riprova!»: il pulsante lo dice già.
-
-**Aiuti**
-- «Mostra suggerimento» → «Argomento: {argomento} ({livello})»
-- «Troppo difficile? Usa le opzioni multiple» (la migliore dell'app: tienila)
-- Segnaposto richiamo: «Tocca le parole per formare la frase…»
-
-**Fine sessione**
-- «Sessione completata!» · «Giuste al primo tentativo: {x} su {n}» · «Continua»
-- Tutte giuste: «Sessione completata!» · «Tutte giuste al primo tentativo: {n} su {n}» (un solo esclamativo per schermata di esito; la festa la fanno coriandoli e fanfara)
-
-**Simulazione: introduzione**
-- Titolo «Simulazione d'esame»
-- Regole: «{n} domande a risposta multipla» · «{min} minuti» · «Per superarla: almeno {soglia}/{n}» · «Correzione solo alla fine»
-- Pulsanti «Inizia» · «Annulla»
-
-**Simulazione: durante**
-- «Domanda {i}» · «{date}/{n} risposte» · pulsante «Consegna»
-- Frecce: `aria-label` «Domanda precedente» / «Domanda successiva»; pallini: «Vai alla domanda {i}, risposta data / senza risposta»
-- Conferma di consegna: «Consegnare adesso?» · «Hai risposto a {date} domande su {n}.» · «Consegna» / «Torna alle domande»
-
-**Simulazione: esito**
-- «Superata!» (verde) / «Non superata» (neutro, senza punto esclamativo) · «{p}/{n}» · «Tempo: {m}:{ss}»
-- Non superata, cosa fare: «Ti mancano {plurale(soglia − p, 'punto', 'punti')}. Ripassa gli errori qui sotto.»
-- Revisione: titolo «Da rivedere» · «La tua risposta: …» / «Omessa» · «Risposta giusta: …»
-- Nessun errore: «Nessun errore da rivedere.» (il «Superata!» sopra ha già l'esclamativo)
-- Pulsante «Torna al menu»
-
-**Statistiche e stati vuoti** (sempre con cosa fare)
-- Attività: «Costanza (ultimi 7 giorni)» con domande o minuti per giorno; giorno senza studio = barra vuota, senza rosso né commenti
-- Profilo con meno di 3 argomenti: «Rispondi a domande di almeno 3 argomenti per vedere il profilo.»
-- Nessun errore registrato: «Ancora nessun errore. Qui vedrai quelli che si ripetono.»
-- Nessuna simulazione: «Nessuna simulazione. Fanne una per vedere il punteggio.» (e il valore mancante è «—», non «-»)
-- Domanda mai affrontata: «Mai vista»
-- Ordinamento: «Peggiori prima» / «Migliori prima»
-
-**Salvataggio, sync, dati**
-- «Sincronizzato» · «Sincronizzazione…» · «Offline. I progressi si sincronizzano appena torna la rete.»
-- Accesso: «Accedi con Google» · «Esci»
-- Esportazione: «Progressi esportati.» · Importazione: «Progressi importati.»
-- Import fallito: «Questo file non contiene progressi validi. Scegli il file .json esportato dall'app.»
-
-**Conferme** (titolo = domanda breve, corpo = conseguenza, pulsanti = verbi precisi, mai «Sì/No/OK»)
-- «Uscire dalla sessione?» · «Le risposte date finora restano salvate.» · «Esci» / «Continua»
-- «Uscire dalla simulazione?» · «Non verrà conteggiata.» · «Esci» / «Torna alle domande»
-- «Azzerare i progressi?» · «Perderai domande imparate e statistiche. Non si può annullare.» · «Azzera» (rosso) / «Annulla»
-
-**Guasti**
-- «Qualcosa è andato storto» · «I tuoi progressi sono al sicuro. Ricarica l'app per continuare.» · «Ricarica l'app»
-- Accesso bloccato dal browser: «Il browser ha bloccato l'accesso. Disattiva il blocco annunci per questo sito e riprova.» + «Dettagli» con il messaggio tecnico
-- Anteprima in iframe: «Per accedere, apri l'app in una nuova scheda.»
-
-## 9. Avanzi inglesi e forme da correggere nell'app → italiano
-
-| Nell'app | Usa |
-|---|---|
-| Mock Exam | Simulazione d'esame |
-| 30 Multiple choice questions · 15 Minutes time limit · 25/30 required to pass · No immediate feedback | {n} domande a risposta multipla · {min} minuti · Per superarla: almeno {soglia}/{n} · Correzione solo alla fine |
-| Start Exam · Cancel | Inizia · Annulla |
-| Submit | Consegna (con conferma: è irreversibile) |
-| Question N | Domanda N (stesso colore di «Domanda N» nelle sessioni) |
-| PASSED / FAILED | Superata! / Non superata |
-| Time taken: 12m 05s | Tempo: 12:05 |
-| Return to Menu | Torna al menu |
-| Review Incorrect Answers | Da rivedere |
-| Your Answer: · No answer · Correct: | La tua risposta: · Omessa · Risposta giusta: |
-| Perfect score! Nothing to review. | Nessun errore da rivedere. |
-| Next | Continua |
-| Stats · Import · Export | Statistiche · Importa · Esporta |
-| Sign in · Logout | Accedi · Esci |
-| Synced come {nome} | Sincronizzato · {nome} |
-| Pass Rate · Record · Skill Profile · Mastery | Simulazioni superate · Miglior punteggio · Profilo per argomento · Imparate |
-| Weakness · Active Recall · Modalità Custom | Punti deboli · Richiamo attivo · Altre modalità |
-| Spaced repetition classica. | Ripasso a intervalli |
-| Debug Firebase (nella home) | Diagnostica, dentro Impostazioni |
-| Hai risposto a {x} su {y} correttamente al primo tentativo. | Giuste al primo tentativo: {x} su {y} |
-| Sessione Completata! · Inizia Sessione · Mostra Suggerimento · Vedi Dettaglio Frasi · Ricarica App · INIZIA | Sessione completata! · Inizia sessione · Mostra suggerimento · Dettaglio domande · Ricarica l'app · Inizia |
-| Tutte le frasi (606) · Tutto il Database (606 frasi) · Primo Corpus Iniziale | Tutte le domande · {n} · Primo corpus · {n} |
-| Dati importati con successo! | Progressi importati. |
-| Non ci sono ancora dati sufficienti. | Ancora nessun errore. Qui vedrai quelli che si ripetono. |
-
-## 10. Da evitare
-
-- **Tifo e prediche** (l'utente li ha cancellati): «Puoi farcela!», «Ci sei quasi!», «Continua ad esercitarti!», «Non mollare!», «Ottimo lavoro!» per cose banali, «Hai 1 punto bonus!», «Ricorda che…».
-- **Colpa e dramma**: «Hai sbagliato», «Sbagliato!», «Peccato», «Ops!», «Purtroppo», «Hai inserito un file non valido» (→ «Questo file non è valido»), rosso gigante in maiuscolo per un fallimento.
-- **Burocratese e servilismo**: «Si prega di», «Gentile utente», «Siamo spiacenti», «Si è verificato un errore» da solo, «Operazione completata con successo».
-- **Condiscendenza**: «semplicemente», «basta», «facile!».
-- **Gergo tecnico all'utente**: Firebase, dominio, token, `error.message` grezzo, codici HTTP (vanno nei «Dettagli»).
-- **Anglicismi con un equivalente italiano**: Submit, Next, Back, Cancel, Start, Review, Stats, Settings, Score, Login/Logout, Sign in, Mock, Pass rate, Skill, Mastery, Custom, Weakness, Synced, Feedback (in un'etichetta), Quiz (se basta «domande»).
-- **«Clicca»** in un'app pensata per il telefono: «tocca», o un verbo neutro («scegli», «apri»).
+- **Tifo e prediche**, che l'utente ha cancellato: gli incoraggiamenti non richiesti, i bonus di benvenuto, i «ricorda che…».
+- **Colpa e dramma**: il «hai sbagliato» riferito alla persona, le esclamazioni sugli errori, il rosso gigante in maiuscolo per un fallimento.
+- **Burocratese e servilismo**: «si prega di», «gentile utente», «siamo spiacenti», «si è verificato un errore» da solo, «operazione completata con successo».
+- **Condiscendenza**: «semplicemente», «basta», «facile».
+- **Gergo tecnico mostrato all'utente**: nomi dei servizi, domini, token, messaggi grezzi, codici HTTP. Vanno in un «Dettagli» richiudibile.
+- **Anglicismi con un equivalente italiano** (submit, next, back, cancel, start, review, stats, settings, score, login, mock, pass rate, skill, custom, weakness, synced).
+- **«Clicca»** in un'app pensata per il telefono: «tocca», o un verbo neutro.
 - **Sinonimi per varietà**: in un'interfaccia la ripetizione è una qualità.
-- **Maiuscolo nel sorgente** e *Title Case*.
+- **Maiuscolo nel sorgente** e Title Case.
 - **Numeri scritti a mano** nelle stringhe.
 
-## 11. Formula per i messaggi di errore
+## 10. Messaggi di errore
 
-**Cosa è successo (senza colpa) + cosa fare adesso**, in una o due frasi. I dettagli tecnici vanno in un «Dettagli» richiudibile, mai in un `alert()`.
-
-| Invece di | Scrivi |
-|---|---|
-| Errore nell'importazione dei dati. Assicurati che il file sia valido. | Questo file non contiene progressi validi. Scegli il file .json esportato dall'app. |
-| Errore di login: {message}. Assicurati di aver aggiunto il dominio in Firebase. | Accesso non riuscito. Riprova tra poco. [Dettagli] |
-| Si è verificato un problema imprevisto. Puoi riavviare l'applicazione in sicurezza. | I tuoi progressi sono al sicuro. Ricarica l'app per continuare. |
+Un messaggio di errore dice che cosa è successo, senza colpa, e che cosa fare adesso, in una o due frasi. Descrive lo stato e non fa parlare il software in prima persona. I dettagli tecnici vanno in un «Dettagli» richiudibile, mai in un `alert()`. Il messaggio non attribuisce alla persona un'azione che non ha fatto: se l'errore viene dal servizio, non parla di «tuoi tentativi». Una rassicurazione ci sta solo quando è un fatto verificabile (i progressi sono davvero salvati).
