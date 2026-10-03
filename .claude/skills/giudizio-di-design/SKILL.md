@@ -29,7 +29,7 @@ Skill sorelle: `metodo-di-studio` dice *che cosa* conta in uno strumento di stud
 6. **Scegli la direzione visiva.** Due idee diverse nel concetto, non nei parametri (§3), una riga ciascuna; scegline una dicendo perché.
 7. **Decidi come capiresti di aver sbagliato**: un segnale osservabile («il numero resta fermo per una settimana», «premono sempre l'uscita di emergenza», «il titolo va a capo su 320 px»).
 8. **Costruisci la versione più piccola, eseguita con cura.** Piccola nel perimetro, non nella rifinitura: poche schermate, ma finite (§3).
-9. **Confronto con il default** (obbligatorio). Prima di consegnare, immagina concretamente che cosa farebbe Claude senza questa skill per la stessa richiesta, e se puoi abbozzalo e guardalo. Il tuo deve essere **chiaramente migliore** per gerarchia, intenzione e adeguatezza a chi guarda e alla sua situazione. Un pareggio è una sconfitta: rivedi prima di consegnare (`references/esecuzione-visiva.md` §16).
+9. **Confronto con il default** (obbligatorio). Prima di consegnare, immagina concretamente che cosa farebbe Claude senza questa skill per la stessa richiesta, e se puoi abbozzalo e guardalo. Il tuo deve essere **chiaramente migliore** per gerarchia, intenzione e adeguatezza a chi guarda e alla sua situazione, e **non più pesante**: conta gli elementi e confrontali con quelli del default. Una versione con più cose da leggere ha di solito perso, anche se è più rifinita. Un pareggio è una sconfitta: rivedi prima di consegnare (`references/esecuzione-visiva.md` §16).
 10. **Sottrai e correggi** guardando l'uso reale, non l'entusiasmo di averlo appena costruito.
 
 **Abitudini dell'utente da usare come euristiche** (evidenza in `references/casi.md`):
